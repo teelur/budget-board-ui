@@ -39,7 +39,8 @@ jobs:
         run: |
           BASE_VERSION=$(node -p "require('./package.json').version")
           SHORT_SHA=$(git rev-parse --short HEAD)
-          yarn version "$BASE_VERSION-canary.$(date -u +%Y%m%d%H%M%S).$SHORT_SHA" --immediate
+          CANARY_VERSION="$BASE_VERSION-canary.$(date -u +%Y%m%d%H%M%S).$SHORT_SHA"
+          node -e "const fs = require('fs'); const pkg = require('./package.json'); pkg.version = process.argv[1]; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');" "$CANARY_VERSION"
 
       - name: Publish canary package
         run: yarn npm publish --tag canary
