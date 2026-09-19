@@ -435,17 +435,90 @@ h3 {
   font-family: var(--data);
   font-size: 0.68rem;
 }
-.showcase-grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: 2rem;
+.component-demo-section,
+.component-reference-section {
+  border-top: 1px solid var(--line);
+  margin-top: 3rem;
+  padding-top: 2rem;
+  scroll-margin-top: 2rem;
 }
-.demo-frame {
+.component-demo-heading {
+  align-items: flex-start;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+.component-demo-heading h3 {
+  font-size: 1.25rem;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+.component-demo-heading p {
+  color: var(--bb-color-text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin: 0.45rem 0 0;
+  max-width: 40rem;
+}
+.component-demo-anchor {
+  color: var(--bb-color-text-muted);
+  font-family: var(--data);
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+.component-demo-anchor:hover {
+  color: var(--bb-color-text-primary);
+}
+.component-demo-tabs {
+  border-bottom: 1px solid var(--line);
+  margin-top: 1.25rem;
+}
+.component-demo-tablist {
+  display: flex;
+  gap: 0.25rem;
+}
+.component-demo-tab {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--bb-color-text-muted);
+  cursor: pointer;
+  font-family: var(--data);
+  font-size: 0.7rem;
+  padding: 0.65rem 0.8rem 0.6rem;
+}
+.component-demo-tab:hover {
+  color: var(--bb-color-text-primary);
+}
+.component-demo-tab[aria-selected="true"] {
+  border-bottom-color: var(--bb-color-primary);
+  color: var(--bb-color-text-heading);
+}
+.component-demo-tab:focus-visible {
+  outline: 2px solid var(--bb-color-focus-ring);
+  outline-offset: -2px;
+}
+.component-demo-panel[hidden] {
+  display: none;
+}
+.component-demo-panel:focus-visible {
+  outline: 2px solid var(--bb-color-focus-ring);
+  outline-offset: 0.2rem;
+}
+.component-demo-preview {
+  align-items: center;
   background: var(--bb-color-surface);
   border: 1px solid var(--line);
-  min-height: 10rem;
+  display: flex;
+  min-height: 7rem;
   padding: 1.25rem;
+}
+.component-demo-code {
+  border-top: 1px solid var(--line);
+  min-height: 0;
+}
+.component-reference-section .reference-grid {
+  margin-top: 1.25rem;
 }
 .color-theme-section {
   margin-top: 2.5rem;
@@ -985,7 +1058,6 @@ td {
   .nav-heading-spaced {
     margin: 0;
   }
-  .showcase-grid,
   .reference-grid,
   .color-grid,
   .surface-role-grid,

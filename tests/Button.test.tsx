@@ -26,6 +26,27 @@ describe("Button", () => {
     expect(button).toHaveAttribute("data-budget-board-size", "md");
   });
 
+  it("supports every public size", () => {
+    const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
+
+    renderButton(
+      <>
+        {sizes.map((size) => (
+          <Button key={size} size={size}>
+            {size}
+          </Button>
+        ))}
+      </>,
+    );
+
+    for (const size of sizes) {
+      expect(screen.getByRole("button", { name: size })).toHaveAttribute(
+        "data-budget-board-size",
+        size,
+      );
+    }
+  });
+
   it("resolves light semantic palette roles for each color", () => {
     render(
       <MantineProvider env="test" theme={budgetBoardTheme}>

@@ -13,7 +13,7 @@ export type ButtonColor =
   | "warning"
   | "error";
 export type ButtonVariant = "filled" | "outline" | "ghost";
-export type ButtonSize = "sm" | "md" | "lg";
+export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 export interface ButtonProps extends Omit<
   ButtonHTMLAttributes<HTMLButtonElement>,
