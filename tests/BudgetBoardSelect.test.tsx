@@ -24,6 +24,7 @@ describe('BudgetBoardSelect', () => {
     );
 
     await user.click(screen.getByRole('combobox', { name: 'Choose an option' }));
+    await screen.findByRole('option', { name: 'Food' });
     expect(screen.getByRole('combobox', { name: 'Choose an option' })).toHaveAttribute('aria-expanded', 'true');
     await user.click(screen.getByRole('option', { name: 'Food' }));
 

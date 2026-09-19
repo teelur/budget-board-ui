@@ -127,27 +127,36 @@ export function BudgetBoardSelect({
       withinPortal={false}
     >
       <Combobox.DropdownTarget>
-        <Combobox.EventsTarget targetType="button" withExpandedAttribute withKeyboardNavigation={false}>
-          <button
-            aria-haspopup="listbox"
-            aria-label={ariaLabel}
-            className={className}
-            onClick={() => combobox.toggleDropdown()}
-            onKeyDown={handleTriggerKeyDown}
-            style={triggerStyle}
-            type="button"
-          >
-            <span>{selectedOption?.label ?? placeholder}</span>
-            <span aria-hidden="true">▾</span>
-          </button>
+      <Combobox.EventsTarget
+        targetType="button"
+        withAriaAttributes={false}
+        withKeyboardNavigation={false}
+      >
+        <button
+          aria-controls={combobox.dropdownOpened ? (combobox.listId ?? undefined) : undefined}
+          aria-expanded={combobox.dropdownOpened}
+          aria-haspopup="listbox"
+          aria-label={ariaLabel}
+          className={className}
+          onClick={() => combobox.toggleDropdown()}
+          onKeyDown={handleTriggerKeyDown}
+          role="combobox"
+          style={triggerStyle}
+          type="button"
+        >
+          <span>{selectedOption?.label ?? placeholder}</span>
+          <span aria-hidden="true">▾</span>
+        </button>
         </Combobox.EventsTarget>
       </Combobox.DropdownTarget>
 
-      <Combobox.Dropdown>
-        <Combobox.Options>
-          {options.length > 0 ? options : <Combobox.Empty>{emptyMessage}</Combobox.Empty>}
-        </Combobox.Options>
-      </Combobox.Dropdown>
+      {combobox.dropdownOpened ? (
+        <Combobox.Dropdown>
+          <Combobox.Options>
+            {options.length > 0 ? options : <Combobox.Empty>{emptyMessage}</Combobox.Empty>}
+          </Combobox.Options>
+        </Combobox.Dropdown>
+      ) : null}
     </Combobox>
   );
 }
