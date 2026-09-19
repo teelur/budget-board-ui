@@ -1,9 +1,8 @@
-name: Publish Package
+name: Release Build
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 permissions:
   contents: read
@@ -34,6 +33,15 @@ jobs:
 
       - name: Run tests
         run: yarn test
+
+      - name: Verify release tag matches package version
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          TAG_NAME="${GITHUB_REF_NAME#v}"
+          if [ "$PKG_VERSION" != "$TAG_NAME" ]; then
+            echo "Release tag ($GITHUB_REF_NAME) does not match package.json version ($PKG_VERSION)."
+            exit 1
+          fi
 
       - name: Publish package
         run: yarn npm publish
