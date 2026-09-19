@@ -5,4 +5,16 @@ export {
   type ButtonVariant,
 } from "./Button";
 
-export { budgetBoardColors, budgetBoardTheme } from "./theme";
+export {
+  budgetBoardColors,
+  budgetBoardDarkTheme,
+  budgetBoardTheme,
+} from "./theme";
+
+export type {
+  BudgetBoardColorKey,
+  BudgetBoardColorMode,
+  BudgetBoardColors,
+  BudgetBoardFontKey,
+  BudgetBoardTypography,
+} from "./theme";

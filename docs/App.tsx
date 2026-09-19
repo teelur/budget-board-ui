@@ -278,25 +278,113 @@ const themeRoles = [
 
 const semanticColorGroups = [
   {
-    name: "Structure and interaction",
+    name: "Structural roles",
     roles: [
-      ["Subtle border", "border-subtle"],
-      ["Strong border", "border-strong"],
-      ["Focus ring", "focus-ring"],
-      ["Selection", "selection"],
+      {
+        name: "Subtle border",
+        token: "border-subtle",
+        lightValue: "#D8D5CE",
+        darkValue: "#3A3D42",
+        lightContent: null,
+        darkContent: null,
+        lightClassName: "semantic-role-light-subtle-border",
+        darkClassName: "semantic-role-dark-subtle-border",
+        description:
+          "Quiet dividers and low-contrast boundaries between related regions.",
+      },
+      {
+        name: "Strong border",
+        token: "border-strong",
+        lightValue: "#AAA69E",
+        darkValue: "#686B70",
+        lightContent: null,
+        darkContent: null,
+        lightClassName: "semantic-role-light-strong-border",
+        darkClassName: "semantic-role-dark-strong-border",
+        description:
+          "Clear boundaries for cards, controls, and important separation.",
+      },
     ],
   },
   {
-    name: "Feedback",
+    name: "Interaction states",
     roles: [
-      ["Info", "info"],
-      ["Info content", "info-content"],
-      ["Success", "success"],
-      ["Success content", "success-content"],
-      ["Warning", "warning"],
-      ["Warning content", "warning-content"],
-      ["Error", "error"],
-      ["Error content", "error-content"],
+      {
+        name: "Focus ring",
+        token: "focus-ring",
+        lightValue: "#4C6EF5",
+        darkValue: "#91A7FF",
+        lightContent: null,
+        darkContent: null,
+        lightClassName: "semantic-role-light-focus-ring",
+        darkClassName: "semantic-role-dark-focus-ring",
+        description:
+          "Keyboard focus indicator with enough contrast to remain visible on every surface.",
+      },
+      {
+        name: "Selection",
+        token: "selection",
+        lightValue: "#DBE4FF",
+        darkValue: "#1E2450",
+        lightContent: null,
+        darkContent: null,
+        lightClassName: "semantic-role-light-selection",
+        darkClassName: "semantic-role-dark-selection",
+        description:
+          "Selected rows, fields, and active regions without overpowering their content.",
+      },
+    ],
+  },
+  {
+    name: "Feedback states",
+    roles: [
+      {
+        name: "Info",
+        token: "info",
+        lightValue: "#1971C2",
+        darkValue: "#74C0FC",
+        lightContent: "#E7F5FF",
+        darkContent: "#1864AB",
+        lightClassName: "semantic-role-light-info",
+        darkClassName: "semantic-role-dark-info",
+        description:
+          "Neutral system messages, guidance, and informational status.",
+      },
+      {
+        name: "Success",
+        token: "success",
+        lightValue: "#2F9E44",
+        darkValue: "#69DB7C",
+        lightContent: "#EBFBEE",
+        darkContent: "#2B8A3E",
+        lightClassName: "semantic-role-light-success",
+        darkClassName: "semantic-role-dark-success",
+        description:
+          "Positive confirmation for completed actions and healthy states.",
+      },
+      {
+        name: "Warning",
+        token: "warning",
+        lightValue: "#FCC419",
+        darkValue: "#FFD43B",
+        lightContent: "#5F3B00",
+        darkContent: "#5F3B00",
+        lightClassName: "semantic-role-light-warning",
+        darkClassName: "semantic-role-dark-warning",
+        description: "Cautions that need attention without implying failure.",
+      },
+      {
+        name: "Error",
+        token: "error",
+        lightValue: "#C92A2A",
+        darkValue: "#FF6B6B",
+        lightContent: "#FFF5F5",
+        darkContent: "#4A0C0C",
+        lightClassName: "semantic-role-light-error",
+        darkClassName: "semantic-role-dark-error",
+        description:
+          "Failures, destructive outcomes, and actions that need correction.",
+      },
     ],
   },
 ] as const;
@@ -420,9 +508,8 @@ export function App() {
             <p className="section-copy">
               A restrained background system keeps the canvas, working surfaces,
               and application chrome distinct without relying on heavy shadows.
-              Surfaces, text, and theme roles are finalized; structure,
-              interaction, and feedback roles below remain temporary until their
-              hues are reviewed.
+              Surfaces, text, and theme roles establish the visual foundation
+              for the rest of the interface.
             </p>
             <div className="color-theme-section">
               <p className="theme-subheading">Surfaces</p>
@@ -543,28 +630,52 @@ export function App() {
                 ))}
               </div>
 
-              <p className="theme-subheading">Semantic roles · placeholders</p>
+              <p className="theme-subheading">Semantic roles</p>
               <p className="theme-subheading-copy">
-                These roles will carry interaction states and system feedback in
-                both modes once their hues are finalized. They are intentionally
-                held back so their eventual colors can be judged as a coherent
-                set.
+                Structural roles establish separation, interaction states guide
+                attention and input, and feedback states communicate system
+                status with neighboring hues that stay harmonious with the theme
+                roles. Content pairings keep each role readable in both modes.
               </p>
               <div className="semantic-color-groups">
                 {semanticColorGroups.map((group) => (
                   <div className="semantic-color-group" key={group.name}>
                     <h3>{group.name}</h3>
                     <div className="semantic-color-grid">
-                      {group.roles.map(([name, token]) => (
-                        <div className="semantic-color-card" key={token}>
-                          <div className="semantic-color-swatch" />
-                          <div>
-                            <strong>{name}</strong>
-                            <code>--bb-color-{token}</code>
+                      {group.roles.map((role) => {
+                        const isLightMode = colorMode === "light";
+                        const roleValue = isLightMode
+                          ? role.lightValue
+                          : role.darkValue;
+                        const contentValue = isLightMode
+                          ? role.lightContent
+                          : role.darkContent;
+
+                        return (
+                          <div className="semantic-color-card" key={role.token}>
+                            <div
+                              className={`semantic-color-swatch ${
+                                isLightMode
+                                  ? role.lightClassName
+                                  : role.darkClassName
+                              }`}
+                            >
+                              {contentValue ? <span>Aa</span> : null}
+                            </div>
+                            <div className="semantic-color-content">
+                              <div className="color-card-heading">
+                                <strong>{role.name}</strong>
+                                <code>{roleValue}</code>
+                              </div>
+                              <code>--bb-color-{role.token}</code>
+                              <p>{role.description}</p>
+                              {contentValue ? (
+                                <span>Content: {contentValue}</span>
+                              ) : null}
+                            </div>
                           </div>
-                          <span>Temporary placeholder</span>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 ))}
