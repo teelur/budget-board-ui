@@ -1,21 +1,25 @@
-import { useState } from 'react';
-import type { ReactNode } from 'react';
-import { BudgetBoardSelect, Button } from '../src';
+import { useState } from "react";
+import type { ReactNode } from "react";
+import { Button } from "../src";
 
-const selectOptions = [
-  { label: 'Housing', value: 'housing' },
-  { label: 'Food', value: 'food' },
-  { label: 'Transport', value: 'transport' },
-] as const;
-
-const buttonVariants = ['primary', 'secondary', 'danger', 'ghost'] as const;
-const buttonSizes = ['sm', 'md', 'lg'] as const;
+const buttonVariants = ["primary", "secondary", "danger", "ghost"] as const;
+const buttonSizes = ["sm", "md", "lg"] as const;
 
 function CodeBlock({ children }: { children: string }) {
-  return <pre className="code-block"><code>{children}</code></pre>;
+  return (
+    <pre className="code-block">
+      <code>{children}</code>
+    </pre>
+  );
 }
 
-function DemoFrame({ children, label }: { children: ReactNode; label: string }) {
+function DemoFrame({
+  children,
+  label,
+}: {
+  children: ReactNode;
+  label: string;
+}) {
   return (
     <div className="demo-frame">
       <span className="demo-label">{label}</span>
@@ -25,10 +29,10 @@ function DemoFrame({ children, label }: { children: ReactNode; label: string }) 
 }
 
 export function App() {
-  const [selectedVariant, setSelectedVariant] = useState<(typeof buttonVariants)[number]>('primary');
-  const [selectedSize, setSelectedSize] = useState<(typeof buttonSizes)[number]>('md');
-  const [selectValue, setSelectValue] = useState<string | null>(null);
-  const [lastEvent, setLastEvent] = useState('No selection yet');
+  const [selectedVariant, setSelectedVariant] =
+    useState<(typeof buttonVariants)[number]>("primary");
+  const [selectedSize, setSelectedSize] =
+    useState<(typeof buttonSizes)[number]>("md");
 
   return (
     <div className="site-shell">
@@ -38,7 +42,12 @@ export function App() {
           <p className="eyebrow">Component library</p>
           <h1>Budget Board UI</h1>
         </div>
-        <a className="source-link" href="https://github.com/teelur/budget-board-ui">GitHub</a>
+        <a
+          className="source-link"
+          href="https://github.com/teelur/budget-board-ui"
+        >
+          GitHub
+        </a>
       </header>
 
       <div className="content-layout">
@@ -46,7 +55,6 @@ export function App() {
           <p className="nav-heading">On this page</p>
           <a href="#overview">Overview</a>
           <a href="#button">Button</a>
-          <a href="#select">BudgetBoardSelect</a>
           <p className="nav-heading nav-heading-spaced">Package</p>
           <code>@teelur/budget-board-ui</code>
         </aside>
@@ -56,8 +64,9 @@ export function App() {
             <p className="eyebrow">Budget Board primitives</p>
             <h2>Small components with a clear point of view.</h2>
             <p className="intro-copy">
-              A living reference for the components shipped by Budget Board UI. Explore the states,
-              copy the examples, and see the public API in one place.
+              A living reference for the components shipped by Budget Board UI.
+              Explore the states, copy the examples, and see the public API in
+              one place.
             </p>
             <div className="intro-meta">
               <span>React 19</span>
@@ -72,17 +81,20 @@ export function App() {
                 <p className="eyebrow">Actions</p>
                 <h2>Button</h2>
               </div>
-              <code>import {'{ Button }'} from '@teelur/budget-board-ui';</code>
+              <code>import {"{ Button }"} from '@teelur/budget-board-ui';</code>
             </div>
             <p className="section-copy">
-              A compact action primitive with intentional variants, sizing, loading, and slot support.
+              A compact action primitive with intentional variants, sizing,
+              loading, and slot support.
             </p>
 
             <div className="showcase-grid">
               <DemoFrame label="All variants">
                 <div className="button-stack">
                   {buttonVariants.map((variant) => (
-                    <Button key={variant} variant={variant}>{variant}</Button>
+                    <Button key={variant} variant={variant}>
+                      {variant}
+                    </Button>
                   ))}
                 </div>
               </DemoFrame>
@@ -99,19 +111,40 @@ export function App() {
               <div className="control-row">
                 <label>
                   <span>Variant</span>
-                  <select value={selectedVariant} onChange={(event) => setSelectedVariant(event.target.value as typeof selectedVariant)}>
-                    {buttonVariants.map((variant) => <option key={variant}>{variant}</option>)}
+                  <select
+                    value={selectedVariant}
+                    onChange={(event) =>
+                      setSelectedVariant(
+                        event.target.value as typeof selectedVariant,
+                      )
+                    }
+                  >
+                    {buttonVariants.map((variant) => (
+                      <option key={variant}>{variant}</option>
+                    ))}
                   </select>
                 </label>
                 <label>
                   <span>Size</span>
-                  <select value={selectedSize} onChange={(event) => setSelectedSize(event.target.value as typeof selectedSize)}>
-                    {buttonSizes.map((size) => <option key={size}>{size}</option>)}
+                  <select
+                    value={selectedSize}
+                    onChange={(event) =>
+                      setSelectedSize(event.target.value as typeof selectedSize)
+                    }
+                  >
+                    {buttonSizes.map((size) => (
+                      <option key={size}>{size}</option>
+                    ))}
                   </select>
                 </label>
                 <div className="live-result">
                   <span>Rendered result</span>
-                  <Button size={selectedSize} variant={selectedVariant} leftSection="+" rightSection="→">
+                  <Button
+                    size={selectedSize}
+                    variant={selectedVariant}
+                    leftSection="+"
+                    rightSection="→"
+                  >
                     Add transaction
                   </Button>
                 </div>
@@ -123,12 +156,48 @@ export function App() {
                 <h3>Props</h3>
                 <table>
                   <tbody>
-                    <tr><th>variant</th><td><code>primary | secondary | danger | ghost</code></td><td>primary</td></tr>
-                    <tr><th>size</th><td><code>sm | md | lg</code></td><td>md</td></tr>
-                    <tr><th>loading</th><td><code>boolean</code></td><td>false</td></tr>
-                    <tr><th>fullWidth</th><td><code>boolean</code></td><td>false</td></tr>
-                    <tr><th>leftSection</th><td><code>ReactNode</code></td><td>-</td></tr>
-                    <tr><th>rightSection</th><td><code>ReactNode</code></td><td>-</td></tr>
+                    <tr>
+                      <th>variant</th>
+                      <td>
+                        <code>primary | secondary | danger | ghost</code>
+                      </td>
+                      <td>primary</td>
+                    </tr>
+                    <tr>
+                      <th>size</th>
+                      <td>
+                        <code>sm | md | lg</code>
+                      </td>
+                      <td>md</td>
+                    </tr>
+                    <tr>
+                      <th>loading</th>
+                      <td>
+                        <code>boolean</code>
+                      </td>
+                      <td>false</td>
+                    </tr>
+                    <tr>
+                      <th>fullWidth</th>
+                      <td>
+                        <code>boolean</code>
+                      </td>
+                      <td>false</td>
+                    </tr>
+                    <tr>
+                      <th>leftSection</th>
+                      <td>
+                        <code>ReactNode</code>
+                      </td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <th>rightSection</th>
+                      <td>
+                        <code>ReactNode</code>
+                      </td>
+                      <td>-</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -138,62 +207,9 @@ export function App() {
             </div>
           </section>
 
-          <section className="component-section" id="select">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">Choice</p>
-                <h2>BudgetBoardSelect</h2>
-              </div>
-              <code>import {'{ BudgetBoardSelect }'} from '@teelur/budget-board-ui';</code>
-            </div>
-            <p className="section-copy">
-              A focused combobox for categories and other short lists, with controlled values and accessible keyboard interaction.
-            </p>
-
-            <div className="showcase-grid select-showcase">
-              <DemoFrame label="Controlled value">
-                <BudgetBoardSelect
-                  allowDeselect
-                  ariaLabel="Choose a category"
-                  data={selectOptions}
-                  onChange={(value) => {
-                    setSelectValue(value);
-                    setLastEvent(value === null ? 'onChange(null)' : `onChange("${value}")`);
-                  }}
-                  placeholder="Choose a category"
-                  value={selectValue}
-                />
-                <output className="event-output">{lastEvent}</output>
-              </DemoFrame>
-              <DemoFrame label="Empty state">
-                <BudgetBoardSelect ariaLabel="Empty example" data={[]} emptyMessage="No categories yet" />
-              </DemoFrame>
-            </div>
-
-            <div className="reference-grid">
-              <div>
-                <h3>Props</h3>
-                <table>
-                  <tbody>
-                    <tr><th>data</th><td><code>Option[]</code></td><td>required</td></tr>
-                    <tr><th>value</th><td><code>string | null</code></td><td>-</td></tr>
-                    <tr><th>defaultValue</th><td><code>string | null</code></td><td>-</td></tr>
-                    <tr><th>allowDeselect</th><td><code>boolean</code></td><td>false</td></tr>
-                    <tr><th>placeholder</th><td><code>string</code></td><td>Select an option</td></tr>
-                    <tr><th>emptyMessage</th><td><code>string</code></td><td>No options available</td></tr>
-                  </tbody>
-                </table>
-              </div>
-              <CodeBlock>{`<BudgetBoardSelect
-  data={categories}
-  value={category}
-  onChange={setCategory}
-  allowDeselect
-/>`}</CodeBlock>
-            </div>
-          </section>
-
-          <footer className="site-footer">@teelur/budget-board-ui · built for Budget Board</footer>
+          <footer className="site-footer">
+            @teelur/budget-board-ui · built for Budget Board
+          </footer>
         </main>
       </div>
     </div>
