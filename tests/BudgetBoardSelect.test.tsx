@@ -85,11 +85,8 @@ describe('BudgetBoardSelect', () => {
       return (
         <MantineProvider env="test">
           <BudgetBoardSelect
-            data={[
-              { label: 'Clear selection', value: '' },
-              { label: 'Food', value: 'food' },
-            ]}
-            defaultValue={null}
+            allowDeselect
+            data={[{ label: 'Food', value: 'food' }]}
             onChange={(nextValue) => {
               onChange(nextValue);
               setValue(nextValue);
@@ -107,11 +104,29 @@ describe('BudgetBoardSelect', () => {
     );
 
     await user.click(screen.getByRole('combobox', { name: 'Choose an option' }));
-    await user.click(screen.getByRole('option', { name: 'Clear selection' }));
+    await user.click(screen.getByRole('option', { name: 'Food' }));
+    await user.click(screen.getByRole('combobox', { name: 'Choose an option' }));
+    await user.click(screen.getByRole('option', { name: 'Food' }));
 
-    expect(onChange).toHaveBeenCalledWith(null);
+    expect(onChange).toHaveBeenLastCalledWith(null);
     expect(screen.getByRole('combobox', { name: 'Choose an option' })).toHaveTextContent(
       'Select an option',
     );
+  });
+
+  it('supports empty-string option values without treating them as cleared', () => {
+    render(
+      <MantineProvider env="test">
+        <BudgetBoardSelect
+          data={[
+            { label: 'Unassigned', value: '' },
+            { label: 'Food', value: 'food' },
+          ]}
+          value=""
+        />
+      </MantineProvider>,
+    );
+
+    expect(screen.getByRole('combobox', { name: 'Choose an option' })).toHaveTextContent('Unassigned');
   });
 });
