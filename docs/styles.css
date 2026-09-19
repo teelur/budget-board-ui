@@ -27,14 +27,14 @@
   --bb-color-border-strong: #aaa69e;
   --bb-color-focus-ring: #4c6ef5;
   --bb-color-selection: #dbe4ff;
-  --bb-color-info: #4c6ef5;
-  --bb-color-info-content: #fffaf2;
-  --bb-color-success: #12b886;
-  --bb-color-success-content: #063b2f;
-  --bb-color-warning: #f76707;
-  --bb-color-warning-content: #4a2103;
-  --bb-color-error: #e03131;
-  --bb-color-error-content: #fffaf2;
+  --bb-color-info: #1971c2;
+  --bb-color-info-content: #e7f5ff;
+  --bb-color-success: #2f9e44;
+  --bb-color-success-content: #ebfbee;
+  --bb-color-warning: #fcc419;
+  --bb-color-warning-content: #5f3b00;
+  --bb-color-error: #c92a2a;
+  --bb-color-error-content: #fff5f5;
   --bb-font-body: "IBM Plex Sans", sans-serif;
   --bb-font-data: "IBM Plex Sans", sans-serif;
   --bb-font-display: "Plus Jakarta Sans", sans-serif;
@@ -51,17 +51,163 @@
   --paper: var(--bb-color-surface);
   --data: var(--bb-font-data);
 
-  --budget-board-button-primary-background: var(--bb-color-surface-elevated);
-  --budget-board-button-primary-color: var(--bb-color-text);
-  --budget-board-button-primary-hover: var(--bb-color-navigation);
-  --budget-board-button-secondary-background: var(--bb-color-navigation);
-  --budget-board-button-secondary-color: var(--bb-color-text);
-  --budget-board-button-secondary-hover: var(--bb-color-surface-elevated);
-  --budget-board-button-danger-background: var(--bb-color-surface-elevated);
-  --budget-board-button-danger-color: var(--bb-color-text);
-  --budget-board-button-danger-hover: var(--bb-color-navigation);
-  --budget-board-button-ghost-color: var(--bb-color-text);
-  --budget-board-button-ghost-hover: var(--bb-color-navigation);
+  --budget-board-button-primary-background: var(--bb-color-primary);
+  --budget-board-button-primary-color: var(--bb-color-primary-content);
+  --budget-board-button-primary-hover: color-mix(
+    in srgb,
+    var(--bb-color-primary) 88%,
+    var(--bb-color-primary-content)
+  );
+  --budget-board-button-primary-outline-border: var(--bb-color-primary);
+  --budget-board-button-primary-outline-color: var(--bb-color-primary);
+  --budget-board-button-primary-outline-hover: color-mix(
+    in srgb,
+    var(--bb-color-primary) 12%,
+    transparent
+  );
+  --budget-board-button-primary-ghost-color: var(--bb-color-primary);
+  --budget-board-button-primary-ghost-hover: color-mix(
+    in srgb,
+    var(--bb-color-primary) 12%,
+    transparent
+  );
+  --budget-board-button-secondary-background: var(--bb-color-secondary);
+  --budget-board-button-secondary-color: var(--bb-color-secondary-content);
+  --budget-board-button-secondary-hover: color-mix(
+    in srgb,
+    var(--bb-color-secondary) 88%,
+    var(--bb-color-secondary-content)
+  );
+  --budget-board-button-secondary-outline-border: var(--bb-color-secondary);
+  --budget-board-button-secondary-outline-color: var(--bb-color-secondary);
+  --budget-board-button-secondary-outline-hover: color-mix(
+    in srgb,
+    var(--bb-color-secondary) 12%,
+    transparent
+  );
+  --budget-board-button-secondary-ghost-color: var(--bb-color-secondary);
+  --budget-board-button-secondary-ghost-hover: color-mix(
+    in srgb,
+    var(--bb-color-secondary) 12%,
+    transparent
+  );
+  --budget-board-button-accent-background: var(--bb-color-accent);
+  --budget-board-button-accent-color: var(--bb-color-accent-content);
+  --budget-board-button-accent-hover: color-mix(
+    in srgb,
+    var(--bb-color-accent) 88%,
+    var(--bb-color-accent-content)
+  );
+  --budget-board-button-accent-outline-border: var(--bb-color-accent);
+  --budget-board-button-accent-outline-color: var(--bb-color-accent);
+  --budget-board-button-accent-outline-hover: color-mix(
+    in srgb,
+    var(--bb-color-accent) 12%,
+    transparent
+  );
+  --budget-board-button-accent-ghost-color: var(--bb-color-accent);
+  --budget-board-button-accent-ghost-hover: color-mix(
+    in srgb,
+    var(--bb-color-accent) 12%,
+    transparent
+  );
+  --budget-board-button-neutral-background: var(--bb-color-neutral);
+  --budget-board-button-neutral-color: var(--bb-color-neutral-content);
+  --budget-board-button-neutral-hover: color-mix(
+    in srgb,
+    var(--bb-color-neutral) 88%,
+    var(--bb-color-neutral-content)
+  );
+  --budget-board-button-neutral-outline-border: var(--bb-color-neutral);
+  --budget-board-button-neutral-outline-color: var(--bb-color-neutral-content);
+  --budget-board-button-neutral-outline-hover: color-mix(
+    in srgb,
+    var(--bb-color-neutral) 12%,
+    transparent
+  );
+  --budget-board-button-neutral-ghost-color: var(--bb-color-neutral-content);
+  --budget-board-button-neutral-ghost-hover: var(--bb-color-neutral);
+  --budget-board-button-info-background: var(--bb-color-info);
+  --budget-board-button-info-color: var(--bb-color-info-content);
+  --budget-board-button-info-hover: color-mix(
+    in srgb,
+    var(--bb-color-info) 88%,
+    var(--bb-color-info-content)
+  );
+  --budget-board-button-info-outline-border: var(--bb-color-info);
+  --budget-board-button-info-outline-color: var(--bb-color-info);
+  --budget-board-button-info-outline-hover: color-mix(
+    in srgb,
+    var(--bb-color-info) 12%,
+    transparent
+  );
+  --budget-board-button-info-ghost-color: var(--bb-color-info);
+  --budget-board-button-info-ghost-hover: color-mix(
+    in srgb,
+    var(--bb-color-info) 12%,
+    transparent
+  );
+  --budget-board-button-success-background: var(--bb-color-success);
+  --budget-board-button-success-color: var(--bb-color-success-content);
+  --budget-board-button-success-hover: color-mix(
+    in srgb,
+    var(--bb-color-success) 88%,
+    var(--bb-color-success-content)
+  );
+  --budget-board-button-success-outline-border: var(--bb-color-success);
+  --budget-board-button-success-outline-color: var(--bb-color-success);
+  --budget-board-button-success-outline-hover: color-mix(
+    in srgb,
+    var(--bb-color-success) 12%,
+    transparent
+  );
+  --budget-board-button-success-ghost-color: var(--bb-color-success);
+  --budget-board-button-success-ghost-hover: color-mix(
+    in srgb,
+    var(--bb-color-success) 12%,
+    transparent
+  );
+  --budget-board-button-warning-background: var(--bb-color-warning);
+  --budget-board-button-warning-color: var(--bb-color-warning-content);
+  --budget-board-button-warning-hover: color-mix(
+    in srgb,
+    var(--bb-color-warning) 88%,
+    var(--bb-color-warning-content)
+  );
+  --budget-board-button-warning-outline-border: var(--bb-color-warning);
+  --budget-board-button-warning-outline-color: var(--bb-color-warning-content);
+  --budget-board-button-warning-outline-hover: color-mix(
+    in srgb,
+    var(--bb-color-warning) 12%,
+    transparent
+  );
+  --budget-board-button-warning-ghost-color: var(--bb-color-warning-content);
+  --budget-board-button-warning-ghost-hover: color-mix(
+    in srgb,
+    var(--bb-color-warning) 12%,
+    transparent
+  );
+  --budget-board-button-error-background: var(--bb-color-error);
+  --budget-board-button-error-color: var(--bb-color-error-content);
+  --budget-board-button-error-hover: color-mix(
+    in srgb,
+    var(--bb-color-error) 88%,
+    var(--bb-color-error-content)
+  );
+  --budget-board-button-error-outline-border: var(--bb-color-error);
+  --budget-board-button-error-outline-color: var(--bb-color-error);
+  --budget-board-button-error-outline-hover: color-mix(
+    in srgb,
+    var(--bb-color-error) 12%,
+    transparent
+  );
+  --budget-board-button-error-ghost-color: var(--bb-color-error);
+  --budget-board-button-error-ghost-hover: color-mix(
+    in srgb,
+    var(--bb-color-error) 12%,
+    transparent
+  );
+  --budget-board-button-focus-ring: var(--bb-color-focus-ring);
 }
 
 [data-color-mode="dark"] {
@@ -91,13 +237,13 @@
   --bb-color-border-strong: #686b70;
   --bb-color-focus-ring: #91a7ff;
   --bb-color-selection: #1e2450;
-  --bb-color-info: #91a7ff;
-  --bb-color-info-content: #1e2450;
-  --bb-color-success: #63e6be;
-  --bb-color-success-content: #063b2f;
-  --bb-color-warning: #ffa94d;
-  --bb-color-warning-content: #4a2103;
-  --bb-color-error: #ff8787;
+  --bb-color-info: #74c0fc;
+  --bb-color-info-content: #1864ab;
+  --bb-color-success: #69db7c;
+  --bb-color-success-content: #2b8a3e;
+  --bb-color-warning: #ffd43b;
+  --bb-color-warning-content: #5f3b00;
+  --bb-color-error: #ff6b6b;
   --bb-color-error-content: #4a0c0c;
   --bb-color-text: var(--bb-color-text-primary);
 }
@@ -784,7 +930,7 @@ h3 {
   flex-wrap: wrap;
   gap: 0.7rem;
 }
-.button-stack > :last-child {
+.button-stack > .button-wide {
   flex-basis: 100%;
 }
 .control-row {

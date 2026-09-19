@@ -3,8 +3,22 @@ import type { ReactNode } from "react";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "../src";
 
-const buttonVariants = ["primary", "secondary", "danger", "ghost"] as const;
+const buttonVariants = ["filled", "outline", "ghost"] as const;
+const buttonColors = [
+  "primary",
+  "secondary",
+  "accent",
+  "neutral",
+  "info",
+  "success",
+  "warning",
+  "error",
+] as const;
 const buttonSizes = ["sm", "md", "lg"] as const;
+
+function capitalize(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
 
 const typographyRoles = [
   {
@@ -417,7 +431,9 @@ export function App() {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const headerRef = useRef<HTMLElement>(null);
   const [selectedVariant, setSelectedVariant] =
-    useState<(typeof buttonVariants)[number]>("primary");
+    useState<(typeof buttonVariants)[number]>("filled");
+  const [selectedColor, setSelectedColor] =
+    useState<(typeof buttonColors)[number]>("primary");
   const [selectedSize, setSelectedSize] =
     useState<(typeof buttonSizes)[number]>("md");
   const colors = colorMode === "light" ? lightColors : darkColors;
@@ -730,25 +746,45 @@ export function App() {
               <code>import {"{ Button }"} from '@teelur/budget-board-ui';</code>
             </div>
             <p className="section-copy">
-              A compact action primitive with intentional variants, sizing,
-              loading, and slot support.
+              A compact action primitive with independent appearance, semantic
+              color, interaction, sizing, and slot support.
             </p>
 
             <div className="showcase-grid">
-              <DemoFrame label="All variants">
+              <DemoFrame label="Appearance">
                 <div className="button-stack">
                   {buttonVariants.map((variant) => (
                     <Button key={variant} variant={variant}>
-                      {variant}
+                      {capitalize(variant)}
                     </Button>
                   ))}
                 </div>
               </DemoFrame>
-              <DemoFrame label="States">
+              <DemoFrame label="Semantic colors">
                 <div className="button-stack">
+                  {buttonColors.map((color) => (
+                    <Button color={color} key={color}>
+                      {capitalize(color)}
+                    </Button>
+                  ))}
+                </div>
+              </DemoFrame>
+              <DemoFrame label="Availability">
+                <div className="button-stack">
+                  <Button color="success">Ready</Button>
                   <Button loading>Saving changes</Button>
                   <Button disabled>Unavailable</Button>
-                  <Button fullWidth>Full width</Button>
+                </div>
+              </DemoFrame>
+              <DemoFrame label="Layout and slots">
+                <div className="button-stack">
+                  <Button size="sm">Compact</Button>
+                  <Button leftSection="+" rightSection="→">
+                    With sections
+                  </Button>
+                  <Button className="button-wide" fullWidth>
+                    Full width
+                  </Button>
                 </div>
               </DemoFrame>
             </div>
@@ -766,7 +802,26 @@ export function App() {
                     }
                   >
                     {buttonVariants.map((variant) => (
-                      <option key={variant}>{variant}</option>
+                      <option key={variant} value={variant}>
+                        {capitalize(variant)}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  <span>Color</span>
+                  <select
+                    value={selectedColor}
+                    onChange={(event) =>
+                      setSelectedColor(
+                        event.target.value as typeof selectedColor,
+                      )
+                    }
+                  >
+                    {buttonColors.map((color) => (
+                      <option key={color} value={color}>
+                        {capitalize(color)}
+                      </option>
                     ))}
                   </select>
                 </label>
@@ -786,6 +841,7 @@ export function App() {
                 <div className="live-result">
                   <span>Rendered result</span>
                   <Button
+                    color={selectedColor}
                     size={selectedSize}
                     variant={selectedVariant}
                     leftSection="+"
@@ -805,7 +861,17 @@ export function App() {
                     <tr>
                       <th>variant</th>
                       <td>
-                        <code>primary | secondary | danger | ghost</code>
+                        <code>filled | outline | ghost</code>
+                      </td>
+                      <td>filled</td>
+                    </tr>
+                    <tr>
+                      <th>color</th>
+                      <td>
+                        <code>
+                          primary | secondary | accent | neutral | info |
+                          success | warning | error
+                        </code>
                       </td>
                       <td>primary</td>
                     </tr>
@@ -847,7 +913,7 @@ export function App() {
                   </tbody>
                 </table>
               </div>
-              <CodeBlock>{`<Button variant="danger" size="lg">
+              <CodeBlock>{`<Button color="error" variant="outline" size="lg">
   Delete transaction
 </Button>`}</CodeBlock>
             </div>

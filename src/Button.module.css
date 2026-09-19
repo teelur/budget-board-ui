@@ -1,7 +1,8 @@
 .root {
   align-items: center;
   background: var(--button-bg);
-  border: 0;
+  border: 1px solid var(--button-border);
+  box-sizing: border-box;
   border-radius: 0.25rem;
   color: var(--button-color);
   cursor: pointer;
@@ -13,6 +14,7 @@
   line-height: 1.2;
   transition:
     background-color 120ms ease,
+    border-color 120ms ease,
     opacity 120ms ease;
 }
 
@@ -21,7 +23,7 @@
 }
 
 .root:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid var(--button-focus);
   outline-offset: 2px;
 }
 
