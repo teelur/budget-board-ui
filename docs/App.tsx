@@ -83,7 +83,8 @@ const textRoles = [
     lightValue: "#242321",
     darkValue: "#F2F0EB",
     className: "text-role-heading",
-    description: "Page, section, and card headings. Strongest neutral text role.",
+    description:
+      "Page, section, and card headings. Strongest neutral text role.",
   },
   {
     name: "Primary",
@@ -107,7 +108,8 @@ const textRoles = [
     lightValue: "#807A70",
     darkValue: "#8E8A83",
     className: "text-role-metadata",
-    description: "Dates, categories, timestamps, and compact transaction details.",
+    description:
+      "Dates, categories, timestamps, and compact transaction details.",
   },
   {
     name: "Muted",
@@ -298,9 +300,7 @@ export function App() {
               <p className="theme-subheading">Boundaries</p>
               <div className="color-grid boundary-grid">
                 <div className="color-card">
-                  <div
-                    className={`color-swatch color-border-${colorMode}`}
-                  />
+                  <div className={`color-swatch color-border-${colorMode}`} />
                   <div className="color-card-content">
                     <div className="color-card-heading">
                       <strong>Border</strong>
