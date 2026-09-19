@@ -22,11 +22,12 @@ describe('BudgetBoardSelect', () => {
       </MantineProvider>,
     );
 
-    await user.click(screen.getByRole('button', { name: 'Choose an option' }));
+    await user.click(screen.getByRole('combobox', { name: 'Choose an option' }));
+    expect(screen.getByRole('combobox', { name: 'Choose an option' })).toHaveAttribute('aria-expanded', 'true');
     await user.click(screen.getByRole('option', { name: 'Food' }));
 
     expect(onChange).toHaveBeenCalledWith('food');
-    expect(screen.getByRole('button', { name: 'Choose an option' })).toHaveTextContent('Food');
+    expect(screen.getByRole('combobox', { name: 'Choose an option' })).toHaveTextContent('Food');
   });
 
   it('renders an empty state when no options are provided', async () => {
@@ -38,8 +39,38 @@ describe('BudgetBoardSelect', () => {
       </MantineProvider>,
     );
 
-    await user.click(screen.getByRole('button', { name: 'Empty select' }));
+    await user.click(screen.getByRole('combobox', { name: 'Empty select' }));
 
     expect(screen.getByText('Nothing to choose')).toBeVisible();
+  });
+
+  it('supports controlled and default values', () => {
+    const { rerender } = render(
+      <MantineProvider env="test">
+        <BudgetBoardSelect
+          data={[
+            { label: 'Housing', value: 'housing' },
+            { label: 'Food', value: 'food' },
+          ]}
+          defaultValue="housing"
+        />
+      </MantineProvider>,
+    );
+
+    expect(screen.getByRole('combobox', { name: 'Choose an option' })).toHaveTextContent('Housing');
+
+    rerender(
+      <MantineProvider env="test">
+        <BudgetBoardSelect
+          data={[
+            { label: 'Housing', value: 'housing' },
+            { label: 'Food', value: 'food' },
+          ]}
+          value="food"
+        />
+      </MantineProvider>,
+    );
+
+    expect(screen.getByRole('combobox', { name: 'Choose an option' })).toHaveTextContent('Food');
   });
 });

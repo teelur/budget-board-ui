@@ -10,11 +10,11 @@ export interface BudgetBoardSelectOption {
 export interface BudgetBoardSelectProps {
   ariaLabel?: string;
   data: readonly BudgetBoardSelectOption[];
-  defaultValue?: string;
+  defaultValue?: string | null;
   emptyMessage?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: string | null) => void;
   placeholder?: string;
-  value?: string;
+  value?: string | null;
 }
 
 export function BudgetBoardSelect({
@@ -27,9 +27,9 @@ export function BudgetBoardSelect({
   value,
 }: BudgetBoardSelectProps) {
   const [selectedValue, setSelectedValue] = useUncontrolled<string>({
-    ...(value !== undefined ? { value } : {}),
-    ...(defaultValue !== undefined ? { defaultValue } : {}),
-    ...(onChange ? { onChange } : {}),
+    ...(value !== undefined ? { value: value ?? '' } : {}),
+    ...(defaultValue !== undefined ? { defaultValue: defaultValue ?? '' } : {}),
+    ...(onChange ? { onChange: (nextValue: string) => onChange(nextValue || null) } : {}),
     finalValue: '',
   });
 
@@ -61,7 +61,7 @@ export function BudgetBoardSelect({
       store={combobox}
       withinPortal={false}
     >
-      <Combobox.Target targetType="button">
+      <Combobox.Target targetType="button" withExpandedAttribute>
         <button
           aria-haspopup="listbox"
           aria-label={ariaLabel}

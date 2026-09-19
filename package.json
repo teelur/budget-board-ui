@@ -5,13 +5,13 @@
   "main": "./dist/index.js",
   "scripts": {
     "test": "vitest run",
-    "build": "tsc -b && vite build",
+    "build": "tsc -p tsconfig.build.json && vite build",
     "dev": "vite",
     "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "http://localhost:26831/teelur/budget-board-ui"
+    "url": "https://github.com/teelur/budget-board-ui.git"
   },
   "keywords": [],
   "author": "",
