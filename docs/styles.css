@@ -12,6 +12,30 @@
   --bb-color-text-muted: #969087;
   --bb-color-text-disabled: #b7b1a7;
   --bb-color-border: color-mix(in srgb, #3a3834 18%, transparent);
+  --bb-color-placeholder: #b8b8b8;
+  --bb-color-surface-sunken: #ebe8df;
+  --bb-color-surface-overlay: #fffaf2;
+  --bb-color-text-inverse: var(--bb-color-placeholder);
+  --bb-color-primary: var(--bb-color-placeholder);
+  --bb-color-primary-content: var(--bb-color-placeholder);
+  --bb-color-secondary: var(--bb-color-placeholder);
+  --bb-color-secondary-content: var(--bb-color-placeholder);
+  --bb-color-accent: var(--bb-color-placeholder);
+  --bb-color-accent-content: var(--bb-color-placeholder);
+  --bb-color-neutral: var(--bb-color-placeholder);
+  --bb-color-neutral-content: var(--bb-color-placeholder);
+  --bb-color-border-subtle: var(--bb-color-placeholder);
+  --bb-color-border-strong: var(--bb-color-placeholder);
+  --bb-color-focus-ring: var(--bb-color-placeholder);
+  --bb-color-selection: var(--bb-color-placeholder);
+  --bb-color-info: var(--bb-color-placeholder);
+  --bb-color-info-content: var(--bb-color-placeholder);
+  --bb-color-success: var(--bb-color-placeholder);
+  --bb-color-success-content: var(--bb-color-placeholder);
+  --bb-color-warning: var(--bb-color-placeholder);
+  --bb-color-warning-content: var(--bb-color-placeholder);
+  --bb-color-error: var(--bb-color-placeholder);
+  --bb-color-error-content: var(--bb-color-placeholder);
   --bb-font-body: "IBM Plex Sans", sans-serif;
   --bb-font-data: "IBM Plex Sans", sans-serif;
   --bb-font-display: "Plus Jakarta Sans", sans-serif;
@@ -46,6 +70,8 @@
   --bb-color-surface: #191b1f;
   --bb-color-surface-elevated: #22252a;
   --bb-color-navigation: #191b1f;
+  --bb-color-surface-sunken: #0d0f12;
+  --bb-color-surface-overlay: #292c31;
   --bb-color-text-heading: #f2f0eb;
   --bb-color-text-primary: #d8d5ce;
   --bb-color-text-secondary: #aaa69e;
@@ -293,6 +319,12 @@ h3 {
 .color-light-navigation {
   background: #f1efe9;
 }
+.color-light-sunken {
+  background: #ebe8df;
+}
+.color-light-overlay {
+  background: #fffaf2;
+}
 .color-dark-canvas {
   background: #111214;
 }
@@ -304,6 +336,12 @@ h3 {
 }
 .color-dark-navigation {
   background: #191b1f;
+}
+.color-dark-sunken {
+  background: #0d0f12;
+}
+.color-dark-overlay {
+  background: #292c31;
 }
 .color-card-content {
   display: grid;
@@ -379,6 +417,81 @@ h3 {
   font-size: 0.78rem;
   line-height: 1.55;
   margin: 0.35rem 0 0;
+}
+.surface-role-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1rem;
+}
+.surface-role-card {
+  background: var(--bb-color-surface);
+  border: 1px solid var(--bb-color-border);
+  min-width: 0;
+}
+.surface-role-swatch {
+  border-bottom: 1px solid var(--bb-color-border);
+  height: 4rem;
+}
+.surface-role-content {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1rem;
+}
+.surface-role-content > code {
+  color: var(--bb-color-text-muted);
+  font-family: var(--data);
+  font-size: 0.68rem;
+}
+.surface-role-content p {
+  color: var(--bb-color-text-muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  margin: 0.35rem 0 0;
+}
+.semantic-color-groups {
+  display: grid;
+  gap: 2.5rem;
+}
+.semantic-color-group h3 {
+  font-size: 1rem;
+  margin: 0 0 0.8rem;
+}
+.semantic-color-grid {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.semantic-color-card {
+  background: var(--bb-color-surface);
+  border: 1px solid var(--bb-color-border);
+  display: grid;
+  gap: 0.7rem;
+  min-width: 0;
+  padding: 0.8rem;
+}
+.semantic-color-swatch {
+  background: var(--bb-color-placeholder);
+  height: 2.5rem;
+}
+.semantic-color-card strong,
+.semantic-color-card code,
+.semantic-color-card span {
+  display: block;
+}
+.semantic-color-card strong {
+  font-size: 0.8rem;
+}
+.semantic-color-card code,
+.semantic-color-card span {
+  color: var(--bb-color-text-muted);
+  font-family: var(--data);
+  font-size: 0.64rem;
+  margin-top: 0.35rem;
+  overflow-wrap: anywhere;
+}
+.semantic-color-card span {
+  margin-top: 0.6rem;
 }
 .typography-grid {
   display: grid;
@@ -566,7 +679,9 @@ td {
   .showcase-grid,
   .reference-grid,
   .color-grid,
+  .surface-role-grid,
   .text-role-grid,
+  .semantic-color-grid,
   .typography-grid {
     grid-template-columns: 1fr;
   }

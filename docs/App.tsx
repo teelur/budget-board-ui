@@ -100,6 +100,27 @@ const darkColors = [
   },
 ] as const;
 
+const surfaceRoles = [
+  {
+    name: "Sunken surface",
+    token: "--bb-color-surface-sunken",
+    lightValue: "#EBE8DF",
+    darkValue: "#0D0F12",
+    description: "A recessed layer for wells, inactive regions, and depth.",
+    lightClassName: "color-light-sunken",
+    darkClassName: "color-dark-sunken",
+  },
+  {
+    name: "Overlay surface",
+    token: "--bb-color-surface-overlay",
+    lightValue: "#FFFAF2",
+    darkValue: "#292C31",
+    description: "A focused layer for overlays, popovers, and temporary work.",
+    lightClassName: "color-light-overlay",
+    darkClassName: "color-dark-overlay",
+  },
+] as const;
+
 const textRoles = [
   {
     name: "Heading",
@@ -150,6 +171,48 @@ const textRoles = [
     darkValue: "#55585D",
     className: "text-role-disabled",
     description: "Unavailable controls and disabled content.",
+  },
+] as const;
+
+const semanticColorGroups = [
+  {
+    name: "Content",
+    roles: [["Inverse", "text-inverse"]],
+  },
+  {
+    name: "Brand and actions",
+    roles: [
+      ["Primary", "primary"],
+      ["Primary content", "primary-content"],
+      ["Secondary", "secondary"],
+      ["Secondary content", "secondary-content"],
+      ["Accent", "accent"],
+      ["Accent content", "accent-content"],
+      ["Neutral", "neutral"],
+      ["Neutral content", "neutral-content"],
+    ],
+  },
+  {
+    name: "Structure and interaction",
+    roles: [
+      ["Subtle border", "border-subtle"],
+      ["Strong border", "border-strong"],
+      ["Focus ring", "focus-ring"],
+      ["Selection", "selection"],
+    ],
+  },
+  {
+    name: "Feedback",
+    roles: [
+      ["Info", "info"],
+      ["Info content", "info-content"],
+      ["Success", "success"],
+      ["Success content", "success-content"],
+      ["Warning", "warning"],
+      ["Warning content", "warning-content"],
+      ["Error", "error"],
+      ["Error content", "error-content"],
+    ],
   },
 ] as const;
 
@@ -272,10 +335,12 @@ export function App() {
             <p className="section-copy">
               A restrained background system keeps the canvas, working surfaces,
               and application chrome distinct without relying on heavy shadows.
-              These are the only finalized colors so far.
+              Surfaces and text colors are finalized; the remaining semantic
+              roles below use temporary placeholders until their hues are
+              reviewed.
             </p>
             <div className="color-theme-section">
-              <p className="theme-subheading">Background colors</p>
+              <p className="theme-subheading">Surfaces</p>
               <div className="color-grid">
                 {colors.map((color) => (
                   <div className="color-card" key={color.token}>
@@ -287,6 +352,32 @@ export function App() {
                       </div>
                       <code>{color.token}</code>
                       <p>{color.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="surface-role-grid">
+                {surfaceRoles.map((role) => (
+                  <div className="surface-role-card" key={role.token}>
+                    <div
+                      className={`surface-role-swatch ${
+                        colorMode === "light"
+                          ? role.lightClassName
+                          : role.darkClassName
+                      }`}
+                    />
+                    <div className="surface-role-content">
+                      <div className="color-card-heading">
+                        <strong>{role.name}</strong>
+                        <code>
+                          {colorMode === "light"
+                            ? role.lightValue
+                            : role.darkValue}
+                        </code>
+                      </div>
+                      <code>{role.token}</code>
+                      <p>{role.description}</p>
                     </div>
                   </div>
                 ))}
@@ -310,6 +401,27 @@ export function App() {
                       </div>
                       <code>{role.token}</code>
                       <p>{role.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <p className="theme-subheading">Semantic roles · placeholders</p>
+              <div className="semantic-color-groups">
+                {semanticColorGroups.map((group) => (
+                  <div className="semantic-color-group" key={group.name}>
+                    <h3>{group.name}</h3>
+                    <div className="semantic-color-grid">
+                      {group.roles.map(([name, token]) => (
+                        <div className="semantic-color-card" key={token}>
+                          <div className="semantic-color-swatch" />
+                          <div>
+                            <strong>{name}</strong>
+                            <code>--bb-color-{token}</code>
+                          </div>
+                          <span>Temporary placeholder</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 ))}
