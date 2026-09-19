@@ -43,9 +43,10 @@ describe("budgetBoardColors", () => {
     expect(Object.keys(budgetBoardColors)).toEqual(semanticColorKeys);
   });
 
-  it("keeps new semantic roles on the temporary placeholder", () => {
+  it("finalizes inverse text while keeping other semantic roles temporary", () => {
     const placeholder = "#b8b8b8";
 
+    expect(budgetBoardColors.textInverse).toBe("#fffaf2");
     expect(budgetBoardColors.primary).toBe(placeholder);
     expect(budgetBoardColors.info).toBe(placeholder);
     expect(budgetBoardColors.errorContent).toBe(placeholder);

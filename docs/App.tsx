@@ -172,13 +172,18 @@ const textRoles = [
     className: "text-role-disabled",
     description: "Unavailable controls and disabled content.",
   },
+  {
+    name: "Inverse",
+    token: "--bb-color-text-inverse",
+    lightValue: "#FFFAF2",
+    darkValue: "#242321",
+    className: "text-role-inverse",
+    description:
+      "High-contrast text for dark surfaces in light mode and light surfaces in dark mode.",
+  },
 ] as const;
 
 const semanticColorGroups = [
-  {
-    name: "Content",
-    roles: [["Inverse", "text-inverse"]],
-  },
   {
     name: "Brand and actions",
     roles: [

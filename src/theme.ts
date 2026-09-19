@@ -15,7 +15,7 @@ export const budgetBoardColors = {
   textMetadata: "#807a70",
   textMuted: "#969087",
   textDisabled: "#b7b1a7",
-  textInverse: budgetBoardColorPlaceholder,
+  textInverse: "#fffaf2",
   primary: budgetBoardColorPlaceholder,
   primaryContent: budgetBoardColorPlaceholder,
   secondary: budgetBoardColorPlaceholder,
