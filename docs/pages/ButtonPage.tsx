@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Button, buttonColors, buttonSizes, buttonVariants } from "../../src";
+import {
+  Button,
+  buttonColors,
+  buttonSizes,
+  buttonVariants,
+} from "../../src/Button/Button";
 import { ComponentDemoSection } from "../components/ComponentDemoSection";
 
 function capitalize(value: string) {

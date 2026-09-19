@@ -1,9 +1,9 @@
 import type { CSSProperties, ButtonHTMLAttributes, ReactNode } from "react";
-import { budgetBoardColors } from "./colors";
+import { budgetBoardColors } from "../colors";
 import type {
   BudgetBoardColorMode,
   BudgetBoardContentColorKey,
-} from "./colors";
+} from "../colors";
 import classes from "./Button.module.css";
 
 export const buttonColors = [
