@@ -1,0 +1,56 @@
+.colorThemeSection {
+  margin-top: 2.5rem;
+}
+
+.themeSubheading {
+  border-bottom: 1px solid var(--bb-color-border);
+  font-family: var(--data);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  margin: 2.5rem 0 1rem;
+  padding-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+
+.themeSubheadingCopy {
+  color: var(--bb-color-text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin: -0.3rem 0 1rem;
+  max-width: 48rem;
+}
+
+.colorGrid,
+.textRoleGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.surfaceRoleGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1rem;
+}
+
+.themeRoleGrid {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.semanticColorGroups {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (max-width: 800px) {
+  .colorGrid,
+  .surfaceRoleGrid,
+  .textRoleGrid,
+  .themeRoleGrid,
+  .semanticColorGrid {
+    grid-template-columns: 1fr;
+  }
+}

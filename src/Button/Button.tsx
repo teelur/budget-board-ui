@@ -125,10 +125,12 @@ export function Button({
   variant = "filled",
   ...buttonProps
 }: ButtonProps) {
+  const isTab = buttonProps.role === "tab";
+
   return (
     <button
       {...buttonProps}
-      {...(selected === undefined ? {} : { "aria-pressed": selected })}
+      {...(selected === undefined || isTab ? {} : { "aria-pressed": selected })}
       aria-busy={loading || undefined}
       className={[
         classes.root,
@@ -156,7 +158,7 @@ export function Button({
     >
       {loading && <span aria-hidden="true" className={classes.loader} />}
       {leftSection && <span className={classes.section}>{leftSection}</span>}
-      <span>{children}</span>
+      <span className={classes.content}>{children}</span>
       {rightSection && <span className={classes.section}>{rightSection}</span>}
     </button>
   );

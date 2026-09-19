@@ -1,0 +1,73 @@
+.colorCard {
+  background: var(--bb-color-surface);
+  border: 1px solid var(--bb-color-border);
+  min-width: 0;
+}
+
+.colorSwatch {
+  border-bottom: 1px solid var(--bb-color-border);
+  height: 4rem;
+}
+
+.color-light-canvas {
+  background: var(--bb-color-page);
+}
+
+.color-light-surface {
+  background: var(--bb-color-surface);
+}
+
+.color-light-elevated {
+  background: var(--bb-color-surface-elevated);
+}
+
+.color-light-navigation {
+  background: var(--bb-color-navigation);
+}
+
+.color-dark-canvas {
+  background: var(--bb-color-page);
+}
+
+.color-dark-surface {
+  background: var(--bb-color-surface);
+}
+
+.color-dark-elevated {
+  background: var(--bb-color-surface-elevated);
+}
+
+.color-dark-navigation {
+  background: var(--bb-color-navigation);
+}
+
+.colorCardContent {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1rem;
+}
+
+.colorCardHeading {
+  align-items: baseline;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.colorCardHeading strong {
+  font-size: 0.9rem;
+}
+
+.colorCardHeading code,
+.colorCardContent > code {
+  color: var(--bb-color-text-muted);
+  font-family: var(--data);
+  font-size: 0.68rem;
+}
+
+.colorCardContent p {
+  color: var(--bb-color-text-muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  margin: 0.35rem 0 0;
+}

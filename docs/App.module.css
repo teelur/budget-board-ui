@@ -1,0 +1,218 @@
+.siteShell {
+  min-height: 100vh;
+  background: var(--bb-color-page);
+  color: var(--bb-color-text-primary);
+  font-family: var(--bb-font-body);
+}
+
+.siteHeader {
+  align-items: center;
+  background: var(--bb-color-navigation);
+  border-bottom: 1px solid var(--bb-color-border);
+  display: flex;
+  gap: 0.9rem;
+  min-height: 5.5rem;
+  padding: 0 5vw;
+}
+
+.brandMark {
+  align-items: center;
+  background: var(--bb-color-surface-elevated);
+  color: var(--bb-color-text-heading);
+  display: flex;
+  font-size: 0.8rem;
+  font-weight: 800;
+  height: 2.4rem;
+  justify-content: center;
+  letter-spacing: 0.08em;
+  width: 2.4rem;
+}
+
+.eyebrow {
+  color: var(--muted);
+  font-family: var(--data);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.siteHeader h1 {
+  font-size: 1rem;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.sourceLink {
+  border-bottom: 1px solid var(--ink);
+  font-size: 0.8rem;
+  margin-left: auto;
+  text-decoration: none;
+}
+
+.headerActions {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+.modeToggle {
+  background: transparent;
+  border: 1px solid var(--bb-color-border);
+  color: var(--bb-color-text-primary);
+  cursor: pointer;
+  display: grid;
+  height: 2.25rem;
+  place-items: center;
+  padding: 0;
+  transition:
+    background 160ms ease,
+    opacity 160ms ease,
+    transform 160ms ease;
+  width: 2.25rem;
+}
+
+.modeToggle:hover {
+  background: var(--bb-color-surface-elevated);
+}
+
+.headerHidden .modeToggle {
+  background: var(--bb-color-surface-elevated);
+  box-shadow: 0 0.5rem 1.5rem color-mix(in srgb, #000 14%, transparent);
+  position: fixed;
+  right: 1.5rem;
+  top: 1.5rem;
+  z-index: 10;
+}
+
+.contentLayout {
+  display: grid;
+  grid-template-columns: 13rem minmax(0, 56rem);
+  gap: 4.5rem;
+  margin: 0 auto;
+  max-width: 78rem;
+  padding: 4.5rem 5vw 3rem;
+}
+
+.sideNav {
+  align-self: start;
+  display: grid;
+  gap: 0.65rem;
+  position: sticky;
+  top: 2rem;
+}
+
+.sideNav a {
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.sideNav a:hover {
+  color: var(--bb-color-text-primary);
+}
+
+.sideNav code {
+  color: var(--muted);
+  font-family: var(--data);
+  font-size: 0.62rem;
+  overflow-wrap: anywhere;
+}
+
+.navHeading {
+  color: var(--muted);
+  font-family: var(--data);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.navHeadingSpaced {
+  margin-top: 1.4rem;
+}
+
+.mainContent {
+  min-width: 0;
+}
+
+.intro {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 4rem;
+}
+
+.intro h2 {
+  font-size: clamp(2.5rem, 6vw, 5.2rem);
+  letter-spacing: -0.075em;
+  line-height: 0.98;
+  margin: 1rem 0 1.4rem;
+  max-width: 11ch;
+}
+
+.introCopy {
+  color: var(--muted);
+  max-width: 38rem;
+  font-size: 1.05rem;
+}
+
+.introMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 2rem;
+}
+
+.introMeta span {
+  background: var(--bb-color-surface-elevated);
+  font-family: var(--data);
+  font-size: 0.7rem;
+  padding: 0.35rem 0.6rem;
+}
+
+.siteFooter {
+  color: var(--muted);
+  font-family: var(--data);
+  font-size: 0.68rem;
+  padding: 2rem 0;
+}
+
+@media (max-width: 800px) {
+  .contentLayout {
+    display: block;
+    padding-top: 2.5rem;
+  }
+
+  .sideNav {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    overflow-x: auto;
+    position: static;
+    white-space: nowrap;
+  }
+
+  .sideNav .navHeading,
+  .sideNav code {
+    display: none;
+  }
+
+  .navHeadingSpaced {
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .siteHeader {
+    padding: 0 1.25rem;
+  }
+
+  .contentLayout {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .intro h2 {
+    font-size: 2.8rem;
+  }
+}

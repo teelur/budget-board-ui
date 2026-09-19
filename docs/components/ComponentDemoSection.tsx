@@ -1,5 +1,7 @@
 import { useState } from "react";
 import type { KeyboardEvent, ReactNode } from "react";
+import { Button } from "../../src";
+import styles from "./ComponentDemoSection.module.css";
 
 type ComponentDemoTab = "preview" | "code";
 
@@ -49,24 +51,24 @@ export function ComponentDemoSection({
   }
 
   return (
-    <section className="component-demo-section" id={id}>
-      <div className="component-demo-heading">
+    <section className={styles.componentDemoSection} id={id}>
+      <div className={styles.componentDemoHeading}>
         <div>
           <h3>{title}</h3>
           <p>{description}</p>
         </div>
         <a
           aria-label={`Link to ${title} section`}
-          className="component-demo-anchor"
+          className={styles.componentDemoAnchor}
           href={`#${id}`}
         >
           #
         </a>
       </div>
-      <div className="component-demo-tabs">
+      <div className={styles.componentDemoTabs}>
         <div
           aria-label={`${title} views`}
-          className="component-demo-tablist"
+          className={styles.componentDemoTablist}
           role="tablist"
         >
           {componentDemoTabs.map((tab) => {
@@ -74,43 +76,46 @@ export function ComponentDemoSection({
             const tabId = `${id}-${tab}-tab`;
 
             return (
-              <button
+              <Button
                 aria-controls={panelId}
                 aria-selected={activeTab === tab}
-                className="component-demo-tab"
+                color="primary"
                 id={tabId}
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 onKeyDown={handleTabKeyDown}
                 role="tab"
+                selected={activeTab === tab}
+                size="compact-xs"
                 tabIndex={activeTab === tab ? 0 : -1}
                 type="button"
+                variant="ghost"
               >
                 {tab === "preview" ? "Preview" : "Code"}
-              </button>
+              </Button>
             );
           })}
         </div>
       </div>
       <div
         aria-labelledby={`${id}-preview-tab`}
-        className="component-demo-panel"
+        className={styles.componentDemoPanel}
         hidden={activeTab !== "preview"}
         id={`${id}-preview-panel`}
         role="tabpanel"
         tabIndex={0}
       >
-        <div className="component-demo-preview">{children}</div>
+        <div className={styles.componentDemoPreview}>{children}</div>
       </div>
       <div
         aria-labelledby={`${id}-code-tab`}
-        className="component-demo-panel"
+        className={styles.componentDemoPanel}
         hidden={activeTab !== "code"}
         id={`${id}-code-panel`}
         role="tabpanel"
         tabIndex={0}
       >
-        <pre className="code-block component-demo-code">
+        <pre className={`${styles.codeBlock} ${styles.componentDemoCode}`}>
           <code>{code}</code>
         </pre>
       </div>

@@ -1,0 +1,136 @@
+.theme-role-card,
+.semantic-color-card {
+  background: var(--bb-color-surface);
+  border: 1px solid var(--bb-color-border);
+  display: grid;
+  gap: 0.7rem;
+  min-width: 0;
+  padding: 0.8rem;
+}
+
+.theme-role-swatch,
+.semantic-color-swatch {
+  align-items: center;
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 700;
+  height: 3.25rem;
+  justify-content: center;
+}
+
+.color-role-content {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.color-role-content > code,
+.color-role-content-value {
+  color: var(--bb-color-text-muted);
+  font-family: var(--data);
+  font-size: 0.64rem;
+  overflow-wrap: anywhere;
+}
+
+.color-role-content p {
+  color: var(--bb-color-text-muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  margin: 0.35rem 0 0;
+}
+
+.theme-role-light-primary,
+.theme-role-dark-primary {
+  --theme-role-fill: var(--bb-color-primary);
+  --theme-role-content: var(--bb-color-primary-content);
+}
+
+.theme-role-light-secondary,
+.theme-role-dark-secondary {
+  --theme-role-fill: var(--bb-color-secondary);
+  --theme-role-content: var(--bb-color-secondary-content);
+}
+
+.theme-role-light-accent,
+.theme-role-dark-accent {
+  --theme-role-fill: var(--bb-color-accent);
+  --theme-role-content: var(--bb-color-accent-content);
+}
+
+.theme-role-light-neutral,
+.theme-role-dark-neutral {
+  --theme-role-fill: var(--bb-color-neutral);
+  --theme-role-content: var(--bb-color-neutral-content);
+}
+
+.semantic-role-light-subtle-border {
+  --semantic-role-fill: var(--bb-color-border-subtle);
+  --semantic-role-content: var(--bb-color-text-primary);
+}
+
+.semantic-role-dark-subtle-border {
+  --semantic-role-fill: var(--bb-color-border-subtle);
+  --semantic-role-content: var(--bb-color-text-heading);
+}
+
+.semantic-role-light-strong-border {
+  --semantic-role-fill: var(--bb-color-border-strong);
+  --semantic-role-content: var(--bb-color-text-primary);
+}
+
+.semantic-role-dark-strong-border {
+  --semantic-role-fill: var(--bb-color-border-strong);
+  --semantic-role-content: var(--bb-color-text-heading);
+}
+
+.semantic-role-light-focus-ring,
+.semantic-role-dark-focus-ring {
+  --semantic-role-fill: var(--bb-color-focus-ring);
+  --semantic-role-content: var(--bb-color-text-inverse);
+}
+
+.semantic-role-light-selection,
+.semantic-role-dark-selection {
+  --semantic-role-fill: var(--bb-color-selection);
+  --semantic-role-content: var(--bb-color-text-heading);
+}
+
+.semantic-role-light-info,
+.semantic-role-dark-info {
+  --semantic-role-fill: var(--bb-color-info);
+  --semantic-role-content: var(--bb-color-info-content);
+}
+
+.semantic-role-light-success,
+.semantic-role-dark-success {
+  --semantic-role-fill: var(--bb-color-success);
+  --semantic-role-content: var(--bb-color-success-content);
+}
+
+.semantic-role-light-warning,
+.semantic-role-dark-warning {
+  --semantic-role-fill: var(--bb-color-warning);
+  --semantic-role-content: var(--bb-color-warning-content);
+}
+
+.semantic-role-light-error,
+.semantic-role-dark-error {
+  --semantic-role-fill: var(--bb-color-error);
+  --semantic-role-content: var(--bb-color-error-content);
+}
+
+.theme-role-swatch {
+  background: var(--theme-role-fill);
+  color: var(--theme-role-content);
+}
+
+.semantic-color-swatch {
+  background: var(--semantic-role-fill);
+  color: var(--semantic-role-content);
+}
+
+.semantic-color-swatch span {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+}

@@ -1,5 +1,7 @@
 import type { ColorMode } from "./colorCardTypes";
 import { valueForMode } from "./colorCardTypes";
+import colorCardStyles from "./ColorCard.module.css";
+import styles from "./SurfaceRoleCard.module.css";
 
 export interface SurfaceRoleData {
   name: string;
@@ -19,16 +21,16 @@ export function SurfaceRoleCard({
   colorMode: ColorMode;
 }) {
   return (
-    <div className="surface-role-card">
+    <div className={styles.surfaceRoleCard}>
       <div
-        className={`surface-role-swatch ${valueForMode(
-          role.lightClassName,
-          role.darkClassName,
-          colorMode,
-        )}`}
+        className={`${styles.surfaceRoleSwatch} ${
+          styles[
+            valueForMode(role.lightClassName, role.darkClassName, colorMode)
+          ]
+        }`}
       />
-      <div className="surface-role-content">
-        <div className="color-card-heading">
+      <div className={styles.surfaceRoleContent}>
+        <div className={colorCardStyles.colorCardHeading}>
           <strong>{role.name}</strong>
           <code>
             {valueForMode(role.lightValue, role.darkValue, colorMode)}

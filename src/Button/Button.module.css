@@ -134,6 +134,11 @@
   display: inline-flex;
 }
 
+.content {
+  align-items: center;
+  display: inline-flex;
+}
+
 .loading {
   cursor: progress;
 }

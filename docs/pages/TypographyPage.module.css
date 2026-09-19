@@ -1,0 +1,93 @@
+.typographyGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 2rem;
+}
+
+.typographyCard {
+  background: var(--bb-color-surface);
+  border: 1px solid var(--bb-color-border);
+  display: grid;
+  gap: 0.55rem;
+  min-width: 0;
+  padding: 1.25rem;
+}
+
+.typographyCard .demoLabel {
+  margin-bottom: 0.5rem;
+}
+
+.typographyCard strong {
+  color: var(--bb-color-text-heading);
+  font-size: 1.6rem;
+  line-height: 1.1;
+}
+
+.typographyCard code,
+.typographyCard p,
+.typographyCard small {
+  color: var(--muted);
+  margin: 0;
+}
+
+.typographyCard code,
+.typographyCard small {
+  font-family: var(--data);
+  font-size: 0.68rem;
+}
+
+.typographyCard p {
+  font-size: 0.8rem;
+}
+
+.typographyDisplay {
+  font-family: var(--bb-font-display);
+}
+
+.typographyBody {
+  font-family: var(--bb-font-body);
+}
+
+.typographyData {
+  font-family: var(--bb-font-data);
+  font-variant-numeric: tabular-nums;
+}
+
+.typographyTransaction {
+  align-items: center;
+  background: var(--bb-color-surface);
+  border: 1px solid var(--bb-color-border);
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding: 1.25rem;
+}
+
+.typographyTransaction div {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.typographyTransaction span {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.typographyAmount {
+  color: var(--bb-color-text-heading);
+  flex: 0 0 auto;
+}
+
+@media (max-width: 800px) {
+  .typographyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .typographyTransaction {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

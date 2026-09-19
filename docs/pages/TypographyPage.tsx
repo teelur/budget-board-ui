@@ -1,4 +1,6 @@
 import { budgetBoardTypography } from "../../src";
+import pageStyles from "./Page.module.css";
+import styles from "./TypographyPage.module.css";
 
 const typographyRoles = [
   {
@@ -26,24 +28,30 @@ const typographyRoles = [
 
 export function TypographyPage() {
   return (
-    <section className="component-section" id="typography">
-      <div className="section-heading">
+    <section className={pageStyles.componentSection} id="typography">
+      <div className={pageStyles.sectionHeading}>
         <div>
-          <p className="eyebrow">Type foundations</p>
+          <p className={pageStyles.eyebrow}>Type foundations</p>
           <h2>Typography</h2>
         </div>
         <code>3 roles · 2 families</code>
       </div>
-      <p className="section-copy">
+      <p className={pageStyles.sectionCopy}>
         A small type system keeps the interface warm and readable while giving
         financial values a precise, aligned rhythm.
       </p>
 
-      <div className="typography-grid">
+      <div className={styles.typographyGrid}>
         {typographyRoles.map((role) => (
-          <div className="typography-card" key={role.token}>
-            <span className="demo-label">{role.name}</span>
-            <strong className={role.className}>
+          <div className={styles.typographyCard} key={role.token}>
+            <span className={`${pageStyles.demoLabel} ${styles.demoLabel}`}>
+              {role.name}
+            </span>
+            <strong
+              className={
+                styles[`typography${role.name}` as keyof typeof styles]
+              }
+            >
               {role.name === "Data" ? "$12,480.00" : "Budget Board"}
             </strong>
             <code>{role.token}</code>
@@ -53,12 +61,14 @@ export function TypographyPage() {
         ))}
       </div>
 
-      <div className="typography-transaction">
+      <div className={styles.typographyTransaction}>
         <div>
           <strong>Neighborhood Market and Household Supplies</strong>
           <span>Sep 19, 2026 · Groceries</span>
         </div>
-        <strong className="typography-data typography-amount">
+        <strong
+          className={`${styles.typographyData} ${styles.typographyAmount}`}
+        >
           -$1,284.50
         </strong>
       </div>

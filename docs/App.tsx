@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { Moon, Sun } from "lucide-react";
-import { budgetBoardColors, budgetBoardTypography } from "../src";
+import { Button, budgetBoardColors, budgetBoardTypography } from "../src";
 import type { ColorMode } from "./components/color/colorCardTypes";
 import { ButtonPage } from "./pages/ButtonPage";
 import { ColorThemePage } from "./pages/ColorThemePage";
 import { TypographyPage } from "./pages/TypographyPage";
+import styles from "./App.module.css";
 
 function toCssName(name: string) {
   return name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
@@ -61,30 +62,33 @@ export function App() {
 
   return (
     <div
-      className={`site-shell${isHeaderVisible ? "" : " header-hidden"}`}
+      className={`${styles.siteShell}${isHeaderVisible ? "" : ` ${styles.headerHidden}`}`}
       data-color-mode={colorMode}
       style={getThemeStyle(colorMode)}
     >
-      <header className="site-header" ref={headerRef}>
-        <div className="brand-mark">BB</div>
+      <header className={styles.siteHeader} ref={headerRef}>
+        <div className={styles.brandMark}>BB</div>
         <div>
-          <p className="eyebrow">Component library</p>
+          <p className={styles.eyebrow}>Component library</p>
           <h1>Budget Board UI</h1>
         </div>
-        <div className="header-actions">
-          <button
-            className="mode-toggle"
+        <div className={styles.headerActions}>
+          <Button
+            className={styles.modeToggle}
+            color="neutral"
             onClick={() =>
               setColorMode((mode) => (mode === "light" ? "dark" : "light"))
             }
             aria-label={`Current mode: ${colorMode}`}
+            size="compact-md"
             title={`Current mode: ${colorMode}`}
             type="button"
+            variant="ghost"
           >
             {colorMode === "light" ? <Sun size={17} /> : <Moon size={17} />}
-          </button>
+          </Button>
           <a
-            className="source-link"
+            className={styles.sourceLink}
             href="https://github.com/teelur/budget-board-ui"
           >
             GitHub
@@ -92,27 +96,29 @@ export function App() {
         </div>
       </header>
 
-      <div className="content-layout">
-        <aside className="side-nav" aria-label="Documentation navigation">
-          <p className="nav-heading">On this page</p>
+      <div className={styles.contentLayout}>
+        <aside className={styles.sideNav} aria-label="Documentation navigation">
+          <p className={styles.navHeading}>On this page</p>
           <a href="#overview">Overview</a>
           <a href="#color-theme">Color theme</a>
           <a href="#typography">Typography</a>
           <a href="#button">Button</a>
-          <p className="nav-heading nav-heading-spaced">Package</p>
+          <p className={`${styles.navHeading} ${styles.navHeadingSpaced}`}>
+            Package
+          </p>
           <code>@teelur/budget-board-ui</code>
         </aside>
 
-        <main className="main-content">
-          <section className="intro" id="overview">
-            <p className="eyebrow">Budget Board primitives</p>
+        <main className={styles.mainContent}>
+          <section className={styles.intro} id="overview">
+            <p className={styles.eyebrow}>Budget Board primitives</p>
             <h2>Small components with a clear point of view.</h2>
-            <p className="intro-copy">
+            <p className={styles.introCopy}>
               A living reference for the components shipped by Budget Board UI.
               Explore the states, copy the examples, and see the public API in
               one place.
             </p>
-            <div className="intro-meta">
+            <div className={styles.introMeta}>
               <span>React 19</span>
               <span>Mantine 9</span>
               <span>TypeScript</span>
@@ -123,7 +129,7 @@ export function App() {
           <TypographyPage />
           <ButtonPage />
 
-          <footer className="site-footer">
+          <footer className={styles.siteFooter}>
             @teelur/budget-board-ui · built for Budget Board
           </footer>
         </main>

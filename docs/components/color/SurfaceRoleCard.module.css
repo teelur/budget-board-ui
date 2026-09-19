@@ -1,0 +1,45 @@
+.surfaceRoleCard {
+  background: var(--bb-color-surface);
+  border: 1px solid var(--bb-color-border);
+  min-width: 0;
+}
+
+.surfaceRoleSwatch {
+  border-bottom: 1px solid var(--bb-color-border);
+  height: 4rem;
+}
+
+.color-light-sunken {
+  background: var(--bb-color-surface-sunken);
+}
+
+.color-dark-sunken {
+  background: var(--bb-color-surface-sunken);
+}
+
+.color-light-overlay {
+  background: var(--bb-color-surface-overlay);
+}
+
+.color-dark-overlay {
+  background: var(--bb-color-surface-overlay);
+}
+
+.surfaceRoleContent {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1rem;
+}
+
+.surfaceRoleContent > code {
+  color: var(--bb-color-text-muted);
+  font-family: var(--data);
+  font-size: 0.68rem;
+}
+
+.surfaceRoleContent p {
+  color: var(--bb-color-text-muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  margin: 0.35rem 0 0;
+}

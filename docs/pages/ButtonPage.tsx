@@ -1,11 +1,9 @@
 import { useState } from "react";
-import {
-  Button,
-  buttonColors,
-  buttonSizes,
-  buttonVariants,
-} from "../../src/Button/Button";
+import { Button, buttonColors, buttonSizes, buttonVariants } from "../../src";
 import { ComponentDemoSection } from "../components/ComponentDemoSection";
+import demoStyles from "../components/ComponentDemoSection.module.css";
+import pageStyles from "./Page.module.css";
+import styles from "./ButtonPage.module.css";
 
 function capitalize(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
@@ -70,15 +68,15 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
 </Button>`;
 
   return (
-    <section className="component-section" id="button">
-      <div className="section-heading">
+    <section className={pageStyles.componentSection} id="button">
+      <div className={pageStyles.sectionHeading}>
         <div>
-          <p className="eyebrow">Actions</p>
+          <p className={pageStyles.eyebrow}>Actions</p>
           <h2>Button</h2>
         </div>
         <code>import {"{ Button }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className="section-copy">
+      <p className={pageStyles.sectionCopy}>
         A compact action primitive with independent appearance, semantic color,
         interaction, sizing, and slot support.
       </p>
@@ -94,7 +92,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           )
           .join("\n")}
       >
-        <div className="button-stack">
+        <div className={styles.buttonStack}>
           {buttonVariants.map((variant) => (
             <Button key={variant} variant={variant}>
               {capitalize(variant)}
@@ -113,7 +111,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           )
           .join("\n")}
       >
-        <div className="button-stack">
+        <div className={styles.buttonStack}>
           {buttonColors.map((color) => (
             <Button color={color} key={color}>
               {capitalize(color)}
@@ -133,7 +131,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           )
           .join("\n")}
       >
-        <div className="button-stack">
+        <div className={styles.buttonStack}>
           {standardButtonSizes.map((size) => (
             <Button key={size} size={size}>
               {size.toUpperCase()}
@@ -153,7 +151,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           )
           .join("\n")}
       >
-        <div className="button-stack">
+        <div className={styles.buttonStack}>
           {compactButtonSizes.map((size) => (
             <Button key={size} size={size}>
               {size.toUpperCase()}
@@ -169,7 +167,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         code={`<Button loading>Saving changes</Button>
 <Button disabled>Unavailable</Button>`}
       >
-        <div className="button-stack">
+        <div className={styles.buttonStack}>
           <Button loading>Saving changes</Button>
           <Button disabled>Unavailable</Button>
         </div>
@@ -188,7 +186,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
   Toggle selection
 </Button>`}
       >
-        <div className="button-stack button-selected-demo">
+        <div className={`${styles.buttonStack} ${styles.buttonSelectedDemo}`}>
           <Button
             selected={isShowcaseSelected}
             onClick={() => setIsShowcaseSelected((current) => !current)}
@@ -212,7 +210,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
   Back
 </Button>`}
       >
-        <div className="button-stack">
+        <div className={styles.buttonStack}>
           <Button leftSection="+" rightSection=">">
             Add transaction
           </Button>
@@ -230,7 +228,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
   Continue
 </Button>`}
       >
-        <Button className="button-wide" fullWidth>
+        <Button className={styles.buttonWide} fullWidth>
           Continue
         </Button>
       </ComponentDemoSection>
@@ -241,17 +239,17 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         title="Playground"
         code={playgroundCode}
       >
-        <div className="button-playground">
-          <div className="button-playground-controls">
-            <div className="button-control-group">
+        <div className={styles.buttonPlayground}>
+          <div className={styles.buttonPlaygroundControls}>
+            <div className={styles.buttonControlGroup}>
               <div>
-                <p className="button-control-heading">Appearance</p>
-                <p className="button-control-copy">
+                <p className={styles.buttonControlHeading}>Appearance</p>
+                <p className={styles.buttonControlCopy}>
                   Tune the visual treatment and scale.
                 </p>
               </div>
-              <div className="button-control-grid">
-                <label className="button-field">
+              <div className={styles.buttonControlGrid}>
+                <label className={styles.buttonField}>
                   <span>Variant</span>
                   <select
                     value={selectedVariant}
@@ -268,7 +266,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                     ))}
                   </select>
                 </label>
-                <label className="button-field">
+                <label className={styles.buttonField}>
                   <span>Color</span>
                   <select
                     value={selectedColor}
@@ -285,7 +283,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                     ))}
                   </select>
                 </label>
-                <label className="button-field">
+                <label className={styles.buttonField}>
                   <span>Size</span>
                   <select
                     value={selectedSize}
@@ -300,7 +298,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                     ))}
                   </select>
                 </label>
-                <label className="button-field">
+                <label className={styles.buttonField}>
                   <span>Type</span>
                   <select
                     value={selectedType}
@@ -318,14 +316,14 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
               </div>
             </div>
 
-            <div className="button-control-group">
+            <div className={styles.buttonControlGroup}>
               <div>
-                <p className="button-control-heading">Content</p>
-                <p className="button-control-copy">
+                <p className={styles.buttonControlHeading}>Content</p>
+                <p className={styles.buttonControlCopy}>
                   Preview labels and optional edge sections.
                 </p>
               </div>
-              <label className="button-field">
+              <label className={styles.buttonField}>
                 <span>Label</span>
                 <input
                   onChange={(event) => setButtonLabel(event.target.value)}
@@ -333,8 +331,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   value={buttonLabel}
                 />
               </label>
-              <div className="button-control-grid">
-                <label className="button-field">
+              <div className={styles.buttonControlGrid}>
+                <label className={styles.buttonField}>
                   <span>Left section</span>
                   <input
                     aria-label="Left section"
@@ -344,7 +342,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                     value={leftSection}
                   />
                 </label>
-                <label className="button-field">
+                <label className={styles.buttonField}>
                   <span>Right section</span>
                   <input
                     aria-label="Right section"
@@ -357,15 +355,15 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
               </div>
             </div>
 
-            <div className="button-control-group">
+            <div className={styles.buttonControlGroup}>
               <div>
-                <p className="button-control-heading">Behavior</p>
-                <p className="button-control-copy">
+                <p className={styles.buttonControlHeading}>Behavior</p>
+                <p className={styles.buttonControlCopy}>
                   Test availability and layout states.
                 </p>
               </div>
-              <div className="button-toggle-grid">
-                <label className="button-toggle">
+              <div className={styles.buttonToggleGrid}>
+                <label className={styles.buttonToggle}>
                   <input
                     checked={isLoading}
                     onChange={(event) => setIsLoading(event.target.checked)}
@@ -373,7 +371,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   />
                   <span>Loading</span>
                 </label>
-                <label className="button-toggle">
+                <label className={styles.buttonToggle}>
                   <input
                     checked={isDisabled}
                     onChange={(event) => setIsDisabled(event.target.checked)}
@@ -381,7 +379,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   />
                   <span>Disabled</span>
                 </label>
-                <label className="button-toggle">
+                <label className={styles.buttonToggle}>
                   <input
                     checked={isSelected}
                     onChange={(event) => setIsSelected(event.target.checked)}
@@ -389,7 +387,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   />
                   <span>Selected</span>
                 </label>
-                <label className="button-toggle">
+                <label className={styles.buttonToggle}>
                   <input
                     checked={isFullWidth}
                     onChange={(event) => setIsFullWidth(event.target.checked)}
@@ -401,9 +399,9 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
             </div>
           </div>
 
-          <div className="button-playground-preview">
-            <span className="button-preview-label">Rendered result</span>
-            <div className="button-preview-stage">
+          <div className={styles.buttonPlaygroundPreview}>
+            <span className={styles.buttonPreviewLabel}>Rendered result</span>
+            <div className={styles.buttonPreviewStage}>
               <Button
                 selected={isSelected}
                 color={selectedColor}
@@ -423,21 +421,21 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         </div>
       </ComponentDemoSection>
 
-      <section className="component-reference-section" id="button-api">
-        <div className="component-demo-heading">
+      <section className={pageStyles.componentReferenceSection} id="button-api">
+        <div className={demoStyles.componentDemoHeading}>
           <div>
             <h3>API reference</h3>
             <p>Every public prop, its accepted values, and its default.</p>
           </div>
           <a
             aria-label="Link to API reference section"
-            className="component-demo-anchor"
+            className={demoStyles.componentDemoAnchor}
             href="#button-api"
           >
             #
           </a>
         </div>
-        <div className="reference-grid">
+        <div className={pageStyles.referenceGrid}>
           <div>
             <table>
               <tbody>
@@ -542,7 +540,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
               </tbody>
             </table>
           </div>
-          <pre className="code-block">
+          <pre className={pageStyles.codeBlock}>
             <code>{`<Button color="error" variant="outline" size="lg">
   Delete transaction
 </Button>`}</code>

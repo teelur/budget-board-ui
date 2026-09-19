@@ -43,6 +43,19 @@ describe("Button", () => {
     expect(onClick).toHaveBeenCalledOnce();
   });
 
+  it("uses aria-selected instead of aria-pressed for tabs", () => {
+    renderButton(
+      <Button aria-selected="true" role="tab" selected>
+        Preview
+      </Button>,
+    );
+
+    const button = screen.getByRole("tab", { name: "Preview" });
+
+    expect(button).toHaveAttribute("aria-selected", "true");
+    expect(button).not.toHaveAttribute("aria-pressed");
+  });
+
   it("supports every public size", () => {
     const sizes = [
       "compact-xs",

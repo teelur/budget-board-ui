@@ -1,6 +1,7 @@
 import type { ColorMode } from "./colorCardTypes";
 import { RoleCard } from "./RoleCard";
 import type { RoleCardData } from "./RoleCard";
+import styles from "./SemanticColorGroup.module.css";
 
 export interface SemanticColorGroupData {
   name: string;
@@ -15,9 +16,9 @@ export function SemanticColorGroup({
   colorMode: ColorMode;
 }) {
   return (
-    <div className="semantic-color-group">
+    <div className={styles.semanticColorGroup}>
       <h3>{group.name}</h3>
-      <div className="semantic-color-grid">
+      <div className={styles.semanticColorGrid}>
         {group.roles.map((role) => (
           <RoleCard
             cardClassName="semantic-color-card"

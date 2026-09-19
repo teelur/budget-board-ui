@@ -1,5 +1,7 @@
 import type { ColorMode } from "./colorCardTypes";
 import { valueForMode } from "./colorCardTypes";
+import colorCardStyles from "./ColorCard.module.css";
+import styles from "./RoleCard.module.css";
 
 export interface RoleCardData {
   name: string;
@@ -37,18 +39,18 @@ export function RoleCard({
   );
 
   return (
-    <div className={cardClassName}>
+    <div className={styles[cardClassName]}>
       <div
-        className={`${swatchClassName} ${valueForMode(
-          role.lightClassName,
-          role.darkClassName,
-          colorMode,
-        )}`}
+        className={`${styles[swatchClassName]} ${
+          styles[
+            valueForMode(role.lightClassName, role.darkClassName, colorMode)
+          ]
+        }`}
       >
         {contentValue ? <span>Aa</span> : null}
       </div>
-      <div className={contentClassName}>
-        <div className="color-card-heading">
+      <div className={styles[contentClassName]}>
+        <div className={colorCardStyles.colorCardHeading}>
           <strong>{role.name}</strong>
           <code>
             {valueForMode(role.lightValue, role.darkValue, colorMode)}

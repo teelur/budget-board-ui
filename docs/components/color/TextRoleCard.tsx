@@ -1,5 +1,7 @@
 import type { ColorMode } from "./colorCardTypes";
 import { valueForMode } from "./colorCardTypes";
+import colorCardStyles from "./ColorCard.module.css";
+import styles from "./TextRoleCard.module.css";
 
 export interface TextRoleData {
   name: string;
@@ -18,10 +20,12 @@ export function TextRoleCard({
   colorMode: ColorMode;
 }) {
   return (
-    <div className="text-role-card">
-      <div className={`text-role-sample ${role.className}`}>Aa</div>
-      <div className="text-role-content">
-        <div className="color-card-heading">
+    <div className={styles.textRoleCard}>
+      <div className={`${styles.textRoleSample} ${styles[role.className]}`}>
+        Aa
+      </div>
+      <div className={styles.textRoleContent}>
+        <div className={colorCardStyles.colorCardHeading}>
           <strong>{role.name}</strong>
           <code>
             {valueForMode(role.lightValue, role.darkValue, colorMode)}

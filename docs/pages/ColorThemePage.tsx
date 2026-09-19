@@ -5,6 +5,8 @@ import { RoleCard } from "../components/color/RoleCard";
 import { SemanticColorGroup } from "../components/color/SemanticColorGroup";
 import { SurfaceRoleCard } from "../components/color/SurfaceRoleCard";
 import { TextRoleCard } from "../components/color/TextRoleCard";
+import pageStyles from "./Page.module.css";
+import styles from "./ColorThemePage.module.css";
 
 const lightColors = [
   {
@@ -325,34 +327,34 @@ export function ColorThemePage({ colorMode }: { colorMode: ColorMode }) {
   const colors = colorMode === "light" ? lightColors : darkColors;
 
   return (
-    <section className="component-section" id="color-theme">
-      <div className="section-heading">
+    <section className={pageStyles.componentSection} id="color-theme">
+      <div className={pageStyles.sectionHeading}>
         <div>
-          <p className="eyebrow">Color foundations</p>
+          <p className={pageStyles.eyebrow}>Color foundations</p>
           <h2>Color theme</h2>
         </div>
         <code>{colorMode} mode</code>
       </div>
-      <p className="section-copy">
+      <p className={pageStyles.sectionCopy}>
         A restrained background system keeps the canvas, working surfaces, and
         application chrome distinct without relying on heavy shadows. Surfaces,
         text, and theme roles establish the visual foundation for the rest of
         the interface.
       </p>
-      <div className="color-theme-section">
-        <p className="theme-subheading">Surfaces</p>
-        <p className="theme-subheading-copy">
+      <div className={styles.colorThemeSection}>
+        <p className={styles.themeSubheading}>Surfaces</p>
+        <p className={styles.themeSubheadingCopy}>
           Light and dark surfaces use the same quiet, grounded hierarchy while
           adapting their values to the surrounding mode. Small shifts in value
           create depth without depending on heavy shadows.
         </p>
-        <div className="color-grid">
+        <div className={styles.colorGrid}>
           {colors.map((color) => (
             <ColorCard color={color} key={color.token} />
           ))}
         </div>
 
-        <div className="surface-role-grid">
+        <div className={styles.surfaceRoleGrid}>
           {surfaceRoles.map((role) => (
             <SurfaceRoleCard
               colorMode={colorMode}
@@ -362,26 +364,26 @@ export function ColorThemePage({ colorMode }: { colorMode: ColorMode }) {
           ))}
         </div>
 
-        <p className="theme-subheading">Text roles</p>
-        <p className="theme-subheading-copy">
+        <p className={styles.themeSubheading}>Text roles</p>
+        <p className={styles.themeSubheadingCopy}>
           Both modes use a measured neutral scale to keep financial information
           readable at a glance. Stronger values establish hierarchy while muted
           roles recede when attention should move elsewhere.
         </p>
-        <div className="text-role-grid">
+        <div className={styles.textRoleGrid}>
           {textRoles.map((role) => (
             <TextRoleCard colorMode={colorMode} key={role.token} role={role} />
           ))}
         </div>
 
-        <p className="theme-subheading">Theme roles</p>
-        <p className="theme-subheading-copy">
+        <p className={styles.themeSubheading}>Theme roles</p>
+        <p className={styles.themeSubheadingCopy}>
           Indigo, emerald, and orange bring consistent energy to actions and
           emphasis in both modes without overwhelming the foundation. Each light
           and dark value is paired with deliberate content colors for clear
           contrast.
         </p>
-        <div className="theme-role-grid">
+        <div className={styles.themeRoleGrid}>
           {themeRoles.map((role) => (
             <RoleCard
               cardClassName="theme-role-card"
@@ -395,14 +397,14 @@ export function ColorThemePage({ colorMode }: { colorMode: ColorMode }) {
           ))}
         </div>
 
-        <p className="theme-subheading">Semantic roles</p>
-        <p className="theme-subheading-copy">
+        <p className={styles.themeSubheading}>Semantic roles</p>
+        <p className={styles.themeSubheadingCopy}>
           Structural roles establish separation, interaction states guide
           attention and input, and feedback states communicate system status
           with neighboring hues that stay harmonious with the theme roles.
           Content pairings keep each role readable in both modes.
         </p>
-        <div className="semantic-color-groups">
+        <div className={styles.semanticColorGroups}>
           {semanticColorGroups.map((group) => (
             <SemanticColorGroup
               colorMode={colorMode}
