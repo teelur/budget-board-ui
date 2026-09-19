@@ -1,18 +1,43 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap");
 
 :root {
-  color: #19231f;
-  background: #f3f6ef;
+  --bb-color-page: #f7f6f2;
+  --bb-color-surface: #ffffff;
+  --bb-color-surface-elevated: #fffcf7;
+  --bb-color-navigation: #f1efe9;
+  --bb-color-text: CanvasText;
+  --bb-color-text-muted: color-mix(in srgb, CanvasText 62%, transparent);
+  --bb-color-border: color-mix(in srgb, CanvasText 18%, transparent);
+
+  color: var(--bb-color-text);
+  background: var(--bb-color-page);
   font-family: "Manrope", sans-serif;
   font-synthesis: none;
   line-height: 1.5;
-  --ink: #19231f;
-  --muted: #66736a;
-  --line: #d8e0d5;
-  --paper: #fbfcf8;
-  --accent: #d9f16b;
-  --forest: #174b3a;
+  --ink: var(--bb-color-text);
+  --muted: var(--bb-color-text-muted);
+  --line: var(--bb-color-border);
+  --paper: var(--bb-color-surface);
   --mono: "DM Mono", monospace;
+
+  --budget-board-button-primary-background: var(--bb-color-surface-elevated);
+  --budget-board-button-primary-color: var(--bb-color-text);
+  --budget-board-button-primary-hover: var(--bb-color-navigation);
+  --budget-board-button-secondary-background: var(--bb-color-navigation);
+  --budget-board-button-secondary-color: var(--bb-color-text);
+  --budget-board-button-secondary-hover: var(--bb-color-surface-elevated);
+  --budget-board-button-danger-background: var(--bb-color-surface-elevated);
+  --budget-board-button-danger-color: var(--bb-color-text);
+  --budget-board-button-danger-hover: var(--bb-color-navigation);
+  --budget-board-button-ghost-color: var(--bb-color-text);
+  --budget-board-button-ghost-hover: var(--bb-color-navigation);
+}
+
+[data-color-mode="dark"] {
+  --bb-color-page: #111214;
+  --bb-color-surface: #191b1f;
+  --bb-color-surface-elevated: #22252a;
+  --bb-color-navigation: #191b1f;
 }
 
 * {
@@ -32,12 +57,13 @@ select {
 
 .site-shell {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 90% 0%, #e3f0d1 0, transparent 28rem), #f3f6ef;
+  background: var(--bb-color-page);
+  color: var(--bb-color-text);
 }
 .site-header {
   align-items: center;
-  border-bottom: 1px solid var(--line);
+  background: var(--bb-color-navigation);
+  border-bottom: 1px solid var(--bb-color-border);
   display: flex;
   gap: 0.9rem;
   min-height: 5.5rem;
@@ -45,8 +71,8 @@ select {
 }
 .brand-mark {
   align-items: center;
-  background: var(--forest);
-  color: var(--accent);
+  background: var(--bb-color-surface-elevated);
+  color: var(--bb-color-text);
   display: flex;
   font-size: 0.8rem;
   font-weight: 800;
@@ -76,6 +102,23 @@ select {
   margin-left: auto;
   text-decoration: none;
 }
+.header-actions {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+}
+.mode-toggle {
+  background: transparent;
+  border: 1px solid var(--bb-color-border);
+  color: var(--bb-color-text);
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 0.45rem 0.65rem;
+}
+.mode-toggle:hover {
+  background: var(--bb-color-surface-elevated);
+}
 .content-layout {
   display: grid;
   grid-template-columns: 13rem minmax(0, 56rem);
@@ -97,7 +140,7 @@ select {
   text-decoration: none;
 }
 .side-nav a:hover {
-  color: var(--forest);
+  color: var(--bb-color-text);
 }
 .side-nav code {
   color: var(--muted);
@@ -137,7 +180,7 @@ select {
   margin-top: 2rem;
 }
 .intro-meta span {
-  background: var(--accent);
+  background: var(--bb-color-surface-elevated);
   font-family: var(--mono);
   font-size: 0.7rem;
   padding: 0.35rem 0.6rem;
@@ -170,10 +213,97 @@ select {
   margin-top: 2rem;
 }
 .demo-frame {
-  background: var(--paper);
+  background: var(--bb-color-surface);
   border: 1px solid var(--line);
   min-height: 10rem;
   padding: 1.25rem;
+}
+.color-theme-section {
+  margin-top: 2.5rem;
+}
+.theme-subheading {
+  border-bottom: 1px solid var(--bb-color-border);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  margin: 2.5rem 0 1rem;
+  padding-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+.color-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.color-card {
+  background: var(--bb-color-surface);
+  border: 1px solid var(--bb-color-border);
+  min-width: 0;
+}
+.color-swatch {
+  border-bottom: 1px solid var(--bb-color-border);
+  height: 5rem;
+}
+.color-light-canvas {
+  background: #f7f6f2;
+}
+.color-light-surface {
+  background: #ffffff;
+}
+.color-light-elevated {
+  background: #fffcf7;
+}
+.color-light-navigation {
+  background: #f1efe9;
+}
+.color-dark-canvas {
+  background: #111214;
+}
+.color-dark-surface {
+  background: #191b1f;
+}
+.color-dark-elevated {
+  background: #22252a;
+}
+.color-dark-navigation {
+  background: #191b1f;
+}
+.color-card-content {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1rem;
+}
+.color-card-heading {
+  align-items: baseline;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+.color-card-heading strong {
+  font-size: 0.9rem;
+}
+.color-card-heading code,
+.color-card-content > code,
+.role-grid code {
+  color: var(--bb-color-text-muted);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+}
+.color-card-content p,
+.role-grid p {
+  color: var(--bb-color-text-muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  margin: 0.35rem 0 0;
+}
+.role-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.role-grid > div {
+  border-left: 2px solid var(--bb-color-border);
+  padding: 0.2rem 0 0.2rem 1rem;
 }
 .demo-label {
   display: block;
@@ -205,7 +335,7 @@ label span,
   font-size: 0.68rem;
 }
 select {
-  background: white;
+  background: var(--bb-color-surface-elevated);
   border: 1px solid var(--line);
   color: var(--ink);
   padding: 0.65rem 0.7rem;
@@ -252,8 +382,8 @@ td {
   color: var(--muted);
 }
 .code-block {
-  background: var(--forest);
-  color: #ecf5d9;
+  background: var(--bb-color-navigation);
+  color: var(--bb-color-text);
   font-family: var(--mono);
   font-size: 0.72rem;
   line-height: 1.8;
@@ -290,7 +420,9 @@ td {
     margin: 0;
   }
   .showcase-grid,
-  .reference-grid {
+  .reference-grid,
+  .color-grid,
+  .role-grid {
     grid-template-columns: 1fr;
   }
   .section-heading {

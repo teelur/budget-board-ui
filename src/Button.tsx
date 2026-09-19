@@ -1,11 +1,14 @@
-import type { CSSProperties, ButtonHTMLAttributes, ReactNode } from 'react';
-import { Button as MantineButton } from '@mantine/core';
+import type { CSSProperties, ButtonHTMLAttributes, ReactNode } from "react";
+import { UnstyledButton } from "@mantine/core";
+import classes from "./Button.module.css";
 
-export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'ghost';
-export type ButtonSize = 'sm' | 'md' | 'lg';
+export type ButtonVariant = "primary" | "secondary" | "danger" | "ghost";
+export type ButtonSize = "sm" | "md" | "lg";
 
-export interface ButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'color' | 'disabled'> {
+export interface ButtonProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "children" | "color" | "disabled"
+> {
   children?: ReactNode;
   disabled?: boolean;
   fullWidth?: boolean;
@@ -16,36 +19,31 @@ export interface ButtonProps
   variant?: ButtonVariant;
 }
 
-type ButtonStyle = CSSProperties & Record<'--button-bg' | '--button-color' | '--button-hover', string>;
+type ButtonStyle = CSSProperties &
+  Record<"--button-bg" | "--button-color" | "--button-hover", string>;
 
 const variantStyles: Record<ButtonVariant, ButtonStyle> = {
   primary: {
-    '--button-bg': 'var(--budget-board-button-primary-background, #2563eb)',
-    '--button-color': 'var(--budget-board-button-primary-color, #ffffff)',
-    '--button-hover': 'var(--budget-board-button-primary-hover, #1d4ed8)',
+    "--button-bg": "var(--budget-board-button-primary-background, Canvas)",
+    "--button-color": "var(--budget-board-button-primary-color, CanvasText)",
+    "--button-hover": "var(--budget-board-button-primary-hover, ButtonFace)",
   },
   secondary: {
-    '--button-bg': 'var(--budget-board-button-secondary-background, #e2e8f0)',
-    '--button-color': 'var(--budget-board-button-secondary-color, #172033)',
-    '--button-hover': 'var(--budget-board-button-secondary-hover, #cbd5e1)',
+    "--button-bg":
+      "var(--budget-board-button-secondary-background, ButtonFace)",
+    "--button-color": "var(--budget-board-button-secondary-color, ButtonText)",
+    "--button-hover": "var(--budget-board-button-secondary-hover, Canvas)",
   },
   danger: {
-    '--button-bg': 'var(--budget-board-button-danger-background, #dc2626)',
-    '--button-color': 'var(--budget-board-button-danger-color, #ffffff)',
-    '--button-hover': 'var(--budget-board-button-danger-hover, #b91c1c)',
+    "--button-bg": "var(--budget-board-button-danger-background, ButtonFace)",
+    "--button-color": "var(--budget-board-button-danger-color, ButtonText)",
+    "--button-hover": "var(--budget-board-button-danger-hover, Canvas)",
   },
   ghost: {
-    '--button-bg': 'transparent',
-    '--button-color': 'var(--budget-board-button-ghost-color, #2563eb)',
-    '--button-hover': 'var(--budget-board-button-ghost-hover, #dbeafe)',
+    "--button-bg": "transparent",
+    "--button-color": "var(--budget-board-button-ghost-color, CanvasText)",
+    "--button-hover": "var(--budget-board-button-ghost-hover, ButtonFace)",
   },
-};
-
-const mantineVariants: Record<ButtonVariant, 'filled' | 'default' | 'subtle'> = {
-  primary: 'filled',
-  secondary: 'default',
-  danger: 'filled',
-  ghost: 'subtle',
 };
 
 export function Button({
@@ -56,30 +54,36 @@ export function Button({
   leftSection,
   loading = false,
   rightSection,
-  size = 'md',
+  size = "md",
   style,
-  type = 'button',
-  variant = 'primary',
+  type = "button",
+  variant = "primary",
   ...buttonProps
 }: ButtonProps) {
   return (
-    <MantineButton
+    <UnstyledButton
       {...buttonProps}
-      className={className}
-      data-budget-board-full-width={fullWidth ? 'true' : undefined}
+      aria-busy={loading || undefined}
+      className={[
+        classes.root,
+        classes[size],
+        fullWidth && classes.fullWidth,
+        loading && classes.loading,
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      data-budget-board-full-width={fullWidth ? "true" : undefined}
       data-budget-board-size={size}
       data-budget-board-variant={variant}
-      disabled={disabled ?? false}
-      fullWidth={fullWidth}
-      leftSection={leftSection}
-      loading={loading}
-      rightSection={rightSection}
-      size={size}
+      disabled={disabled ?? loading}
       style={{ ...variantStyles[variant], ...style }}
       type={type}
-      variant={mantineVariants[variant]}
     >
-      {children}
-    </MantineButton>
+      {loading && <span aria-hidden="true" className={classes.loader} />}
+      {leftSection && <span className={classes.section}>{leftSection}</span>}
+      <span>{children}</span>
+      {rightSection && <span className={classes.section}>{rightSection}</span>}
+    </UnstyledButton>
   );
 }

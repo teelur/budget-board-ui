@@ -1,11 +1,16 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MantineProvider } from "@mantine/core";
+import { HeadlessMantineProvider, MantineProvider } from "@mantine/core";
 import { describe, expect, it, vi } from "vitest";
 import { Button } from "../src/Button";
 
-function renderButton(button: React.ReactNode) {
-  return render(<MantineProvider env="test">{button}</MantineProvider>);
+function renderButton(
+  button: React.ReactNode,
+  Provider:
+    | typeof MantineProvider
+    | typeof HeadlessMantineProvider = MantineProvider,
+) {
+  return render(<Provider env="test">{button}</Provider>);
 }
 
 describe("Button", () => {
@@ -79,5 +84,21 @@ describe("Button", () => {
       "data-budget-board-full-width",
       "true",
     );
+  });
+
+  it("works with both Mantine provider modes", () => {
+    const { unmount } = renderButton(
+      <Button>Headless button</Button>,
+      HeadlessMantineProvider,
+    );
+
+    expect(
+      screen.getByRole("button", { name: "Headless button" }),
+    ).toBeVisible();
+    unmount();
+
+    renderButton(<Button>Styled button</Button>, MantineProvider);
+
+    expect(screen.getByRole("button", { name: "Styled button" })).toBeVisible();
   });
 });
