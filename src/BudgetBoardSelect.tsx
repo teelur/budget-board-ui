@@ -38,7 +38,7 @@ export function BudgetBoardSelect({
   });
 
   const selectedOption = useMemo(
-    () => data.find((option) => option.value === selectedValue) ?? null,
+    () => (selectedValue === '' ? null : data.find((option) => option.value === selectedValue) ?? null),
     [data, selectedValue],
   );
 
@@ -61,31 +61,33 @@ export function BudgetBoardSelect({
       store={combobox}
       withinPortal={false}
     >
-      <Combobox.Target targetType="button" withExpandedAttribute>
-        <button
-          aria-haspopup="listbox"
-          aria-label={ariaLabel}
-          onClick={() => combobox.toggleDropdown()}
-          style={{
-            alignItems: 'center',
-            backgroundColor: '#ffffff',
-            border: '1px solid #ced4da',
-            borderRadius: '0.5rem',
-            color: '#191f28',
-            cursor: 'pointer',
-            display: 'inline-flex',
-            font: 'inherit',
-            gap: '0.5rem',
-            justifyContent: 'space-between',
-            minWidth: '12rem',
-            padding: '0.625rem 0.875rem',
-          }}
-          type="button"
-        >
-          <span>{selectedOption?.label ?? placeholder}</span>
-          <span aria-hidden="true">▾</span>
-        </button>
-      </Combobox.Target>
+      <Combobox.DropdownTarget>
+        <Combobox.EventsTarget targetType="button" withExpandedAttribute>
+          <button
+            aria-haspopup="listbox"
+            aria-label={ariaLabel}
+            onClick={() => combobox.toggleDropdown()}
+            style={{
+              alignItems: 'center',
+              backgroundColor: '#ffffff',
+              border: '1px solid #ced4da',
+              borderRadius: '0.5rem',
+              color: '#191f28',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              font: 'inherit',
+              gap: '0.5rem',
+              justifyContent: 'space-between',
+              minWidth: '12rem',
+              padding: '0.625rem 0.875rem',
+            }}
+            type="button"
+          >
+            <span>{selectedOption?.label ?? placeholder}</span>
+            <span aria-hidden="true">▾</span>
+          </button>
+        </Combobox.EventsTarget>
+      </Combobox.DropdownTarget>
 
       <Combobox.Dropdown>
         <Combobox.Options>

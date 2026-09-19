@@ -73,4 +73,35 @@ describe('BudgetBoardSelect', () => {
 
     expect(screen.getByRole('combobox', { name: 'Choose an option' })).toHaveTextContent('Food');
   });
+
+  it('shows the placeholder for null values and reports null when cleared', async () => {
+    const onChange = vi.fn();
+    const user = userEvent.setup();
+
+    render(
+      <MantineProvider env="test">
+        <BudgetBoardSelect
+          data={[
+            { label: 'Clear selection', value: '' },
+            { label: 'Food', value: 'food' },
+          ]}
+          defaultValue={null}
+          onChange={onChange}
+          value={null}
+        />
+      </MantineProvider>,
+    );
+
+    expect(screen.getByRole('combobox', { name: 'Choose an option' })).toHaveTextContent(
+      'Select an option',
+    );
+
+    await user.click(screen.getByRole('combobox', { name: 'Choose an option' }));
+    await user.click(screen.getByRole('option', { name: 'Clear selection' }));
+
+    expect(onChange).toHaveBeenCalledWith(null);
+    expect(screen.getByRole('combobox', { name: 'Choose an option' })).toHaveTextContent(
+      'Select an option',
+    );
+  });
 });
