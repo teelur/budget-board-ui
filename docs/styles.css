@@ -129,11 +129,26 @@ select {
   border: 1px solid var(--bb-color-border);
   color: var(--bb-color-text-primary);
   cursor: pointer;
-  font-size: 0.75rem;
-  padding: 0.45rem 0.65rem;
+  display: grid;
+  height: 2.25rem;
+  place-items: center;
+  padding: 0;
+  transition:
+    background 160ms ease,
+    opacity 160ms ease,
+    transform 160ms ease;
+  width: 2.25rem;
 }
 .mode-toggle:hover {
   background: var(--bb-color-surface-elevated);
+}
+.header-hidden .mode-toggle {
+  background: var(--bb-color-surface-elevated);
+  box-shadow: 0 0.5rem 1.5rem color-mix(in srgb, #000 14%, transparent);
+  position: fixed;
+  right: 1.5rem;
+  top: 1.5rem;
+  z-index: 10;
 }
 .content-layout {
   display: grid;
@@ -264,7 +279,7 @@ h3 {
 }
 .color-swatch {
   border-bottom: 1px solid var(--bb-color-border);
-  height: 5rem;
+  height: 4rem;
 }
 .color-light-canvas {
   background: #f7f6f2;
@@ -305,14 +320,12 @@ h3 {
   font-size: 0.9rem;
 }
 .color-card-heading code,
-.color-card-content > code,
-.role-grid code {
+.color-card-content > code {
   color: var(--bb-color-text-muted);
   font-family: var(--data);
   font-size: 0.68rem;
 }
-.color-card-content p,
-.role-grid p {
+.color-card-content p {
   color: var(--bb-color-text-muted);
   font-size: 0.78rem;
   line-height: 1.55;
@@ -366,20 +379,6 @@ h3 {
   font-size: 0.78rem;
   line-height: 1.55;
   margin: 0.35rem 0 0;
-}
-.text-role-dark-value {
-  color: var(--bb-color-text-metadata);
-  font-family: var(--data);
-  font-size: 0.68rem;
-}
-.role-grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-.role-grid > div {
-  border-left: 2px solid var(--bb-color-border);
-  padding: 0.2rem 0 0.2rem 1rem;
 }
 .typography-grid {
   display: grid;
@@ -567,7 +566,6 @@ td {
   .showcase-grid,
   .reference-grid,
   .color-grid,
-  .role-grid,
   .text-role-grid,
   .typography-grid {
     grid-template-columns: 1fr;
