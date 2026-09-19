@@ -1,0 +1,39 @@
+name: Documentation PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build documentation
+        run: yarn docs:build
+
+      - name: Upload staging documentation
+        uses: actions/upload-artifact@v7
+        with:
+          name: docs-pr-${{ github.event.pull_request.number }}
+          path: docs-dist
+          if-no-files-found: error
+          retention-days: 7
