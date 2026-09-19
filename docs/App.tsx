@@ -10,28 +10,32 @@ const lightColors = [
     name: "Canvas",
     token: "--bb-color-page",
     value: "#F7F6F2",
-    description: "The main application background behind every page and layout region.",
+    description:
+      "The main application background behind every page and layout region.",
     className: "color-light-canvas",
   },
   {
     name: "Primary surface",
     token: "--bb-color-surface",
     value: "#FFFFFF",
-    description: "The default surface for cards, content panels, and focused work areas.",
+    description:
+      "The default surface for cards, content panels, and focused work areas.",
     className: "color-light-surface",
   },
   {
     name: "Elevated surface",
     token: "--bb-color-surface-elevated",
     value: "#FFFCF7",
-    description: "A gently lifted layer for menus, controls, dialogs, and temporary focus.",
+    description:
+      "A gently lifted layer for menus, controls, dialogs, and temporary focus.",
     className: "color-light-elevated",
   },
   {
     name: "Navigation",
     token: "--bb-color-navigation",
     value: "#F1EFE9",
-    description: "The distinct shell surface used by navigation and app-level chrome.",
+    description:
+      "The distinct shell surface used by navigation and app-level chrome.",
     className: "color-light-navigation",
   },
 ] as const;
@@ -41,28 +45,32 @@ const darkColors = [
     name: "Canvas",
     token: "--bb-color-page",
     value: "#111214",
-    description: "The main application background behind every page and layout region.",
+    description:
+      "The main application background behind every page and layout region.",
     className: "color-dark-canvas",
   },
   {
     name: "Primary surface",
     token: "--bb-color-surface",
     value: "#191B1F",
-    description: "The default surface for cards, content panels, and focused work areas.",
+    description:
+      "The default surface for cards, content panels, and focused work areas.",
     className: "color-dark-surface",
   },
   {
     name: "Elevated surface",
     token: "--bb-color-surface-elevated",
     value: "#22252A",
-    description: "A lighter layer for menus, controls, dialogs, and temporary focus.",
+    description:
+      "A lighter layer for menus, controls, dialogs, and temporary focus.",
     className: "color-dark-elevated",
   },
   {
     name: "Navigation",
     token: "--bb-color-navigation",
     value: "#191B1F",
-    description: "The distinct shell surface used by navigation and app-level chrome.",
+    description:
+      "The distinct shell surface used by navigation and app-level chrome.",
     className: "color-dark-navigation",
   },
 ] as const;
@@ -159,9 +167,9 @@ export function App() {
               <code>{colorMode} mode</code>
             </div>
             <p className="section-copy">
-              A restrained background system keeps the canvas, working
-              surfaces, and application chrome distinct without relying on
-              heavy shadows. These are the only finalized colors so far.
+              A restrained background system keeps the canvas, working surfaces,
+              and application chrome distinct without relying on heavy shadows.
+              These are the only finalized colors so far.
             </p>
             <div className="color-theme-section">
               <p className="theme-subheading">Light mode</p>
@@ -202,15 +210,24 @@ export function App() {
               <div className="role-grid">
                 <div>
                   <code>--bb-color-text</code>
-                  <p>Primary readable text, derived from the active system canvas text color.</p>
+                  <p>
+                    Primary readable text, derived from the active system canvas
+                    text color.
+                  </p>
                 </div>
                 <div>
                   <code>--bb-color-text-muted</code>
-                  <p>Secondary labels and supporting copy, softened from the active text color.</p>
+                  <p>
+                    Secondary labels and supporting copy, softened from the
+                    active text color.
+                  </p>
                 </div>
                 <div>
                   <code>--bb-color-border</code>
-                  <p>Quiet separators and outlines, derived from the active text color.</p>
+                  <p>
+                    Quiet separators and outlines, derived from the active text
+                    color.
+                  </p>
                 </div>
               </div>
             </div>
