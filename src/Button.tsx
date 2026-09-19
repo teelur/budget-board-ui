@@ -1,6 +1,9 @@
 import type { CSSProperties, ButtonHTMLAttributes, ReactNode } from "react";
-import { UnstyledButton, useMantineTheme } from "@mantine/core";
-import type { BudgetBoardColorMode, BudgetBoardContentColorKey } from "./theme";
+import { budgetBoardColors } from "./colors";
+import type {
+  BudgetBoardColorMode,
+  BudgetBoardContentColorKey,
+} from "./colors";
 import classes from "./Button.module.css";
 
 export const buttonColors = [
@@ -47,14 +50,13 @@ type ButtonStyle = CSSProperties &
   >;
 
 function getVariantStyles(
-  colors: Partial<BudgetBoardColorMode> | undefined,
+  colors: BudgetBoardColorMode,
   color: ButtonColor,
   variant: ButtonVariant,
 ): ButtonStyle {
-  const background = colors?.[color] ?? "Canvas";
-  const content =
-    colors?.[`${color}Content` as BudgetBoardContentColorKey] ?? "CanvasText";
-  const focusRing = colors?.focusRing ?? "currentColor";
+  const background = `var(--bb-color-${color}, ${colors[color]})`;
+  const content = `var(--bb-color-${color}-content, ${colors[`${color}Content` as BudgetBoardContentColorKey]})`;
+  const focusRing = `var(--bb-color-focus-ring, ${colors.focusRing})`;
   const colorToken = `var(--budget-board-button-${color}`;
   const hoverFallback = `color-mix(in srgb, ${background} 88%, ${content})`;
 
@@ -102,12 +104,8 @@ export function Button({
   variant = "filled",
   ...buttonProps
 }: ButtonProps) {
-  const theme = useMantineTheme();
-  const colors = (theme.other as { colors?: Partial<BudgetBoardColorMode> })
-    .colors;
-
   return (
-    <UnstyledButton
+    <button
       {...buttonProps}
       aria-busy={loading || undefined}
       className={[
@@ -124,13 +122,16 @@ export function Button({
       data-budget-board-size={size}
       data-budget-board-variant={variant}
       disabled={disabled ?? loading}
-      style={{ ...getVariantStyles(colors, color, variant), ...style }}
+      style={{
+        ...getVariantStyles(budgetBoardColors.light, color, variant),
+        ...style,
+      }}
       type={type}
     >
       {loading && <span aria-hidden="true" className={classes.loader} />}
       {leftSection && <span className={classes.section}>{leftSection}</span>}
       <span>{children}</span>
       {rightSection && <span className={classes.section}>{rightSection}</span>}
-    </UnstyledButton>
+    </button>
   );
 }

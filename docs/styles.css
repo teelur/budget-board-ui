@@ -3,7 +3,6 @@
 :root {
   color: var(--bb-color-text);
   background: var(--bb-color-page);
-  font-family: var(--bb-font-body);
   font-synthesis: none;
   line-height: 1.5;
 }
@@ -27,6 +26,7 @@ select {
   min-height: 100vh;
   background: var(--bb-color-page);
   color: var(--bb-color-text-primary);
+  font-family: var(--bb-font-body);
 }
 .site-header {
   align-items: center;
