@@ -1,9 +1,15 @@
 import { createTheme } from "@mantine/core";
 
+export const budgetBoardTypography = {
+  body: '"IBM Plex Sans Variable", sans-serif',
+  data: '"IBM Plex Sans Variable", sans-serif',
+  display: '"Plus Jakarta Sans Variable", sans-serif',
+} as const;
+
 export const budgetBoardTheme = createTheme({
-  fontFamily: "Manrope, sans-serif",
+  fontFamily: budgetBoardTypography.body,
   headings: {
-    fontFamily: "Manrope, sans-serif",
+    fontFamily: budgetBoardTypography.display,
   },
   defaultRadius: "sm",
 });

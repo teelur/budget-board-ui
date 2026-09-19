@@ -122,15 +122,24 @@ select {
   margin-left: auto;
 }
 .mode-toggle {
+  align-items: center;
   background: transparent;
   border: 1px solid var(--bb-color-border);
   color: var(--bb-color-text-primary);
   cursor: pointer;
+  display: inline-flex;
   font-size: 0.75rem;
+  justify-content: center;
   padding: 0.45rem 0.65rem;
 }
 .mode-toggle:hover {
   background: var(--bb-color-surface-elevated);
+}
+.floating-mode-toggle {
+  position: fixed;
+  right: 1.25rem;
+  top: 1.25rem;
+  z-index: 10;
 }
 .content-layout {
   display: grid;
