@@ -6,7 +6,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "test": "vitest run",
-    "build": "tsc -p tsconfig.build.json && vite build",
+    "build": "vite build && tsc -p tsconfig.build.json",
     "dev": "vite",
     "prepare": "yarn build"
   },
