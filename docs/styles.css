@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap");
 
 :root {
   --bb-color-page: #f7f6f2;
@@ -12,18 +12,21 @@
   --bb-color-text-muted: #969087;
   --bb-color-text-disabled: #b7b1a7;
   --bb-color-border: color-mix(in srgb, #3a3834 18%, transparent);
+  --bb-font-body: "IBM Plex Sans", sans-serif;
+  --bb-font-data: "IBM Plex Sans", sans-serif;
+  --bb-font-display: "Plus Jakarta Sans", sans-serif;
 
   --bb-color-text: var(--bb-color-text-primary);
   color: var(--bb-color-text-primary);
   background: var(--bb-color-page);
-  font-family: "Manrope", sans-serif;
+  font-family: var(--bb-font-body);
   font-synthesis: none;
   line-height: 1.5;
   --ink: var(--bb-color-text);
   --muted: var(--bb-color-text-muted);
   --line: var(--bb-color-border);
   --paper: var(--bb-color-surface);
-  --mono: "DM Mono", monospace;
+  --data: var(--bb-font-data);
 
   --budget-board-button-primary-background: var(--bb-color-surface-elevated);
   --budget-board-button-primary-color: var(--bb-color-text);
@@ -98,7 +101,7 @@ select {
 .demo-label,
 .nav-heading {
   color: var(--muted);
-  font-family: var(--mono);
+  font-family: var(--data);
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   margin: 0;
@@ -122,24 +125,15 @@ select {
   margin-left: auto;
 }
 .mode-toggle {
-  align-items: center;
   background: transparent;
   border: 1px solid var(--bb-color-border);
   color: var(--bb-color-text-primary);
   cursor: pointer;
-  display: inline-flex;
   font-size: 0.75rem;
-  justify-content: center;
   padding: 0.45rem 0.65rem;
 }
 .mode-toggle:hover {
   background: var(--bb-color-surface-elevated);
-}
-.floating-mode-toggle {
-  position: fixed;
-  right: 1.25rem;
-  top: 1.25rem;
-  z-index: 10;
 }
 .content-layout {
   display: grid;
@@ -166,7 +160,7 @@ select {
 }
 .side-nav code {
   color: var(--muted);
-  font-family: var(--mono);
+  font-family: var(--data);
   font-size: 0.62rem;
   overflow-wrap: anywhere;
 }
@@ -203,7 +197,7 @@ select {
 }
 .intro-meta span {
   background: var(--bb-color-surface-elevated);
-  font-family: var(--mono);
+  font-family: var(--data);
   font-size: 0.7rem;
   padding: 0.35rem 0.6rem;
 }
@@ -211,6 +205,7 @@ h1,
 h2,
 h3 {
   color: var(--bb-color-text-heading);
+  font-family: var(--bb-font-display);
 }
 .component-section {
   border-bottom: 1px solid var(--line);
@@ -230,7 +225,7 @@ h3 {
 .section-heading > code,
 .reference-grid code {
   color: var(--muted);
-  font-family: var(--mono);
+  font-family: var(--data);
   font-size: 0.68rem;
 }
 .showcase-grid {
@@ -250,7 +245,7 @@ h3 {
 }
 .theme-subheading {
   border-bottom: 1px solid var(--bb-color-border);
-  font-family: var(--mono);
+  font-family: var(--data);
   font-size: 0.72rem;
   letter-spacing: 0.06em;
   margin: 2.5rem 0 1rem;
@@ -313,7 +308,7 @@ h3 {
 .color-card-content > code,
 .role-grid code {
   color: var(--bb-color-text-muted);
-  font-family: var(--mono);
+  font-family: var(--data);
   font-size: 0.68rem;
 }
 .color-card-content p,
@@ -374,7 +369,7 @@ h3 {
 }
 .text-role-dark-value {
   color: var(--bb-color-text-metadata);
-  font-family: var(--mono);
+  font-family: var(--data);
   font-size: 0.68rem;
 }
 .role-grid {
@@ -385,6 +380,75 @@ h3 {
 .role-grid > div {
   border-left: 2px solid var(--bb-color-border);
   padding: 0.2rem 0 0.2rem 1rem;
+}
+.typography-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 2rem;
+}
+.typography-card {
+  background: var(--bb-color-surface);
+  border: 1px solid var(--bb-color-border);
+  display: grid;
+  gap: 0.55rem;
+  min-width: 0;
+  padding: 1.25rem;
+}
+.typography-card .demo-label {
+  margin-bottom: 0.5rem;
+}
+.typography-card strong {
+  color: var(--bb-color-text-heading);
+  font-size: 1.6rem;
+  line-height: 1.1;
+}
+.typography-card code,
+.typography-card p,
+.typography-card small {
+  color: var(--muted);
+  margin: 0;
+}
+.typography-card code,
+.typography-card small {
+  font-family: var(--data);
+  font-size: 0.68rem;
+}
+.typography-card p {
+  font-size: 0.8rem;
+}
+.typography-display {
+  font-family: var(--bb-font-display);
+}
+.typography-body {
+  font-family: var(--bb-font-body);
+}
+.typography-data {
+  font-family: var(--bb-font-data);
+  font-variant-numeric: tabular-nums;
+}
+.typography-transaction {
+  align-items: center;
+  background: var(--bb-color-surface);
+  border: 1px solid var(--bb-color-border);
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding: 1.25rem;
+}
+.typography-transaction div {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+}
+.typography-transaction span {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.typography-amount {
+  color: var(--bb-color-text-heading);
+  flex: 0 0 auto;
 }
 .demo-label {
   display: block;
@@ -412,7 +476,7 @@ label {
 label span,
 .live-result > span {
   color: var(--muted);
-  font-family: var(--mono);
+  font-family: var(--data);
   font-size: 0.68rem;
 }
 select {
@@ -455,7 +519,7 @@ td {
   vertical-align: top;
 }
 th {
-  font-family: var(--mono);
+  font-family: var(--data);
   font-size: 0.68rem;
   font-weight: 500;
 }
@@ -465,7 +529,7 @@ td {
 .code-block {
   background: var(--bb-color-navigation);
   color: var(--bb-color-text);
-  font-family: var(--mono);
+  font-family: var(--data);
   font-size: 0.72rem;
   line-height: 1.8;
   margin: 0;
@@ -475,7 +539,7 @@ td {
 }
 .site-footer {
   color: var(--muted);
-  font-family: var(--mono);
+  font-family: var(--data);
   font-size: 0.68rem;
   padding: 2rem 0;
 }
@@ -504,7 +568,8 @@ td {
   .reference-grid,
   .color-grid,
   .role-grid,
-  .text-role-grid {
+  .text-role-grid,
+  .typography-grid {
     grid-template-columns: 1fr;
   }
   .section-heading {
@@ -520,6 +585,10 @@ td {
   }
   .live-result > span {
     text-align: left;
+  }
+  .typography-transaction {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 

@@ -1,10 +1,33 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import type { ReactNode } from "react";
-import { Moon, Sun } from "lucide-react";
 import { Button } from "../src";
 
 const buttonVariants = ["primary", "secondary", "danger", "ghost"] as const;
 const buttonSizes = ["sm", "md", "lg"] as const;
+
+const typographyRoles = [
+  {
+    name: "Display",
+    token: "--bb-font-display",
+    family: "Plus Jakarta Sans",
+    description: "Brand moments and major page or section headings.",
+    className: "typography-display",
+  },
+  {
+    name: "Body",
+    token: "--bb-font-body",
+    family: "IBM Plex Sans",
+    description: "Navigation, controls, labels, and supporting copy.",
+    className: "typography-body",
+  },
+  {
+    name: "Data",
+    token: "--bb-font-data",
+    family: "IBM Plex Sans · tabular numerals",
+    description: "Balances, amounts, dates, and compact financial metadata.",
+    className: "typography-data",
+  },
+] as const;
 
 const lightColors = [
   {
@@ -154,54 +177,29 @@ function DemoFrame({
 
 export function App() {
   const [colorMode, setColorMode] = useState<"light" | "dark">("light");
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-  const headerRef = useRef<HTMLElement>(null);
   const [selectedVariant, setSelectedVariant] =
     useState<(typeof buttonVariants)[number]>("primary");
   const [selectedSize, setSelectedSize] =
     useState<(typeof buttonSizes)[number]>("md");
-  const activeColors = colorMode === "light" ? lightColors : darkColors;
-
-  useEffect(() => {
-    const header = headerRef.current;
-    if (!header) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsHeaderVisible(entry?.isIntersecting ?? false),
-      { threshold: 0 },
-    );
-    observer.observe(header);
-
-    return () => observer.disconnect();
-  }, []);
-
-  const modeLabel = colorMode === "light" ? "Light mode" : "Dark mode";
-  const ModeIcon = colorMode === "light" ? Sun : Moon;
-  const toggleMode = () =>
-    setColorMode((mode) => (mode === "light" ? "dark" : "light"));
 
   return (
     <div className="site-shell" data-color-mode={colorMode}>
-      <header className="site-header" ref={headerRef}>
+      <header className="site-header">
         <div className="brand-mark">BB</div>
         <div>
           <p className="eyebrow">Component library</p>
           <h1>Budget Board UI</h1>
         </div>
         <div className="header-actions">
-          {isHeaderVisible && (
-            <button
-              aria-label={`${modeLabel}. Switch to ${colorMode === "light" ? "dark" : "light"} mode`}
-              className="mode-toggle"
-              onClick={toggleMode}
-              title={modeLabel}
-              type="button"
-            >
-              <ModeIcon aria-hidden="true" size={16} strokeWidth={1.8} />
-            </button>
-          )}
+          <button
+            className="mode-toggle"
+            onClick={() =>
+              setColorMode((mode) => (mode === "light" ? "dark" : "light"))
+            }
+            type="button"
+          >
+            {colorMode === "light" ? "Dark mode" : "Light mode"}
+          </button>
           <a
             className="source-link"
             href="https://github.com/teelur/budget-board-ui"
@@ -211,23 +209,12 @@ export function App() {
         </div>
       </header>
 
-      {!isHeaderVisible && (
-        <button
-          aria-label={`${modeLabel}. Switch to ${colorMode === "light" ? "dark" : "light"} mode`}
-          className="mode-toggle floating-mode-toggle"
-          onClick={toggleMode}
-          title={modeLabel}
-          type="button"
-        >
-          <ModeIcon aria-hidden="true" size={16} strokeWidth={1.8} />
-        </button>
-      )}
-
       <div className="content-layout">
         <aside className="side-nav" aria-label="Documentation navigation">
           <p className="nav-heading">On this page</p>
           <a href="#overview">Overview</a>
           <a href="#color-theme">Color theme</a>
+          <a href="#typography">Typography</a>
           <a href="#button">Button</a>
           <p className="nav-heading nav-heading-spaced">Package</p>
           <code>@teelur/budget-board-ui</code>
@@ -263,9 +250,9 @@ export function App() {
               These are the only finalized colors so far.
             </p>
             <div className="color-theme-section">
-              <p className="theme-subheading">Surfaces</p>
+              <p className="theme-subheading">Light mode</p>
               <div className="color-grid">
-                {activeColors.map((color) => (
+                {lightColors.map((color) => (
                   <div className="color-card" key={color.token}>
                     <div className={`color-swatch ${color.className}`} />
                     <div className="color-card-content">
@@ -280,7 +267,45 @@ export function App() {
                 ))}
               </div>
 
-              <p className="theme-subheading">Content hierarchy</p>
+              <p className="theme-subheading">Dark mode</p>
+              <div className="color-grid">
+                {darkColors.map((color) => (
+                  <div className="color-card" key={color.token}>
+                    <div className={`color-swatch ${color.className}`} />
+                    <div className="color-card-content">
+                      <div className="color-card-heading">
+                        <strong>{color.name}</strong>
+                        <code>{color.value}</code>
+                      </div>
+                      <code>{color.token}</code>
+                      <p>{color.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <p className="theme-subheading">Shared roles</p>
+              <div className="role-grid">
+                <div>
+                  <code>--bb-color-border</code>
+                  <p>
+                    Quiet separators and outlines, derived from the active
+                    neutral palette.
+                  </p>
+                </div>
+                <div>
+                  <code>--bb-color-text-primary</code>
+                  <p>The default readable text role for application content.</p>
+                </div>
+                <div>
+                  <code>--bb-color-text-disabled</code>
+                  <p>
+                    A deliberately low-contrast role for unavailable content.
+                  </p>
+                </div>
+              </div>
+
+              <p className="theme-subheading">Text roles</p>
               <div className="text-role-grid">
                 {textRoles.map((role) => (
                   <div className="text-role-card" key={role.token}>
@@ -290,18 +315,55 @@ export function App() {
                     <div className="text-role-content">
                       <div className="color-card-heading">
                         <strong>{role.name}</strong>
-                        <code>
-                          {colorMode === "light"
-                            ? role.lightValue
-                            : role.darkValue}
-                        </code>
+                        <code>{role.lightValue}</code>
                       </div>
                       <code>{role.token}</code>
                       <p>{role.description}</p>
+                      <span className="text-role-dark-value">
+                        Dark mode {role.darkValue}
+                      </span>
                     </div>
                   </div>
                 ))}
               </div>
+            </div>
+          </section>
+
+          <section className="component-section" id="typography">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">Type foundations</p>
+                <h2>Typography</h2>
+              </div>
+              <code>3 roles · 2 families</code>
+            </div>
+            <p className="section-copy">
+              A small type system keeps the interface warm and readable while
+              giving financial values a precise, aligned rhythm.
+            </p>
+
+            <div className="typography-grid">
+              {typographyRoles.map((role) => (
+                <div className="typography-card" key={role.token}>
+                  <span className="demo-label">{role.name}</span>
+                  <strong className={role.className}>
+                    {role.name === "Data" ? "$12,480.00" : "Budget Board"}
+                  </strong>
+                  <code>{role.token}</code>
+                  <p>{role.family}</p>
+                  <small>{role.description}</small>
+                </div>
+              ))}
+            </div>
+
+            <div className="typography-transaction">
+              <div>
+                <strong>Neighborhood Market and Household Supplies</strong>
+                <span>Sep 19, 2026 · Groceries</span>
+              </div>
+              <strong className="typography-data typography-amount">
+                -$1,284.50
+              </strong>
             </div>
           </section>
 
