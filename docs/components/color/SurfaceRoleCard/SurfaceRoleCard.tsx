@@ -1,6 +1,6 @@
-import type { ColorMode } from "./colorCardTypes";
-import { valueForMode } from "./colorCardTypes";
-import colorCardStyles from "./ColorCard.module.css";
+import type { ColorMode } from "../colorCardTypes";
+import { valueForMode } from "../colorCardTypes";
+import colorCardStyles from "../ColorCard/ColorCard.module.css";
 import styles from "./SurfaceRoleCard.module.css";
 
 export interface SurfaceRoleData {

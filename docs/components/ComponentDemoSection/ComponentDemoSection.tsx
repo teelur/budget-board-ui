@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { KeyboardEvent, ReactNode } from "react";
-import { Button } from "../../src";
+import { Button } from "../../../src";
 import styles from "./ComponentDemoSection.module.css";
 
 type ComponentDemoTab = "preview" | "code";

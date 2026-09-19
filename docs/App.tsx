@@ -3,9 +3,9 @@ import type { CSSProperties } from "react";
 import { Moon, Sun } from "lucide-react";
 import { Button, budgetBoardColors, budgetBoardTypography } from "../src";
 import type { ColorMode } from "./components/color/colorCardTypes";
-import { ButtonPage } from "./pages/ButtonPage";
-import { ColorThemePage } from "./pages/ColorThemePage";
-import { TypographyPage } from "./pages/TypographyPage";
+import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
+import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
+import { TypographyPage } from "./pages/TypographyPage/TypographyPage";
 import styles from "./App.module.css";
 
 function toCssName(name: string) {

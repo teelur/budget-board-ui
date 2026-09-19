@@ -1,8 +1,13 @@
 import { useState } from "react";
-import { Button, buttonColors, buttonSizes, buttonVariants } from "../../src";
-import { ComponentDemoSection } from "../components/ComponentDemoSection";
-import demoStyles from "../components/ComponentDemoSection.module.css";
-import pageStyles from "./Page.module.css";
+import {
+  Button,
+  buttonColors,
+  buttonSizes,
+  buttonVariants,
+} from "../../../src";
+import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
+import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
+import pageStyles from "../Page.module.css";
 import styles from "./ButtonPage.module.css";
 
 function capitalize(value: string) {

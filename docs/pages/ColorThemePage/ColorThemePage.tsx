@@ -1,11 +1,11 @@
-import { budgetBoardColors } from "../../src";
-import { ColorCard } from "../components/color/ColorCard";
-import type { ColorMode } from "../components/color/colorCardTypes";
-import { RoleCard } from "../components/color/RoleCard";
-import { SemanticColorGroup } from "../components/color/SemanticColorGroup";
-import { SurfaceRoleCard } from "../components/color/SurfaceRoleCard";
-import { TextRoleCard } from "../components/color/TextRoleCard";
-import pageStyles from "./Page.module.css";
+import { budgetBoardColors } from "../../../src";
+import { ColorCard } from "../../components/color/ColorCard/ColorCard";
+import type { ColorMode } from "../../components/color/colorCardTypes";
+import { RoleCard } from "../../components/color/RoleCard/RoleCard";
+import { SemanticColorGroup } from "../../components/color/SemanticColorGroup/SemanticColorGroup";
+import { SurfaceRoleCard } from "../../components/color/SurfaceRoleCard/SurfaceRoleCard";
+import { TextRoleCard } from "../../components/color/TextRoleCard/TextRoleCard";
+import pageStyles from "../Page.module.css";
 import styles from "./ColorThemePage.module.css";
 
 const lightColors = [

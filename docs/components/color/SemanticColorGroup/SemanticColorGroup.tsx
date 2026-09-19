@@ -1,6 +1,6 @@
-import type { ColorMode } from "./colorCardTypes";
-import { RoleCard } from "./RoleCard";
-import type { RoleCardData } from "./RoleCard";
+import type { ColorMode } from "../colorCardTypes";
+import { RoleCard } from "../RoleCard/RoleCard";
+import type { RoleCardData } from "../RoleCard/RoleCard";
 import styles from "./SemanticColorGroup.module.css";
 
 export interface SemanticColorGroupData {

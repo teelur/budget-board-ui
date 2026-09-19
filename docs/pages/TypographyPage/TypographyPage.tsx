@@ -1,5 +1,5 @@
-import { budgetBoardTypography } from "../../src";
-import pageStyles from "./Page.module.css";
+import { budgetBoardTypography } from "../../../src";
+import pageStyles from "../Page.module.css";
 import styles from "./TypographyPage.module.css";
 
 const typographyRoles = [
