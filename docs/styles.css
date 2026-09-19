@@ -294,6 +294,13 @@ h3 {
   padding-bottom: 0.6rem;
   text-transform: uppercase;
 }
+.theme-subheading-copy {
+  color: var(--bb-color-text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin: -0.3rem 0 1rem;
+  max-width: 48rem;
+}
 .color-grid {
   display: grid;
   gap: 1rem;
@@ -452,6 +459,110 @@ h3 {
   font-size: 0.68rem;
 }
 .surface-role-content p {
+  color: var(--bb-color-text-muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  margin: 0.35rem 0 0;
+}
+.theme-role-grid {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.theme-role-card {
+  background: var(--bb-color-surface);
+  border: 1px solid var(--bb-color-border);
+  display: grid;
+  gap: 0.7rem;
+  min-width: 0;
+  padding: 0.8rem;
+}
+.theme-role-swatch {
+  align-items: center;
+  background: var(--theme-role-fill);
+  color: var(--theme-role-content);
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 700;
+  height: 3.25rem;
+  justify-content: center;
+}
+.theme-role-light-primary {
+  --theme-role-fill: #4c6ef5;
+  --theme-role-content: #fffaf2;
+}
+.theme-role-dark-primary {
+  --theme-role-fill: #91a7ff;
+  --theme-role-content: #1e2450;
+}
+.theme-role-light-primary-content {
+  --theme-role-fill: #fffaf2;
+  --theme-role-content: #4c6ef5;
+}
+.theme-role-dark-primary-content {
+  --theme-role-fill: #1e2450;
+  --theme-role-content: #91a7ff;
+}
+.theme-role-light-secondary {
+  --theme-role-fill: #12b886;
+  --theme-role-content: #063b2f;
+}
+.theme-role-dark-secondary {
+  --theme-role-fill: #63e6be;
+  --theme-role-content: #063b2f;
+}
+.theme-role-light-secondary-content {
+  --theme-role-fill: #063b2f;
+  --theme-role-content: #12b886;
+}
+.theme-role-dark-secondary-content {
+  --theme-role-fill: #063b2f;
+  --theme-role-content: #63e6be;
+}
+.theme-role-light-accent {
+  --theme-role-fill: #f76707;
+  --theme-role-content: #4a2103;
+}
+.theme-role-dark-accent {
+  --theme-role-fill: #ffa94d;
+  --theme-role-content: #4a2103;
+}
+.theme-role-light-accent-content {
+  --theme-role-fill: #4a2103;
+  --theme-role-content: #f76707;
+}
+.theme-role-dark-accent-content {
+  --theme-role-fill: #4a2103;
+  --theme-role-content: #ffa94d;
+}
+.theme-role-light-neutral {
+  --theme-role-fill: #e7e3da;
+  --theme-role-content: #3a3834;
+}
+.theme-role-dark-neutral {
+  --theme-role-fill: #34373a;
+  --theme-role-content: #f2f0eb;
+}
+.theme-role-light-neutral-content {
+  --theme-role-fill: #3a3834;
+  --theme-role-content: #e7e3da;
+}
+.theme-role-dark-neutral-content {
+  --theme-role-fill: #f2f0eb;
+  --theme-role-content: #34373a;
+}
+.theme-role-content {
+  display: grid;
+  gap: 0.45rem;
+}
+.theme-role-content > code,
+.theme-role-content-value {
+  color: var(--bb-color-text-muted);
+  font-family: var(--data);
+  font-size: 0.64rem;
+  overflow-wrap: anywhere;
+}
+.theme-role-content p {
   color: var(--bb-color-text-muted);
   font-size: 0.78rem;
   line-height: 1.55;
@@ -689,6 +800,7 @@ td {
   .color-grid,
   .surface-role-grid,
   .text-role-grid,
+  .theme-role-grid,
   .semantic-color-grid,
   .typography-grid {
     grid-template-columns: 1fr;

@@ -183,20 +183,100 @@ const textRoles = [
   },
 ] as const;
 
-const semanticColorGroups = [
+const themeRoles = [
   {
-    name: "Brand and actions",
-    roles: [
-      ["Primary", "primary"],
-      ["Primary content", "primary-content"],
-      ["Secondary", "secondary"],
-      ["Secondary content", "secondary-content"],
-      ["Accent", "accent"],
-      ["Accent content", "accent-content"],
-      ["Neutral", "neutral"],
-      ["Neutral content", "neutral-content"],
-    ],
+    name: "Primary",
+    token: "--bb-color-primary",
+    lightValue: "#4C6EF5",
+    darkValue: "#91A7FF",
+    lightContent: "#FFFAF2",
+    darkContent: "#1E2450",
+    description:
+      "Primary actions, active states, and the clearest call to action.",
+    lightClassName: "theme-role-light-primary",
+    darkClassName: "theme-role-dark-primary",
   },
+  {
+    name: "Primary content",
+    token: "--bb-color-primary-content",
+    lightValue: "#FFFAF2",
+    darkValue: "#1E2450",
+    lightContent: "#4C6EF5",
+    darkContent: "#91A7FF",
+    description: "Readable foreground content placed on the primary role.",
+    lightClassName: "theme-role-light-primary-content",
+    darkClassName: "theme-role-dark-primary-content",
+  },
+  {
+    name: "Secondary",
+    token: "--bb-color-secondary",
+    lightValue: "#12B886",
+    darkValue: "#63E6BE",
+    lightContent: "#063B2F",
+    darkContent: "#063B2F",
+    description: "Supporting actions and complementary control surfaces.",
+    lightClassName: "theme-role-light-secondary",
+    darkClassName: "theme-role-dark-secondary",
+  },
+  {
+    name: "Secondary content",
+    token: "--bb-color-secondary-content",
+    lightValue: "#063B2F",
+    darkValue: "#063B2F",
+    lightContent: "#12B886",
+    darkContent: "#63E6BE",
+    description: "Readable foreground content placed on the secondary role.",
+    lightClassName: "theme-role-light-secondary-content",
+    darkClassName: "theme-role-dark-secondary-content",
+  },
+  {
+    name: "Accent",
+    token: "--bb-color-accent",
+    lightValue: "#F76707",
+    darkValue: "#FFA94D",
+    lightContent: "#4A2103",
+    darkContent: "#4A2103",
+    description:
+      "Focused emphasis for highlights, attention, and memorable moments.",
+    lightClassName: "theme-role-light-accent",
+    darkClassName: "theme-role-dark-accent",
+  },
+  {
+    name: "Accent content",
+    token: "--bb-color-accent-content",
+    lightValue: "#4A2103",
+    darkValue: "#4A2103",
+    lightContent: "#F76707",
+    darkContent: "#FFA94D",
+    description: "Readable foreground content placed on the accent role.",
+    lightClassName: "theme-role-light-accent-content",
+    darkClassName: "theme-role-dark-accent-content",
+  },
+  {
+    name: "Neutral",
+    token: "--bb-color-neutral",
+    lightValue: "#E7E3DA",
+    darkValue: "#34373A",
+    lightContent: "#3A3834",
+    darkContent: "#F2F0EB",
+    description: "Low-emphasis controls and quiet structural actions.",
+    lightClassName: "theme-role-light-neutral",
+    darkClassName: "theme-role-dark-neutral",
+  },
+  {
+    name: "Neutral content",
+    token: "--bb-color-neutral-content",
+    lightValue: "#3A3834",
+    darkValue: "#F2F0EB",
+    lightContent: "#E7E3DA",
+    darkContent: "#34373A",
+    description: "Readable foreground content placed on the neutral role.",
+    lightClassName: "theme-role-light-neutral-content",
+    darkClassName: "theme-role-dark-neutral-content",
+  },
+] as const;
+
+const semanticColorGroups = [
   {
     name: "Structure and interaction",
     roles: [
@@ -340,12 +420,17 @@ export function App() {
             <p className="section-copy">
               A restrained background system keeps the canvas, working surfaces,
               and application chrome distinct without relying on heavy shadows.
-              Surfaces and text colors are finalized; the remaining semantic
-              roles below use temporary placeholders until their hues are
-              reviewed.
+              Surfaces, text, and theme roles are finalized; structure,
+              interaction, and feedback roles below remain temporary until their
+              hues are reviewed.
             </p>
             <div className="color-theme-section">
               <p className="theme-subheading">Surfaces</p>
+              <p className="theme-subheading-copy">
+                Light and dark surfaces use the same quiet, grounded hierarchy
+                while adapting their values to the surrounding mode. Small
+                shifts in value create depth without depending on heavy shadows.
+              </p>
               <div className="color-grid">
                 {colors.map((color) => (
                   <div className="color-card" key={color.token}>
@@ -389,6 +474,12 @@ export function App() {
               </div>
 
               <p className="theme-subheading">Text roles</p>
+              <p className="theme-subheading-copy">
+                Both modes use a measured neutral scale to keep financial
+                information readable at a glance. Stronger values establish
+                hierarchy while muted roles recede when attention should move
+                elsewhere.
+              </p>
               <div className="text-role-grid">
                 {textRoles.map((role) => (
                   <div className="text-role-card" key={role.token}>
@@ -411,7 +502,54 @@ export function App() {
                 ))}
               </div>
 
+              <p className="theme-subheading">Theme roles</p>
+              <p className="theme-subheading-copy">
+                Indigo, emerald, and orange bring consistent energy to actions
+                and emphasis in both modes without overwhelming the foundation.
+                Each light and dark value is paired with deliberate content
+                colors for clear contrast.
+              </p>
+              <div className="theme-role-grid">
+                {themeRoles.map((role) => (
+                  <div className="theme-role-card" key={role.token}>
+                    <div
+                      className={`theme-role-swatch ${
+                        colorMode === "light"
+                          ? role.lightClassName
+                          : role.darkClassName
+                      }`}
+                    >
+                      <span>Aa</span>
+                    </div>
+                    <div className="theme-role-content">
+                      <div className="color-card-heading">
+                        <strong>{role.name}</strong>
+                        <code>
+                          {colorMode === "light"
+                            ? role.lightValue
+                            : role.darkValue}
+                        </code>
+                      </div>
+                      <code>{role.token}</code>
+                      <p>{role.description}</p>
+                      <span className="theme-role-content-value">
+                        Content:{" "}
+                        {colorMode === "light"
+                          ? role.lightContent
+                          : role.darkContent}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
               <p className="theme-subheading">Semantic roles · placeholders</p>
+              <p className="theme-subheading-copy">
+                These roles will carry interaction states and system feedback in
+                both modes once their hues are finalized. They are intentionally
+                held back so their eventual colors can be judged as a coherent
+                set.
+              </p>
               <div className="semantic-color-groups">
                 {semanticColorGroups.map((group) => (
                   <div className="semantic-color-group" key={group.name}>

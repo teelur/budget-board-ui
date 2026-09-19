@@ -43,11 +43,19 @@ describe("budgetBoardColors", () => {
     expect(Object.keys(budgetBoardColors)).toEqual(semanticColorKeys);
   });
 
-  it("finalizes inverse text while keeping other semantic roles temporary", () => {
+  it("finalizes inverse text and theme roles", () => {
     const placeholder = "#b8b8b8";
 
     expect(budgetBoardColors.textInverse).toBe("#fffaf2");
-    expect(budgetBoardColors.primary).toBe(placeholder);
+    expect(budgetBoardColors.primary).toBe("#4c6ef5");
+    expect(budgetBoardColors.primaryContent).toBe("#fffaf2");
+    expect(budgetBoardColors.secondary).toBe("#12b886");
+    expect(budgetBoardColors.secondaryContent).toBe("#063b2f");
+    expect(budgetBoardColors.accent).toBe("#f76707");
+    expect(budgetBoardColors.accentContent).toBe("#4a2103");
+    expect(budgetBoardColors.neutral).toBe("#e7e3da");
+    expect(budgetBoardColors.neutralContent).toBe("#3a3834");
+    expect(budgetBoardColors.borderSubtle).toBe(placeholder);
     expect(budgetBoardColors.info).toBe(placeholder);
     expect(budgetBoardColors.errorContent).toBe(placeholder);
   });
