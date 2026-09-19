@@ -21,7 +21,18 @@ export type ButtonColor = (typeof buttonColors)[number];
 export const buttonVariants = ["filled", "outline", "ghost"] as const;
 export type ButtonVariant = (typeof buttonVariants)[number];
 
-export const buttonSizes = ["xs", "sm", "md", "lg", "xl"] as const;
+export const buttonSizes = [
+  "compact-xs",
+  "compact-sm",
+  "compact-md",
+  "compact-lg",
+  "compact-xl",
+  "xs",
+  "sm",
+  "md",
+  "lg",
+  "xl",
+] as const;
 export type ButtonSize = (typeof buttonSizes)[number];
 
 export interface ButtonProps extends Omit<

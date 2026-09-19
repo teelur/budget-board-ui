@@ -20,7 +20,18 @@ describe("Button", () => {
   });
 
   it("supports every public size", () => {
-    const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
+    const sizes = [
+      "compact-xs",
+      "compact-sm",
+      "compact-md",
+      "compact-lg",
+      "compact-xl",
+      "xs",
+      "sm",
+      "md",
+      "lg",
+      "xl",
+    ] as const;
 
     renderButton(
       <>

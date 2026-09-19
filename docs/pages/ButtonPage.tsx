@@ -7,12 +7,24 @@ function capitalize(value: string) {
 }
 
 const buttonSizeLabels = {
+  "compact-xs": "Compact extra small",
+  "compact-sm": "Compact small",
+  "compact-md": "Compact medium",
+  "compact-lg": "Compact large",
+  "compact-xl": "Compact extra large",
   xs: "Extra small",
   sm: "Small",
   md: "Medium",
   lg: "Large",
   xl: "Extra large",
 } as const;
+
+const standardButtonSizes = buttonSizes.filter(
+  (size) => !size.startsWith("compact-"),
+);
+const compactButtonSizes = buttonSizes.filter((size) =>
+  size.startsWith("compact-"),
+);
 
 export function ButtonPage() {
   const [selectedVariant, setSelectedVariant] =
@@ -79,7 +91,7 @@ export function ButtonPage() {
         description="Scale the control to match the density and emphasis of its surrounding layout."
         id="button-sizes"
         title="Sizes"
-        code={buttonSizes
+        code={standardButtonSizes
           .map(
             (size) =>
               `<Button size="${size}">${buttonSizeLabels[size]}</Button>`,
@@ -87,7 +99,27 @@ export function ButtonPage() {
           .join("\n")}
       >
         <div className="button-stack">
-          {buttonSizes.map((size) => (
+          {standardButtonSizes.map((size) => (
+            <Button key={size} size={size}>
+              {size.toUpperCase()}
+            </Button>
+          ))}
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description="Use compact sizes when the surrounding layout calls for a tighter control without changing its type scale."
+        id="button-compact-sizes"
+        title="Compact sizes"
+        code={compactButtonSizes
+          .map(
+            (size) =>
+              `<Button size="${size}">${buttonSizeLabels[size]}</Button>`,
+          )
+          .join("\n")}
+      >
+        <div className="button-stack">
+          {compactButtonSizes.map((size) => (
             <Button key={size} size={size}>
               {size.toUpperCase()}
             </Button>
