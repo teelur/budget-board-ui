@@ -38,8 +38,7 @@
 }
 
 .componentDemoTabs {
-  border-bottom: 1px solid var(--line);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   margin-top: 1.25rem;
 }
 
@@ -67,7 +66,7 @@
 }
 
 .componentDemoCode {
-  border-top: 1px solid var(--line);
+  border: 1px solid var(--line);
   min-height: 0;
 }
 
