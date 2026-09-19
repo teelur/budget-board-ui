@@ -402,9 +402,6 @@ h3 {
   background: var(--bb-color-text-heading);
   color: var(--bb-color-text-inverse);
 }
-[data-color-mode="dark"] .text-role-inverse {
-  background: var(--bb-color-text-inverse);
-}
 .text-role-primary {
   color: var(--bb-color-text-primary);
 }
