@@ -16,6 +16,7 @@ export type {
   BudgetBoardColorKey,
   BudgetBoardColorMode,
   BudgetBoardColors,
+  BudgetBoardContentColorKey,
   BudgetBoardFontKey,
   BudgetBoardTypography,
 } from "./theme";

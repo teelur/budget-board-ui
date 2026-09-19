@@ -38,6 +38,11 @@ const lightColors = {
 } as const;
 
 export type BudgetBoardColorKey = keyof typeof lightColors;
+// Content tokens pair with semantic roles as readable foregrounds, e.g. info/infoContent.
+export type BudgetBoardContentColorKey = Extract<
+  BudgetBoardColorKey,
+  `${string}Content`
+>;
 
 const darkColors = {
   page: "#111214",

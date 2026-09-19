@@ -1,6 +1,6 @@
 import type { CSSProperties, ButtonHTMLAttributes, ReactNode } from "react";
 import { UnstyledButton, useMantineTheme } from "@mantine/core";
-import type { BudgetBoardColorMode } from "./theme";
+import type { BudgetBoardColorMode, BudgetBoardContentColorKey } from "./theme";
 import classes from "./Button.module.css";
 
 export type ButtonColor =
@@ -47,7 +47,7 @@ function getVariantStyles(
 ): ButtonStyle {
   const background = colors?.[color] ?? "Canvas";
   const content =
-    colors?.[`${color}Content` as keyof BudgetBoardColorMode] ?? "CanvasText";
+    colors?.[`${color}Content` as BudgetBoardContentColorKey] ?? "CanvasText";
   const focusRing = colors?.focusRing ?? "currentColor";
   const colorToken = `var(--budget-board-button-${color}`;
   const hoverFallback = `color-mix(in srgb, ${background} 88%, ${content})`;

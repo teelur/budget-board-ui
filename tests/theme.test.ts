@@ -5,7 +5,11 @@ import {
   budgetBoardTheme,
   budgetBoardTypography,
 } from "../src/theme";
-import type { BudgetBoardColorKey, BudgetBoardFontKey } from "../src/theme";
+import type {
+  BudgetBoardColorKey,
+  BudgetBoardContentColorKey,
+  BudgetBoardFontKey,
+} from "../src/theme";
 
 const semanticColorKeys = [
   "page",
@@ -50,6 +54,17 @@ const fontKeys = [
   "display",
 ] as const satisfies readonly BudgetBoardFontKey[];
 
+const contentColorKeys = [
+  "primaryContent",
+  "secondaryContent",
+  "accentContent",
+  "neutralContent",
+  "infoContent",
+  "successContent",
+  "warningContent",
+  "errorContent",
+] as const satisfies readonly BudgetBoardContentColorKey[];
+
 describe("budgetBoardColors", () => {
   it("includes every semantic color key in both modes", () => {
     expect(Object.keys(budgetBoardColors.light)).toEqual(semanticColorKeys);
@@ -83,6 +98,12 @@ describe("budgetBoardColors", () => {
     expect(budgetBoardColors.dark.warningContent).toBe("#5f3b00");
     expect(budgetBoardColors.dark.error).toBe("#ff6b6b");
     expect(budgetBoardColors.dark.errorContent).toBe("#4a0c0c");
+  });
+
+  it("includes content color keys", () => {
+    expect(semanticColorKeys.filter((key) => key.endsWith("Content"))).toEqual(
+      contentColorKeys,
+    );
   });
 
   it("preserves the finalized background and content values", () => {
