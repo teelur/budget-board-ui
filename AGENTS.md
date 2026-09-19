@@ -47,7 +47,7 @@ Update `docs/App.tsx` when a component is added or its public behavior changes:
 - Add or update a live example that uses the public export.
 - Document all public API in the component's API reference section, including public props, accepted values, and defaults.
 - Demonstrate meaningful states and variants without duplicating implementation details.
-- Use the package's exported UI components wherever an equivalent exists. Use native HTML controls only for documentation-specific controls that are not part of the package API, such as example configuration selectors.
+- Use the package's exported Budget Board UI components wherever an equivalent exists. Use native HTML controls only for documentation-specific controls that are not part of the package API, such as example configuration selectors.
 
 Do not edit `dist/` or `docs-dist/` directly. They are generated outputs.
 
