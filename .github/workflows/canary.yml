@@ -1,4 +1,4 @@
-name: Nightly Build
+name: Canary Build
 
 on:
   push:
@@ -35,13 +35,13 @@ jobs:
       - name: Run tests
         run: yarn test
 
-      - name: Set nightly version
+      - name: Set canary version
         run: |
           BASE_VERSION=$(node -p "require('./package.json').version")
           SHORT_SHA=$(git rev-parse --short HEAD)
-          yarn version "$BASE_VERSION-nightly.$(date -u +%Y%m%d%H%M%S).$SHORT_SHA" --immediate
+          yarn version "$BASE_VERSION-canary.$(date -u +%Y%m%d%H%M%S).$SHORT_SHA" --immediate
 
-      - name: Publish nightly package
-        run: yarn npm publish --tag nightly
+      - name: Publish canary package
+        run: yarn npm publish --tag canary
         env:
           YARN_NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
