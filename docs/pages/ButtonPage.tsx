@@ -30,6 +30,7 @@ const standardButtonSizes = buttonSizes.filter(
 const compactButtonSizes = buttonSizes.filter((size) =>
   size.startsWith("compact-"),
 );
+const buttonTypes = ["button", "submit", "reset"] as const;
 
 export function ButtonPage() {
   const [selectedVariant, setSelectedVariant] =
@@ -38,6 +39,35 @@ export function ButtonPage() {
     useState<(typeof buttonColors)[number]>("primary");
   const [selectedSize, setSelectedSize] =
     useState<(typeof buttonSizes)[number]>("md");
+  const [buttonLabel, setButtonLabel] = useState("Add transaction");
+  const [leftSection, setLeftSection] = useState("+");
+  const [rightSection, setRightSection] = useState(">");
+  const [selectedType, setSelectedType] =
+    useState<(typeof buttonTypes)[number]>("button");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
+  const [isShowcaseSelected, setIsShowcaseSelected] = useState(false);
+  const [isFullWidth, setIsFullWidth] = useState(false);
+  const renderedLabel = buttonLabel || "Button";
+
+  const playgroundProps = [
+    `color="${selectedColor}"`,
+    `size="${selectedSize}"`,
+    `variant="${selectedVariant}"`,
+    `type="${selectedType}"`,
+    isLoading && "loading",
+    isDisabled && "disabled",
+    isSelected && "selected",
+    isFullWidth && "fullWidth",
+    leftSection && `leftSection={${JSON.stringify(leftSection)}}`,
+    rightSection && `rightSection={${JSON.stringify(rightSection)}}`,
+  ].filter(Boolean);
+  const playgroundCode = `<Button
+${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
+>
+  ${renderedLabel}
+</Button>`;
 
   return (
     <section className="component-section" id="button">
@@ -136,14 +166,38 @@ export function ButtonPage() {
         description="Loading and disabled states keep availability visible while preserving the button's shape."
         id="button-states"
         title="States"
-        code={`<Button color="success">Ready</Button>
-<Button loading>Saving changes</Button>
+        code={`<Button loading>Saving changes</Button>
 <Button disabled>Unavailable</Button>`}
       >
         <div className="button-stack">
-          <Button color="success">Ready</Button>
           <Button loading>Saving changes</Button>
           <Button disabled>Unavailable</Button>
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description="Click the button to switch between its selected and unselected states."
+        id="button-selected"
+        title="Selected"
+        code={`const [selected, setSelected] = useState(false);
+
+<Button
+  selected={selected}
+  onClick={() => setSelected((current) => !current)}
+>
+  Toggle selection
+</Button>`}
+      >
+        <div className="button-stack button-selected-demo">
+          <Button
+            selected={isShowcaseSelected}
+            onClick={() => setIsShowcaseSelected((current) => !current)}
+          >
+            Toggle selection
+          </Button>
+          <span aria-live="polite">
+            {isShowcaseSelected ? "Selected" : "Unselected"}
+          </span>
         </div>
       </ComponentDemoSection>
 
@@ -185,72 +239,186 @@ export function ButtonPage() {
         description="Adjust the public props together and see the resulting control immediately."
         id="button-playground"
         title="Playground"
-        code={`<Button
-  color="${selectedColor}"
-  size="${selectedSize}"
-  variant="${selectedVariant}"
-  leftSection="+"
-  rightSection=">">
-  Add transaction
-</Button>`}
+        code={playgroundCode}
       >
-        <div className="control-row">
-          <label>
-            <span>Variant</span>
-            <select
-              value={selectedVariant}
-              onChange={(event) =>
-                setSelectedVariant(event.target.value as typeof selectedVariant)
-              }
-            >
-              {buttonVariants.map((variant) => (
-                <option key={variant} value={variant}>
-                  {capitalize(variant)}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span>Color</span>
-            <select
-              value={selectedColor}
-              onChange={(event) =>
-                setSelectedColor(event.target.value as typeof selectedColor)
-              }
-            >
-              {buttonColors.map((color) => (
-                <option key={color} value={color}>
-                  {capitalize(color)}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span>Size</span>
-            <select
-              value={selectedSize}
-              onChange={(event) =>
-                setSelectedSize(event.target.value as typeof selectedSize)
-              }
-            >
-              {buttonSizes.map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
-          </label>
-          <div className="live-result">
-            <span>Rendered result</span>
-            <Button
-              color={selectedColor}
-              size={selectedSize}
-              variant={selectedVariant}
-              leftSection="+"
-              rightSection=">"
-            >
-              Add transaction
-            </Button>
+        <div className="button-playground">
+          <div className="button-playground-controls">
+            <div className="button-control-group">
+              <div>
+                <p className="button-control-heading">Appearance</p>
+                <p className="button-control-copy">
+                  Tune the visual treatment and scale.
+                </p>
+              </div>
+              <div className="button-control-grid">
+                <label className="button-field">
+                  <span>Variant</span>
+                  <select
+                    value={selectedVariant}
+                    onChange={(event) =>
+                      setSelectedVariant(
+                        event.target.value as typeof selectedVariant,
+                      )
+                    }
+                  >
+                    {buttonVariants.map((variant) => (
+                      <option key={variant} value={variant}>
+                        {capitalize(variant)}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="button-field">
+                  <span>Color</span>
+                  <select
+                    value={selectedColor}
+                    onChange={(event) =>
+                      setSelectedColor(
+                        event.target.value as typeof selectedColor,
+                      )
+                    }
+                  >
+                    {buttonColors.map((color) => (
+                      <option key={color} value={color}>
+                        {capitalize(color)}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="button-field">
+                  <span>Size</span>
+                  <select
+                    value={selectedSize}
+                    onChange={(event) =>
+                      setSelectedSize(event.target.value as typeof selectedSize)
+                    }
+                  >
+                    {buttonSizes.map((size) => (
+                      <option key={size} value={size}>
+                        {buttonSizeLabels[size]}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="button-field">
+                  <span>Type</span>
+                  <select
+                    value={selectedType}
+                    onChange={(event) =>
+                      setSelectedType(event.target.value as typeof selectedType)
+                    }
+                  >
+                    {buttonTypes.map((type) => (
+                      <option key={type} value={type}>
+                        {capitalize(type)}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div className="button-control-group">
+              <div>
+                <p className="button-control-heading">Content</p>
+                <p className="button-control-copy">
+                  Preview labels and optional edge sections.
+                </p>
+              </div>
+              <label className="button-field">
+                <span>Label</span>
+                <input
+                  onChange={(event) => setButtonLabel(event.target.value)}
+                  type="text"
+                  value={buttonLabel}
+                />
+              </label>
+              <div className="button-control-grid">
+                <label className="button-field">
+                  <span>Left section</span>
+                  <input
+                    aria-label="Left section"
+                    onChange={(event) => setLeftSection(event.target.value)}
+                    placeholder="Optional"
+                    type="text"
+                    value={leftSection}
+                  />
+                </label>
+                <label className="button-field">
+                  <span>Right section</span>
+                  <input
+                    aria-label="Right section"
+                    onChange={(event) => setRightSection(event.target.value)}
+                    placeholder="Optional"
+                    type="text"
+                    value={rightSection}
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div className="button-control-group">
+              <div>
+                <p className="button-control-heading">Behavior</p>
+                <p className="button-control-copy">
+                  Test availability and layout states.
+                </p>
+              </div>
+              <div className="button-toggle-grid">
+                <label className="button-toggle">
+                  <input
+                    checked={isLoading}
+                    onChange={(event) => setIsLoading(event.target.checked)}
+                    type="checkbox"
+                  />
+                  <span>Loading</span>
+                </label>
+                <label className="button-toggle">
+                  <input
+                    checked={isDisabled}
+                    onChange={(event) => setIsDisabled(event.target.checked)}
+                    type="checkbox"
+                  />
+                  <span>Disabled</span>
+                </label>
+                <label className="button-toggle">
+                  <input
+                    checked={isSelected}
+                    onChange={(event) => setIsSelected(event.target.checked)}
+                    type="checkbox"
+                  />
+                  <span>Selected</span>
+                </label>
+                <label className="button-toggle">
+                  <input
+                    checked={isFullWidth}
+                    onChange={(event) => setIsFullWidth(event.target.checked)}
+                    type="checkbox"
+                  />
+                  <span>Full width</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div className="button-playground-preview">
+            <span className="button-preview-label">Rendered result</span>
+            <div className="button-preview-stage">
+              <Button
+                selected={isSelected}
+                color={selectedColor}
+                disabled={isDisabled}
+                fullWidth={isFullWidth}
+                leftSection={leftSection || undefined}
+                loading={isLoading}
+                rightSection={rightSection || undefined}
+                size={selectedSize}
+                type={selectedType}
+                variant={selectedVariant}
+              >
+                {renderedLabel}
+              </Button>
+            </div>
           </div>
         </div>
       </ComponentDemoSection>
@@ -274,6 +442,13 @@ export function ButtonPage() {
             <table>
               <tbody>
                 <tr>
+                  <th>children</th>
+                  <td>
+                    <code>ReactNode</code>
+                  </td>
+                  <td>-</td>
+                </tr>
+                <tr>
                   <th>variant</th>
                   <td>
                     <code>{buttonVariants.join(" | ")}</code>
@@ -295,7 +470,21 @@ export function ButtonPage() {
                   <td>md</td>
                 </tr>
                 <tr>
+                  <th>selected</th>
+                  <td>
+                    <code>boolean</code>
+                  </td>
+                  <td>false</td>
+                </tr>
+                <tr>
                   <th>loading</th>
+                  <td>
+                    <code>boolean</code>
+                  </td>
+                  <td>false</td>
+                </tr>
+                <tr>
+                  <th>disabled</th>
                   <td>
                     <code>boolean</code>
                   </td>
@@ -316,9 +505,37 @@ export function ButtonPage() {
                   <td>-</td>
                 </tr>
                 <tr>
+                  <th>type</th>
+                  <td>
+                    <code>button | submit | reset</code>
+                  </td>
+                  <td>button</td>
+                </tr>
+                <tr>
                   <th>rightSection</th>
                   <td>
                     <code>ReactNode</code>
+                  </td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <th>className</th>
+                  <td>
+                    <code>string</code>
+                  </td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <th>style</th>
+                  <td>
+                    <code>CSSProperties</code>
+                  </td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <th>native button attributes</th>
+                  <td>
+                    <code>ButtonHTMLAttributes&lt;HTMLButtonElement&gt;</code>
                   </td>
                   <td>-</td>
                 </tr>

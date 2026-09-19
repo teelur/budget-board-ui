@@ -39,6 +39,7 @@ export interface ButtonProps extends Omit<
   ButtonHTMLAttributes<HTMLButtonElement>,
   "children" | "color" | "disabled"
 > {
+  selected?: boolean;
   children?: ReactNode;
   disabled?: boolean;
   fullWidth?: boolean;
@@ -55,7 +56,9 @@ type ButtonStyle = CSSProperties &
     | "--button-bg"
     | "--button-color"
     | "--button-hover"
+    | "--button-active"
     | "--button-border"
+    | "--button-hover-border"
     | "--button-focus",
     string
   >;
@@ -76,7 +79,9 @@ function getVariantStyles(
       "--button-bg": "transparent",
       "--button-color": `${colorToken}-outline-color, ${background})`,
       "--button-hover": `${colorToken}-outline-hover, color-mix(in srgb, ${background} 12%, transparent))`,
+      "--button-active": `${colorToken}-outline-active, color-mix(in srgb, ${background} 20%, transparent))`,
       "--button-border": `${colorToken}-outline-border, ${background})`,
+      "--button-hover-border": `${colorToken}-outline-border, ${background})`,
       "--button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
     };
   }
@@ -86,7 +91,9 @@ function getVariantStyles(
       "--button-bg": "transparent",
       "--button-color": `${colorToken}-ghost-color, ${background})`,
       "--button-hover": `${colorToken}-ghost-hover, color-mix(in srgb, ${background} 12%, transparent))`,
+      "--button-active": `${colorToken}-ghost-active, color-mix(in srgb, ${background} 20%, transparent))`,
       "--button-border": "transparent",
+      "--button-hover-border": `${colorToken}-ghost-hover-border, ${background})`,
       "--button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
     };
   }
@@ -95,12 +102,15 @@ function getVariantStyles(
     "--button-bg": `${colorToken}-background, ${background})`,
     "--button-color": `${colorToken}-color, ${content})`,
     "--button-hover": `${colorToken}-hover, ${hoverFallback})`,
+    "--button-active": `${colorToken}-active, color-mix(in srgb, ${background} 80%, ${content})`,
     "--button-border": "transparent",
+    "--button-hover-border": "transparent",
     "--button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
   };
 }
 
 export function Button({
+  selected,
   children,
   className,
   color = "primary",
@@ -118,10 +128,12 @@ export function Button({
   return (
     <button
       {...buttonProps}
+      {...(selected === undefined ? {} : { "aria-pressed": selected })}
       aria-busy={loading || undefined}
       className={[
         classes.root,
         classes[size],
+        selected && classes.selected,
         fullWidth && classes.fullWidth,
         loading && classes.loading,
         className,
@@ -129,6 +141,9 @@ export function Button({
         .filter(Boolean)
         .join(" ")}
       data-budget-board-full-width={fullWidth ? "true" : undefined}
+      data-budget-board-selected={
+        selected === undefined ? undefined : selected ? "true" : "false"
+      }
       data-budget-board-color={color}
       data-budget-board-size={size}
       data-budget-board-variant={variant}

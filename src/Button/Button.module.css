@@ -15,11 +15,34 @@
   transition:
     background-color 120ms ease,
     border-color 120ms ease,
-    opacity 120ms ease;
+    color 120ms ease,
+    opacity 120ms ease,
+    transform 120ms ease;
+}
+
+.root.selected:not(:disabled) {
+  background: var(--button-active);
+}
+
+.root.selected[data-budget-board-variant="filled"]:not(:disabled) {
+  background: var(--button-color);
+  border-color: var(--button-color);
+  color: var(--button-bg);
 }
 
 .root:hover:not(:disabled) {
   background: var(--button-hover);
+  border-color: var(--button-hover-border);
+}
+
+.root.selected[data-budget-board-variant="filled"]:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--button-color) 84%, var(--button-bg));
+  border-color: var(--button-color);
+}
+
+.root:active:not(:disabled) {
+  background: var(--button-active);
+  transform: translateY(1px);
 }
 
 .root:focus-visible {
@@ -112,6 +135,10 @@
 }
 
 .loading {
+  cursor: progress;
+}
+
+.root.loading:disabled {
   cursor: progress;
 }
 

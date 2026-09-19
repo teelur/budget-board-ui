@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
-import { Button } from "../src/Button";
+import { Button } from "../src/Button/Button";
 
 function renderButton(button: React.ReactNode) {
   return render(button);
@@ -17,6 +17,30 @@ describe("Button", () => {
     expect(button).toHaveAttribute("data-budget-board-variant", "filled");
     expect(button).toHaveAttribute("data-budget-board-color", "primary");
     expect(button).toHaveAttribute("data-budget-board-size", "md");
+    expect(button).not.toHaveAttribute("data-budget-board-selected");
+    expect(button).not.toHaveAttribute("aria-pressed");
+  });
+
+  it("supports a latched selected state while remaining interactive", async () => {
+    const onClick = vi.fn();
+    const user = userEvent.setup();
+
+    renderButton(
+      <Button selected onClick={onClick}>
+        Edit mode
+      </Button>,
+    );
+
+    const button = screen.getByRole("button", { name: "Edit mode" });
+
+    expect(button).toHaveAttribute("data-budget-board-selected", "true");
+    expect(button).toHaveAttribute("aria-pressed", "true");
+    expect(button.className).toContain("selected");
+
+    await user.hover(button);
+    await user.click(button);
+
+    expect(onClick).toHaveBeenCalledOnce();
   });
 
   it("supports every public size", () => {
@@ -99,6 +123,13 @@ describe("Button", () => {
         .getByRole("button", { name: "Warning ghost" })
         .style.getPropertyValue("--button-bg"),
     ).toBe("transparent");
+    expect(
+      screen
+        .getByRole("button", { name: "Warning ghost" })
+        .style.getPropertyValue("--button-hover-border"),
+    ).toBe(
+      "var(--budget-board-button-warning-ghost-hover-border, var(--bb-color-warning, #fcc419))",
+    );
   });
 
   it("resolves dark semantic palette roles", () => {
@@ -231,6 +262,15 @@ describe("Button", () => {
     expect(screen.getByRole("button", { name: "Disabled" })).toBeDisabled();
     expect(screen.getByRole("button", { name: "Loading" })).toBeDisabled();
     expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it("announces loading while preserving the button label", () => {
+    renderButton(<Button loading>Saving changes</Button>);
+
+    const button = screen.getByRole("button", { name: "Saving changes" });
+
+    expect(button).toHaveAttribute("aria-busy", "true");
+    expect(button).toBeDisabled();
   });
 
   it("supports full-width rendering", () => {
