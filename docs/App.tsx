@@ -111,12 +111,11 @@ export function App() {
 
         <main className={styles.mainContent}>
           <section className={styles.intro} id="overview">
-            <p className={styles.eyebrow}>Budget Board primitives</p>
-            <h2>Small components with a clear point of view.</h2>
+            <p className={styles.eyebrow}>Budget Board UI</p>
+            <h2>The building blocks behind Budget Board.</h2>
             <p className={styles.introCopy}>
-              A living reference for the components shipped by Budget Board UI.
-              Explore the states, copy the examples, and see the public API in
-              one place.
+              A reference for the components shipped by Budget Board UI. Browse
+              the examples and public API in one place.
             </p>
             <div className={styles.introMeta}>
               <span>React 19</span>
