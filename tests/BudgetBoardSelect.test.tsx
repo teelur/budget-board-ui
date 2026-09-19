@@ -10,7 +10,7 @@ describe('BudgetBoardSelect', () => {
     const user = userEvent.setup();
 
     render(
-      <MantineProvider>
+      <MantineProvider env="test">
         <BudgetBoardSelect
           data={[
             { label: 'Housing', value: 'housing' },
@@ -33,7 +33,7 @@ describe('BudgetBoardSelect', () => {
     const user = userEvent.setup();
 
     render(
-      <MantineProvider>
+      <MantineProvider env="test">
         <BudgetBoardSelect ariaLabel="Empty select" data={[]} emptyMessage="Nothing to choose" />
       </MantineProvider>,
     );

@@ -10,27 +10,27 @@ export interface BudgetBoardSelectOption {
 export interface BudgetBoardSelectProps {
   ariaLabel?: string;
   data: readonly BudgetBoardSelectOption[];
-  defaultValue?: string | null;
+  defaultValue?: string;
   emptyMessage?: string;
   onChange?: (value: string) => void;
   placeholder?: string;
-  value?: string | null;
+  value?: string;
 }
 
 export function BudgetBoardSelect({
   ariaLabel = 'Choose an option',
   data,
-  defaultValue = null,
+  defaultValue,
   emptyMessage = 'No options available',
   onChange,
   placeholder = 'Select an option',
   value,
 }: BudgetBoardSelectProps) {
-  const [selectedValue, setSelectedValue] = useUncontrolled({
-    value,
-    defaultValue,
-    finalValue: null,
-    onChange,
+  const [selectedValue, setSelectedValue] = useUncontrolled<string>({
+    ...(value !== undefined ? { value } : {}),
+    ...(defaultValue !== undefined ? { defaultValue } : {}),
+    ...(onChange ? { onChange } : {}),
+    finalValue: '',
   });
 
   const combobox = useCombobox({
