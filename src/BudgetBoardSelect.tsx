@@ -55,7 +55,7 @@ export function BudgetBoardSelect({
   return (
     <Combobox
       onOptionSubmit={(nextValue) => {
-        setSelectedValue(nextValue);
+        setSelectedValue(nextValue || '');
         combobox.closeDropdown();
       }}
       store={combobox}

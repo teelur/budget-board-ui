@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MantineProvider } from '@mantine/core';
@@ -78,19 +79,28 @@ describe('BudgetBoardSelect', () => {
     const onChange = vi.fn();
     const user = userEvent.setup();
 
-    render(
-      <MantineProvider env="test">
-        <BudgetBoardSelect
-          data={[
-            { label: 'Clear selection', value: '' },
-            { label: 'Food', value: 'food' },
-          ]}
-          defaultValue={null}
-          onChange={onChange}
-          value={null}
-        />
-      </MantineProvider>,
-    );
+    function ControlledSelect() {
+      const [value, setValue] = useState<string | null>(null);
+
+      return (
+        <MantineProvider env="test">
+          <BudgetBoardSelect
+            data={[
+              { label: 'Clear selection', value: '' },
+              { label: 'Food', value: 'food' },
+            ]}
+            defaultValue={null}
+            onChange={(nextValue) => {
+              onChange(nextValue);
+              setValue(nextValue);
+            }}
+            value={value}
+          />
+        </MantineProvider>
+      );
+    }
+
+    render(<ControlledSelect />);
 
     expect(screen.getByRole('combobox', { name: 'Choose an option' })).toHaveTextContent(
       'Select an option',
