@@ -8,6 +8,14 @@ UI components for the Budget Board app built on Mantine headless primitives
 yarn install
 yarn test
 yarn build
+yarn docs:dev
 ```
+
+The component documentation site is a static Vite app. Use `yarn docs:dev` for local development,
+`yarn docs:build` to generate `docs-dist`, and `yarn docs:preview` to preview the generated site.
+The GitHub Pages workflow publishes the site at `https://teelur.github.io/budget-board-ui/`.
+
+Add new component examples and API reference rows in `docs/App.tsx`, keeping the examples tied to
+the public exports from `src/index.ts`.
 
 Publishing runs automatically after changes are merged into `main` and targets GitHub Packages.

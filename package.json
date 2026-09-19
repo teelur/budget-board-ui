@@ -8,6 +8,9 @@
     "test": "vitest run",
     "build": "vite build && tsc -p tsconfig.build.json",
     "dev": "vite",
+    "docs:dev": "vite --config docs.vite.config.ts",
+    "docs:build": "tsc -p tsconfig.docs.json && vite build --config docs.vite.config.ts",
+    "docs:preview": "vite preview --config docs.vite.config.ts",
     "prepare": "yarn build"
   },
   "repository": {
