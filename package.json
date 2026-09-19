@@ -17,7 +17,6 @@
   "keywords": [],
   "author": "",
   "license": "GPL-3.0-only",
-  "private": false,
   "type": "module",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
