@@ -121,28 +121,16 @@ select {
   gap: 1rem;
   margin-left: auto;
 }
-.mode-toggle-icon {
-  background: var(--bb-color-navigation);
+.mode-toggle {
+  background: transparent;
   border: 1px solid var(--bb-color-border);
   color: var(--bb-color-text-primary);
   cursor: pointer;
-  display: grid;
-  font-size: 1rem;
-  height: 2.25rem;
-  place-items: center;
-  width: 2.25rem;
+  font-size: 0.75rem;
+  padding: 0.45rem 0.65rem;
 }
-.mode-toggle-icon:hover {
+.mode-toggle:hover {
   background: var(--bb-color-surface-elevated);
-}
-.floating-mode-toggle {
-  position: fixed;
-  right: 1.5rem;
-  top: 1.5rem;
-  z-index: 10;
-}
-.floating-mode-toggle .mode-toggle-icon {
-  color: var(--bb-color-text-primary);
 }
 .content-layout {
   display: grid;
@@ -298,12 +286,6 @@ h3 {
 .color-dark-navigation {
   background: #191b1f;
 }
-.color-border-light {
-  background: color-mix(in srgb, #3a3834 18%, transparent);
-}
-.color-border-dark {
-  background: color-mix(in srgb, #d8d5ce 18%, transparent);
-}
 .color-card-content {
   display: grid;
   gap: 0.45rem;
@@ -319,12 +301,14 @@ h3 {
   font-size: 0.9rem;
 }
 .color-card-heading code,
-.color-card-content > code {
+.color-card-content > code,
+.role-grid code {
   color: var(--bb-color-text-muted);
   font-family: var(--mono);
   font-size: 0.68rem;
 }
-.color-card-content p {
+.color-card-content p,
+.role-grid p {
   color: var(--bb-color-text-muted);
   font-size: 0.78rem;
   line-height: 1.55;
@@ -383,6 +367,15 @@ h3 {
   color: var(--bb-color-text-metadata);
   font-family: var(--mono);
   font-size: 0.68rem;
+}
+.role-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.role-grid > div {
+  border-left: 2px solid var(--bb-color-border);
+  padding: 0.2rem 0 0.2rem 1rem;
 }
 .demo-label {
   display: block;
@@ -501,6 +494,7 @@ td {
   .showcase-grid,
   .reference-grid,
   .color-grid,
+  .role-grid,
   .text-role-grid {
     grid-template-columns: 1fr;
   }
@@ -536,9 +530,5 @@ td {
   }
   .live-result {
     grid-column: auto;
-  }
-  .floating-mode-toggle {
-    right: 1rem;
-    top: 1rem;
   }
 }

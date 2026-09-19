@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import type { ReactNode } from "react";
-import { Moon, Sun } from "lucide-react";
 import { Button } from "../src";
 
 const buttonVariants = ["primary", "secondary", "danger", "ghost"] as const;
@@ -129,11 +128,6 @@ const textRoles = [
   },
 ] as const;
 
-const borderValues = {
-  light: "color-mix(in srgb, #3A3834 18%, transparent)",
-  dark: "color-mix(in srgb, #D8D5CE 18%, transparent)",
-} as const;
-
 function CodeBlock({ children }: { children: string }) {
   return (
     <pre className="code-block">
@@ -159,55 +153,29 @@ function DemoFrame({
 
 export function App() {
   const [colorMode, setColorMode] = useState<"light" | "dark">("light");
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-  const headerRef = useRef<HTMLElement>(null);
   const [selectedVariant, setSelectedVariant] =
     useState<(typeof buttonVariants)[number]>("primary");
   const [selectedSize, setSelectedSize] =
     useState<(typeof buttonSizes)[number]>("md");
-  const activeColors = colorMode === "light" ? lightColors : darkColors;
-
-  useEffect(() => {
-    const header = headerRef.current;
-    if (!header) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsHeaderVisible(entry?.isIntersecting ?? false),
-      { threshold: 0 },
-    );
-
-    observer.observe(header);
-    return () => observer.disconnect();
-  }, []);
-
-  const modeLabel = colorMode === "light" ? "Light mode" : "Dark mode";
-  const nextModeLabel = colorMode === "light" ? "dark" : "light";
-  const ModeIcon = colorMode === "light" ? Sun : Moon;
-
-  const modeToggle = (
-    <button
-      aria-label={`Switch to ${nextModeLabel} mode`}
-      className="mode-toggle-icon"
-      onClick={() =>
-        setColorMode((mode) => (mode === "light" ? "dark" : "light"))
-      }
-      title={modeLabel}
-      type="button"
-    >
-      <ModeIcon aria-hidden="true" size={18} strokeWidth={1.8} />
-    </button>
-  );
 
   return (
     <div className="site-shell" data-color-mode={colorMode}>
-      <header className="site-header" ref={headerRef}>
+      <header className="site-header">
         <div className="brand-mark">BB</div>
         <div>
           <p className="eyebrow">Component library</p>
           <h1>Budget Board UI</h1>
         </div>
         <div className="header-actions">
-          {isHeaderVisible ? modeToggle : null}
+          <button
+            className="mode-toggle"
+            onClick={() =>
+              setColorMode((mode) => (mode === "light" ? "dark" : "light"))
+            }
+            type="button"
+          >
+            {colorMode === "light" ? "Dark mode" : "Light mode"}
+          </button>
           <a
             className="source-link"
             href="https://github.com/teelur/budget-board-ui"
@@ -249,7 +217,7 @@ export function App() {
                 <p className="eyebrow">Color foundations</p>
                 <h2>Color theme</h2>
               </div>
-              <code>{colorMode === "light" ? "Light" : "Dark"} mode</code>
+              <code>{colorMode} mode</code>
             </div>
             <p className="section-copy">
               A restrained background system keeps the canvas, working surfaces,
@@ -257,9 +225,9 @@ export function App() {
               These are the only finalized colors so far.
             </p>
             <div className="color-theme-section">
-              <p className="theme-subheading">Surfaces</p>
+              <p className="theme-subheading">Light mode</p>
               <div className="color-grid">
-                {activeColors.map((color) => (
+                {lightColors.map((color) => (
                   <div className="color-card" key={color.token}>
                     <div className={`color-swatch ${color.className}`} />
                     <div className="color-card-content">
@@ -274,7 +242,45 @@ export function App() {
                 ))}
               </div>
 
-              <p className="theme-subheading">Content hierarchy</p>
+              <p className="theme-subheading">Dark mode</p>
+              <div className="color-grid">
+                {darkColors.map((color) => (
+                  <div className="color-card" key={color.token}>
+                    <div className={`color-swatch ${color.className}`} />
+                    <div className="color-card-content">
+                      <div className="color-card-heading">
+                        <strong>{color.name}</strong>
+                        <code>{color.value}</code>
+                      </div>
+                      <code>{color.token}</code>
+                      <p>{color.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <p className="theme-subheading">Shared roles</p>
+              <div className="role-grid">
+                <div>
+                  <code>--bb-color-border</code>
+                  <p>
+                    Quiet separators and outlines, derived from the active
+                    neutral palette.
+                  </p>
+                </div>
+                <div>
+                  <code>--bb-color-text-primary</code>
+                  <p>The default readable text role for application content.</p>
+                </div>
+                <div>
+                  <code>--bb-color-text-disabled</code>
+                  <p>
+                    A deliberately low-contrast role for unavailable content.
+                  </p>
+                </div>
+              </div>
+
+              <p className="theme-subheading">Text roles</p>
               <div className="text-role-grid">
                 {textRoles.map((role) => (
                   <div className="text-role-card" key={role.token}>
@@ -284,35 +290,16 @@ export function App() {
                     <div className="text-role-content">
                       <div className="color-card-heading">
                         <strong>{role.name}</strong>
-                        <code>
-                          {colorMode === "light"
-                            ? role.lightValue
-                            : role.darkValue}
-                        </code>
+                        <code>{role.lightValue}</code>
                       </div>
                       <code>{role.token}</code>
                       <p>{role.description}</p>
+                      <span className="text-role-dark-value">
+                        Dark mode {role.darkValue}
+                      </span>
                     </div>
                   </div>
                 ))}
-              </div>
-
-              <p className="theme-subheading">Boundaries</p>
-              <div className="color-grid boundary-grid">
-                <div className="color-card">
-                  <div className={`color-swatch color-border-${colorMode}`} />
-                  <div className="color-card-content">
-                    <div className="color-card-heading">
-                      <strong>Border</strong>
-                      <code>{borderValues[colorMode]}</code>
-                    </div>
-                    <code>--bb-color-border</code>
-                    <p>
-                      Quiet separators and outlines that define relationships
-                      between adjacent surfaces.
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
           </section>
@@ -454,9 +441,6 @@ export function App() {
           </footer>
         </main>
       </div>
-      {!isHeaderVisible ? (
-        <div className="floating-mode-toggle">{modeToggle}</div>
-      ) : null}
     </div>
   );
 }
