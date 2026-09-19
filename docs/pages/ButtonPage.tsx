@@ -1,23 +1,18 @@
 import { useState } from "react";
-import { Button } from "../../src";
+import { Button, buttonColors, buttonSizes, buttonVariants } from "../../src";
 import { ComponentDemoSection } from "../components/ComponentDemoSection";
-
-const buttonVariants = ["filled", "outline", "ghost"] as const;
-const buttonColors = [
-  "primary",
-  "secondary",
-  "accent",
-  "neutral",
-  "info",
-  "success",
-  "warning",
-  "error",
-] as const;
-const buttonSizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
 function capitalize(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
+
+const buttonSizeLabels = {
+  xs: "Extra small",
+  sm: "Small",
+  md: "Medium",
+  lg: "Large",
+  xl: "Extra large",
+} as const;
 
 export function ButtonPage() {
   const [selectedVariant, setSelectedVariant] =
@@ -45,9 +40,12 @@ export function ButtonPage() {
         description="Use visual weight to establish hierarchy without changing the action itself."
         id="button-variants"
         title="Variants"
-        code={`<Button variant="filled">Filled</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="ghost">Ghost</Button>`}
+        code={buttonVariants
+          .map(
+            (variant) =>
+              `<Button variant="${variant}">${capitalize(variant)}</Button>`,
+          )
+          .join("\n")}
       >
         <div className="button-stack">
           {buttonVariants.map((variant) => (
@@ -62,14 +60,11 @@ export function ButtonPage() {
         description="Semantic colors communicate intent consistently across the application."
         id="button-colors"
         title="Colors"
-        code={`<Button color="primary">Primary</Button>
-<Button color="secondary">Secondary</Button>
-<Button color="accent">Accent</Button>
-<Button color="neutral">Neutral</Button>
-<Button color="info">Info</Button>
-<Button color="success">Success</Button>
-<Button color="warning">Warning</Button>
-<Button color="error">Error</Button>`}
+        code={buttonColors
+          .map(
+            (color) => `<Button color="${color}">${capitalize(color)}</Button>`,
+          )
+          .join("\n")}
       >
         <div className="button-stack">
           {buttonColors.map((color) => (
@@ -84,11 +79,12 @@ export function ButtonPage() {
         description="Scale the control to match the density and emphasis of its surrounding layout."
         id="button-sizes"
         title="Sizes"
-        code={`<Button size="xs">Extra small</Button>
-<Button size="sm">Small</Button>
-<Button size="md">Medium</Button>
-<Button size="lg">Large</Button>
-<Button size="xl">Extra large</Button>`}
+        code={buttonSizes
+          .map(
+            (size) =>
+              `<Button size="${size}">${buttonSizeLabels[size]}</Button>`,
+          )
+          .join("\n")}
       >
         <div className="button-stack">
           {buttonSizes.map((size) => (
@@ -243,24 +239,21 @@ export function ButtonPage() {
                 <tr>
                   <th>variant</th>
                   <td>
-                    <code>filled | outline | ghost</code>
+                    <code>{buttonVariants.join(" | ")}</code>
                   </td>
                   <td>filled</td>
                 </tr>
                 <tr>
                   <th>color</th>
                   <td>
-                    <code>
-                      primary | secondary | accent | neutral | info | success |
-                      warning | error
-                    </code>
+                    <code>{buttonColors.join(" | ")}</code>
                   </td>
                   <td>primary</td>
                 </tr>
                 <tr>
                   <th>size</th>
                   <td>
-                    <code>xs | sm | md | lg | xl</code>
+                    <code>{buttonSizes.join(" | ")}</code>
                   </td>
                   <td>md</td>
                 </tr>

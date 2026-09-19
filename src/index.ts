@@ -1,5 +1,8 @@
 export {
   Button,
+  buttonColors,
+  buttonSizes,
+  buttonVariants,
   type ButtonColor,
   type ButtonProps,
   type ButtonSize,
@@ -10,6 +13,7 @@ export {
   budgetBoardColors,
   budgetBoardDarkTheme,
   budgetBoardTheme,
+  budgetBoardTypography,
 } from "./theme";
 
 export type {

@@ -3,17 +3,23 @@ import { UnstyledButton, useMantineTheme } from "@mantine/core";
 import type { BudgetBoardColorMode, BudgetBoardContentColorKey } from "./theme";
 import classes from "./Button.module.css";
 
-export type ButtonColor =
-  | "primary"
-  | "secondary"
-  | "accent"
-  | "neutral"
-  | "info"
-  | "success"
-  | "warning"
-  | "error";
-export type ButtonVariant = "filled" | "outline" | "ghost";
-export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
+export const buttonColors = [
+  "primary",
+  "secondary",
+  "accent",
+  "neutral",
+  "info",
+  "success",
+  "warning",
+  "error",
+] as const;
+export type ButtonColor = (typeof buttonColors)[number];
+
+export const buttonVariants = ["filled", "outline", "ghost"] as const;
+export type ButtonVariant = (typeof buttonVariants)[number];
+
+export const buttonSizes = ["xs", "sm", "md", "lg", "xl"] as const;
+export type ButtonSize = (typeof buttonSizes)[number];
 
 export interface ButtonProps extends Omit<
   ButtonHTMLAttributes<HTMLButtonElement>,

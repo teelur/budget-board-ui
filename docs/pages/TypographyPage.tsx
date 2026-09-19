@@ -1,22 +1,24 @@
+import { budgetBoardTypography } from "../../src";
+
 const typographyRoles = [
   {
     name: "Display",
     token: "--bb-font-display",
-    family: "Plus Jakarta Sans",
+    family: budgetBoardTypography.display,
     description: "Brand moments and major page or section headings.",
     className: "typography-display",
   },
   {
     name: "Body",
     token: "--bb-font-body",
-    family: "IBM Plex Sans",
+    family: budgetBoardTypography.body,
     description: "Navigation, controls, labels, and supporting copy.",
     className: "typography-body",
   },
   {
     name: "Data",
     token: "--bb-font-data",
-    family: "IBM Plex Sans · tabular numerals",
+    family: `${budgetBoardTypography.data} · tabular numerals`,
     description: "Balances, amounts, dates, and compact financial metadata.",
     className: "typography-data",
   },

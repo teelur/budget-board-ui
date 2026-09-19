@@ -1,3 +1,4 @@
+import { budgetBoardColors } from "../../src";
 import { ColorCard } from "../components/color/ColorCard";
 import type { ColorMode } from "../components/color/colorCardTypes";
 import { RoleCard } from "../components/color/RoleCard";
@@ -9,7 +10,7 @@ const lightColors = [
   {
     name: "Canvas",
     token: "--bb-color-page",
-    value: "#F7F6F2",
+    value: budgetBoardColors.light.page.toUpperCase(),
     description:
       "The main application background behind every page and layout region.",
     className: "color-light-canvas",
@@ -17,7 +18,7 @@ const lightColors = [
   {
     name: "Primary surface",
     token: "--bb-color-surface",
-    value: "#FFFFFF",
+    value: budgetBoardColors.light.surface.toUpperCase(),
     description:
       "The default surface for cards, content panels, and focused work areas.",
     className: "color-light-surface",
@@ -25,7 +26,7 @@ const lightColors = [
   {
     name: "Elevated surface",
     token: "--bb-color-surface-elevated",
-    value: "#FFFCF7",
+    value: budgetBoardColors.light.surfaceElevated.toUpperCase(),
     description:
       "A gently lifted layer for menus, controls, dialogs, and temporary focus.",
     className: "color-light-elevated",
@@ -33,7 +34,7 @@ const lightColors = [
   {
     name: "Navigation",
     token: "--bb-color-navigation",
-    value: "#F1EFE9",
+    value: budgetBoardColors.light.navigation.toUpperCase(),
     description:
       "The distinct shell surface used by navigation and app-level chrome.",
     className: "color-light-navigation",
@@ -44,7 +45,7 @@ const darkColors = [
   {
     name: "Canvas",
     token: "--bb-color-page",
-    value: "#111214",
+    value: budgetBoardColors.dark.page.toUpperCase(),
     description:
       "The main application background behind every page and layout region.",
     className: "color-dark-canvas",
@@ -52,7 +53,7 @@ const darkColors = [
   {
     name: "Primary surface",
     token: "--bb-color-surface",
-    value: "#191B1F",
+    value: budgetBoardColors.dark.surface.toUpperCase(),
     description:
       "The default surface for cards, content panels, and focused work areas.",
     className: "color-dark-surface",
@@ -60,7 +61,7 @@ const darkColors = [
   {
     name: "Elevated surface",
     token: "--bb-color-surface-elevated",
-    value: "#22252A",
+    value: budgetBoardColors.dark.surfaceElevated.toUpperCase(),
     description:
       "A lighter layer for menus, controls, dialogs, and temporary focus.",
     className: "color-dark-elevated",
@@ -68,7 +69,7 @@ const darkColors = [
   {
     name: "Navigation",
     token: "--bb-color-navigation",
-    value: "#191B1F",
+    value: budgetBoardColors.dark.navigation.toUpperCase(),
     description:
       "The distinct shell surface used by navigation and app-level chrome.",
     className: "color-dark-navigation",
@@ -79,8 +80,8 @@ const surfaceRoles = [
   {
     name: "Sunken surface",
     token: "--bb-color-surface-sunken",
-    lightValue: "#EBE8DF",
-    darkValue: "#0D0F12",
+    lightValue: budgetBoardColors.light.surfaceSunken.toUpperCase(),
+    darkValue: budgetBoardColors.dark.surfaceSunken.toUpperCase(),
     description: "A recessed layer for wells, inactive regions, and depth.",
     lightClassName: "color-light-sunken",
     darkClassName: "color-dark-sunken",
@@ -88,8 +89,8 @@ const surfaceRoles = [
   {
     name: "Overlay surface",
     token: "--bb-color-surface-overlay",
-    lightValue: "#FFFAF2",
-    darkValue: "#292C31",
+    lightValue: budgetBoardColors.light.surfaceOverlay.toUpperCase(),
+    darkValue: budgetBoardColors.dark.surfaceOverlay.toUpperCase(),
     description: "A focused layer for overlays, popovers, and temporary work.",
     lightClassName: "color-light-overlay",
     darkClassName: "color-dark-overlay",
@@ -100,8 +101,8 @@ const textRoles = [
   {
     name: "Heading",
     token: "--bb-color-text-heading",
-    lightValue: "#242321",
-    darkValue: "#F2F0EB",
+    lightValue: budgetBoardColors.light.textHeading.toUpperCase(),
+    darkValue: budgetBoardColors.dark.textHeading.toUpperCase(),
     className: "text-role-heading",
     description:
       "Page, section, and card headings. Strongest neutral text role.",
@@ -109,24 +110,24 @@ const textRoles = [
   {
     name: "Primary",
     token: "--bb-color-text-primary",
-    lightValue: "#3A3834",
-    darkValue: "#D8D5CE",
+    lightValue: budgetBoardColors.light.textPrimary.toUpperCase(),
+    darkValue: budgetBoardColors.dark.textPrimary.toUpperCase(),
     className: "text-role-primary",
     description: "Main transaction text, amounts, and important labels.",
   },
   {
     name: "Secondary",
     token: "--bb-color-text-secondary",
-    lightValue: "#68645D",
-    darkValue: "#AAA69E",
+    lightValue: budgetBoardColors.light.textSecondary.toUpperCase(),
+    darkValue: budgetBoardColors.dark.textSecondary.toUpperCase(),
     className: "text-role-secondary",
     description: "Supporting descriptions and helper copy.",
   },
   {
     name: "Metadata",
     token: "--bb-color-text-metadata",
-    lightValue: "#807A70",
-    darkValue: "#8E8A83",
+    lightValue: budgetBoardColors.light.textMetadata.toUpperCase(),
+    darkValue: budgetBoardColors.dark.textMetadata.toUpperCase(),
     className: "text-role-metadata",
     description:
       "Dates, categories, timestamps, and compact transaction details.",
@@ -134,24 +135,24 @@ const textRoles = [
   {
     name: "Muted",
     token: "--bb-color-text-muted",
-    lightValue: "#969087",
-    darkValue: "#716F6B",
+    lightValue: budgetBoardColors.light.textMuted.toUpperCase(),
+    darkValue: budgetBoardColors.dark.textMuted.toUpperCase(),
     className: "text-role-muted",
     description: "Inactive navigation and low-priority labels.",
   },
   {
     name: "Disabled",
     token: "--bb-color-text-disabled",
-    lightValue: "#B7B1A7",
-    darkValue: "#55585D",
+    lightValue: budgetBoardColors.light.textDisabled.toUpperCase(),
+    darkValue: budgetBoardColors.dark.textDisabled.toUpperCase(),
     className: "text-role-disabled",
     description: "Unavailable controls and disabled content.",
   },
   {
     name: "Inverse",
     token: "--bb-color-text-inverse",
-    lightValue: "#FFFAF2",
-    darkValue: "#242321",
+    lightValue: budgetBoardColors.light.textInverse.toUpperCase(),
+    darkValue: budgetBoardColors.dark.textInverse.toUpperCase(),
     className: "text-role-inverse",
     description:
       "High-contrast text for dark surfaces in light mode and light surfaces in dark mode.",
@@ -162,10 +163,10 @@ const themeRoles = [
   {
     name: "Primary",
     token: "--bb-color-primary",
-    lightValue: "#4C6EF5",
-    darkValue: "#91A7FF",
-    lightContent: "#FFFAF2",
-    darkContent: "#1E2450",
+    lightValue: budgetBoardColors.light.primary.toUpperCase(),
+    darkValue: budgetBoardColors.dark.primary.toUpperCase(),
+    lightContent: budgetBoardColors.light.primaryContent.toUpperCase(),
+    darkContent: budgetBoardColors.dark.primaryContent.toUpperCase(),
     description:
       "Primary actions, active states, and the clearest call to action.",
     lightClassName: "theme-role-light-primary",
@@ -174,10 +175,10 @@ const themeRoles = [
   {
     name: "Secondary",
     token: "--bb-color-secondary",
-    lightValue: "#12B886",
-    darkValue: "#63E6BE",
-    lightContent: "#063B2F",
-    darkContent: "#063B2F",
+    lightValue: budgetBoardColors.light.secondary.toUpperCase(),
+    darkValue: budgetBoardColors.dark.secondary.toUpperCase(),
+    lightContent: budgetBoardColors.light.secondaryContent.toUpperCase(),
+    darkContent: budgetBoardColors.dark.secondaryContent.toUpperCase(),
     description: "Supporting actions and complementary control surfaces.",
     lightClassName: "theme-role-light-secondary",
     darkClassName: "theme-role-dark-secondary",
@@ -185,10 +186,10 @@ const themeRoles = [
   {
     name: "Accent",
     token: "--bb-color-accent",
-    lightValue: "#F76707",
-    darkValue: "#FFA94D",
-    lightContent: "#4A2103",
-    darkContent: "#4A2103",
+    lightValue: budgetBoardColors.light.accent.toUpperCase(),
+    darkValue: budgetBoardColors.dark.accent.toUpperCase(),
+    lightContent: budgetBoardColors.light.accentContent.toUpperCase(),
+    darkContent: budgetBoardColors.dark.accentContent.toUpperCase(),
     description:
       "Focused emphasis for highlights, attention, and memorable moments.",
     lightClassName: "theme-role-light-accent",
@@ -197,10 +198,10 @@ const themeRoles = [
   {
     name: "Neutral",
     token: "--bb-color-neutral",
-    lightValue: "#E7E3DA",
-    darkValue: "#34373A",
-    lightContent: "#3A3834",
-    darkContent: "#F2F0EB",
+    lightValue: budgetBoardColors.light.neutral.toUpperCase(),
+    darkValue: budgetBoardColors.dark.neutral.toUpperCase(),
+    lightContent: budgetBoardColors.light.neutralContent.toUpperCase(),
+    darkContent: budgetBoardColors.dark.neutralContent.toUpperCase(),
     description: "Low-emphasis controls and quiet structural actions.",
     lightClassName: "theme-role-light-neutral",
     darkClassName: "theme-role-dark-neutral",
@@ -214,8 +215,8 @@ const semanticColorGroups = [
       {
         name: "Subtle border",
         token: "--bb-color-border-subtle",
-        lightValue: "#D8D5CE",
-        darkValue: "#3A3D42",
+        lightValue: budgetBoardColors.light.borderSubtle.toUpperCase(),
+        darkValue: budgetBoardColors.dark.borderSubtle.toUpperCase(),
         lightContent: null,
         darkContent: null,
         lightClassName: "semantic-role-light-subtle-border",
@@ -226,8 +227,8 @@ const semanticColorGroups = [
       {
         name: "Strong border",
         token: "--bb-color-border-strong",
-        lightValue: "#AAA69E",
-        darkValue: "#686B70",
+        lightValue: budgetBoardColors.light.borderStrong.toUpperCase(),
+        darkValue: budgetBoardColors.dark.borderStrong.toUpperCase(),
         lightContent: null,
         darkContent: null,
         lightClassName: "semantic-role-light-strong-border",
@@ -243,8 +244,8 @@ const semanticColorGroups = [
       {
         name: "Focus ring",
         token: "--bb-color-focus-ring",
-        lightValue: "#4C6EF5",
-        darkValue: "#91A7FF",
+        lightValue: budgetBoardColors.light.focusRing.toUpperCase(),
+        darkValue: budgetBoardColors.dark.focusRing.toUpperCase(),
         lightContent: null,
         darkContent: null,
         lightClassName: "semantic-role-light-focus-ring",
@@ -255,8 +256,8 @@ const semanticColorGroups = [
       {
         name: "Selection",
         token: "--bb-color-selection",
-        lightValue: "#DBE4FF",
-        darkValue: "#1E2450",
+        lightValue: budgetBoardColors.light.selection.toUpperCase(),
+        darkValue: budgetBoardColors.dark.selection.toUpperCase(),
         lightContent: null,
         darkContent: null,
         lightClassName: "semantic-role-light-selection",
@@ -272,10 +273,10 @@ const semanticColorGroups = [
       {
         name: "Info",
         token: "--bb-color-info",
-        lightValue: "#1971C2",
-        darkValue: "#74C0FC",
-        lightContent: "#E7F5FF",
-        darkContent: "#1864AB",
+        lightValue: budgetBoardColors.light.info.toUpperCase(),
+        darkValue: budgetBoardColors.dark.info.toUpperCase(),
+        lightContent: budgetBoardColors.light.infoContent.toUpperCase(),
+        darkContent: budgetBoardColors.dark.infoContent.toUpperCase(),
         lightClassName: "semantic-role-light-info",
         darkClassName: "semantic-role-dark-info",
         description:
@@ -284,10 +285,10 @@ const semanticColorGroups = [
       {
         name: "Success",
         token: "--bb-color-success",
-        lightValue: "#2F9E44",
-        darkValue: "#69DB7C",
-        lightContent: "#EBFBEE",
-        darkContent: "#2B8A3E",
+        lightValue: budgetBoardColors.light.success.toUpperCase(),
+        darkValue: budgetBoardColors.dark.success.toUpperCase(),
+        lightContent: budgetBoardColors.light.successContent.toUpperCase(),
+        darkContent: budgetBoardColors.dark.successContent.toUpperCase(),
         lightClassName: "semantic-role-light-success",
         darkClassName: "semantic-role-dark-success",
         description:
@@ -296,10 +297,10 @@ const semanticColorGroups = [
       {
         name: "Warning",
         token: "--bb-color-warning",
-        lightValue: "#FCC419",
-        darkValue: "#FFD43B",
-        lightContent: "#5F3B00",
-        darkContent: "#5F3B00",
+        lightValue: budgetBoardColors.light.warning.toUpperCase(),
+        darkValue: budgetBoardColors.dark.warning.toUpperCase(),
+        lightContent: budgetBoardColors.light.warningContent.toUpperCase(),
+        darkContent: budgetBoardColors.dark.warningContent.toUpperCase(),
         lightClassName: "semantic-role-light-warning",
         darkClassName: "semantic-role-dark-warning",
         description: "Cautions that need attention without implying failure.",
@@ -307,10 +308,10 @@ const semanticColorGroups = [
       {
         name: "Error",
         token: "--bb-color-error",
-        lightValue: "#C92A2A",
-        darkValue: "#FF6B6B",
-        lightContent: "#FFF5F5",
-        darkContent: "#4A0C0C",
+        lightValue: budgetBoardColors.light.error.toUpperCase(),
+        darkValue: budgetBoardColors.dark.error.toUpperCase(),
+        lightContent: budgetBoardColors.light.errorContent.toUpperCase(),
+        darkContent: budgetBoardColors.dark.errorContent.toUpperCase(),
         lightClassName: "semantic-role-light-error",
         darkClassName: "semantic-role-dark-error",
         description:

@@ -1,9 +1,42 @@
 import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import { Moon, Sun } from "lucide-react";
+import { budgetBoardColors, budgetBoardTypography } from "../src";
 import type { ColorMode } from "./components/color/colorCardTypes";
 import { ButtonPage } from "./pages/ButtonPage";
 import { ColorThemePage } from "./pages/ColorThemePage";
 import { TypographyPage } from "./pages/TypographyPage";
+
+function toCssName(name: string) {
+  return name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
+}
+
+function getThemeStyle(colorMode: ColorMode): CSSProperties {
+  const colors = budgetBoardColors[colorMode];
+  const colorVariables = Object.fromEntries(
+    Object.entries(colors).map(([name, value]) => [
+      `--bb-color-${toCssName(name)}`,
+      value,
+    ]),
+  );
+  const fontVariables = Object.fromEntries(
+    Object.entries(budgetBoardTypography).map(([name, value]) => [
+      `--bb-font-${toCssName(name)}`,
+      value,
+    ]),
+  );
+
+  return {
+    ...colorVariables,
+    ...fontVariables,
+    "--bb-color-text": colors.textPrimary,
+    "--ink": colors.textPrimary,
+    "--muted": colors.textMuted,
+    "--line": colors.border,
+    "--paper": colors.surface,
+    "--data": budgetBoardTypography.data,
+  } as CSSProperties;
+}
 
 export function App() {
   const [colorMode, setColorMode] = useState<ColorMode>("light");
@@ -30,6 +63,7 @@ export function App() {
     <div
       className={`site-shell${isHeaderVisible ? "" : " header-hidden"}`}
       data-color-mode={colorMode}
+      style={getThemeStyle(colorMode)}
     >
       <header className="site-header" ref={headerRef}>
         <div className="brand-mark">BB</div>
