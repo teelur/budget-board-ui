@@ -334,6 +334,24 @@ describe("Button", () => {
     });
   });
 
+  it("resolves Mantine style callbacks after applying button variant styles", () => {
+    renderButton(
+      <Button
+        style={(theme) => ({
+          "--button-bg": theme.colors.red[6],
+          color: theme.colors.red[6],
+        })}
+      >
+        Callback styles
+      </Button>,
+    );
+
+    const button = screen.getByRole("button", { name: "Callback styles" });
+
+    expect(button.style.getPropertyValue("--button-bg")).toBe("#fa5252");
+    expect(button).toHaveStyle({ color: "#fa5252" });
+  });
+
   it("works without a Mantine provider", () => {
     renderButton(<Button>Standalone button</Button>);
 

@@ -568,7 +568,9 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   <td>
                     <code>MantineStyleProp</code>
                   </td>
-                  <td>-</td>
+                  <td>
+                    CSS object, theme callback, or nested array of either
+                  </td>
                 </tr>
                 <tr>
                   <th>type</th>

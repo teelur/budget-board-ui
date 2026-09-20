@@ -166,10 +166,7 @@ export function Button({
       data-budget-board-size={size}
       data-budget-board-variant={variant}
       disabled={disabled ?? loading}
-      style={{
-        ...getVariantStyles(budgetBoardColors[colorScheme], color, variant),
-        ...style,
-      }}
+      style={[getVariantStyles(budgetBoardColors[colorScheme], color, variant), style]}
       type={type}
     >
       {loading && <span aria-hidden="true" className={classes.loader} />}
