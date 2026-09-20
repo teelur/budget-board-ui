@@ -1,4 +1,10 @@
-import type { CSSProperties, ButtonHTMLAttributes, ReactNode } from "react";
+import {
+  useContext,
+  type CSSProperties,
+  type ButtonHTMLAttributes,
+  type ReactNode,
+} from "react";
+import { MantineContext } from "@mantine/core";
 import { budgetBoardColors } from "../colors";
 import type {
   BudgetBoardColorMode,
@@ -126,6 +132,8 @@ export function Button({
   ...buttonProps
 }: ButtonProps) {
   const isTab = buttonProps.role === "tab";
+  const mantineContext = useContext(MantineContext);
+  const colorScheme = mantineContext?.colorScheme === "dark" ? "dark" : "light";
 
   return (
     <button
@@ -151,7 +159,7 @@ export function Button({
       data-budget-board-variant={variant}
       disabled={disabled ?? loading}
       style={{
-        ...getVariantStyles(budgetBoardColors.light, color, variant),
+        ...getVariantStyles(budgetBoardColors[colorScheme], color, variant),
         ...style,
       }}
       type={type}

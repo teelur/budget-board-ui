@@ -85,6 +85,11 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         A compact action primitive with independent appearance, semantic color,
         interaction, sizing, and slot support.
       </p>
+      <p className={pageStyles.sectionCopy}>
+        Buttons follow the active Mantine color scheme. This documentation site
+        switches between <code>budgetBoardTheme</code> and
+        <code>budgetBoardDarkTheme</code> through <code>MantineProvider</code>.
+      </p>
 
       <ComponentDemoSection
         description="Use visual weight to establish hierarchy without changing the action itself."

@@ -1,7 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MantineProvider } from "@mantine/core";
 import { describe, expect, it, vi } from "vitest";
 import { Button } from "../src/Button/Button";
+import { budgetBoardDarkTheme } from "../src/theme";
 
 function renderButton(button: React.ReactNode) {
   return render(button);
@@ -146,11 +148,11 @@ describe("Button", () => {
   });
 
   it("resolves dark semantic palette roles", () => {
-    renderButton(
-      <>
+    render(
+      <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
         <Button>Primary</Button>
         <Button color="error">Error</Button>
-      </>,
+      </MantineProvider>,
     );
 
     expect(
@@ -158,21 +160,21 @@ describe("Button", () => {
         .getByRole("button", { name: "Primary" })
         .style.getPropertyValue("--button-bg"),
     ).toBe(
-      "var(--budget-board-button-primary-background, var(--bb-color-primary, #4c6ef5))",
+      "var(--budget-board-button-primary-background, var(--bb-color-primary, #91a7ff))",
     );
     expect(
       screen
         .getByRole("button", { name: "Error" })
         .style.getPropertyValue("--button-color"),
     ).toBe(
-      "var(--budget-board-button-error-color, var(--bb-color-error-content, #fff5f5))",
+      "var(--budget-board-button-error-color, var(--bb-color-error-content, #4a0c0c))",
     );
     expect(
       screen
         .getByRole("button", { name: "Primary" })
         .style.getPropertyValue("--button-focus"),
     ).toBe(
-      "var(--budget-board-button-focus-ring, var(--bb-color-focus-ring, #4c6ef5))",
+      "var(--budget-board-button-focus-ring, var(--bb-color-focus-ring, #91a7ff))",
     );
   });
 

@@ -339,7 +339,8 @@ export function ColorThemePage({ colorMode }: { colorMode: ColorMode }) {
         A restrained background system keeps the canvas, working surfaces, and
         application chrome distinct without relying on heavy shadows. Surfaces,
         text, and theme roles establish the visual foundation for the rest of
-        the interface.
+        the interface. Toggle the mode control in the header to preview both
+        palettes.
       </p>
       <div className={styles.colorThemeSection}>
         <p className={styles.themeSubheading}>Surfaces</p>
