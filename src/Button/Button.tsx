@@ -4,7 +4,8 @@ import {
   type ButtonHTMLAttributes,
   type ReactNode,
 } from "react";
-import { MantineContext } from "@mantine/core";
+import { MantineContext, MantineProvider, UnstyledButton } from "@mantine/core";
+import type { UnstyledButtonProps } from "@mantine/core";
 import { budgetBoardColors } from "../colors";
 import type {
   BudgetBoardColorMode,
@@ -41,10 +42,15 @@ export const buttonSizes = [
 ] as const;
 export type ButtonSize = (typeof buttonSizes)[number];
 
-export interface ButtonProps extends Omit<
-  ButtonHTMLAttributes<HTMLButtonElement>,
-  "children" | "color" | "disabled"
-> {
+export interface ButtonProps
+  extends Omit<
+      ButtonHTMLAttributes<HTMLButtonElement>,
+      "children" | "color" | "disabled" | "style"
+    >,
+    Omit<
+      UnstyledButtonProps,
+      "children" | "color" | "disabled" | "size" | "style" | "variant"
+    > {
   selected?: boolean;
   children?: ReactNode;
   disabled?: boolean;
@@ -55,6 +61,7 @@ export interface ButtonProps extends Omit<
   size?: ButtonSize;
   color?: ButtonColor;
   variant?: ButtonVariant;
+  style?: UnstyledButtonProps["style"];
 }
 
 type ButtonStyle = CSSProperties &
@@ -136,8 +143,8 @@ export function Button({
   const mantineContext = useContext(MantineContext);
   const colorScheme = mantineContext?.colorScheme === "dark" ? "dark" : "light";
 
-  return (
-    <button
+  const button = (
+    <UnstyledButton
       {...buttonProps}
       {...(selected === undefined || isTab ? {} : { "aria-pressed": selected })}
       aria-busy={loading || undefined}
@@ -169,6 +176,8 @@ export function Button({
       {leftSection && <span className={classes.section}>{leftSection}</span>}
       <span className={classes.content}>{children}</span>
       {rightSection && <span className={classes.section}>{rightSection}</span>}
-    </button>
+    </UnstyledButton>
   );
+
+  return mantineContext ? button : <MantineProvider>{button}</MantineProvider>;
 }

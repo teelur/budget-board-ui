@@ -302,6 +302,38 @@ describe("Button", () => {
     );
   });
 
+  it("supports Mantine dimension style props without leaking them to the DOM", () => {
+    renderButton(
+      <Button
+        h="48px"
+        mah="56px"
+        maw="100%"
+        mih="44px"
+        miw="200px"
+        w="240px"
+      >
+        Dimensions
+      </Button>,
+    );
+
+    const button = screen.getByRole("button", { name: "Dimensions" });
+
+    expect(button).not.toHaveAttribute("w");
+    expect(button).not.toHaveAttribute("miw");
+    expect(button).not.toHaveAttribute("maw");
+    expect(button).not.toHaveAttribute("h");
+    expect(button).not.toHaveAttribute("mih");
+    expect(button).not.toHaveAttribute("mah");
+    expect(button).toHaveStyle({
+      width: "calc(15rem * var(--mantine-scale))",
+      minWidth: "calc(12.5rem * var(--mantine-scale))",
+      maxWidth: "100%",
+      height: "calc(3rem * var(--mantine-scale))",
+      minHeight: "calc(2.75rem * var(--mantine-scale))",
+      maxHeight: "calc(3.5rem * var(--mantine-scale))",
+    });
+  });
+
   it("works without a Mantine provider", () => {
     renderButton(<Button>Standalone button</Button>);
 
