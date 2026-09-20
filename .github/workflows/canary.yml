@@ -52,13 +52,17 @@ jobs:
       - name: Publish canary package to GitHub Packages
         run: |
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
-          if npm view "@teelur/budget-board-ui@$PACKAGE_VERSION" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
+          if PACKAGE_INFO=$(npm view "@teelur/budget-board-ui@$PACKAGE_VERSION" version --registry=https://npm.pkg.github.com 2>&1); then
             echo "@teelur/budget-board-ui@$PACKAGE_VERSION is already published to GitHub Packages; skipping."
           else
+            if printf '%s' "$PACKAGE_INFO" | grep -Eq 'E401|E403|401 Unauthorized|403 Forbidden|unauthenticated'; then
+              printf '%s\n' "$PACKAGE_INFO" >&2
+              exit 1
+            fi
             npm publish --tag canary --registry=https://npm.pkg.github.com
           fi
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ github.token }}
 
       - name: Configure npm registry
         uses: actions/setup-node@v7
