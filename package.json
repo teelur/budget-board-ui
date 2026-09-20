@@ -8,6 +8,9 @@
     "test": "vitest run",
     "build": "vite build && tsc -p tsconfig.build.json",
     "dev": "vite",
+    "docs:dev": "vite --config docs.vite.config.ts",
+    "docs:build": "tsc -p tsconfig.docs.json && vite build --config docs.vite.config.ts",
+    "docs:preview": "vite preview --config docs.vite.config.ts",
     "prepare": "yarn build"
   },
   "repository": {
@@ -49,6 +52,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.1",
     "jsdom": "^30.1.0",
+    "lucide-react": "^1.47.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "typescript": "^7.0.2",

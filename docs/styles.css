@@ -1,0 +1,55 @@
+:root {
+  color: var(--bb-color-text);
+  background: var(--bb-color-page);
+  font-synthesis: none;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--bb-color-text-heading);
+  font-family: var(--bb-font-display);
+}
+
+table {
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  width: 100%;
+}
+
+th,
+td {
+  border-top: 1px solid var(--line);
+  padding: 0.7rem 0.4rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  font-family: var(--data);
+  font-size: 0.68rem;
+  font-weight: 500;
+}
+
+td {
+  color: var(--muted);
+}

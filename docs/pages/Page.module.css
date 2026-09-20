@@ -1,0 +1,90 @@
+.componentSection {
+  border-bottom: 1px solid var(--line);
+  padding: 4.5rem 0;
+}
+
+.sectionHeading {
+  align-items: flex-end;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.sectionHeading h2 {
+  font-size: 2.2rem;
+  letter-spacing: -0.06em;
+  margin: 0.4rem 0 0;
+}
+
+.sectionHeading > code,
+.referenceGrid code {
+  color: var(--muted);
+  font-family: var(--data);
+  font-size: 0.68rem;
+}
+
+.sectionCopy {
+  color: var(--muted);
+  max-width: 38rem;
+}
+
+.eyebrow {
+  color: var(--muted);
+  font-family: var(--data);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.componentReferenceSection {
+  border-top: 1px solid var(--line);
+  margin-top: 3rem;
+  padding-top: 2rem;
+  scroll-margin-top: 2rem;
+}
+
+.referenceGrid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.8fr);
+  margin-top: 2rem;
+}
+
+.referenceGrid h3 {
+  font-size: 1rem;
+  margin: 0 0 0.8rem;
+}
+
+.codeBlock {
+  background: var(--bb-color-navigation);
+  color: var(--bb-color-text);
+  font-family: var(--data);
+  font-size: 0.72rem;
+  line-height: 1.8;
+  margin: 0;
+  min-height: 100%;
+  overflow: auto;
+  padding: 1.2rem;
+}
+
+.demoLabel {
+  color: var(--muted);
+  display: block;
+  font-family: var(--data);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.4rem;
+  text-transform: uppercase;
+}
+
+@media (max-width: 800px) {
+  .referenceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionHeading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,83 @@
+.componentDemoSection {
+  border-top: 1px solid var(--line);
+  margin-top: 3rem;
+  padding-top: 2rem;
+  scroll-margin-top: 2rem;
+}
+
+.componentDemoHeading {
+  align-items: flex-start;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.componentDemoHeading h3 {
+  font-size: 1.25rem;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.componentDemoHeading p {
+  color: var(--bb-color-text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin: 0.45rem 0 0;
+  max-width: 40rem;
+}
+
+.componentDemoAnchor {
+  color: var(--bb-color-text-muted);
+  font-family: var(--data);
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.componentDemoAnchor:hover {
+  color: var(--bb-color-text-primary);
+}
+
+.componentDemoTabs {
+  margin-bottom: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.componentDemoTablist {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.componentDemoPanel[hidden] {
+  display: none;
+}
+
+.componentDemoPanel:focus-visible {
+  outline: 2px solid var(--bb-color-focus-ring);
+  outline-offset: 0.2rem;
+}
+
+.componentDemoPreview {
+  align-items: center;
+  background: var(--bb-color-surface);
+  border: 1px solid var(--line);
+  display: flex;
+  min-height: 7rem;
+  padding: 1.25rem;
+}
+
+.componentDemoCode {
+  border: 1px solid var(--line);
+  min-height: 0;
+}
+
+.codeBlock {
+  background: var(--bb-color-navigation);
+  color: var(--bb-color-text);
+  font-family: var(--data);
+  font-size: 0.72rem;
+  line-height: 1.8;
+  margin: 0;
+  min-height: 100%;
+  overflow: auto;
+  padding: 1.2rem;
+}

@@ -1,0 +1,58 @@
+.textRoleCard {
+  background: var(--bb-color-surface);
+  border: 1px solid var(--bb-color-border);
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr);
+}
+
+.textRoleSample {
+  align-items: center;
+  background: var(--bb-color-surface-elevated);
+  border-right: 1px solid var(--bb-color-border);
+  display: flex;
+  font-size: 2.5rem;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.text-role-heading {
+  color: var(--bb-color-text-heading);
+}
+
+.text-role-inverse {
+  background: var(--bb-color-text-heading);
+  color: var(--bb-color-text-inverse);
+}
+
+.text-role-primary {
+  color: var(--bb-color-text-primary);
+}
+
+.text-role-secondary {
+  color: var(--bb-color-text-secondary);
+}
+
+.text-role-metadata {
+  color: var(--bb-color-text-metadata);
+}
+
+.text-role-muted {
+  color: var(--bb-color-text-muted);
+}
+
+.text-role-disabled {
+  color: var(--bb-color-text-disabled);
+}
+
+.textRoleContent {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1rem;
+}
+
+.textRoleContent p {
+  color: var(--bb-color-text-secondary);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  margin: 0.35rem 0 0;
+}

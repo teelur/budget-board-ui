@@ -1,0 +1,20 @@
+.semanticColorGroup {
+  display: block;
+}
+
+.semanticColorGroup h3 {
+  font-size: 1rem;
+  margin: 0 0 0.8rem;
+}
+
+.semanticColorGrid {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 800px) {
+  .semanticColorGrid {
+    grid-template-columns: 1fr;
+  }
+}
