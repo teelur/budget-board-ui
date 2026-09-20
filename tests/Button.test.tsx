@@ -305,12 +305,12 @@ describe("Button", () => {
   it("supports Mantine dimension style props without leaking them to the DOM", () => {
     renderButton(
       <Button
-        h="48px"
-        mah="56px"
+        h={48}
+        mah={56}
         maw="100%"
-        mih="44px"
-        miw="200px"
-        w="240px"
+        mih={44}
+        miw={200}
+        w={240}
       >
         Dimensions
       </Button>,
