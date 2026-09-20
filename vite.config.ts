@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   plugins: [react()],
@@ -11,7 +11,12 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
-      external: ["react", "react-dom", "@mantine/core", "@mantine/hooks"],
+      external: [
+        /^react($|\/)/,
+        /^react-dom($|\/)/,
+        /^@mantine\/core($|\/)/,
+        /^@mantine\/hooks($|\/)/,
+      ],
     },
   },
   test: {
