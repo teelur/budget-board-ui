@@ -21,6 +21,12 @@ when the pull request closes.
 Add new component examples and API reference rows in `docs/App.tsx`, keeping the examples tied to
 the public exports from `src/index.ts`.
 
+Import the package stylesheet once in the consuming app:
+
+```ts
+import "@teelur/budget-board-ui/styles.css";
+```
+
 Publishing runs automatically after changes are merged into `main` and publishes canary packages
 to GitHub Packages and npm under the `canary` tag. Publishing a GitHub release publishes the
 matching stable version to both registries. npm publishing uses GitHub Actions OIDC trusted
