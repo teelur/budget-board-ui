@@ -43,7 +43,8 @@ export const buttonSizes = [
 export type ButtonSize = (typeof buttonSizes)[number];
 
 export interface ButtonProps
-  extends Omit<
+  extends
+    Omit<
       ButtonHTMLAttributes<HTMLButtonElement>,
       "children" | "color" | "disabled" | "style"
     >,
@@ -66,13 +67,13 @@ export interface ButtonProps
 
 type ButtonStyle = CSSProperties &
   Record<
-    | "--button-bg"
-    | "--button-color"
-    | "--button-hover"
-    | "--button-active"
-    | "--button-border"
-    | "--button-hover-border"
-    | "--button-focus",
+    | "--bbui-button-bg"
+    | "--bbui-button-color"
+    | "--bbui-button-hover"
+    | "--bbui-button-active"
+    | "--bbui-button-border"
+    | "--bbui-button-hover-border"
+    | "--bbui-button-focus",
     string
   >;
 
@@ -90,36 +91,36 @@ function getVariantStyles(
 
   if (variant === "outline") {
     return {
-      "--button-bg": "transparent",
-      "--button-color": `${colorToken}-outline-color, ${background})`,
-      "--button-hover": `${colorToken}-outline-hover, color-mix(in srgb, ${background} 12%, transparent))`,
-      "--button-active": `${colorToken}-outline-active, color-mix(in srgb, ${background} 20%, transparent))`,
-      "--button-border": `${colorToken}-outline-border, ${background})`,
-      "--button-hover-border": hoverBorder,
-      "--button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
+      "--bbui-button-bg": "transparent",
+      "--bbui-button-color": `${colorToken}-outline-color, ${background})`,
+      "--bbui-button-hover": `${colorToken}-outline-hover, color-mix(in srgb, ${background} 12%, transparent))`,
+      "--bbui-button-active": `${colorToken}-outline-active, color-mix(in srgb, ${background} 20%, transparent))`,
+      "--bbui-button-border": `${colorToken}-outline-border, ${background})`,
+      "--bbui-button-hover-border": hoverBorder,
+      "--bbui-button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
     };
   }
 
   if (variant === "ghost") {
     return {
-      "--button-bg": "transparent",
-      "--button-color": `${colorToken}-ghost-color, ${background})`,
-      "--button-hover": `${colorToken}-ghost-hover, color-mix(in srgb, ${background} 12%, transparent))`,
-      "--button-active": `${colorToken}-ghost-active, color-mix(in srgb, ${background} 20%, transparent))`,
-      "--button-border": "transparent",
-      "--button-hover-border": hoverBorder,
-      "--button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
+      "--bbui-button-bg": "transparent",
+      "--bbui-button-color": `${colorToken}-ghost-color, ${background})`,
+      "--bbui-button-hover": `${colorToken}-ghost-hover, color-mix(in srgb, ${background} 12%, transparent))`,
+      "--bbui-button-active": `${colorToken}-ghost-active, color-mix(in srgb, ${background} 20%, transparent))`,
+      "--bbui-button-border": "transparent",
+      "--bbui-button-hover-border": hoverBorder,
+      "--bbui-button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
     };
   }
 
   return {
-    "--button-bg": `${colorToken}-background, ${background})`,
-    "--button-color": `${colorToken}-color, ${content})`,
-    "--button-hover": `${colorToken}-hover, ${hoverFallback})`,
-    "--button-active": `${colorToken}-active, color-mix(in srgb, ${background} 80%, ${content}))`,
-    "--button-border": "transparent",
-    "--button-hover-border": hoverBorder,
-    "--button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
+    "--bbui-button-bg": `${colorToken}-background, ${background})`,
+    "--bbui-button-color": `${colorToken}-color, ${content})`,
+    "--bbui-button-hover": `${colorToken}-hover, ${hoverFallback})`,
+    "--bbui-button-active": `${colorToken}-active, color-mix(in srgb, ${background} 80%, ${content}))`,
+    "--bbui-button-border": "transparent",
+    "--bbui-button-hover-border": hoverBorder,
+    "--bbui-button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
   };
 }
 
@@ -166,7 +167,10 @@ export function Button({
       data-budget-board-size={size}
       data-budget-board-variant={variant}
       disabled={disabled ?? loading}
-      style={[getVariantStyles(budgetBoardColors[colorScheme], color, variant), style]}
+      style={[
+        getVariantStyles(budgetBoardColors[colorScheme], color, variant),
+        style,
+      ]}
       type={type}
     >
       {loading && <span aria-hidden="true" className={classes.loader} />}
