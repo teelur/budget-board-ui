@@ -4,6 +4,9 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   plugins: [react()],
+  server: {
+    port: 5150,
+  },
   build: {
     lib: {
       entry: resolve(import.meta.dirname, "src/index.ts"),

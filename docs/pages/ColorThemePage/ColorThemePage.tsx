@@ -267,6 +267,18 @@ const semanticColorGroups = [
         description:
           "Selected rows, fields, and active regions without overpowering their content.",
       },
+      {
+        name: "Button hover border",
+        token: "--bb-color-button-hover-border",
+        lightValue: budgetBoardColors.light.buttonHoverBorder.toUpperCase(),
+        darkValue: budgetBoardColors.dark.buttonHoverBorder.toUpperCase(),
+        lightContent: null,
+        darkContent: null,
+        lightClassName: "semantic-role-light-button-hover-border",
+        darkClassName: "semantic-role-dark-button-hover-border",
+        description:
+          "Interactive button border shown on hover while preserving each button's background treatment.",
+      },
     ],
   },
   {
@@ -339,7 +351,8 @@ export function ColorThemePage({ colorMode }: { colorMode: ColorMode }) {
         A restrained background system keeps the canvas, working surfaces, and
         application chrome distinct without relying on heavy shadows. Surfaces,
         text, and theme roles establish the visual foundation for the rest of
-        the interface.
+        the interface. Toggle the mode control in the header to preview both
+        palettes.
       </p>
       <div className={styles.colorThemeSection}>
         <p className={styles.themeSubheading}>Surfaces</p>

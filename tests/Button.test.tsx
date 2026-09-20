@@ -1,7 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MantineProvider } from "@mantine/core";
 import { describe, expect, it, vi } from "vitest";
 import { Button } from "../src/Button/Button";
+import { budgetBoardDarkTheme } from "../src/theme";
 
 function renderButton(button: React.ReactNode) {
   return render(button);
@@ -141,16 +143,16 @@ describe("Button", () => {
         .getByRole("button", { name: "Warning ghost" })
         .style.getPropertyValue("--button-hover-border"),
     ).toBe(
-      "var(--budget-board-button-warning-ghost-hover-border, var(--bb-color-warning, #fcc419))",
+      "var(--bb-color-button-hover-border, #5f3dc4)",
     );
   });
 
   it("resolves dark semantic palette roles", () => {
-    renderButton(
-      <>
+    render(
+      <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
         <Button>Primary</Button>
         <Button color="error">Error</Button>
-      </>,
+      </MantineProvider>,
     );
 
     expect(
@@ -158,22 +160,27 @@ describe("Button", () => {
         .getByRole("button", { name: "Primary" })
         .style.getPropertyValue("--button-bg"),
     ).toBe(
-      "var(--budget-board-button-primary-background, var(--bb-color-primary, #4c6ef5))",
+      "var(--budget-board-button-primary-background, var(--bb-color-primary, #91a7ff))",
     );
     expect(
       screen
         .getByRole("button", { name: "Error" })
         .style.getPropertyValue("--button-color"),
     ).toBe(
-      "var(--budget-board-button-error-color, var(--bb-color-error-content, #fff5f5))",
+      "var(--budget-board-button-error-color, var(--bb-color-error-content, #4a0c0c))",
     );
     expect(
       screen
         .getByRole("button", { name: "Primary" })
         .style.getPropertyValue("--button-focus"),
     ).toBe(
-      "var(--budget-board-button-focus-ring, var(--bb-color-focus-ring, #4c6ef5))",
+      "var(--budget-board-button-focus-ring, var(--bb-color-focus-ring, #91a7ff))",
     );
+    expect(
+      screen
+        .getByRole("button", { name: "Primary" })
+        .style.getPropertyValue("--button-hover-border"),
+    ).toBe("var(--bb-color-button-hover-border, #63e6be)");
   });
 
   it("supports every public semantic color", () => {
@@ -293,6 +300,56 @@ describe("Button", () => {
       "data-budget-board-full-width",
       "true",
     );
+  });
+
+  it("supports Mantine dimension style props without leaking them to the DOM", () => {
+    renderButton(
+      <Button
+        h={48}
+        mah={56}
+        maw="100%"
+        mih={44}
+        miw={200}
+        w={240}
+      >
+        Dimensions
+      </Button>,
+    );
+
+    const button = screen.getByRole("button", { name: "Dimensions" });
+
+    expect(button).not.toHaveAttribute("w");
+    expect(button).not.toHaveAttribute("miw");
+    expect(button).not.toHaveAttribute("maw");
+    expect(button).not.toHaveAttribute("h");
+    expect(button).not.toHaveAttribute("mih");
+    expect(button).not.toHaveAttribute("mah");
+    expect(button).toHaveStyle({
+      width: "calc(15rem * var(--mantine-scale))",
+      minWidth: "calc(12.5rem * var(--mantine-scale))",
+      maxWidth: "100%",
+      height: "calc(3rem * var(--mantine-scale))",
+      minHeight: "calc(2.75rem * var(--mantine-scale))",
+      maxHeight: "calc(3.5rem * var(--mantine-scale))",
+    });
+  });
+
+  it("resolves Mantine style callbacks after applying button variant styles", () => {
+    renderButton(
+      <Button
+        style={(theme) => ({
+          "--button-bg": theme.colors.red[6],
+          color: theme.colors.red[6],
+        })}
+      >
+        Callback styles
+      </Button>,
+    );
+
+    const button = screen.getByRole("button", { name: "Callback styles" });
+
+    expect(button.style.getPropertyValue("--button-bg")).toBe("#fa5252");
+    expect(button).toHaveStyle({ color: "#fa5252" });
   });
 
   it("works without a Mantine provider", () => {

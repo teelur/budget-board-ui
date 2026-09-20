@@ -85,6 +85,11 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         A compact action primitive with independent appearance, semantic color,
         interaction, sizing, and slot support.
       </p>
+      <p className={pageStyles.sectionCopy}>
+        Buttons follow the active Mantine color scheme. This documentation site
+        switches between <code>budgetBoardTheme</code> and
+        <code>budgetBoardDarkTheme</code> through <code>MantineProvider</code>.
+      </p>
 
       <ComponentDemoSection
         description="Use visual weight to establish hierarchy without changing the action itself."
@@ -235,6 +240,33 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       >
         <Button className={styles.buttonWide} fullWidth>
           Continue
+        </Button>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description="Use Mantine dimension props for fixed, constrained, or responsive button sizing."
+        id="button-dimensions"
+        title="Dimensions"
+        code={`<Button
+  w={240}
+  miw={200}
+  maw="100%"
+  h={48}
+  mih={44}
+  mah={56}
+>
+  Constrained action
+</Button>`}
+      >
+        <Button
+          h={48}
+          mah={56}
+          maw="100%"
+          mih={44}
+          miw={200}
+          w={240}
+        >
+          Constrained action
         </Button>
       </ComponentDemoSection>
 
@@ -452,11 +484,11 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   <td>-</td>
                 </tr>
                 <tr>
-                  <th>variant</th>
+                  <th>className</th>
                   <td>
-                    <code>{buttonVariants.join(" | ")}</code>
+                    <code>string</code>
                   </td>
-                  <td>filled</td>
+                  <td>-</td>
                 </tr>
                 <tr>
                   <th>color</th>
@@ -464,27 +496,6 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                     <code>{buttonColors.join(" | ")}</code>
                   </td>
                   <td>primary</td>
-                </tr>
-                <tr>
-                  <th>size</th>
-                  <td>
-                    <code>{buttonSizes.join(" | ")}</code>
-                  </td>
-                  <td>md</td>
-                </tr>
-                <tr>
-                  <th>selected</th>
-                  <td>
-                    <code>boolean</code>
-                  </td>
-                  <td>false</td>
-                </tr>
-                <tr>
-                  <th>loading</th>
-                  <td>
-                    <code>boolean</code>
-                  </td>
-                  <td>false</td>
                 </tr>
                 <tr>
                   <th>disabled</th>
@@ -508,11 +519,28 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   <td>-</td>
                 </tr>
                 <tr>
-                  <th>type</th>
+                  <th>loading</th>
                   <td>
-                    <code>button | submit | reset</code>
+                    <code>boolean</code>
                   </td>
-                  <td>button</td>
+                  <td>false</td>
+                </tr>
+                <tr>
+                  <th>Mantine dimension props</th>
+                  <td>
+                    <code>StyleProp&lt;string | number&gt;</code>
+                  </td>
+                  <td>
+                    <code>w, miw, maw, h, mih, mah</code>; responsive values
+                    supported
+                  </td>
+                </tr>
+                <tr>
+                  <th>native button attributes</th>
+                  <td>
+                    <code>ButtonHTMLAttributes&lt;HTMLButtonElement&gt;</code>
+                  </td>
+                  <td>-</td>
                 </tr>
                 <tr>
                   <th>rightSection</th>
@@ -522,25 +550,41 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   <td>-</td>
                 </tr>
                 <tr>
-                  <th>className</th>
+                  <th>selected</th>
                   <td>
-                    <code>string</code>
+                    <code>boolean</code>
                   </td>
-                  <td>-</td>
+                  <td>false</td>
+                </tr>
+                <tr>
+                  <th>size</th>
+                  <td>
+                    <code>{buttonSizes.join(" | ")}</code>
+                  </td>
+                  <td>md</td>
                 </tr>
                 <tr>
                   <th>style</th>
                   <td>
-                    <code>CSSProperties</code>
+                    <code>MantineStyleProp</code>
                   </td>
-                  <td>-</td>
+                  <td>
+                    CSS object, theme callback, or nested array of either
+                  </td>
                 </tr>
                 <tr>
-                  <th>native button attributes</th>
+                  <th>type</th>
                   <td>
-                    <code>ButtonHTMLAttributes&lt;HTMLButtonElement&gt;</code>
+                    <code>button | submit | reset</code>
                   </td>
-                  <td>-</td>
+                  <td>button</td>
+                </tr>
+                <tr>
+                  <th>variant</th>
+                  <td>
+                    <code>{buttonVariants.join(" | ")}</code>
+                  </td>
+                  <td>filled</td>
                 </tr>
               </tbody>
             </table>

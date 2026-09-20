@@ -6,6 +6,9 @@ export default defineConfig({
   base: process.env.DOCS_BASE_PATH ?? "/budget-board-ui/",
   root: resolve(import.meta.dirname, "docs"),
   plugins: [react()],
+  server: {
+    port: 5150,
+  },
   build: {
     outDir: resolve(import.meta.dirname, "docs-dist"),
     emptyOutDir: true,
