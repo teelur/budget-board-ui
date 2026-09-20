@@ -22,5 +22,7 @@ Add new component examples and API reference rows in `docs/App.tsx`, keeping the
 the public exports from `src/index.ts`.
 
 Publishing runs automatically after changes are merged into `main` and publishes canary packages
-to GitHub Packages under the `canary` tag. Publishing a GitHub release publishes the matching
-stable version to GitHub Packages.
+to GitHub Packages and npm under the `canary` tag. Publishing a GitHub release publishes the
+matching stable version to both registries. npm publishing uses GitHub Actions OIDC trusted
+publishing; configure `canary.yml` and `release.yml` as trusted publishers in the npm package
+settings.

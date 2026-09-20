@@ -7,6 +7,7 @@ on:
 permissions:
   contents: read
   packages: write
+  id-token: write
 
 jobs:
   publish:
@@ -43,7 +44,35 @@ jobs:
             exit 1
           fi
 
-      - name: Publish package
-        run: yarn npm publish --tolerate-republish
+      - name: Configure GitHub Packages registry
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://npm.pkg.github.com
+
+      - name: Publish package to GitHub Packages
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          if npm view "@teelur/budget-board-ui@$PACKAGE_VERSION" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
+            echo "@teelur/budget-board-ui@$PACKAGE_VERSION is already published to GitHub Packages; skipping."
+          else
+            npm publish --registry=https://npm.pkg.github.com
+          fi
         env:
-          YARN_NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure npm registry
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Publish package to npm
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          if npm view "@teelur/budget-board-ui@$PACKAGE_VERSION" version --registry=https://registry.npmjs.org >/dev/null 2>&1; then
+            echo "@teelur/budget-board-ui@$PACKAGE_VERSION is already published to npm; skipping."
+          else
+            npm publish --access public --registry=https://registry.npmjs.org
+          fi
