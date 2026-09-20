@@ -2,14 +2,19 @@ name: Documentation PR
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, closed]
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
+
+concurrency: preview-${{ github.event.pull_request.number }}
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    env:
+      DOCS_BASE_PATH: /budget-board-ui/pr-preview/pr-${{ github.event.pull_request.number }}/
 
     steps:
       - name: Check out repository
@@ -28,12 +33,12 @@ jobs:
         run: yarn install --immutable
 
       - name: Build documentation
+        if: github.event.action != 'closed'
         run: yarn docs:build
 
-      - name: Upload staging documentation
-        uses: actions/upload-artifact@v7
+      - name: Deploy PR preview
+        uses: rossjrw/pr-preview-action@v1
         with:
-          name: docs-pr-${{ github.event.pull_request.number }}
-          path: docs-dist
-          if-no-files-found: error
-          retention-days: 7
+          source-dir: docs-dist
+          preview-branch: gh-pages
+          wait-for-pages-deployment: true
