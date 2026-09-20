@@ -50,7 +50,13 @@ export interface ButtonProps
     >,
     Omit<
       UnstyledButtonProps,
-      "children" | "color" | "disabled" | "size" | "style" | "variant"
+      | "children"
+      | "color"
+      | "disabled"
+      | "size"
+      | "style"
+      | "unstyled"
+      | "variant"
     > {
   selected?: boolean;
   children?: ReactNode;
