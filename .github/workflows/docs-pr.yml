@@ -41,4 +41,4 @@ jobs:
         with:
           source-dir: docs-dist
           preview-branch: gh-pages
-          wait-for-pages-deployment: true
+          wait-for-pages-deployment: ${{ github.event.action != 'closed' }}
