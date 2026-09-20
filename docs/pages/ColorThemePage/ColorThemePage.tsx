@@ -267,6 +267,18 @@ const semanticColorGroups = [
         description:
           "Selected rows, fields, and active regions without overpowering their content.",
       },
+      {
+        name: "Button hover border",
+        token: "--bb-color-button-hover-border",
+        lightValue: budgetBoardColors.light.buttonHoverBorder.toUpperCase(),
+        darkValue: budgetBoardColors.dark.buttonHoverBorder.toUpperCase(),
+        lightContent: null,
+        darkContent: null,
+        lightClassName: "semantic-role-light-button-hover-border",
+        darkClassName: "semantic-role-dark-button-hover-border",
+        description:
+          "Interactive button border shown on hover while preserving each button's background treatment.",
+      },
     ],
   },
   {

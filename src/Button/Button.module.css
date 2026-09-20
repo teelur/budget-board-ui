@@ -15,7 +15,7 @@
   line-height: 1.2;
   transition:
     background-color 120ms ease,
-    border-color 120ms ease,
+    border-color 0.25s,
     color 120ms ease,
     opacity 120ms ease,
     transform 120ms ease;
@@ -38,7 +38,7 @@
 
 .root.selected[data-budget-board-variant="filled"]:hover:not(:disabled) {
   background: color-mix(in srgb, var(--button-bg) 18%, transparent);
-  border-color: var(--button-bg);
+  border-color: var(--button-hover-border);
 }
 
 .root:active:not(:disabled) {

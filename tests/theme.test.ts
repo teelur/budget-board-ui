@@ -36,6 +36,7 @@ const semanticColorKeys = [
   "border",
   "borderSubtle",
   "borderStrong",
+  "buttonHoverBorder",
   "focusRing",
   "selection",
   "info",
@@ -75,6 +76,7 @@ describe("budgetBoardColors", () => {
   it("finalizes structural and feedback roles in both modes", () => {
     expect(budgetBoardColors.light.borderSubtle).toBe("#d8d5ce");
     expect(budgetBoardColors.light.borderStrong).toBe("#aaa69e");
+    expect(budgetBoardColors.light.buttonHoverBorder).toBe("#5f3dc4");
     expect(budgetBoardColors.light.focusRing).toBe("#4c6ef5");
     expect(budgetBoardColors.light.selection).toBe("#dbe4ff");
     expect(budgetBoardColors.light.info).toBe("#1971c2");
@@ -88,6 +90,7 @@ describe("budgetBoardColors", () => {
 
     expect(budgetBoardColors.dark.borderSubtle).toBe("#3a3d42");
     expect(budgetBoardColors.dark.borderStrong).toBe("#686b70");
+    expect(budgetBoardColors.dark.buttonHoverBorder).toBe("#63e6be");
     expect(budgetBoardColors.dark.focusRing).toBe("#91a7ff");
     expect(budgetBoardColors.dark.selection).toBe("#1e2450");
     expect(budgetBoardColors.dark.info).toBe("#74c0fc");

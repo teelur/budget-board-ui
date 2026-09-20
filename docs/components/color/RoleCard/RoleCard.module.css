@@ -94,6 +94,12 @@
   --semantic-role-content: var(--bb-color-text-heading);
 }
 
+.semantic-role-light-button-hover-border,
+.semantic-role-dark-button-hover-border {
+  --semantic-role-fill: var(--bb-color-button-hover-border);
+  --semantic-role-content: var(--bb-color-text-inverse);
+}
+
 .semantic-role-light-info,
 .semantic-role-dark-info {
   --semantic-role-fill: var(--bb-color-info);

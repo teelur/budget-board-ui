@@ -76,6 +76,7 @@ function getVariantStyles(
 ): ButtonStyle {
   const background = `var(--bb-color-${color}, ${colors[color]})`;
   const content = `var(--bb-color-${color}-content, ${colors[`${color}Content` as BudgetBoardContentColorKey]})`;
+  const hoverBorder = `var(--bb-color-button-hover-border, ${colors.buttonHoverBorder})`;
   const focusRing = `var(--bb-color-focus-ring, ${colors.focusRing})`;
   const colorToken = `var(--budget-board-button-${color}`;
   const hoverFallback = `color-mix(in srgb, ${background} 88%, ${content})`;
@@ -87,7 +88,7 @@ function getVariantStyles(
       "--button-hover": `${colorToken}-outline-hover, color-mix(in srgb, ${background} 12%, transparent))`,
       "--button-active": `${colorToken}-outline-active, color-mix(in srgb, ${background} 20%, transparent))`,
       "--button-border": `${colorToken}-outline-border, ${background})`,
-      "--button-hover-border": `${colorToken}-outline-border, ${background})`,
+      "--button-hover-border": hoverBorder,
       "--button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
     };
   }
@@ -99,7 +100,7 @@ function getVariantStyles(
       "--button-hover": `${colorToken}-ghost-hover, color-mix(in srgb, ${background} 12%, transparent))`,
       "--button-active": `${colorToken}-ghost-active, color-mix(in srgb, ${background} 20%, transparent))`,
       "--button-border": "transparent",
-      "--button-hover-border": `${colorToken}-ghost-hover-border, ${background})`,
+      "--button-hover-border": hoverBorder,
       "--button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
     };
   }
@@ -110,7 +111,7 @@ function getVariantStyles(
     "--button-hover": `${colorToken}-hover, ${hoverFallback})`,
     "--button-active": `${colorToken}-active, color-mix(in srgb, ${background} 80%, ${content}))`,
     "--button-border": "transparent",
-    "--button-hover-border": "transparent",
+    "--button-hover-border": hoverBorder,
     "--button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
   };
 }

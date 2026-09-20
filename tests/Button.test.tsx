@@ -143,7 +143,7 @@ describe("Button", () => {
         .getByRole("button", { name: "Warning ghost" })
         .style.getPropertyValue("--button-hover-border"),
     ).toBe(
-      "var(--budget-board-button-warning-ghost-hover-border, var(--bb-color-warning, #fcc419))",
+      "var(--bb-color-button-hover-border, #5f3dc4)",
     );
   });
 
@@ -176,6 +176,11 @@ describe("Button", () => {
     ).toBe(
       "var(--budget-board-button-focus-ring, var(--bb-color-focus-ring, #91a7ff))",
     );
+    expect(
+      screen
+        .getByRole("button", { name: "Primary" })
+        .style.getPropertyValue("--button-hover-border"),
+    ).toBe("var(--bb-color-button-hover-border, #63e6be)");
   });
 
   it("supports every public semantic color", () => {
