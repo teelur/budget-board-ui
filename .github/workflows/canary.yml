@@ -46,14 +46,3 @@ jobs:
         run: yarn npm publish --tag canary
         env:
           YARN_NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Configure npm registry
-        uses: actions/setup-node@v7
-        with:
-          node-version: 24
-          registry-url: https://registry.npmjs.org
-
-      - name: Publish canary package to npm
-        run: npm publish --access public --tag canary --registry=https://registry.npmjs.org
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
