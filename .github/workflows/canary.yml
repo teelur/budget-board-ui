@@ -40,7 +40,7 @@ jobs:
         run: |
           BASE_VERSION=$(node -p "require('./package.json').version")
           SHORT_SHA=$(git rev-parse --short HEAD)
-          CANARY_VERSION="$BASE_VERSION-canary.$(date -u +%Y%m%d%H%M%S).$SHORT_SHA"
+          CANARY_VERSION="$BASE_VERSION-canary.${GITHUB_RUN_NUMBER}.$SHORT_SHA"
           node -e "const fs = require('fs'); const pkg = require('./package.json'); pkg.version = process.argv[1]; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');" "$CANARY_VERSION"
 
       - name: Configure GitHub Packages registry
@@ -50,7 +50,13 @@ jobs:
           registry-url: https://npm.pkg.github.com
 
       - name: Publish canary package to GitHub Packages
-        run: npm publish --tag canary --registry=https://npm.pkg.github.com
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          if npm view "@teelur/budget-board-ui@$PACKAGE_VERSION" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
+            echo "@teelur/budget-board-ui@$PACKAGE_VERSION is already published to GitHub Packages; skipping."
+          else
+            npm publish --tag canary --registry=https://npm.pkg.github.com
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -62,4 +68,10 @@ jobs:
           package-manager-cache: false
 
       - name: Publish canary package to npm
-        run: npm publish --access public --tag canary --registry=https://registry.npmjs.org
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          if npm view "@teelur/budget-board-ui@$PACKAGE_VERSION" version --registry=https://registry.npmjs.org >/dev/null 2>&1; then
+            echo "@teelur/budget-board-ui@$PACKAGE_VERSION is already published to npm; skipping."
+          else
+            npm publish --access public --tag canary --registry=https://registry.npmjs.org
+          fi
