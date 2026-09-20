@@ -102,7 +102,7 @@ function getVariantStyles(
     "--button-bg": `${colorToken}-background, ${background})`,
     "--button-color": `${colorToken}-color, ${content})`,
     "--button-hover": `${colorToken}-hover, ${hoverFallback})`,
-    "--button-active": `${colorToken}-active, color-mix(in srgb, ${background} 80%, ${content})`,
+    "--button-active": `${colorToken}-active, color-mix(in srgb, ${background} 80%, ${content}))`,
     "--button-border": "transparent",
     "--button-hover-border": "transparent",
     "--button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
