@@ -72,6 +72,7 @@ jobs:
 
       - name: Publish package to npm
         run: |
+          npm pkg delete publishConfig.registry
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
           if npm view "@teelur/budget-board-ui@$PACKAGE_VERSION" version --registry=https://registry.npmjs.org >/dev/null 2>&1; then
             echo "@teelur/budget-board-ui@$PACKAGE_VERSION is already published to npm; skipping."
