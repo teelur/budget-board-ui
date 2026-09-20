@@ -1,18 +1,23 @@
 .root {
+  all: unset;
   align-items: center;
-  background: var(--button-bg);
-  border: 1px solid var(--button-border);
+  appearance: none;
+  background: var(--bbui-button-bg);
+  border: 1px solid var(--bbui-button-border);
   box-sizing: border-box;
   border-radius: 0.25rem;
-  color: var(--button-color);
+  color: var(--bbui-button-color);
   cursor: pointer;
   display: inline-flex;
   font: inherit;
   font-weight: 600;
-  gap: var(--button-gap);
-  height: var(--button-height);
+  gap: var(--bbui-button-gap);
+  height: var(--bbui-button-height);
   justify-content: center;
   line-height: 1.2;
+  margin: 0;
+  text-align: center;
+  text-decoration: none;
   transition:
     background-color 120ms ease,
     border-color 0.25s,
@@ -22,32 +27,36 @@
 }
 
 .root.selected:not(:disabled) {
-  background: var(--button-active);
+  background: var(--bbui-button-active);
 }
 
 .root.selected[data-budget-board-variant="filled"]:not(:disabled) {
-  background: color-mix(in srgb, var(--button-bg) 10%, transparent);
-  border-color: var(--button-bg);
-  color: var(--button-bg);
+  background: color-mix(in srgb, var(--bbui-button-bg) 10%, transparent);
+  border-color: var(--bbui-button-bg);
+  color: var(--bbui-button-bg);
 }
 
 .root:hover:not(:disabled) {
-  background: var(--button-hover);
-  border-color: var(--button-hover-border);
+  background: var(--bbui-button-hover);
+  border-color: var(--bbui-button-hover-border);
 }
 
 .root.selected[data-budget-board-variant="filled"]:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--button-bg) 18%, transparent);
-  border-color: var(--button-hover-border);
+  background: color-mix(in srgb, var(--bbui-button-bg) 18%, transparent);
+  border-color: var(--bbui-button-hover-border);
 }
 
 .root:active:not(:disabled) {
-  background: var(--button-active);
+  background: var(--bbui-button-active);
   transform: translateY(1px);
 }
 
+.root:focus {
+  outline: none;
+}
+
 .root:focus-visible {
-  outline: 2px solid var(--button-focus);
+  outline: 2px solid var(--bbui-button-focus);
   outline-offset: 2px;
 }
 
@@ -57,71 +66,71 @@
 }
 
 .compact-xs {
-  --button-gap: 0.25rem;
-  --button-height: 1.5rem;
+  --bbui-button-gap: 0.25rem;
+  --bbui-button-height: 1.5rem;
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
 }
 
 .compact-sm {
-  --button-gap: 0.375rem;
-  --button-height: 1.75rem;
+  --bbui-button-gap: 0.375rem;
+  --bbui-button-height: 1.75rem;
   font-size: 0.875rem;
   padding: 0.25rem 0.5rem;
 }
 
 .compact-md {
-  --button-gap: 0.5rem;
-  --button-height: 2rem;
+  --bbui-button-gap: 0.5rem;
+  --bbui-button-height: 2rem;
   font-size: 1rem;
   padding: 0.25rem 0.5rem;
 }
 
 .compact-lg {
-  --button-gap: 0.5rem;
-  --button-height: 2.5rem;
+  --bbui-button-gap: 0.5rem;
+  --bbui-button-height: 2.5rem;
   font-size: 1.125rem;
   padding: 0.25rem 0.5rem;
 }
 
 .compact-xl {
-  --button-gap: 0.625rem;
-  --button-height: 3rem;
+  --bbui-button-gap: 0.625rem;
+  --bbui-button-height: 3rem;
   font-size: 1.25rem;
   padding: 0.25rem 0.5rem;
 }
 
 .xs {
-  --button-gap: 0.375rem;
-  --button-height: 1.75rem;
+  --bbui-button-gap: 0.375rem;
+  --bbui-button-height: 1.75rem;
   font-size: 0.75rem;
   padding: 0.5rem 1rem;
 }
 
 .sm {
-  --button-gap: 0.5rem;
-  --button-height: 2rem;
+  --bbui-button-gap: 0.5rem;
+  --bbui-button-height: 2rem;
   font-size: 0.875rem;
   padding: 0.5rem 1rem;
 }
 
 .md {
-  --button-gap: 0.5rem;
-  --button-height: 2.5rem;
+  --bbui-button-gap: 0.5rem;
+  --bbui-button-height: 2.5rem;
   font-size: 1rem;
   padding: 0.5rem 1rem;
 }
 
 .lg {
-  --button-gap: 0.625rem;
-  --button-height: 3rem;
+  --bbui-button-gap: 0.625rem;
+  --bbui-button-height: 3rem;
   font-size: 1.125rem;
   padding: 0.5rem 1rem;
 }
 
 .xl {
-  --button-gap: 0.75rem;
-  --button-height: 3.5rem;
+  --bbui-button-gap: 0.75rem;
+  --bbui-button-height: 3.5rem;
   font-size: 1.25rem;
   padding: 0.5rem 1rem;
 }

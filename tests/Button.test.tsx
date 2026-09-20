@@ -108,43 +108,41 @@ describe("Button", () => {
     expect(
       screen
         .getByRole("button", { name: "Primary" })
-        .style.getPropertyValue("--button-bg"),
+        .style.getPropertyValue("--bbui-button-bg"),
     ).toBe(
       "var(--budget-board-button-primary-background, var(--bb-color-primary, #4c6ef5))",
     );
     expect(
       screen
         .getByRole("button", { name: "Secondary" })
-        .style.getPropertyValue("--button-color"),
+        .style.getPropertyValue("--bbui-button-color"),
     ).toBe(
       "var(--budget-board-button-secondary-color, var(--bb-color-secondary-content, #063b2f))",
     );
     expect(
       screen
         .getByRole("button", { name: "Error" })
-        .style.getPropertyValue("--button-bg"),
+        .style.getPropertyValue("--bbui-button-bg"),
     ).toBe(
       "var(--budget-board-button-error-background, var(--bb-color-error, #c92a2a))",
     );
     expect(
       screen
         .getByRole("button", { name: "Info outline" })
-        .style.getPropertyValue("--button-border"),
+        .style.getPropertyValue("--bbui-button-border"),
     ).toBe(
       "var(--budget-board-button-info-outline-border, var(--bb-color-info, #1971c2))",
     );
     expect(
       screen
         .getByRole("button", { name: "Warning ghost" })
-        .style.getPropertyValue("--button-bg"),
+        .style.getPropertyValue("--bbui-button-bg"),
     ).toBe("transparent");
     expect(
       screen
         .getByRole("button", { name: "Warning ghost" })
-        .style.getPropertyValue("--button-hover-border"),
-    ).toBe(
-      "var(--bb-color-button-hover-border, #5f3dc4)",
-    );
+        .style.getPropertyValue("--bbui-button-hover-border"),
+    ).toBe("var(--bb-color-button-hover-border, #5f3dc4)");
   });
 
   it("resolves dark semantic palette roles", () => {
@@ -158,28 +156,28 @@ describe("Button", () => {
     expect(
       screen
         .getByRole("button", { name: "Primary" })
-        .style.getPropertyValue("--button-bg"),
+        .style.getPropertyValue("--bbui-button-bg"),
     ).toBe(
       "var(--budget-board-button-primary-background, var(--bb-color-primary, #91a7ff))",
     );
     expect(
       screen
         .getByRole("button", { name: "Error" })
-        .style.getPropertyValue("--button-color"),
+        .style.getPropertyValue("--bbui-button-color"),
     ).toBe(
       "var(--budget-board-button-error-color, var(--bb-color-error-content, #4a0c0c))",
     );
     expect(
       screen
         .getByRole("button", { name: "Primary" })
-        .style.getPropertyValue("--button-focus"),
+        .style.getPropertyValue("--bbui-button-focus"),
     ).toBe(
       "var(--budget-board-button-focus-ring, var(--bb-color-focus-ring, #91a7ff))",
     );
     expect(
       screen
         .getByRole("button", { name: "Primary" })
-        .style.getPropertyValue("--button-hover-border"),
+        .style.getPropertyValue("--bbui-button-hover-border"),
     ).toBe("var(--bb-color-button-hover-border, #63e6be)");
   });
 
@@ -219,7 +217,7 @@ describe("Button", () => {
     expect(
       screen
         .getByRole("button", { name: "Fallback" })
-        .style.getPropertyValue("--button-bg"),
+        .style.getPropertyValue("--bbui-button-bg"),
     ).toBe(
       "var(--budget-board-button-primary-background, var(--bb-color-primary, #4c6ef5))",
     );
@@ -304,14 +302,7 @@ describe("Button", () => {
 
   it("supports Mantine dimension style props without leaking them to the DOM", () => {
     renderButton(
-      <Button
-        h={48}
-        mah={56}
-        maw="100%"
-        mih={44}
-        miw={200}
-        w={240}
-      >
+      <Button h={48} mah={56} maw="100%" mih={44} miw={200} w={240}>
         Dimensions
       </Button>,
     );
@@ -338,7 +329,7 @@ describe("Button", () => {
     renderButton(
       <Button
         style={(theme) => ({
-          "--button-bg": theme.colors.red[6],
+          "--bbui-button-bg": theme.colors.red[6],
           color: theme.colors.red[6],
         })}
       >
@@ -348,7 +339,7 @@ describe("Button", () => {
 
     const button = screen.getByRole("button", { name: "Callback styles" });
 
-    expect(button.style.getPropertyValue("--button-bg")).toBe("#fa5252");
+    expect(button.style.getPropertyValue("--bbui-button-bg")).toBe("#fa5252");
     expect(button).toHaveStyle({ color: "#fa5252" });
   });
 
