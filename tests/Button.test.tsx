@@ -329,7 +329,7 @@ describe("Button", () => {
     renderButton(
       <Button
         style={(theme) => ({
-          "--button-bg": theme.colors.red[6],
+          "--bbui-button-bg": theme.colors.red[6],
           color: theme.colors.red[6],
         })}
       >
@@ -339,7 +339,7 @@ describe("Button", () => {
 
     const button = screen.getByRole("button", { name: "Callback styles" });
 
-    expect(button.style.getPropertyValue("--button-bg")).toBe("#fa5252");
+    expect(button.style.getPropertyValue("--bbui-button-bg")).toBe("#fa5252");
     expect(button).toHaveStyle({ color: "#fa5252" });
   });
 
