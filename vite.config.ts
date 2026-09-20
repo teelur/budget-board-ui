@@ -9,6 +9,7 @@ export default defineConfig({
       entry: resolve(import.meta.dirname, "src/index.ts"),
       fileName: "index",
       formats: ["es"],
+      cssFileName: "styles",
     },
     rollupOptions: {
       external: [
