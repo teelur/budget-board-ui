@@ -48,6 +48,8 @@ jobs:
           name: package
           path: |
             package.json
+            yarn.lock
+            .yarnrc.yml
             README.md
             LICENSE
             dist
