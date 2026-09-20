@@ -49,20 +49,14 @@ jobs:
           node-version: 24
           registry-url: https://npm.pkg.github.com
 
-      - name: Publish canary package to GitHub Packages
+      - name: Set GitHub Packages publish registry
         run: |
-          PACKAGE_VERSION=$(node -p "require('./package.json').version")
-          if PACKAGE_INFO=$(npm view "@teelur/budget-board-ui@$PACKAGE_VERSION" version --registry=https://npm.pkg.github.com 2>&1); then
-            echo "@teelur/budget-board-ui@$PACKAGE_VERSION is already published to GitHub Packages; skipping."
-          else
-            if printf '%s' "$PACKAGE_INFO" | grep -Eq 'E401|E403|401 Unauthorized|403 Forbidden|unauthenticated'; then
-              printf '%s\n' "$PACKAGE_INFO" >&2
-              exit 1
-            fi
-            npm publish --tag canary --registry=https://npm.pkg.github.com
-          fi
+          node -e "const fs = require('fs'); const pkg = require('./package.json'); pkg.publishConfig = { ...(pkg.publishConfig || {}), registry: 'https://npm.pkg.github.com' }; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');"
+
+      - name: Publish canary package to GitHub Packages
+        run: yarn npm publish --tag canary --tolerate-republish
         env:
-          NODE_AUTH_TOKEN: ${{ github.token }}
+          YARN_NPM_AUTH_TOKEN: ${{ github.token }}
 
       - name: Configure npm registry
         uses: actions/setup-node@v7
@@ -70,6 +64,10 @@ jobs:
           node-version: 24
           registry-url: https://registry.npmjs.org
           package-manager-cache: false
+
+      - name: Set npm publish registry
+        run: |
+          node -e "const fs = require('fs'); const pkg = require('./package.json'); pkg.publishConfig = { ...(pkg.publishConfig || {}), registry: 'https://registry.npmjs.org' }; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');"
 
       - name: Publish canary package to npm
         run: |
