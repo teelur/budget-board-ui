@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, UnstyledButton } from "@mantine/core";
 import { describe, expect, it, vi } from "vitest";
 import { Button } from "../src/Button/Button";
 import { budgetBoardDarkTheme } from "../src/theme";
@@ -21,6 +21,19 @@ describe("Button", () => {
     expect(button).toHaveAttribute("data-budget-board-size", "md");
     expect(button).not.toHaveAttribute("data-budget-board-selected");
     expect(button).not.toHaveAttribute("aria-pressed");
+  });
+
+  it("does not apply Mantine UnstyledButton styles", () => {
+    renderButton(<Button>Owned styles</Button>);
+
+    const unstyledButtonClass = UnstyledButton.classes.root;
+
+    expect(unstyledButtonClass).toBeDefined();
+    expect(
+      screen
+        .getByRole("button", { name: "Owned styles" })
+        .classList.contains(unstyledButtonClass ?? ""),
+    ).toBe(false);
   });
 
   it("supports a latched selected state while remaining interactive", async () => {

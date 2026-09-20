@@ -172,6 +172,7 @@ export function Button({
         style,
       ]}
       type={type}
+      unstyled
     >
       {loading && <span aria-hidden="true" className={classes.loader} />}
       {leftSection && <span className={classes.section}>{leftSection}</span>}
