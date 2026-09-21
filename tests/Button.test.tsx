@@ -199,6 +199,7 @@ describe("Button", () => {
       "primary",
       "secondary",
       "accent",
+      "muted",
       "neutral",
       "info",
       "success",

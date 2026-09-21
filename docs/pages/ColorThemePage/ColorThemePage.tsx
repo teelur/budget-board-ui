@@ -198,6 +198,17 @@ const themeRoles = [
     darkClassName: "theme-role-dark-accent",
   },
   {
+    name: "Muted",
+    token: "--bb-color-muted",
+    lightValue: budgetBoardColors.light.muted.toUpperCase(),
+    darkValue: budgetBoardColors.dark.muted.toUpperCase(),
+    lightContent: budgetBoardColors.light.mutedContent.toUpperCase(),
+    darkContent: budgetBoardColors.dark.mutedContent.toUpperCase(),
+    description: "Quiet secondary actions such as cancel and go back.",
+    lightClassName: "theme-role-light-muted",
+    darkClassName: "theme-role-dark-muted",
+  },
+  {
     name: "Neutral",
     token: "--bb-color-neutral",
     lightValue: budgetBoardColors.light.neutral.toUpperCase(),
