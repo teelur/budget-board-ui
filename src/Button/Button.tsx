@@ -17,6 +17,7 @@ export const buttonColors = [
   "primary",
   "secondary",
   "accent",
+  "muted",
   "neutral",
   "info",
   "success",

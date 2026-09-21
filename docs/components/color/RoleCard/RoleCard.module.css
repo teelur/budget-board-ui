@@ -56,6 +56,12 @@
   --theme-role-content: var(--bb-color-accent-content);
 }
 
+.theme-role-light-muted,
+.theme-role-dark-muted {
+  --theme-role-fill: var(--bb-color-muted);
+  --theme-role-content: var(--bb-color-muted-content);
+}
+
 .theme-role-light-neutral,
 .theme-role-dark-neutral {
   --theme-role-fill: var(--bb-color-neutral);
