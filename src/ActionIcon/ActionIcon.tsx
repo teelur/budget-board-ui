@@ -6,7 +6,7 @@ import {
   getButtonVariantStyles,
   type ButtonColor,
   type ButtonVariant,
-} from "../buttonStyles";
+} from "../shared/buttonStyles";
 import { budgetBoardColors } from "../colors";
 import classes from "./ActionIcon.module.css";
 

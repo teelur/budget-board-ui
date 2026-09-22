@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import type {
   BudgetBoardColorMode,
   BudgetBoardContentColorKey,
-} from "./colors";
+} from "../colors";
 
 export const buttonColors = [
   "primary",
