@@ -102,7 +102,7 @@ export function ActionIcon({
         selected === undefined ? undefined : selected ? "true" : "false"
       }
       data-budget-board-variant={variant}
-      disabled={disabled ?? loading}
+      disabled={disabled || loading}
       style={[
         sizeStyle,
         getButtonVariantStyles(budgetBoardColors[colorScheme], color, variant),
