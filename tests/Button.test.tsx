@@ -194,6 +194,38 @@ describe("Button", () => {
     ).toBe("var(--bb-color-button-hover-border, #63e6be)");
   });
 
+  it("resolves the dark system preference when the color scheme is auto", () => {
+    const originalMatchMedia = window.matchMedia;
+    window.matchMedia = ((query: string) => ({
+      addEventListener: () => {},
+      addListener: () => {},
+      dispatchEvent: () => false,
+      matches: query === "(prefers-color-scheme: dark)",
+      media: query,
+      onchange: null,
+      removeEventListener: () => {},
+      removeListener: () => {},
+    })) as typeof window.matchMedia;
+
+    try {
+      render(
+        <MantineProvider defaultColorScheme="auto">
+          <Button>System dark</Button>
+        </MantineProvider>,
+      );
+
+      expect(
+        screen
+          .getByRole("button", { name: "System dark" })
+          .style.getPropertyValue("--bbui-button-bg"),
+      ).toBe(
+        "var(--budget-board-button-primary-background, var(--bb-color-primary, #91a7ff))",
+      );
+    } finally {
+      window.matchMedia = originalMatchMedia;
+    }
+  });
+
   it("supports every public semantic color", () => {
     const colors = [
       "primary",

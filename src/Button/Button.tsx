@@ -5,6 +5,7 @@ import {
   type ReactNode,
 } from "react";
 import { MantineContext, MantineProvider, UnstyledButton } from "@mantine/core";
+import { useColorScheme } from "@mantine/hooks";
 import type { UnstyledButtonProps } from "@mantine/core";
 import { budgetBoardColors } from "../colors";
 import type {
@@ -149,7 +150,13 @@ export function Button({
 }: ButtonProps) {
   const isTab = buttonProps.role === "tab";
   const mantineContext = useContext(MantineContext);
-  const colorScheme = mantineContext?.colorScheme === "dark" ? "dark" : "light";
+  const systemColorScheme = useColorScheme("light");
+  const colorScheme =
+    mantineContext?.colorScheme === "auto"
+      ? systemColorScheme
+      : mantineContext?.colorScheme === "dark"
+        ? "dark"
+        : "light";
 
   const button = (
     <UnstyledButton
