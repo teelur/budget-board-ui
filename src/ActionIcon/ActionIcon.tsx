@@ -15,7 +15,18 @@ import {
 import { budgetBoardColors } from "../colors";
 import classes from "./ActionIcon.module.css";
 
-export const actionIconSizes = ["xs", "sm", "md", "lg", "xl"] as const;
+export const actionIconSizes = [
+  "compact-xs",
+  "compact-sm",
+  "compact-md",
+  "compact-lg",
+  "compact-xl",
+  "xs",
+  "sm",
+  "md",
+  "lg",
+  "xl",
+] as const;
 export type ActionIconSize =
   | (typeof actionIconSizes)[number]
   | number

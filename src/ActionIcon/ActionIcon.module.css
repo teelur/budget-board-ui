@@ -69,24 +69,44 @@
   opacity: 0.55;
 }
 
-.xs {
-  --bbui-action-icon-size: calc(1.125rem * var(--mantine-scale));
+.compact-xs {
+  --bbui-action-icon-size: calc(1.5rem * var(--mantine-scale));
 }
 
-.sm {
-  --bbui-action-icon-size: calc(1.375rem * var(--mantine-scale));
-}
-
-.md {
+.compact-sm {
   --bbui-action-icon-size: calc(1.75rem * var(--mantine-scale));
 }
 
+.compact-md {
+  --bbui-action-icon-size: calc(2rem * var(--mantine-scale));
+}
+
+.compact-lg {
+  --bbui-action-icon-size: calc(2.5rem * var(--mantine-scale));
+}
+
+.compact-xl {
+  --bbui-action-icon-size: calc(3rem * var(--mantine-scale));
+}
+
+.xs {
+  --bbui-action-icon-size: calc(1.75rem * var(--mantine-scale));
+}
+
+.sm {
+  --bbui-action-icon-size: calc(2rem * var(--mantine-scale));
+}
+
+.md {
+  --bbui-action-icon-size: calc(2.5rem * var(--mantine-scale));
+}
+
 .lg {
-  --bbui-action-icon-size: calc(2.125rem * var(--mantine-scale));
+  --bbui-action-icon-size: calc(3rem * var(--mantine-scale));
 }
 
 .xl {
-  --bbui-action-icon-size: calc(2.75rem * var(--mantine-scale));
+  --bbui-action-icon-size: calc(3.5rem * var(--mantine-scale));
 }
 
 .loading {

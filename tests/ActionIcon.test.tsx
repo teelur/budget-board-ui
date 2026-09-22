@@ -1,9 +1,16 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MantineProvider } from "@mantine/core";
 import { describe, expect, it, vi } from "vitest";
 import { ActionIcon } from "../src/ActionIcon/ActionIcon";
 import { budgetBoardDarkTheme } from "../src/theme";
+
+const actionIconStyles = readFileSync(
+  resolve(process.cwd(), "src/ActionIcon/ActionIcon.module.css"),
+  "utf8",
+);
 
 function renderActionIcon(actionIcon: React.ReactNode) {
   return render(actionIcon);
@@ -30,7 +37,18 @@ describe("ActionIcon", () => {
   });
 
   it("supports every public size", () => {
-    const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
+    const sizes = [
+      "compact-xs",
+      "compact-sm",
+      "compact-md",
+      "compact-lg",
+      "compact-xl",
+      "xs",
+      "sm",
+      "md",
+      "lg",
+      "xl",
+    ] as const;
 
     renderActionIcon(
       <>
@@ -46,6 +64,29 @@ describe("ActionIcon", () => {
       expect(screen.getByRole("button", { name: size })).toHaveAttribute(
         "data-budget-board-action-icon-size",
         size,
+      );
+    }
+
+    const expectedPresetSizes = {
+      "compact-xs": "1.5rem",
+      "compact-sm": "1.75rem",
+      "compact-md": "2rem",
+      "compact-lg": "2.5rem",
+      "compact-xl": "3rem",
+      xs: "1.75rem",
+      sm: "2rem",
+      md: "2.5rem",
+      lg: "3rem",
+      xl: "3.5rem",
+    } as const;
+
+    for (const [size, expectedSize] of Object.entries(expectedPresetSizes)) {
+      const sizeBlock = actionIconStyles.match(
+        new RegExp(`\\.${size}\\s*\\{([^}]*)\\}`),
+      )?.[1];
+
+      expect(sizeBlock).toContain(
+        `--bbui-action-icon-size: calc(${expectedSize} * var(--mantine-scale));`,
       );
     }
   });
