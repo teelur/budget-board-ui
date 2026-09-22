@@ -12,11 +12,11 @@ import pageStyles from "../Page.module.css";
 import styles from "./ActionIconPage.module.css";
 
 const actionIconSizeLabels = {
-  xs: "Extra small (18px)",
-  sm: "Small (22px)",
-  md: "Medium (28px)",
-  lg: "Large (34px)",
-  xl: "Extra large (44px)",
+  xs: "Extra small (24px)",
+  sm: "Small (28px)",
+  md: "Medium (32px)",
+  lg: "Large (40px)",
+  xl: "Extra large (48px)",
 } as const;
 
 export function ActionIconPage() {
@@ -93,7 +93,7 @@ export function ActionIconPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Use preset sizes or any CSS size value; numbers are interpreted as pixels."
+        description="Preset sizes match Button; use any CSS size value for custom dimensions. Numbers are interpreted as pixels."
         id="action-icon-sizes"
         title="Sizes"
         code={[
