@@ -1,4 +1,11 @@
 export {
+  ActionIcon,
+  actionIconSizes,
+  type ActionIconProps,
+  type ActionIconSize,
+} from "./ActionIcon/ActionIcon";
+
+export {
   Button,
   buttonColors,
   buttonSizes,
