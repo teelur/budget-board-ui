@@ -50,6 +50,26 @@ describe("ActionIcon", () => {
     }
   });
 
+  it("supports numeric and CSS length sizes as square dimensions", () => {
+    renderActionIcon(
+      <>
+        <ActionIcon aria-label="Numeric size" size={24}>
+          N
+        </ActionIcon>
+        <ActionIcon aria-label="Rem size" size="1.5rem">
+          R
+        </ActionIcon>
+      </>,
+    );
+
+    expect(screen.getByRole("button", { name: "Numeric size" })).toHaveStyle({
+      "--bbui-action-icon-size": "24px",
+    });
+    expect(screen.getByRole("button", { name: "Rem size" })).toHaveStyle({
+      "--bbui-action-icon-size": "1.5rem",
+    });
+  });
+
   it("forwards semantic appearance and native button attributes", () => {
     renderActionIcon(
       <ActionIcon

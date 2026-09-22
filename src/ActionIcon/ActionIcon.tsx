@@ -1,4 +1,9 @@
-import { useContext, type ButtonHTMLAttributes, type ReactNode } from "react";
+import {
+  useContext,
+  type ButtonHTMLAttributes,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import { MantineContext, MantineProvider, UnstyledButton } from "@mantine/core";
 import { useColorScheme } from "@mantine/hooks";
 import type { UnstyledButtonProps } from "@mantine/core";
@@ -11,7 +16,10 @@ import { budgetBoardColors } from "../colors";
 import classes from "./ActionIcon.module.css";
 
 export const actionIconSizes = ["xs", "sm", "md", "lg", "xl"] as const;
-export type ActionIconSize = (typeof actionIconSizes)[number];
+export type ActionIconSize =
+  | (typeof actionIconSizes)[number]
+  | number
+  | (string & {});
 
 export interface ActionIconProps
   extends
@@ -61,6 +69,18 @@ export function ActionIcon({
       : mantineContext?.colorScheme === "dark"
         ? "dark"
         : "light";
+  const sizeClass =
+    typeof size === "string" &&
+    actionIconSizes.includes(size as (typeof actionIconSizes)[number])
+      ? classes[size]
+      : undefined;
+  const sizeStyle: CSSProperties | undefined =
+    typeof size === "number" || !sizeClass
+      ? ({
+          "--bbui-action-icon-size":
+            typeof size === "number" ? `${size}px` : size,
+        } as CSSProperties)
+      : undefined;
 
   const actionIcon = (
     <UnstyledButton
@@ -69,7 +89,7 @@ export function ActionIcon({
       aria-busy={loading || undefined}
       className={[
         classes.root,
-        classes[size],
+        sizeClass,
         selected && classes.selected,
         loading && classes.loading,
         className,
@@ -84,6 +104,7 @@ export function ActionIcon({
       data-budget-board-variant={variant}
       disabled={disabled ?? loading}
       style={[
+        sizeStyle,
         getButtonVariantStyles(budgetBoardColors[colorScheme], color, variant),
         style,
       ]}

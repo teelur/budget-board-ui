@@ -93,17 +93,23 @@ export function ActionIconPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Sizes match Mantine ActionIcon dimensions from extra small through extra large."
+        description="Use preset sizes or any CSS size value; numbers are interpreted as pixels."
         id="action-icon-sizes"
         title="Sizes"
-        code={actionIconSizes
-          .map(
+        code={[
+          ...actionIconSizes.map(
             (size) =>
               `<ActionIcon aria-label="${actionIconSizeLabels[size]} action" size="${size}">
   <MoreHorizontal />
 </ActionIcon>`,
-          )
-          .join("\n")}
+          ),
+          `<ActionIcon aria-label="48 pixel action" size={48}>
+  <MoreHorizontal />
+</ActionIcon>`,
+          `<ActionIcon aria-label="2.5 rem action" size="2.5rem">
+  <MoreHorizontal />
+</ActionIcon>`,
+        ].join("\n")}
       >
         <div className={styles.actionIconSizeStack}>
           {actionIconSizes.map((size) => (
@@ -117,6 +123,18 @@ export function ActionIconPage() {
               <span>{actionIconSizeLabels[size]}</span>
             </div>
           ))}
+          <div className={styles.actionIconSizeItem}>
+            <ActionIcon aria-label="48 pixel action" size={48}>
+              <MoreHorizontal size={16} />
+            </ActionIcon>
+            <span>Custom: 48px</span>
+          </div>
+          <div className={styles.actionIconSizeItem}>
+            <ActionIcon aria-label="2.5 rem action" size="2.5rem">
+              <MoreHorizontal size={16} />
+            </ActionIcon>
+            <span>Custom: 2.5rem</span>
+          </div>
         </div>
       </ComponentDemoSection>
 
@@ -226,9 +244,9 @@ export function ActionIconPage() {
                 <tr>
                   <th>size</th>
                   <td>
-                    <code>{actionIconSizes.join(" | ")}</code>
+                    <code>{actionIconSizes.join(" | ")} | string | number</code>
                   </td>
-                  <td>md</td>
+                  <td>md; numbers use pixels</td>
                 </tr>
                 <tr>
                   <th>variant</th>
