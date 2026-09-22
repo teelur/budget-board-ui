@@ -69,24 +69,44 @@
   opacity: 0.55;
 }
 
-.xs {
+.compact-xs {
   --bbui-action-icon-size: calc(1.5rem * var(--mantine-scale));
 }
 
-.sm {
+.compact-sm {
   --bbui-action-icon-size: calc(1.75rem * var(--mantine-scale));
 }
 
-.md {
+.compact-md {
   --bbui-action-icon-size: calc(2rem * var(--mantine-scale));
 }
 
-.lg {
+.compact-lg {
   --bbui-action-icon-size: calc(2.5rem * var(--mantine-scale));
 }
 
-.xl {
+.compact-xl {
   --bbui-action-icon-size: calc(3rem * var(--mantine-scale));
+}
+
+.xs {
+  --bbui-action-icon-size: calc(1.75rem * var(--mantine-scale));
+}
+
+.sm {
+  --bbui-action-icon-size: calc(2rem * var(--mantine-scale));
+}
+
+.md {
+  --bbui-action-icon-size: calc(2.5rem * var(--mantine-scale));
+}
+
+.lg {
+  --bbui-action-icon-size: calc(3rem * var(--mantine-scale));
+}
+
+.xl {
+  --bbui-action-icon-size: calc(3.5rem * var(--mantine-scale));
 }
 
 .loading {

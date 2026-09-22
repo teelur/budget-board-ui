@@ -12,11 +12,16 @@ import pageStyles from "../Page.module.css";
 import styles from "./ActionIconPage.module.css";
 
 const actionIconSizeLabels = {
-  xs: "Extra small (24px)",
-  sm: "Small (28px)",
-  md: "Medium (32px)",
-  lg: "Large (40px)",
-  xl: "Extra large (48px)",
+  "compact-xs": "Compact extra small (24px)",
+  "compact-sm": "Compact small (28px)",
+  "compact-md": "Compact medium (32px)",
+  "compact-lg": "Compact large (40px)",
+  "compact-xl": "Compact extra large (48px)",
+  xs: "Extra small (28px)",
+  sm: "Small (32px)",
+  md: "Medium (40px)",
+  lg: "Large (48px)",
+  xl: "Extra large (56px)",
 } as const;
 
 export function ActionIconPage() {
