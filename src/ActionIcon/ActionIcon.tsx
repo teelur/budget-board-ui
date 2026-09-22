@@ -1,34 +1,27 @@
-import { useContext, type ButtonHTMLAttributes, type ReactNode } from "react";
+import {
+  useContext,
+  type ButtonHTMLAttributes,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import { MantineContext, MantineProvider, UnstyledButton } from "@mantine/core";
 import { useColorScheme } from "@mantine/hooks";
 import type { UnstyledButtonProps } from "@mantine/core";
 import {
-  buttonColors,
-  buttonVariants,
   getButtonVariantStyles,
+  type ButtonColor,
+  type ButtonVariant,
 } from "../shared/buttonStyles";
-import type { ButtonColor, ButtonVariant } from "../shared/buttonStyles";
 import { budgetBoardColors } from "../colors";
-import classes from "./Button.module.css";
+import classes from "./ActionIcon.module.css";
 
-export { buttonColors, buttonVariants };
-export type { ButtonColor, ButtonVariant };
+export const actionIconSizes = ["xs", "sm", "md", "lg", "xl"] as const;
+export type ActionIconSize =
+  | (typeof actionIconSizes)[number]
+  | number
+  | (string & {});
 
-export const buttonSizes = [
-  "compact-xs",
-  "compact-sm",
-  "compact-md",
-  "compact-lg",
-  "compact-xl",
-  "xs",
-  "sm",
-  "md",
-  "lg",
-  "xl",
-] as const;
-export type ButtonSize = (typeof buttonSizes)[number];
-
-export interface ButtonProps
+export interface ActionIconProps
   extends
     Omit<
       ButtonHTMLAttributes<HTMLButtonElement>,
@@ -47,32 +40,26 @@ export interface ButtonProps
   selected?: boolean;
   children?: ReactNode;
   disabled?: boolean;
-  fullWidth?: boolean;
-  leftSection?: ReactNode;
   loading?: boolean;
-  rightSection?: ReactNode;
-  size?: ButtonSize;
+  size?: ActionIconSize;
   color?: ButtonColor;
   variant?: ButtonVariant;
   style?: UnstyledButtonProps["style"];
 }
 
-export function Button({
+export function ActionIcon({
   selected,
   children,
   className,
   color = "primary",
   disabled,
-  fullWidth = false,
-  leftSection,
   loading = false,
-  rightSection,
   size = "md",
   style,
   type = "button",
   variant = "filled",
   ...buttonProps
-}: ButtonProps) {
+}: ActionIconProps) {
   const isTab = buttonProps.role === "tab";
   const mantineContext = useContext(MantineContext);
   const systemColorScheme = useColorScheme("light");
@@ -82,31 +69,42 @@ export function Button({
       : mantineContext?.colorScheme === "dark"
         ? "dark"
         : "light";
+  const sizeClass =
+    typeof size === "string" &&
+    actionIconSizes.includes(size as (typeof actionIconSizes)[number])
+      ? classes[size]
+      : undefined;
+  const sizeStyle: CSSProperties | undefined =
+    typeof size === "number" || !sizeClass
+      ? ({
+          "--bbui-action-icon-size":
+            typeof size === "number" ? `${size}px` : size,
+        } as CSSProperties)
+      : undefined;
 
-  const button = (
+  const actionIcon = (
     <UnstyledButton
       {...buttonProps}
       {...(selected === undefined || isTab ? {} : { "aria-pressed": selected })}
       aria-busy={loading || undefined}
       className={[
         classes.root,
-        classes[size],
+        sizeClass,
         selected && classes.selected,
-        fullWidth && classes.fullWidth,
         loading && classes.loading,
         className,
       ]
         .filter(Boolean)
         .join(" ")}
-      data-budget-board-full-width={fullWidth ? "true" : undefined}
+      data-budget-board-action-icon-size={size}
+      data-budget-board-color={color}
       data-budget-board-selected={
         selected === undefined ? undefined : selected ? "true" : "false"
       }
-      data-budget-board-color={color}
-      data-budget-board-size={size}
       data-budget-board-variant={variant}
-      disabled={disabled ?? loading}
+      disabled={disabled || loading}
       style={[
+        sizeStyle,
         getButtonVariantStyles(budgetBoardColors[colorScheme], color, variant),
         style,
       ]}
@@ -114,11 +112,13 @@ export function Button({
       unstyled
     >
       {loading && <span aria-hidden="true" className={classes.loader} />}
-      {leftSection && <span className={classes.section}>{leftSection}</span>}
-      <span className={classes.content}>{children}</span>
-      {rightSection && <span className={classes.section}>{rightSection}</span>}
+      <span className={classes.icon}>{children}</span>
     </UnstyledButton>
   );
 
-  return mantineContext ? button : <MantineProvider>{button}</MantineProvider>;
+  return mantineContext ? (
+    actionIcon
+  ) : (
+    <MantineProvider>{actionIcon}</MantineProvider>
+  );
 }

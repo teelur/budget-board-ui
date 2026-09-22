@@ -1,0 +1,32 @@
+.actionIconStack {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.actionIconSizeStack {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.actionIconSizeItem {
+  align-items: center;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  font-size: 0.72rem;
+  gap: 0.4rem;
+  text-align: center;
+}
+
+.actionIconStateDemo {
+  align-items: center;
+}
+
+.actionIconStateDemo > span {
+  color: var(--muted);
+  font-size: 0.8rem;
+}

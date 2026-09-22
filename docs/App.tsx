@@ -10,6 +10,7 @@ import {
   budgetBoardTypography,
 } from "../src";
 import type { ColorMode } from "./components/color/colorCardTypes";
+import { ActionIconPage } from "./pages/ActionIconPage/ActionIconPage";
 import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
 import { TypographyPage } from "./pages/TypographyPage/TypographyPage";
@@ -117,6 +118,7 @@ export function App() {
             <a href="#color-theme">Color theme</a>
             <a href="#typography">Typography</a>
             <a href="#button">Button</a>
+            <a href="#action-icon">ActionIcon</a>
             <p className={`${styles.navHeading} ${styles.navHeadingSpaced}`}>
               Package
             </p>
@@ -141,6 +143,7 @@ export function App() {
             <ColorThemePage colorMode={colorMode} />
             <TypographyPage />
             <ButtonPage />
+            <ActionIconPage />
 
             <footer className={styles.siteFooter}>
               @teelur/budget-board-ui · built for Budget Board

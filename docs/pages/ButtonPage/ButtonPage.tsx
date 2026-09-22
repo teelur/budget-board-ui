@@ -15,16 +15,16 @@ function capitalize(value: string) {
 }
 
 const buttonSizeLabels = {
-  "compact-xs": "Compact extra small",
-  "compact-sm": "Compact small",
-  "compact-md": "Compact medium",
-  "compact-lg": "Compact large",
-  "compact-xl": "Compact extra large",
-  xs: "Extra small",
-  sm: "Small",
-  md: "Medium",
-  lg: "Large",
-  xl: "Extra large",
+  "compact-xs": "Compact extra small (24px)",
+  "compact-sm": "Compact small (28px)",
+  "compact-md": "Compact medium (32px)",
+  "compact-lg": "Compact large (40px)",
+  "compact-xl": "Compact extra large (48px)",
+  xs: "Extra small (28px)",
+  sm: "Small (32px)",
+  md: "Medium (40px)",
+  lg: "Large (48px)",
+  xl: "Extra large (56px)",
 } as const;
 
 const standardButtonSizes = buttonSizes.filter(
@@ -144,7 +144,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         <div className={styles.buttonStack}>
           {standardButtonSizes.map((size) => (
             <Button key={size} size={size}>
-              {size.toUpperCase()}
+              {buttonSizeLabels[size]}
             </Button>
           ))}
         </div>
@@ -164,7 +164,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         <div className={styles.buttonStack}>
           {compactButtonSizes.map((size) => (
             <Button key={size} size={size}>
-              {size.toUpperCase()}
+              {buttonSizeLabels[size]}
             </Button>
           ))}
         </div>
@@ -258,14 +258,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
   Constrained action
 </Button>`}
       >
-        <Button
-          h={48}
-          mah={56}
-          maw="100%"
-          mih={44}
-          miw={200}
-          w={240}
-        >
+        <Button h={48} mah={56} maw="100%" mih={44} miw={200} w={240}>
           Constrained action
         </Button>
       </ComponentDemoSection>
@@ -568,9 +561,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   <td>
                     <code>MantineStyleProp</code>
                   </td>
-                  <td>
-                    CSS object, theme callback, or nested array of either
-                  </td>
+                  <td>CSS object, theme callback, or nested array of either</td>
                 </tr>
                 <tr>
                   <th>type</th>
