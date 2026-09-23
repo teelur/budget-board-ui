@@ -184,7 +184,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Click the button to switch between its selected and unselected states."
+        description="Filled buttons show the on state with a solid surface and the off state with an outline treatment."
         id="button-selected"
         title="Selected"
         code={`const [selected, setSelected] = useState(false);
@@ -547,7 +547,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   <td>
                     <code>boolean</code>
                   </td>
-                  <td>false</td>
+                  <td>Filled: true is solid/on; false is outlined/off</td>
                 </tr>
                 <tr>
                   <th>size</th>

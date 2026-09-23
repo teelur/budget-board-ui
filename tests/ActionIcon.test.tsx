@@ -154,6 +154,20 @@ describe("ActionIcon", () => {
     expect(onClick).toHaveBeenCalledOnce();
   });
 
+  it("renders an explicitly unselected filled icon as off", () => {
+    const unselectedFilledBlock = actionIconStyles.match(
+      /\.root\[data-budget-board-selected="false"\]\[data-budget-board-variant="filled"\]:not\(\s*\n?\s*:disabled\s*\n?\s*\)\s*\{([^}]*)\}/,
+    )?.[1];
+
+    expect(unselectedFilledBlock).toContain(
+      "background: color-mix(in srgb, var(--bbui-button-bg) 10%, transparent);",
+    );
+    expect(unselectedFilledBlock).toContain(
+      "border-color: var(--bbui-button-bg);",
+    );
+    expect(unselectedFilledBlock).toContain("color: var(--bbui-button-bg);");
+  });
+
   it("uses aria-selected instead of aria-pressed for tabs", () => {
     renderActionIcon(
       <ActionIcon aria-label="Preview" aria-selected="true" role="tab" selected>

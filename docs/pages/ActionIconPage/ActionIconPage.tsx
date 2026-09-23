@@ -184,7 +184,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Selected, loading, and disabled states preserve the control's accessible button behavior."
+        description="For filled icons, selected=true is the solid on state and selected=false is the outlined off state; loading and disabled states preserve accessible button behavior."
         id="action-icon-states"
         title="States"
         code={`const [selected, setSelected] = useState(false);
@@ -432,7 +432,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   <td>
                     <code>boolean</code>
                   </td>
-                  <td>false</td>
+                  <td>Filled: true is solid/on; false is outlined/off</td>
                 </tr>
                 <tr>
                   <th>size</th>

@@ -21,16 +21,19 @@
   transition:
     background-color 120ms ease,
     border-color 0.25s,
+    box-shadow 120ms ease,
     color 120ms ease,
     opacity 120ms ease,
     transform 120ms ease;
 }
 
-.root.selected:not(:disabled) {
+.root.selected:not(:disabled):not([data-budget-board-variant="filled"]) {
   background: var(--bbui-button-active);
 }
 
-.root.selected[data-budget-board-variant="filled"]:not(:disabled) {
+.root[data-budget-board-selected="false"][data-budget-board-variant="filled"]:not(
+    :disabled
+  ) {
   background: color-mix(in srgb, var(--bbui-button-bg) 10%, transparent);
   border-color: var(--bbui-button-bg);
   color: var(--bbui-button-bg);
@@ -41,7 +44,9 @@
   border-color: var(--bbui-button-hover-border);
 }
 
-.root.selected[data-budget-board-variant="filled"]:hover:not(:disabled) {
+.root[data-budget-board-selected="false"][data-budget-board-variant="filled"]:hover:not(
+    :disabled
+  ) {
   background: color-mix(in srgb, var(--bbui-button-bg) 18%, transparent);
   border-color: var(--bbui-button-hover-border);
 }
