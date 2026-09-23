@@ -24,8 +24,48 @@ const actionIconSizeLabels = {
   xl: "Extra large (56px)",
 } as const;
 
+const actionIconIcons = {
+  more: MoreHorizontal,
+  pencil: Pencil,
+  pin: Pin,
+  settings: Settings,
+} as const;
+type ActionIconIcon = keyof typeof actionIconIcons;
+
+const actionIconIconLabels: Record<ActionIconIcon, string> = {
+  more: "More horizontal",
+  pencil: "Pencil",
+  pin: "Pin",
+  settings: "Settings",
+};
+
 export function ActionIconPage() {
   const [isSelected, setIsSelected] = useState(false);
+  const [selectedVariant, setSelectedVariant] =
+    useState<(typeof buttonVariants)[number]>("filled");
+  const [selectedColor, setSelectedColor] =
+    useState<(typeof buttonColors)[number]>("primary");
+  const [selectedSize, setSelectedSize] =
+    useState<(typeof actionIconSizes)[number]>("md");
+  const [selectedIcon, setSelectedIcon] = useState<ActionIconIcon>("settings");
+  const [isPlaygroundLoading, setIsPlaygroundLoading] = useState(false);
+  const [isPlaygroundDisabled, setIsPlaygroundDisabled] = useState(false);
+  const [isPlaygroundSelected, setIsPlaygroundSelected] = useState(false);
+  const PlaygroundIcon = actionIconIcons[selectedIcon];
+  const playgroundProps = [
+    `aria-label="${actionIconIconLabels[selectedIcon]} action"`,
+    `color="${selectedColor}"`,
+    `size="${selectedSize}"`,
+    `variant="${selectedVariant}"`,
+    isPlaygroundLoading && "loading",
+    isPlaygroundDisabled && "disabled",
+    isPlaygroundSelected && "selected",
+  ].filter(Boolean);
+  const playgroundCode = `<ActionIcon
+${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
+>
+  <${PlaygroundIcon.displayName ?? actionIconIconLabels[selectedIcon].replaceAll(" ", "")} size={16} />
+</ActionIcon>`;
 
   return (
     <section className={pageStyles.componentSection} id="action-icon">
@@ -180,6 +220,154 @@ export function ActionIconPage() {
             <Trash2 size={16} />
           </ActionIcon>
           <span aria-live="polite">{isSelected ? "Pinned" : "Not pinned"}</span>
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description="Adjust the public props together and see the resulting icon action immediately."
+        id="action-icon-playground"
+        title="Playground"
+        code={playgroundCode}
+      >
+        <div className={styles.actionIconPlayground}>
+          <div className={styles.actionIconPlaygroundControls}>
+            <div className={styles.actionIconControlGroup}>
+              <div>
+                <p className={styles.actionIconControlHeading}>Appearance</p>
+                <p className={styles.actionIconControlCopy}>
+                  Tune the visual treatment and scale.
+                </p>
+              </div>
+              <div className={styles.actionIconControlGrid}>
+                <label className={styles.actionIconField}>
+                  <span>Variant</span>
+                  <select
+                    value={selectedVariant}
+                    onChange={(event) =>
+                      setSelectedVariant(
+                        event.target.value as typeof selectedVariant,
+                      )
+                    }
+                  >
+                    {buttonVariants.map((variant) => (
+                      <option key={variant} value={variant}>
+                        {variant}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className={styles.actionIconField}>
+                  <span>Color</span>
+                  <select
+                    value={selectedColor}
+                    onChange={(event) =>
+                      setSelectedColor(
+                        event.target.value as typeof selectedColor,
+                      )
+                    }
+                  >
+                    {buttonColors.map((color) => (
+                      <option key={color} value={color}>
+                        {color}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className={styles.actionIconField}>
+                  <span>Size</span>
+                  <select
+                    value={selectedSize}
+                    onChange={(event) =>
+                      setSelectedSize(event.target.value as typeof selectedSize)
+                    }
+                  >
+                    {actionIconSizes.map((size) => (
+                      <option key={size} value={size}>
+                        {actionIconSizeLabels[size]}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className={styles.actionIconField}>
+                  <span>Icon</span>
+                  <select
+                    value={selectedIcon}
+                    onChange={(event) =>
+                      setSelectedIcon(event.target.value as ActionIconIcon)
+                    }
+                  >
+                    {Object.entries(actionIconIconLabels).map(
+                      ([icon, label]) => (
+                        <option key={icon} value={icon}>
+                          {label}
+                        </option>
+                      ),
+                    )}
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div className={styles.actionIconControlGroup}>
+              <div>
+                <p className={styles.actionIconControlHeading}>Behavior</p>
+                <p className={styles.actionIconControlCopy}>
+                  Test availability and selection states.
+                </p>
+              </div>
+              <div className={styles.actionIconToggleGrid}>
+                <label className={styles.actionIconToggle}>
+                  <input
+                    checked={isPlaygroundLoading}
+                    onChange={(event) =>
+                      setIsPlaygroundLoading(event.target.checked)
+                    }
+                    type="checkbox"
+                  />
+                  <span>Loading</span>
+                </label>
+                <label className={styles.actionIconToggle}>
+                  <input
+                    checked={isPlaygroundDisabled}
+                    onChange={(event) =>
+                      setIsPlaygroundDisabled(event.target.checked)
+                    }
+                    type="checkbox"
+                  />
+                  <span>Disabled</span>
+                </label>
+                <label className={styles.actionIconToggle}>
+                  <input
+                    checked={isPlaygroundSelected}
+                    onChange={(event) =>
+                      setIsPlaygroundSelected(event.target.checked)
+                    }
+                    type="checkbox"
+                  />
+                  <span>Selected</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.actionIconPlaygroundPreview}>
+            <span className={styles.actionIconPreviewLabel}>
+              Rendered result
+            </span>
+            <div className={styles.actionIconPreviewStage}>
+              <ActionIcon
+                aria-label={`${actionIconIconLabels[selectedIcon]} action`}
+                color={selectedColor}
+                disabled={isPlaygroundDisabled}
+                loading={isPlaygroundLoading}
+                selected={isPlaygroundSelected}
+                size={selectedSize}
+                variant={selectedVariant}
+              >
+                <PlaygroundIcon size={16} />
+              </ActionIcon>
+            </div>
+          </div>
         </div>
       </ComponentDemoSection>
 
