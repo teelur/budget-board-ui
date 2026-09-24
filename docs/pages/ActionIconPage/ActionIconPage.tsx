@@ -59,7 +59,7 @@ export function ActionIconPage() {
     `variant="${selectedVariant}"`,
     isPlaygroundLoading && "loading",
     isPlaygroundDisabled && "disabled",
-    isPlaygroundSelected && "selected",
+    isPlaygroundSelected ? "selected" : "selected={false}",
   ].filter(Boolean);
   const playgroundCode = `<ActionIcon
 ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}

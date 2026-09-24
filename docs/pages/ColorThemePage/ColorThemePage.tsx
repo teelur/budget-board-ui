@@ -219,6 +219,17 @@ const themeRoles = [
     lightClassName: "theme-role-light-neutral",
     darkClassName: "theme-role-dark-neutral",
   },
+  {
+    name: "Contrast",
+    token: "--bb-color-contrast",
+    lightValue: budgetBoardColors.light.contrast.toUpperCase(),
+    darkValue: budgetBoardColors.dark.contrast.toUpperCase(),
+    lightContent: budgetBoardColors.light.contrastContent.toUpperCase(),
+    darkContent: budgetBoardColors.dark.contrastContent.toUpperCase(),
+    description: "High-contrast theme surfaces and their readable content.",
+    lightClassName: "theme-role-light-contrast",
+    darkClassName: "theme-role-dark-contrast",
+  },
 ] as const;
 
 const semanticColorGroups = [

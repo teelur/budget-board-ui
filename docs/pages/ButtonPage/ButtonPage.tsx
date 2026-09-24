@@ -61,7 +61,7 @@ export function ButtonPage() {
     `type="${selectedType}"`,
     isLoading && "loading",
     isDisabled && "disabled",
-    isSelected && "selected",
+    `selected={${isSelected}}`,
     isFullWidth && "fullWidth",
     leftSection && `leftSection={${JSON.stringify(leftSection)}}`,
     rightSection && `rightSection={${JSON.stringify(rightSection)}}`,
