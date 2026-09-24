@@ -1,9 +1,16 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MantineProvider, UnstyledButton } from "@mantine/core";
 import { describe, expect, it, vi } from "vitest";
 import { Button } from "../src/Button/Button";
 import { budgetBoardDarkTheme } from "../src/theme";
+
+const buttonStyles = readFileSync(
+  resolve(process.cwd(), "src/Button/Button.module.css"),
+  "utf8",
+);
 
 function renderButton(button: React.ReactNode) {
   return render(button);
@@ -56,6 +63,51 @@ describe("Button", () => {
     await user.click(button);
 
     expect(onClick).toHaveBeenCalledOnce();
+  });
+
+  it("renders explicitly unselected filled buttons as off", () => {
+    const unselectedFilledBlock = buttonStyles.match(
+      /\.root\[data-budget-board-selected="false"\]\[data-budget-board-variant="filled"\]:not\(\s*\n?\s*:disabled\s*\n?\s*\)\s*\{([^}]*)\}/,
+    )?.[1];
+
+    expect(unselectedFilledBlock).toContain(
+      "background: color-mix(in srgb, var(--bbui-button-bg) 10%, transparent);",
+    );
+    expect(unselectedFilledBlock).toContain(
+      "border-color: var(--bbui-button-bg);",
+    );
+    expect(unselectedFilledBlock).toContain("color: var(--bbui-button-bg);");
+  });
+
+  it("resolves the contrast color from the active color scheme", () => {
+    renderButton(<Button color="contrast">Contrast</Button>);
+
+    const button = screen.getByRole("button", { name: "Contrast" });
+
+    expect(button).toHaveAttribute("data-budget-board-color", "contrast");
+    expect(button.style.getPropertyValue("--bbui-button-bg")).toBe(
+      "var(--budget-board-button-contrast-background, var(--bb-color-contrast, #242321))",
+    );
+    expect(button.style.getPropertyValue("--bbui-button-color")).toBe(
+      "var(--budget-board-button-contrast-color, var(--bb-color-contrast-content, #fffaf2))",
+    );
+  });
+
+  it("resolves the contrast color in dark mode", () => {
+    render(
+      <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
+        <Button color="contrast">Contrast</Button>
+      </MantineProvider>,
+    );
+
+    const button = screen.getByRole("button", { name: "Contrast" });
+
+    expect(button.style.getPropertyValue("--bbui-button-bg")).toBe(
+      "var(--budget-board-button-contrast-background, var(--bb-color-contrast, #f2f0eb))",
+    );
+    expect(button.style.getPropertyValue("--bbui-button-color")).toBe(
+      "var(--budget-board-button-contrast-color, var(--bb-color-contrast-content, #242321))",
+    );
   });
 
   it("uses aria-selected instead of aria-pressed for tabs", () => {

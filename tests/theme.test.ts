@@ -25,6 +25,8 @@ const semanticColorKeys = [
   "textMuted",
   "textDisabled",
   "textInverse",
+  "contrast",
+  "contrastContent",
   "primary",
   "primaryContent",
   "secondary",
@@ -58,6 +60,7 @@ const fontKeys = [
 ] as const satisfies readonly BudgetBoardFontKey[];
 
 const contentColorKeys = [
+  "contrastContent",
   "primaryContent",
   "secondaryContent",
   "accentContent",
@@ -127,6 +130,8 @@ describe("budgetBoardColors", () => {
     expect(budgetBoardColors.light.surfaceOverlay).toBe("#fffaf2");
     expect(budgetBoardColors.light.textHeading).toBe("#242321");
     expect(budgetBoardColors.light.textPrimary).toBe("#3a3834");
+    expect(budgetBoardColors.light.contrast).toBe("#242321");
+    expect(budgetBoardColors.light.contrastContent).toBe("#fffaf2");
     expect(budgetBoardColors.light.border).toBe(
       "color-mix(in srgb, #3a3834 18%, transparent)",
     );
@@ -134,6 +139,8 @@ describe("budgetBoardColors", () => {
     expect(budgetBoardColors.dark.surface).toBe("#191b1f");
     expect(budgetBoardColors.dark.textHeading).toBe("#f2f0eb");
     expect(budgetBoardColors.dark.textPrimary).toBe("#d8d5ce");
+    expect(budgetBoardColors.dark.contrast).toBe("#f2f0eb");
+    expect(budgetBoardColors.dark.contrastContent).toBe("#242321");
   });
 
   it("uses the matching mode colors in each theme", () => {

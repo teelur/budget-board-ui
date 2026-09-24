@@ -115,10 +115,16 @@ export function App() {
           >
             <p className={styles.navHeading}>On this page</p>
             <a href="#overview">Overview</a>
-            <a href="#color-theme">Color theme</a>
-            <a href="#typography">Typography</a>
-            <a href="#button">Button</a>
-            <a href="#action-icon">ActionIcon</a>
+            <div className={styles.navGroup}>
+              <p className={styles.navGroupHeading}>Design</p>
+              <a href="#color-theme">Color theme</a>
+              <a href="#typography">Typography</a>
+            </div>
+            <div className={styles.navGroup}>
+              <p className={styles.navGroupHeading}>Components</p>
+              <a href="#action-icon">ActionIcon</a>
+              <a href="#button">Button</a>
+            </div>
             <p className={`${styles.navHeading} ${styles.navHeadingSpaced}`}>
               Package
             </p>
@@ -140,10 +146,31 @@ export function App() {
               </div>
             </section>
 
-            <ColorThemePage colorMode={colorMode} />
-            <TypographyPage />
-            <ButtonPage />
-            <ActionIconPage />
+            <section className={styles.docsSection} id="design">
+              <div className={styles.docsSectionHeading}>
+                <p className={styles.eyebrow}>Visual language</p>
+                <h2>Design</h2>
+                <p>
+                  The shared color and type decisions that give Budget Board a
+                  consistent visual rhythm.
+                </p>
+              </div>
+              <ColorThemePage colorMode={colorMode} />
+              <TypographyPage />
+            </section>
+
+            <section className={styles.docsSection} id="components">
+              <div className={styles.docsSectionHeading}>
+                <p className={styles.eyebrow}>Interface building blocks</p>
+                <h2>Components</h2>
+                <p>
+                  Interactive primitives with live examples, states, and API
+                  references.
+                </p>
+              </div>
+              <ActionIconPage />
+              <ButtonPage />
+            </section>
 
             <footer className={styles.siteFooter}>
               @teelur/budget-board-ui · built for Budget Board

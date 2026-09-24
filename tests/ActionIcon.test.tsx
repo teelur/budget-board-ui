@@ -154,6 +154,57 @@ describe("ActionIcon", () => {
     expect(onClick).toHaveBeenCalledOnce();
   });
 
+  it("renders explicitly unselected filled icons as off", () => {
+    const unselectedFilledBlock = actionIconStyles.match(
+      /\.root\[data-budget-board-selected="false"\]\[data-budget-board-variant="filled"\]:not\(\s*\n?\s*:disabled\s*\n?\s*\)\s*\{([^}]*)\}/,
+    )?.[1];
+
+    expect(unselectedFilledBlock).toContain(
+      "background: color-mix(in srgb, var(--bbui-button-bg) 10%, transparent);",
+    );
+    expect(unselectedFilledBlock).toContain(
+      "border-color: var(--bbui-button-bg);",
+    );
+    expect(unselectedFilledBlock).toContain("color: var(--bbui-button-bg);");
+  });
+
+  it("resolves the contrast color from the active color scheme", () => {
+    renderActionIcon(
+      <ActionIcon aria-label="Contrast" color="contrast">
+        C
+      </ActionIcon>,
+    );
+
+    const actionIcon = screen.getByRole("button", { name: "Contrast" });
+
+    expect(actionIcon).toHaveAttribute("data-budget-board-color", "contrast");
+    expect(actionIcon.style.getPropertyValue("--bbui-button-bg")).toBe(
+      "var(--budget-board-button-contrast-background, var(--bb-color-contrast, #242321))",
+    );
+    expect(actionIcon.style.getPropertyValue("--bbui-button-color")).toBe(
+      "var(--budget-board-button-contrast-color, var(--bb-color-contrast-content, #fffaf2))",
+    );
+  });
+
+  it("resolves the contrast color in dark mode", () => {
+    render(
+      <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
+        <ActionIcon aria-label="Contrast" color="contrast">
+          C
+        </ActionIcon>
+      </MantineProvider>,
+    );
+
+    const actionIcon = screen.getByRole("button", { name: "Contrast" });
+
+    expect(actionIcon.style.getPropertyValue("--bbui-button-bg")).toBe(
+      "var(--budget-board-button-contrast-background, var(--bb-color-contrast, #f2f0eb))",
+    );
+    expect(actionIcon.style.getPropertyValue("--bbui-button-color")).toBe(
+      "var(--budget-board-button-contrast-color, var(--bb-color-contrast-content, #242321))",
+    );
+  });
+
   it("uses aria-selected instead of aria-pressed for tabs", () => {
     renderActionIcon(
       <ActionIcon aria-label="Preview" aria-selected="true" role="tab" selected>

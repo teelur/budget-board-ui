@@ -68,6 +68,12 @@
   --theme-role-content: var(--bb-color-neutral-content);
 }
 
+.theme-role-light-contrast,
+.theme-role-dark-contrast {
+  --theme-role-fill: var(--bb-color-contrast);
+  --theme-role-content: var(--bb-color-contrast-content);
+}
+
 .semantic-role-light-subtle-border {
   --semantic-role-fill: var(--bb-color-border-subtle);
   --semantic-role-content: var(--bb-color-text-primary);

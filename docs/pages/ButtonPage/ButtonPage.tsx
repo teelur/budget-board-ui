@@ -61,7 +61,7 @@ export function ButtonPage() {
     `type="${selectedType}"`,
     isLoading && "loading",
     isDisabled && "disabled",
-    isSelected && "selected",
+    `selected={${isSelected}}`,
     isFullWidth && "fullWidth",
     leftSection && `leftSection={${JSON.stringify(leftSection)}}`,
     rightSection && `rightSection={${JSON.stringify(rightSection)}}`,
@@ -92,7 +92,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       </p>
 
       <ComponentDemoSection
-        description="Use visual weight to establish hierarchy without changing the action itself."
+        description="Use filled, outline, or ghost treatments to establish hierarchy."
         id="button-variants"
         title="Variants"
         code={buttonVariants
@@ -112,7 +112,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Semantic colors communicate intent consistently across the application."
+        description="Semantic colors communicate intent consistently; use contrast for a theme-aware black or white action."
         id="button-colors"
         title="Colors"
         code={buttonColors
@@ -184,7 +184,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Click the button to switch between its selected and unselected states."
+        description="Filled buttons show the on state with a solid surface and the off state with an outline treatment."
         id="button-selected"
         title="Selected"
         code={`const [selected, setSelected] = useState(false);
@@ -547,7 +547,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   <td>
                     <code>boolean</code>
                   </td>
-                  <td>false</td>
+                  <td>Filled: true is solid/on; false is outlined/off</td>
                 </tr>
                 <tr>
                   <th>size</th>
