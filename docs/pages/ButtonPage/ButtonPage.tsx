@@ -92,7 +92,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       </p>
 
       <ComponentDemoSection
-        description="Use visual weight to establish hierarchy without changing the action itself."
+        description="Use filled, outline, or ghost treatments to establish hierarchy."
         id="button-variants"
         title="Variants"
         code={buttonVariants
@@ -112,7 +112,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Semantic colors communicate intent consistently across the application."
+        description="Semantic colors communicate intent consistently; use contrast for a theme-aware black or white action."
         id="button-colors"
         title="Colors"
         code={buttonColors

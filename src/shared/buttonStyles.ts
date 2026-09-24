@@ -10,6 +10,7 @@ export const buttonColors = [
   "accent",
   "muted",
   "neutral",
+  "contrast",
   "info",
   "success",
   "warning",

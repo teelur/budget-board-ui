@@ -112,7 +112,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Semantic colors communicate the intent of a compact icon action."
+        description="Semantic colors communicate intent; contrast provides a theme-aware black or white icon action."
         id="action-icon-colors"
         title="Colors"
         code={buttonColors
