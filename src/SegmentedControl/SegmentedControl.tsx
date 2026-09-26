@@ -33,11 +33,10 @@ export interface SegmentedControlItem {
   leftSection?: ReactNode;
 }
 
-export interface SegmentedControlProps
-  extends Omit<
-    HTMLAttributes<HTMLDivElement>,
-    "color" | "onChange" | "style"
-  > {
+export interface SegmentedControlProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "color" | "onChange" | "style"
+> {
   data: SegmentedControlItem[];
   value?: string;
   defaultValue?: string;
@@ -149,7 +148,11 @@ export function SegmentedControl({
       role="radiogroup"
       style={
         {
-          ...getButtonVariantStyles(budgetBoardColors[colorScheme], color, variant),
+          ...getButtonVariantStyles(
+            budgetBoardColors[colorScheme],
+            color,
+            variant,
+          ),
           "--bbui-segmented-track-bg": `var(--bb-color-surface-sunken, ${budgetBoardColors[colorScheme].surfaceSunken})`,
           ...style,
         } as CSSProperties
@@ -201,5 +204,9 @@ export function SegmentedControl({
     </div>
   );
 
-  return mantineContext ? control : <MantineProvider>{control}</MantineProvider>;
+  return mantineContext ? (
+    control
+  ) : (
+    <MantineProvider>{control}</MantineProvider>
+  );
 }

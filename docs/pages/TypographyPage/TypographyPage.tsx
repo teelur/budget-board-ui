@@ -1,4 +1,4 @@
-import { budgetBoardTypography } from "../../../src";
+import { Button, SegmentedControl, budgetBoardTypography } from "../../../src";
 import pageStyles from "../Page.module.css";
 import styles from "./TypographyPage.module.css";
 
@@ -71,6 +71,25 @@ export function TypographyPage() {
         >
           -$1,284.50
         </strong>
+      </div>
+
+      <div className={styles.typographyControls}>
+        <div>
+          <Button size="compact-md">Save changes</Button>
+          <SegmentedControl
+            data={[
+              { value: "day", label: "Day" },
+              { value: "week", label: "Week" },
+            ]}
+            defaultValue="week"
+            size="compact-md"
+          />
+        </div>
+        <p>
+          Interactive control labels (buttons, segmented control items, and
+          similar) render at <code>font-weight: 600</code> within the Body role,
+          so they read as firmer and more tappable than surrounding copy.
+        </p>
       </div>
     </section>
   );
