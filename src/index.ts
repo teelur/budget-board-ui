@@ -17,6 +17,15 @@ export {
 } from "./Button/Button";
 
 export {
+  SegmentedControl,
+  segmentedControlColors,
+  segmentedControlSizes,
+  segmentedControlVariants,
+  type SegmentedControlItem,
+  type SegmentedControlProps,
+} from "./SegmentedControl/SegmentedControl";
+
+export {
   budgetBoardColors,
   budgetBoardDarkTheme,
   budgetBoardTheme,

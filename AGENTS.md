@@ -24,6 +24,8 @@ When a repository norm is established or changed, update this file so future age
 - Forward standard DOM attributes when the component API supports them.
 - Preserve accessible names, keyboard behavior, focus behavior, disabled states, and loading states.
 - Use the repository's existing design tokens and theme variables instead of adding unrelated styling systems.
+- Use `font-weight: 600` for interactive control labels (buttons, segmented control items, etc.) so they render at a consistent weight against body text. This is documented for consumers in the Typography page (`docs/pages/TypographyPage`) — update it too if this convention changes.
+- When a component reuses `getButtonVariantStyles` (or applies its own `--bbui-*` CSS custom properties) for theming, set those properties on the outermost element sharing the affected descendants, not on an inner decorative element — CSS custom properties only cascade to descendants of the element they're set on.
 - Keep source files in `src/`; keep focused tests in `tests/`.
 
 ## Tests
