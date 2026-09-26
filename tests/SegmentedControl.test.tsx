@@ -114,9 +114,12 @@ describe("SegmentedControl", () => {
       </>,
     );
 
-    for (const group of screen.getAllByRole("radiogroup")) {
-      expect(sizes).toContain(group.getAttribute("data-budget-board-size"));
-    }
+    const groups = screen.getAllByRole("radiogroup");
+    expect(groups).toHaveLength(sizes.length);
+
+    groups.forEach((group, index) => {
+      expect(group).toHaveAttribute("data-budget-board-size", sizes[index]);
+    });
   });
 
   it("applies fullWidth styling", () => {
