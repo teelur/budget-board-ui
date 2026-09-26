@@ -181,7 +181,8 @@ const themeRoles = [
     darkValue: budgetBoardColors.dark.secondary.toUpperCase(),
     lightContent: budgetBoardColors.light.secondaryContent.toUpperCase(),
     darkContent: budgetBoardColors.dark.secondaryContent.toUpperCase(),
-    description: "Supporting actions and complementary control surfaces.",
+    description:
+      "Supporting actions and complementary surfaces that stay behind the primary call to action.",
     lightClassName: "theme-role-light-secondary",
     darkClassName: "theme-role-dark-secondary",
   },
@@ -193,7 +194,7 @@ const themeRoles = [
     lightContent: budgetBoardColors.light.accentContent.toUpperCase(),
     darkContent: budgetBoardColors.dark.accentContent.toUpperCase(),
     description:
-      "Focused emphasis for highlights, attention, and memorable moments.",
+      "Rare emphasis for highlights and memorable moments, rather than everyday actions.",
     lightClassName: "theme-role-light-accent",
     darkClassName: "theme-role-dark-accent",
   },

@@ -182,7 +182,7 @@ describe("Button", () => {
         .getByRole("button", { name: "Secondary" })
         .style.getPropertyValue("--bbui-button-color"),
     ).toBe(
-      "var(--budget-board-button-secondary-color, var(--bb-color-secondary-content, #063b2f))",
+      "var(--budget-board-button-secondary-color, var(--bb-color-secondary-content, #202949))",
     );
     expect(
       screen
@@ -207,7 +207,7 @@ describe("Button", () => {
       screen
         .getByRole("button", { name: "Warning ghost" })
         .style.getPropertyValue("--bbui-button-hover-border"),
-    ).toBe("var(--bb-color-button-hover-border, #5f3dc4)");
+    ).toBe("var(--bb-color-button-hover-border, #3b5bdb)");
   });
 
   it("resolves dark semantic palette roles", () => {
@@ -243,7 +243,7 @@ describe("Button", () => {
       screen
         .getByRole("button", { name: "Primary" })
         .style.getPropertyValue("--bbui-button-hover-border"),
-    ).toBe("var(--bb-color-button-hover-border, #63e6be)");
+    ).toBe("var(--bb-color-button-hover-border, #91a7ff)");
   });
 
   it("resolves the dark system preference when the color scheme is auto", () => {
