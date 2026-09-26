@@ -83,6 +83,7 @@ export function TypographyPage() {
             ]}
             defaultValue="week"
             size="compact-md"
+            aria-label="Period"
           />
         </div>
         <p>

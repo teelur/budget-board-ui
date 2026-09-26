@@ -13,7 +13,7 @@ const data = [
 
 describe("SegmentedControl", () => {
   it("renders a radiogroup with one radio per item, defaulting to the first item", () => {
-    render(<SegmentedControl data={data} />);
+    render(<SegmentedControl aria-label="Period" data={data} />);
 
     const group = screen.getByRole("radiogroup");
     expect(group).toHaveAttribute("data-budget-board-color", "primary");
@@ -27,7 +27,9 @@ describe("SegmentedControl", () => {
 
   it("supports uncontrolled usage via defaultValue", async () => {
     const user = userEvent.setup();
-    render(<SegmentedControl data={data} defaultValue="week" />);
+    render(
+      <SegmentedControl aria-label="Period" data={data} defaultValue="week" />,
+    );
 
     expect(screen.getByRole("radio", { name: "Week" })).toBeChecked();
 
@@ -36,12 +38,31 @@ describe("SegmentedControl", () => {
     expect(screen.getByRole("radio", { name: "Month" })).toBeChecked();
   });
 
+  it("supports aria-labelledby while forwarding other group aria attributes", () => {
+    render(
+      <SegmentedControl
+        aria-describedby="period-help"
+        aria-labelledby="period-label"
+        data={data}
+      />,
+    );
+
+    const group = screen.getByRole("radiogroup", { name: "" });
+    expect(group).toHaveAttribute("aria-labelledby", "period-label");
+    expect(group).toHaveAttribute("aria-describedby", "period-help");
+  });
+
   it("supports controlled usage via value and onChange", async () => {
     const onChange = vi.fn();
     const user = userEvent.setup();
 
     const { rerender } = render(
-      <SegmentedControl data={data} onChange={onChange} value="day" />,
+      <SegmentedControl
+        aria-label="Period"
+        data={data}
+        onChange={onChange}
+        value="day"
+      />,
     );
 
     await user.click(screen.getByRole("radio", { name: "Week" }));
@@ -49,13 +70,35 @@ describe("SegmentedControl", () => {
     expect(onChange).toHaveBeenCalledWith("week");
     expect(screen.getByRole("radio", { name: "Day" })).toBeChecked();
 
-    rerender(<SegmentedControl data={data} onChange={onChange} value="week" />);
+    rerender(
+      <SegmentedControl
+        aria-label="Period"
+        data={data}
+        onChange={onChange}
+        value="week"
+      />,
+    );
 
     expect(screen.getByRole("radio", { name: "Week" })).toBeChecked();
   });
 
+  it("shows the indicator for an empty-string value", () => {
+    render(
+      <SegmentedControl
+        aria-label="Period"
+        data={[{ value: "", label: "Empty" }]}
+        value=""
+      />,
+    );
+
+    expect(screen.getByRole("radio", { name: "Empty" })).toBeChecked();
+    expect(
+      screen.getByRole("radiogroup").querySelector('[aria-hidden="true"]'),
+    ).toHaveStyle("opacity: 1");
+  });
+
   it("disables every segment when the control is disabled", () => {
-    render(<SegmentedControl data={data} disabled />);
+    render(<SegmentedControl aria-label="Period" data={data} disabled />);
 
     for (const radio of screen.getAllByRole("radio")) {
       expect(radio).toBeDisabled();
@@ -65,6 +108,7 @@ describe("SegmentedControl", () => {
   it("disables only the segments marked as disabled", () => {
     render(
       <SegmentedControl
+        aria-label="Period"
         data={[
           { value: "day", label: "Day" },
           { value: "week", label: "Week", disabled: true },
@@ -79,6 +123,7 @@ describe("SegmentedControl", () => {
   it("renders a leftSection alongside the label", () => {
     render(
       <SegmentedControl
+        aria-label="Period"
         data={[
           {
             value: "day",
@@ -109,7 +154,12 @@ describe("SegmentedControl", () => {
     render(
       <>
         {sizes.map((size) => (
-          <SegmentedControl data={data} key={size} size={size} />
+          <SegmentedControl
+            aria-label="Period"
+            data={data}
+            key={size}
+            size={size}
+          />
         ))}
       </>,
     );
@@ -120,13 +170,15 @@ describe("SegmentedControl", () => {
   });
 
   it("applies fullWidth styling", () => {
-    render(<SegmentedControl data={data} fullWidth />);
+    render(<SegmentedControl aria-label="Period" data={data} fullWidth />);
 
     expect(screen.getByRole("radiogroup").className).toContain("fullWidth");
   });
 
   it("resolves the contrast color from the active color scheme", () => {
-    render(<SegmentedControl color="contrast" data={data} />);
+    render(
+      <SegmentedControl aria-label="Period" color="contrast" data={data} />,
+    );
 
     const group = screen.getByRole("radiogroup");
 
@@ -138,7 +190,7 @@ describe("SegmentedControl", () => {
   it("resolves the contrast color in dark mode", () => {
     render(
       <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
-        <SegmentedControl color="contrast" data={data} />
+        <SegmentedControl aria-label="Period" color="contrast" data={data} />
       </MantineProvider>,
     );
 
@@ -147,5 +199,24 @@ describe("SegmentedControl", () => {
     expect(group.style.getPropertyValue("--bbui-button-bg")).toBe(
       "var(--budget-board-button-contrast-background, var(--bb-color-contrast, #f2f0eb))",
     );
+  });
+
+  it("resolves the border color from the active color scheme", () => {
+    render(
+      <MantineProvider forceColorScheme="dark">
+        <SegmentedControl aria-label="Period" data={data} />
+      </MantineProvider>,
+    );
+
+    expect(
+      screen
+        .getByRole("radiogroup")
+        .style.getPropertyValue("--bbui-segmented-border"),
+    ).toBe("var(--bb-color-border-subtle, #3a3d42)");
+    expect(
+      screen
+        .getByRole("radiogroup")
+        .style.getPropertyValue("--bbui-segmented-neutral-content"),
+    ).toBe("var(--bb-color-neutral-content, #f2f0eb)");
   });
 });

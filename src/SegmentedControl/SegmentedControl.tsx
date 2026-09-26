@@ -33,10 +33,10 @@ export interface SegmentedControlItem {
   leftSection?: ReactNode;
 }
 
-export interface SegmentedControlProps extends Omit<
+export type SegmentedControlProps = Omit<
   HTMLAttributes<HTMLDivElement>,
-  "color" | "onChange" | "style"
-> {
+  "aria-label" | "aria-labelledby" | "color" | "onChange" | "style"
+> & {
   data: SegmentedControlItem[];
   value?: string;
   defaultValue?: string;
@@ -48,7 +48,10 @@ export interface SegmentedControlProps extends Omit<
   fullWidth?: boolean;
   disabled?: boolean;
   style?: CSSProperties;
-}
+} & (
+    | { "aria-label": string; "aria-labelledby"?: string }
+    | { "aria-label"?: never; "aria-labelledby": string }
+  );
 
 export function SegmentedControl({
   className,
@@ -92,9 +95,10 @@ export function SegmentedControl({
 
   const updateIndicator = useCallback(() => {
     const container = containerRef.current;
-    const activeItem = currentValue
-      ? itemRefs.current.get(currentValue)
-      : undefined;
+    const activeItem =
+      currentValue !== undefined
+        ? itemRefs.current.get(currentValue)
+        : undefined;
 
     if (!container || !activeItem) {
       setIndicatorRect(null);
@@ -153,6 +157,8 @@ export function SegmentedControl({
             color,
             variant,
           ),
+          "--bbui-segmented-border": `var(--bb-color-border-subtle, ${budgetBoardColors[colorScheme].borderSubtle})`,
+          "--bbui-segmented-neutral-content": `var(--bb-color-neutral-content, ${budgetBoardColors[colorScheme].neutralContent})`,
           "--bbui-segmented-track-bg": `var(--bb-color-surface, ${budgetBoardColors[colorScheme].surface})`,
           ...style,
         } as CSSProperties

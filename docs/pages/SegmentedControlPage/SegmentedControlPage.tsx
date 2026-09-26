@@ -21,6 +21,8 @@ const periodData = [
   { value: "year", label: "Year" },
 ];
 
+const accessibleName = "Period";
+
 const standardSizes = segmentedControlSizes.filter(
   (size) => !size.startsWith("compact-"),
 );
@@ -41,6 +43,7 @@ export function SegmentedControlPage() {
 
   const playgroundProps = [
     `data={data}`,
+    `aria-label="${accessibleName}"`,
     `color="${selectedColor}"`,
     `variant="${selectedVariant}"`,
     `size="${selectedSize}"`,
@@ -76,12 +79,14 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         code={`const [value, setValue] = useState("week");
 
 <SegmentedControl
+  aria-label="Period"
   data={${JSON.stringify(periodData)}}
   value={value}
   onChange={setValue}
 />`}
       >
         <SegmentedControl
+          aria-label={accessibleName}
           data={periodData}
           onChange={setPlaygroundValue}
           value={playgroundValue}
@@ -95,13 +100,14 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         code={segmentedControlColors
           .map(
             (color) =>
-              `<SegmentedControl color="${color}" data={data} defaultValue="day" />`,
+              `<SegmentedControl aria-label="Period" color="${color}" data={data} defaultValue="day" />`,
           )
           .join("\n")}
       >
         <div className={styles.stack}>
           {segmentedControlColors.map((color) => (
             <SegmentedControl
+              aria-label={accessibleName}
               color={color}
               data={periodData}
               defaultValue="day"
@@ -118,13 +124,14 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         code={segmentedControlVariants
           .map(
             (variant) =>
-              `<SegmentedControl variant="${variant}" data={data} defaultValue="day" />`,
+              `<SegmentedControl aria-label="Period" variant="${variant}" data={data} defaultValue="day" />`,
           )
           .join("\n")}
       >
         <div className={styles.stack}>
           {segmentedControlVariants.map((variant) => (
             <SegmentedControl
+              aria-label={accessibleName}
               data={periodData}
               defaultValue="day"
               key={variant}
@@ -141,13 +148,14 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         code={standardSizes
           .map(
             (size) =>
-              `<SegmentedControl size="${size}" data={data} defaultValue="day" />`,
+              `<SegmentedControl aria-label="Period" size="${size}" data={data} defaultValue="day" />`,
           )
           .join("\n")}
       >
         <div className={styles.stack}>
           {standardSizes.map((size) => (
             <SegmentedControl
+              aria-label={accessibleName}
               data={periodData}
               defaultValue="day"
               key={size}
@@ -164,13 +172,14 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         code={compactSizes
           .map(
             (size) =>
-              `<SegmentedControl size="${size}" data={data} defaultValue="day" />`,
+              `<SegmentedControl aria-label="Period" size="${size}" data={data} defaultValue="day" />`,
           )
           .join("\n")}
       >
         <div className={styles.stack}>
           {compactSizes.map((size) => (
             <SegmentedControl
+              aria-label={accessibleName}
               data={periodData}
               defaultValue="day"
               key={size}
@@ -191,10 +200,11 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
   ]}
   defaultValue="list"
 />
-<SegmentedControl data={data} defaultValue="day" disabled />`}
+<SegmentedControl aria-label="Period" data={data} defaultValue="day" disabled />`}
       >
         <div className={styles.stack}>
           <SegmentedControl
+            aria-label="View"
             data={[
               { value: "list", label: "List", leftSection: "\u2261" },
               {
@@ -206,7 +216,12 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
             ]}
             defaultValue="list"
           />
-          <SegmentedControl data={periodData} defaultValue="day" disabled />
+          <SegmentedControl
+            aria-label="Period"
+            data={periodData}
+            defaultValue="day"
+            disabled
+          />
         </div>
       </ComponentDemoSection>
 
@@ -214,9 +229,14 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         description="Stretch the control across its container so every segment shares the available width equally."
         id="segmented-control-full-width"
         title="Full width"
-        code={`<SegmentedControl data={data} defaultValue="day" fullWidth />`}
+        code={`<SegmentedControl aria-label="Period" data={data} defaultValue="day" fullWidth />`}
       >
-        <SegmentedControl data={periodData} defaultValue="day" fullWidth />
+        <SegmentedControl
+          aria-label="Period"
+          data={periodData}
+          defaultValue="day"
+          fullWidth
+        />
       </ComponentDemoSection>
 
       <ComponentDemoSection
@@ -293,6 +313,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           </div>
           <div className={styles.playgroundPreview}>
             <SegmentedControl
+              aria-label={accessibleName}
               color={selectedColor}
               data={periodData}
               disabled={isDisabled}
@@ -333,6 +354,13 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                     <code>SegmentedControlItem[]</code>
                   </td>
                   <td>-</td>
+                </tr>
+                <tr>
+                  <th>aria-label / aria-labelledby</th>
+                  <td>
+                    <code>string</code>
+                  </td>
+                  <td>one is required</td>
                 </tr>
                 <tr>
                   <th>value</th>
@@ -398,6 +426,27 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   <td>false</td>
                 </tr>
                 <tr>
+                  <th>className</th>
+                  <td>
+                    <code>string</code>
+                  </td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <th>style</th>
+                  <td>
+                    <code>CSSProperties</code>
+                  </td>
+                  <td>CSS object merged with the component styles</td>
+                </tr>
+                <tr>
+                  <th>native div attributes</th>
+                  <td>
+                    <code>HTMLAttributes&lt;HTMLDivElement&gt;</code>
+                  </td>
+                  <td>forwarded to the root group element</td>
+                </tr>
+                <tr>
                   <th>SegmentedControlItem.value</th>
                   <td>
                     <code>string</code>
@@ -430,6 +479,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           </div>
           <pre className={pageStyles.codeBlock}>
             <code>{`<SegmentedControl
+  aria-label="Period"
   data={[
     { value: "day", label: "Day" },
     { value: "week", label: "Week" },
