@@ -182,7 +182,7 @@ describe("Button", () => {
         .getByRole("button", { name: "Secondary" })
         .style.getPropertyValue("--bbui-button-color"),
     ).toBe(
-      "var(--budget-board-button-secondary-color, var(--bb-color-secondary-content, #202949))",
+      "var(--budget-board-button-secondary-color, var(--bb-color-secondary-content, #123b3a))",
     );
     expect(
       screen

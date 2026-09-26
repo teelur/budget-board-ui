@@ -119,14 +119,14 @@ describe("budgetBoardColors", () => {
 
   it("keeps primary visually dominant over supporting theme roles", () => {
     expect(budgetBoardColors.light.primary).toBe("#4c6ef5");
-    expect(budgetBoardColors.light.secondary).toBe("#6574ae");
-    expect(budgetBoardColors.light.secondaryContent).toBe("#202949");
+    expect(budgetBoardColors.light.secondary).toBe("#6b8d86");
+    expect(budgetBoardColors.light.secondaryContent).toBe("#123b3a");
     expect(budgetBoardColors.light.accent).toBe("#b26a50");
     expect(budgetBoardColors.light.accentContent).toBe("#3b2115");
 
     expect(budgetBoardColors.dark.primary).toBe("#91a7ff");
-    expect(budgetBoardColors.dark.secondary).toBe("#9da9d1");
-    expect(budgetBoardColors.dark.secondaryContent).toBe("#202949");
+    expect(budgetBoardColors.dark.secondary).toBe("#82b9b2");
+    expect(budgetBoardColors.dark.secondaryContent).toBe("#123b3a");
     expect(budgetBoardColors.dark.accent).toBe("#d58e72");
     expect(budgetBoardColors.dark.accentContent).toBe("#3b2115");
   });
