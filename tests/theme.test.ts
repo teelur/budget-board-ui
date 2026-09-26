@@ -86,7 +86,7 @@ describe("budgetBoardColors", () => {
     expect(budgetBoardColors.light.mutedContent).toBe("#fffaf2");
     expect(budgetBoardColors.light.neutral).toBe("#e7e3da");
     expect(budgetBoardColors.light.neutralContent).toBe("#3a3834");
-    expect(budgetBoardColors.light.buttonHoverBorder).toBe("#5f3dc4");
+    expect(budgetBoardColors.light.buttonHoverBorder).toBe("#3b5bdb");
     expect(budgetBoardColors.light.focusRing).toBe("#4c6ef5");
     expect(budgetBoardColors.light.selection).toBe("#dbe4ff");
     expect(budgetBoardColors.light.info).toBe("#1971c2");
@@ -104,7 +104,7 @@ describe("budgetBoardColors", () => {
     expect(budgetBoardColors.dark.mutedContent).toBe("#242321");
     expect(budgetBoardColors.dark.neutral).toBe("#34373a");
     expect(budgetBoardColors.dark.neutralContent).toBe("#f2f0eb");
-    expect(budgetBoardColors.dark.buttonHoverBorder).toBe("#63e6be");
+    expect(budgetBoardColors.dark.buttonHoverBorder).toBe("#91a7ff");
     expect(budgetBoardColors.dark.focusRing).toBe("#91a7ff");
     expect(budgetBoardColors.dark.selection).toBe("#1e2450");
     expect(budgetBoardColors.dark.info).toBe("#74c0fc");
@@ -115,6 +115,20 @@ describe("budgetBoardColors", () => {
     expect(budgetBoardColors.dark.warningContent).toBe("#5f3b00");
     expect(budgetBoardColors.dark.error).toBe("#ff6b6b");
     expect(budgetBoardColors.dark.errorContent).toBe("#4a0c0c");
+  });
+
+  it("keeps primary visually dominant over supporting theme roles", () => {
+    expect(budgetBoardColors.light.primary).toBe("#4c6ef5");
+    expect(budgetBoardColors.light.secondary).toBe("#6574ae");
+    expect(budgetBoardColors.light.secondaryContent).toBe("#202949");
+    expect(budgetBoardColors.light.accent).toBe("#b26a50");
+    expect(budgetBoardColors.light.accentContent).toBe("#3b2115");
+
+    expect(budgetBoardColors.dark.primary).toBe("#91a7ff");
+    expect(budgetBoardColors.dark.secondary).toBe("#9da9d1");
+    expect(budgetBoardColors.dark.secondaryContent).toBe("#202949");
+    expect(budgetBoardColors.dark.accent).toBe("#d58e72");
+    expect(budgetBoardColors.dark.accentContent).toBe("#3b2115");
   });
 
   it("includes content color keys", () => {
