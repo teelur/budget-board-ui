@@ -153,7 +153,7 @@ export function SegmentedControl({
             color,
             variant,
           ),
-          "--bbui-segmented-track-bg": `var(--bb-color-surface-sunken, ${budgetBoardColors[colorScheme].surfaceSunken})`,
+          "--bbui-segmented-track-bg": `var(--bb-color-surface, ${budgetBoardColors[colorScheme].surface})`,
           ...style,
         } as CSSProperties
       }
