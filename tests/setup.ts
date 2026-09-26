@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom/vitest';
+import "@testing-library/jest-dom/vitest";
 
 class ResizeObserverMock {
   observe() {}
@@ -8,7 +8,7 @@ class ResizeObserverMock {
 
 window.ResizeObserver ??= ResizeObserverMock;
 
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: (query: string) => ({
     addEventListener: () => {},
