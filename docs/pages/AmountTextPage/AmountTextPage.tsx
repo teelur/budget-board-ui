@@ -43,44 +43,25 @@ export function AmountTextPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Built-in Intl formatting handles currency, locale, precision, and signs."
+        description="Built-in Intl formatting handles currency, locale, precision, and sign direction."
         id="amount-text-formatting"
         title="Formatting"
         code={`<AmountText
-  amount={1234.5}
+  amount={-1234.5}
   currency="USD"
   decimalPlaces={2}
   locale="en-US"
+  invertSign
 />`}
       >
         <div className={styles.stack}>
           <AmountText
-            amount={1234.5}
+            amount={-1234.5}
             currency="USD"
             decimalPlaces={2}
             locale="en-US"
+            invertSign
           />
-        </div>
-      </ComponentDemoSection>
-
-      <ComponentDemoSection
-        description="Children take precedence over formatAmount."
-        id="amount-text-content"
-        title="Content precedence"
-        code={`<AmountText
-  amount={1234.5}
-  formatAmount={(amount) => formatCurrency(amount)}
->
-  Custom amount
-</AmountText>`}
-      >
-        <div className={styles.stack}>
-          <AmountText
-            amount={1234.5}
-            formatAmount={(amount) => `$${amount.toFixed(2)}`}
-          >
-            Custom amount
-          </AmountText>
         </div>
       </ComponentDemoSection>
 
@@ -224,11 +205,14 @@ export function AmountTextPage() {
                   <td>runtime default</td>
                 </tr>
                 <tr>
-                  <th>formatAmount</th>
+                  <th>invertSign</th>
                   <td>
-                    <code>(amount: number) =&gt; ReactNode</code>
+                    <code>boolean</code>
                   </td>
-                  <td>optional override before built-in formatting</td>
+                  <td>
+                    false; formats the opposite sign without changing status
+                    color
+                  </td>
                 </tr>
                 <tr>
                   <th>disableStatusColor</th>
@@ -242,7 +226,7 @@ export function AmountTextPage() {
                   <td>
                     <code>ReactNode</code>
                   </td>
-                  <td>takes precedence over formatAmount</td>
+                  <td>optional content override</td>
                 </tr>
                 <tr>
                   <th>Mantine TextProps</th>

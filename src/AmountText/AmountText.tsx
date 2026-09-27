@@ -89,7 +89,7 @@ export interface AmountTextProps extends TextProps {
   currency?: string;
   decimalPlaces?: number;
   signDisplay?: Intl.NumberFormatOptions["signDisplay"];
-  formatAmount?: (amount: number) => ReactNode;
+  invertSign?: boolean;
   children?: ReactNode;
 }
 
@@ -99,6 +99,7 @@ function formatNumericAmount(
   currency?: string,
   decimalPlaces?: number,
   signDisplay?: Intl.NumberFormatOptions["signDisplay"],
+  invertSign?: boolean,
 ): string {
   const options: Intl.NumberFormatOptions = {
     minimumFractionDigits: decimalPlaces,
@@ -111,7 +112,9 @@ function formatNumericAmount(
     options.currency = currency;
   }
 
-  return new Intl.NumberFormat(locale, options).format(amount + 0);
+  return new Intl.NumberFormat(locale, options).format(
+    (invertSign ? -amount : amount) + 0,
+  );
 }
 
 export function AmountText({
@@ -126,7 +129,7 @@ export function AmountText({
   currency,
   decimalPlaces,
   signDisplay,
-  formatAmount,
+  invertSign = false,
   children,
   c,
   fw,
@@ -162,13 +165,13 @@ export function AmountText({
       {isSensitive
         ? sensitiveText
         : (children ??
-          formatAmount?.(amount) ??
           formatNumericAmount(
             amount,
             locale,
             currency,
             decimalPlaces,
             signDisplay,
+            invertSign,
           ))}
     </Text>
   );
