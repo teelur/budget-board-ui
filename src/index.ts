@@ -37,6 +37,13 @@ export {
 } from "./SegmentedControl/SegmentedControl";
 
 export {
+  StatusText,
+  getStatusColor,
+  StatusColorType,
+  type StatusTextProps,
+} from "./StatusText/StatusText";
+
+export {
   budgetBoardColors,
   budgetBoardDarkTheme,
   budgetBoardTheme,
