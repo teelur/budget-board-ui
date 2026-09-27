@@ -77,26 +77,61 @@ export function getStatusColor(
   return `var(--bb-color-text, ${colors.textPrimary})`;
 }
 
-export interface StatusTextProps extends TextProps {
+export interface AmountTextProps extends TextProps {
   amount: number;
   total?: number;
   type?: StatusColorType;
   warningThreshold?: number;
+  isSensitive?: boolean;
   disableStatusColor?: boolean;
+  sensitiveText?: ReactNode;
+  locale?: string;
+  currency?: string;
+  decimalPlaces?: number;
+  signDisplay?: Intl.NumberFormatOptions["signDisplay"];
+  formatAmount?: (amount: number) => ReactNode;
   children?: ReactNode;
 }
 
-export function StatusText({
+function formatNumericAmount(
+  amount: number,
+  locale?: string,
+  currency?: string,
+  decimalPlaces?: number,
+  signDisplay?: Intl.NumberFormatOptions["signDisplay"],
+): string {
+  const options: Intl.NumberFormatOptions = {
+    minimumFractionDigits: decimalPlaces,
+    maximumFractionDigits: decimalPlaces,
+    signDisplay,
+  };
+
+  if (currency) {
+    options.style = "currency";
+    options.currency = currency;
+  }
+
+  return new Intl.NumberFormat(locale, options).format(amount + 0);
+}
+
+export function AmountText({
   amount,
   total,
   type = StatusColorType.Total,
   warningThreshold,
+  isSensitive = false,
   disableStatusColor = false,
+  sensitiveText = "••••",
+  locale,
+  currency,
+  decimalPlaces,
+  signDisplay,
+  formatAmount,
   children,
   c,
   fw,
   ...textProps
-}: StatusTextProps) {
+}: AmountTextProps) {
   const mantineContext = useContext(MantineContext);
   const systemColorScheme = useColorScheme("light");
   const colorScheme =
@@ -107,7 +142,7 @@ export function StatusText({
         : "light";
   const resolvedColor =
     c ??
-    (disableStatusColor
+    (disableStatusColor || isSensitive
       ? undefined
       : getStatusColor(
           amount,
@@ -124,7 +159,17 @@ export function StatusText({
       : { ...textProps, c: resolvedColor };
   const text = (
     <Text {...textPropsWithColor} fw={fw ?? 600}>
-      {children}
+      {isSensitive
+        ? sensitiveText
+        : (children ??
+          formatAmount?.(amount) ??
+          formatNumericAmount(
+            amount,
+            locale,
+            currency,
+            decimalPlaces,
+            signDisplay,
+          ))}
     </Text>
   );
 

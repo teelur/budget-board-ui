@@ -11,11 +11,11 @@ import {
 } from "../src";
 import type { ColorMode } from "./components/color/colorCardTypes";
 import { ActionIconPage } from "./pages/ActionIconPage/ActionIconPage";
+import { AmountTextPage } from "./pages/AmountTextPage/AmountTextPage";
 import { BadgePage } from "./pages/BadgePage/BadgePage";
 import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
-import { StatusTextPage } from "./pages/StatusTextPage/StatusTextPage";
 import { TypographyPage } from "./pages/TypographyPage/TypographyPage";
 import styles from "./App.module.css";
 
@@ -126,10 +126,10 @@ export function App() {
             <div className={styles.navGroup}>
               <p className={styles.navGroupHeading}>Components</p>
               <a href="#action-icon">ActionIcon</a>
+              <a href="#amount-text">AmountText</a>
               <a href="#badge">Badge</a>
               <a href="#button">Button</a>
               <a href="#segmented-control">SegmentedControl</a>
-              <a href="#status-text">StatusText</a>
             </div>
             <p className={`${styles.navHeading} ${styles.navHeadingSpaced}`}>
               Package
@@ -174,11 +174,10 @@ export function App() {
                   references.
                 </p>
               </div>
-              <ActionIconPage />
+              <AmountTextPage />
               <BadgePage />
               <ButtonPage />
               <SegmentedControlPage />
-              <StatusTextPage />
             </section>
 
             <footer className={styles.siteFooter}>
