@@ -11,6 +11,10 @@ import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSecti
 import pageStyles from "../Page.module.css";
 import styles from "./ActionIconPage.module.css";
 
+function capitalize(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
 const actionIconSizeLabels = {
   "compact-xs": "Compact extra small (24px)",
   "compact-sm": "Compact small (28px)",
@@ -251,7 +255,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   >
                     {buttonVariants.map((variant) => (
                       <option key={variant} value={variant}>
-                        {variant}
+                        {capitalize(variant)}
                       </option>
                     ))}
                   </select>
@@ -268,7 +272,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   >
                     {buttonColors.map((color) => (
                       <option key={color} value={color}>
-                        {color}
+                        {capitalize(color)}
                       </option>
                     ))}
                   </select>
@@ -283,7 +287,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   >
                     {actionIconSizes.map((size) => (
                       <option key={size} value={size}>
-                        {actionIconSizeLabels[size]}
+                        {size}
                       </option>
                     ))}
                   </select>

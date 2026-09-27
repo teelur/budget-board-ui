@@ -200,7 +200,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                 >
                   {badgeSizes.map((size) => (
                     <option key={size} value={size}>
-                      {capitalize(size)}
+                      {size}
                     </option>
                   ))}
                 </select>
