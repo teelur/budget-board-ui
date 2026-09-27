@@ -3,10 +3,10 @@ import { MantineProvider } from "@mantine/core";
 import { describe, expect, it } from "vitest";
 import { budgetBoardDarkTheme } from "../src/theme";
 import {
+  AmountText,
   getStatusColor,
   StatusColorType,
-  StatusText,
-} from "../src/StatusText/StatusText";
+} from "../src/AmountText/AmountText";
 
 const colors = {
   neutral: "var(--bb-color-info, #1971c2)",
@@ -15,7 +15,7 @@ const colors = {
   bad: "var(--bb-color-error, #c92a2a)",
 } as const;
 
-describe("StatusText", () => {
+describe("AmountText", () => {
   it("preserves the four status color rules", () => {
     expect(getStatusColor(80, 100, StatusColorType.Income)).toBe(
       colors.neutral,
@@ -39,18 +39,18 @@ describe("StatusText", () => {
     );
   });
 
-  it("keeps warning opt-in at the StatusText component boundary", () => {
+  it("keeps warning opt-in at the AmountText component boundary", () => {
     render(
       <>
-        <StatusText
+        <AmountText
           amount={-90}
           data-testid="without-threshold"
           total={100}
           type={StatusColorType.Expense}
         >
           No threshold
-        </StatusText>
-        <StatusText
+        </AmountText>
+        <AmountText
           amount={-90}
           data-testid="with-threshold"
           total={100}
@@ -58,7 +58,7 @@ describe("StatusText", () => {
           warningThreshold={90}
         >
           Explicit threshold
-        </StatusText>
+        </AmountText>
       </>,
     );
 
@@ -79,7 +79,7 @@ describe("StatusText", () => {
 
   it("renders with a default weight and forwards Mantine TextProps", () => {
     render(
-      <StatusText
+      <AmountText
         amount={100}
         data-testid="status"
         fw={700}
@@ -87,7 +87,7 @@ describe("StatusText", () => {
         id="forwarded"
       >
         On track
-      </StatusText>,
+      </AmountText>,
     );
 
     const status = screen.getByTestId("status");
@@ -102,9 +102,9 @@ describe("StatusText", () => {
   it("uses the dark Button palette when rendered in dark mode", () => {
     render(
       <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
-        <StatusText amount={-1} type={StatusColorType.Total}>
+        <AmountText amount={-1} type={StatusColorType.Total}>
           Dark total
-        </StatusText>
+        </AmountText>
       </MantineProvider>,
     );
 
@@ -114,7 +114,7 @@ describe("StatusText", () => {
   });
 
   it("applies the default font weight when it is not provided", () => {
-    render(<StatusText amount={100}>Default weight</StatusText>);
+    render(<AmountText amount={100}>Default weight</AmountText>);
 
     expect(screen.getByText("Default weight")).toHaveStyle({
       fontWeight: "600",
@@ -124,16 +124,16 @@ describe("StatusText", () => {
   it("allows consumers to disable status colors and still pass an explicit color", () => {
     render(
       <MantineProvider>
-        <StatusText amount={-1} disableStatusColor>
+        <AmountText amount={-1} disableStatusColor>
           Uncolored
-        </StatusText>
-        <StatusText
+        </AmountText>
+        <AmountText
           amount={-1}
           c="var(--base-color-text-primary)"
           disableStatusColor
         >
           Privacy adapter
-        </StatusText>
+        </AmountText>
       </MantineProvider>,
     );
 
@@ -141,6 +141,40 @@ describe("StatusText", () => {
       color: colors.bad,
     });
     expect(screen.getByText("Privacy adapter")).toHaveStyle({
+      color: "var(--base-color-text-primary)",
+    });
+  });
+
+  it("masks sensitive content and disables semantic colors", () => {
+    render(
+      <AmountText
+        amount={-1}
+        data-testid="sensitive"
+        isSensitive
+        type={StatusColorType.Total}
+      >
+        $1.00
+      </AmountText>,
+    );
+
+    expect(screen.getByTestId("sensitive")).toHaveTextContent("••••");
+    expect(screen.getByTestId("sensitive")).not.toHaveStyle({
+      color: colors.bad,
+    });
+  });
+
+  it("preserves an explicit color while masking sensitive content", () => {
+    render(
+      <AmountText
+        amount={-1}
+        c="var(--base-color-text-primary)"
+        isSensitive
+      >
+        $1.00
+      </AmountText>,
+    );
+
+    expect(screen.getByText("••••")).toHaveStyle({
       color: "var(--base-color-text-primary)",
     });
   });

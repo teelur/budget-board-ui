@@ -1,28 +1,28 @@
-import { StatusColorType, StatusText } from "../../../src";
+import { AmountText, StatusColorType } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
-import styles from "./StatusTextPage.module.css";
+import styles from "./AmountTextPage.module.css";
 
-export function StatusTextPage() {
+export function AmountTextPage() {
   return (
-    <section className={pageStyles.componentSection} id="status-text">
+    <section className={pageStyles.componentSection} id="amount-text">
       <div className={pageStyles.sectionHeading}>
         <div>
           <p className={pageStyles.eyebrow}>Financial semantics</p>
-          <h2>StatusText</h2>
+          <h2>AmountText</h2>
         </div>
-        <code>import {"{ StatusText }"} from '@teelur/budget-board-ui';</code>
+        <code>import {"{ AmountText }"} from '@teelur/budget-board-ui';</code>
       </div>
       <p className={pageStyles.sectionCopy}>
-        A Mantine Text wrapper for consistent income, expense, total, and target
-        status colors. The component is provider-independent and accepts every
+        A Mantine Text wrapper for amount-aware semantic colors and privacy
+        masking. The component is provider-independent and accepts every
         Mantine Text prop.
       </p>
       <p className={pageStyles.sectionCopy}>
-        Privacy-mode adapters should pass <code>disableStatusColor</code> and
-        provide the consumer&apos;s privacy color through Mantine&apos;s{" "}
-        <code>c</code> prop when needed.
+        Pass <code>isSensitive</code> when the amount should be masked. This
+        also suppresses semantic color while preserving an explicit{" "}
+        <code>c</code> prop.
       </p>
       <p className={pageStyles.sectionCopy}>
         Expense warning colors are opt-in: pass <code>warningThreshold</code>
@@ -31,61 +31,56 @@ export function StatusTextPage() {
 
       <ComponentDemoSection
         description="Status colors preserve the financial meaning of each value."
-        id="status-text-types"
+        id="amount-text-types"
         title="Status types"
-        code={`<StatusText amount={-80} total={100} type={StatusColorType.Expense}>
+        code={`<AmountText amount={-80} total={100} type={StatusColorType.Expense}>
   $80 spent of $100
-</StatusText>`}
+</AmountText>`}
       >
         <div className={styles.stack}>
-          <StatusText amount={80} total={100} type={StatusColorType.Income}>
+          <AmountText amount={80} total={100} type={StatusColorType.Income}>
             Income below plan
-          </StatusText>
-          <StatusText amount={-80} total={100} type={StatusColorType.Expense}>
+          </AmountText>
+          <AmountText amount={-80} total={100} type={StatusColorType.Expense}>
             $80 spent of $100
-          </StatusText>
-          <StatusText amount={-12} type={StatusColorType.Total}>
+          </AmountText>
+          <AmountText amount={-12} type={StatusColorType.Total}>
             Total is negative
-          </StatusText>
-          <StatusText amount={90} total={100} type={StatusColorType.Target}>
+          </AmountText>
+          <AmountText amount={90} total={100} type={StatusColorType.Target}>
             Target progress
-          </StatusText>
+          </AmountText>
         </div>
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Disable semantic colors at the adapter boundary when privacy mode hides financial meaning."
-        id="status-text-privacy"
-        title="Privacy adapter"
-        code={`function PrivacyAwareStatusText(props: StatusTextProps) {
+        description="Mask the rendered value and suppress financial color when privacy mode hides financial meaning."
+        id="amount-text-privacy"
+        title="Privacy-aware amount"
+        code={`function PrivacyAwareAmountText(props: AmountTextProps) {
   const { isPrivacyModeEnabled } = usePrivacyMode();
 
   return (
-    <StatusText
+    <AmountText
       {...props}
-      c={isPrivacyModeEnabled ? "var(--base-color-text-primary)" : undefined}
-      disableStatusColor={isPrivacyModeEnabled}
+      isSensitive={isPrivacyModeEnabled}
     />
   );
 }`}
       >
         <div className={styles.stack}>
-          <StatusText amount={-12} type={StatusColorType.Total}>
+          <AmountText amount={-12} type={StatusColorType.Total}>
             Semantic color enabled
-          </StatusText>
-          <StatusText
-            amount={-12}
-            c="var(--base-color-text-primary)"
-            disableStatusColor
-          >
-            Privacy color supplied by adapter
-          </StatusText>
+          </AmountText>
+          <AmountText amount={-12} isSensitive>
+            $12.00
+          </AmountText>
         </div>
       </ComponentDemoSection>
 
       <section
         className={pageStyles.componentReferenceSection}
-        id="status-text-api"
+        id="amount-text-api"
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
@@ -93,9 +88,9 @@ export function StatusTextPage() {
             <p>Financial props plus the complete Mantine TextProps surface.</p>
           </div>
           <a
-            aria-label="Link to StatusText API reference section"
+            aria-label="Link to AmountText API reference section"
             className={demoStyles.componentDemoAnchor}
-            href="#status-text-api"
+            href="#amount-text-api"
           >
             #
           </a>
@@ -133,6 +128,20 @@ export function StatusTextPage() {
                   <td>undefined; warning is opt-in</td>
                 </tr>
                 <tr>
+                  <th>isSensitive</th>
+                  <td>
+                    <code>boolean</code>
+                  </td>
+                  <td>false; masks content and disables semantic color</td>
+                </tr>
+                <tr>
+                  <th>sensitiveText</th>
+                  <td>
+                    <code>ReactNode</code>
+                  </td>
+                  <td>••••</td>
+                </tr>
+                <tr>
                   <th>disableStatusColor</th>
                   <td>
                     <code>boolean</code>
@@ -159,14 +168,14 @@ export function StatusTextPage() {
             </table>
           </div>
           <pre className={pageStyles.codeBlock}>
-            <code>{`<StatusText
+            <code>{`<AmountText
   amount={-80}
   total={100}
   type={StatusColorType.Expense}
-  warningThreshold={90}
+  isSensitive={isPrivacyModeEnabled}
 >
   $80 spent of $100
-</StatusText>`}</code>
+</AmountText>`}</code>
           </pre>
         </div>
       </section>
