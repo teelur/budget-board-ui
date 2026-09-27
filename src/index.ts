@@ -6,6 +6,17 @@ export {
 } from "./ActionIcon/ActionIcon";
 
 export {
+  Badge,
+  badgeColors,
+  badgeSizes,
+  badgeVariants,
+  type BadgeColor,
+  type BadgeProps,
+  type BadgeSize,
+  type BadgeVariant,
+} from "./Badge/Badge";
+
+export {
   Button,
   buttonColors,
   buttonSizes,

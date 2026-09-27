@@ -1,0 +1,50 @@
+.root {
+  align-items: center;
+  background: var(--bbui-badge-bg);
+  border: 1px solid var(--bbui-badge-border);
+  border-radius: 999px;
+  box-sizing: border-box;
+  color: var(--bbui-badge-color);
+  display: inline-flex;
+  font: inherit;
+  font-weight: 600;
+  gap: 0.375rem;
+  line-height: 1.2;
+  margin: 0;
+  max-width: 100%;
+  min-height: var(--bbui-badge-height);
+  padding-inline: var(--bbui-badge-padding-x);
+  vertical-align: middle;
+}
+
+.xs {
+  --bbui-badge-height: calc(1.25rem * var(--mantine-scale));
+  --bbui-badge-padding-x: calc(0.375rem * var(--mantine-scale));
+  font-size: calc(0.6875rem * var(--mantine-scale));
+}
+
+.sm {
+  --bbui-badge-height: calc(1.5rem * var(--mantine-scale));
+  --bbui-badge-padding-x: calc(0.5rem * var(--mantine-scale));
+  font-size: calc(0.75rem * var(--mantine-scale));
+}
+
+.md {
+  --bbui-badge-height: calc(1.75rem * var(--mantine-scale));
+  --bbui-badge-padding-x: calc(0.625rem * var(--mantine-scale));
+  font-size: calc(0.8125rem * var(--mantine-scale));
+}
+
+.content {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.section {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: center;
+}

@@ -323,7 +323,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   >
                     {buttonSizes.map((size) => (
                       <option key={size} value={size}>
-                        {buttonSizeLabels[size]}
+                        {size}
                       </option>
                     ))}
                   </select>
