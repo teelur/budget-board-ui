@@ -6,6 +6,13 @@ export {
 } from "./ActionIcon/ActionIcon";
 
 export {
+  AmountText,
+  getStatusColor,
+  StatusColorType,
+  type AmountTextProps,
+} from "./AmountText/AmountText";
+
+export {
   Badge,
   badgeColors,
   badgeSizes,
@@ -35,13 +42,6 @@ export {
   type SegmentedControlItem,
   type SegmentedControlProps,
 } from "./SegmentedControl/SegmentedControl";
-
-export {
-  AmountText,
-  getStatusColor,
-  StatusColorType,
-  type AmountTextProps,
-} from "./AmountText/AmountText";
 
 export {
   budgetBoardColors,
