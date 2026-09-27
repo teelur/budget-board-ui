@@ -159,16 +159,33 @@ describe("AmountText", () => {
     expect(screen.getByText("+$12.50")).toBeInTheDocument();
   });
 
-  it("lets formatAmount override the built-in formatter", () => {
+  it("supports sign inversion while preserving the raw amount", () => {
     render(
-      <AmountText
-        amount={12.5}
-        currency="USD"
-        formatAmount={() => "Custom amount"}
-      />,
+      <>
+        <AmountText
+          amount={-12.5}
+          currency="USD"
+          data-testid="negative"
+          locale="en-US"
+          invertSign
+          total={100}
+          type={StatusColorType.Expense}
+        />
+        <AmountText
+          amount={12.5}
+          currency="USD"
+          data-testid="positive"
+          locale="en-US"
+          invertSign
+        />
+      </>,
     );
 
-    expect(screen.getByText("Custom amount")).toBeInTheDocument();
+    expect(screen.getByTestId("negative")).toHaveTextContent("$12.50");
+    expect(screen.getByTestId("negative")).toHaveStyle({
+      color: colors.good,
+    });
+    expect(screen.getByTestId("positive")).toHaveTextContent("-$12.50");
   });
 
   it("masks the built-in formatted amount when sensitivity is enabled", () => {
