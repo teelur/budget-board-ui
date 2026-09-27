@@ -85,7 +85,33 @@ export interface AmountTextProps extends TextProps {
   isSensitive?: boolean;
   disableStatusColor?: boolean;
   sensitiveText?: ReactNode;
+  locale?: string;
+  currency?: string;
+  decimalPlaces?: number;
+  signDisplay?: Intl.NumberFormatOptions["signDisplay"];
+  formatAmount?: (amount: number) => ReactNode;
   children?: ReactNode;
+}
+
+function formatNumericAmount(
+  amount: number,
+  locale?: string,
+  currency?: string,
+  decimalPlaces?: number,
+  signDisplay?: Intl.NumberFormatOptions["signDisplay"],
+): string {
+  const options: Intl.NumberFormatOptions = {
+    minimumFractionDigits: decimalPlaces,
+    maximumFractionDigits: decimalPlaces,
+    signDisplay,
+  };
+
+  if (currency) {
+    options.style = "currency";
+    options.currency = currency;
+  }
+
+  return new Intl.NumberFormat(locale, options).format(amount + 0);
 }
 
 export function AmountText({
@@ -96,6 +122,11 @@ export function AmountText({
   isSensitive = false,
   disableStatusColor = false,
   sensitiveText = "••••",
+  locale,
+  currency,
+  decimalPlaces,
+  signDisplay,
+  formatAmount,
   children,
   c,
   fw,
@@ -128,7 +159,17 @@ export function AmountText({
       : { ...textProps, c: resolvedColor };
   const text = (
     <Text {...textPropsWithColor} fw={fw ?? 600}>
-      {isSensitive ? sensitiveText : children}
+      {isSensitive
+        ? sensitiveText
+        : (children ??
+          formatAmount?.(amount) ??
+          formatNumericAmount(
+            amount,
+            locale,
+            currency,
+            decimalPlaces,
+            signDisplay,
+          ))}
     </Text>
   );
 

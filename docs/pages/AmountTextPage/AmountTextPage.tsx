@@ -15,18 +15,7 @@ export function AmountTextPage() {
         <code>import {"{ AmountText }"} from '@teelur/budget-board-ui';</code>
       </div>
       <p className={pageStyles.sectionCopy}>
-        A Mantine Text wrapper for amount-aware semantic colors and privacy
-        masking. The component is provider-independent and accepts every
-        Mantine Text prop.
-      </p>
-      <p className={pageStyles.sectionCopy}>
-        Pass <code>isSensitive</code> when the amount should be masked. This
-        also suppresses semantic color while preserving an explicit{" "}
-        <code>c</code> prop.
-      </p>
-      <p className={pageStyles.sectionCopy}>
-        Expense warning colors are opt-in: pass <code>warningThreshold</code>
-        explicitly when a warning band is desired.
+        Amount-aware colors, formatting, and privacy masking.
       </p>
 
       <ComponentDemoSection
@@ -54,7 +43,67 @@ export function AmountTextPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Mask the rendered value and suppress financial color when privacy mode hides financial meaning."
+        description="Built-in Intl formatting handles currency, locale, precision, and signs."
+        id="amount-text-formatting"
+        title="Formatting"
+        code={`<AmountText
+  amount={1234.5}
+  currency="USD"
+  decimalPlaces={2}
+  locale="en-US"
+/>`}
+      >
+        <div className={styles.stack}>
+          <AmountText
+            amount={1234.5}
+            currency="USD"
+            decimalPlaces={2}
+            locale="en-US"
+          />
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description="Children take precedence over formatAmount."
+        id="amount-text-content"
+        title="Content precedence"
+        code={`<AmountText
+  amount={1234.5}
+  formatAmount={(amount) => formatCurrency(amount)}
+>
+  Custom amount
+</AmountText>`}
+      >
+        <div className={styles.stack}>
+          <AmountText
+            amount={1234.5}
+            formatAmount={(amount) => `$${amount.toFixed(2)}`}
+          >
+            Custom amount
+          </AmountText>
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description="Disable semantic color without hiding the amount."
+        id="amount-text-color"
+        title="Color control"
+        code={`<AmountText amount={-12} disableStatusColor>
+  $12.00
+</AmountText>`}
+      >
+        <div className={styles.stack}>
+          <AmountText amount={-12} disableStatusColor>
+            $12.00
+          </AmountText>
+          <AmountText amount={-12} c="var(--bb-color-text)">
+            Explicit color
+          </AmountText>
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description="isSensitive replaces children or formatted content with sensitiveText."
         id="amount-text-privacy"
         title="Privacy-aware amount"
         code={`function PrivacyAwareAmountText(props: AmountTextProps) {
@@ -73,6 +122,9 @@ export function AmountTextPage() {
             Semantic color enabled
           </AmountText>
           <AmountText amount={-12} isSensitive>
+            $12.00
+          </AmountText>
+          <AmountText amount={-12} isSensitive sensitiveText="Hidden">
             $12.00
           </AmountText>
         </div>
@@ -118,7 +170,7 @@ export function AmountTextPage() {
                   <td>
                     <code>StatusColorType</code>
                   </td>
-                  <td>Total</td>
+                  <td>Total; controls semantic color rules</td>
                 </tr>
                 <tr>
                   <th>warningThreshold</th>
@@ -132,7 +184,9 @@ export function AmountTextPage() {
                   <td>
                     <code>boolean</code>
                   </td>
-                  <td>false; masks content and disables semantic color</td>
+                  <td>
+                    false; renders sensitiveText and disables semantic color
+                  </td>
                 </tr>
                 <tr>
                   <th>sensitiveText</th>
@@ -142,18 +196,53 @@ export function AmountTextPage() {
                   <td>••••</td>
                 </tr>
                 <tr>
+                  <th>locale</th>
+                  <td>
+                    <code>string</code>
+                  </td>
+                  <td>runtime default</td>
+                </tr>
+                <tr>
+                  <th>currency</th>
+                  <td>
+                    <code>string</code>
+                  </td>
+                  <td>undefined; uses decimal formatting when omitted</td>
+                </tr>
+                <tr>
+                  <th>decimalPlaces</th>
+                  <td>
+                    <code>number</code>
+                  </td>
+                  <td>runtime default</td>
+                </tr>
+                <tr>
+                  <th>signDisplay</th>
+                  <td>
+                    <code>Intl.NumberFormatOptions["signDisplay"]</code>
+                  </td>
+                  <td>runtime default</td>
+                </tr>
+                <tr>
+                  <th>formatAmount</th>
+                  <td>
+                    <code>(amount: number) =&gt; ReactNode</code>
+                  </td>
+                  <td>optional override before built-in formatting</td>
+                </tr>
+                <tr>
                   <th>disableStatusColor</th>
                   <td>
                     <code>boolean</code>
                   </td>
-                  <td>false</td>
+                  <td>false; keeps visible content but removes status color</td>
                 </tr>
                 <tr>
                   <th>children</th>
                   <td>
                     <code>ReactNode</code>
                   </td>
-                  <td>-</td>
+                  <td>takes precedence over formatAmount</td>
                 </tr>
                 <tr>
                   <th>Mantine TextProps</th>
