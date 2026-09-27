@@ -15,6 +15,7 @@ import { BadgePage } from "./pages/BadgePage/BadgePage";
 import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
+import { StatusTextPage } from "./pages/StatusTextPage/StatusTextPage";
 import { TypographyPage } from "./pages/TypographyPage/TypographyPage";
 import styles from "./App.module.css";
 
@@ -128,6 +129,7 @@ export function App() {
               <a href="#badge">Badge</a>
               <a href="#button">Button</a>
               <a href="#segmented-control">SegmentedControl</a>
+              <a href="#status-text">StatusText</a>
             </div>
             <p className={`${styles.navHeading} ${styles.navHeadingSpaced}`}>
               Package
@@ -176,6 +178,7 @@ export function App() {
               <BadgePage />
               <ButtonPage />
               <SegmentedControlPage />
+              <StatusTextPage />
             </section>
 
             <footer className={styles.siteFooter}>
