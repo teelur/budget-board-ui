@@ -11,6 +11,7 @@ import {
 } from "../src";
 import type { ColorMode } from "./components/color/colorCardTypes";
 import { ActionIconPage } from "./pages/ActionIconPage/ActionIconPage";
+import { BadgePage } from "./pages/BadgePage/BadgePage";
 import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
@@ -124,6 +125,7 @@ export function App() {
             <div className={styles.navGroup}>
               <p className={styles.navGroupHeading}>Components</p>
               <a href="#action-icon">ActionIcon</a>
+              <a href="#badge">Badge</a>
               <a href="#button">Button</a>
               <a href="#segmented-control">SegmentedControl</a>
             </div>
@@ -166,11 +168,12 @@ export function App() {
                 <p className={styles.eyebrow}>Interface building blocks</p>
                 <h2>Components</h2>
                 <p>
-                  Interactive primitives with live examples, states, and API
+                  Interface primitives with live examples, states, and API
                   references.
                 </p>
               </div>
               <ActionIconPage />
+              <BadgePage />
               <ButtonPage />
               <SegmentedControlPage />
             </section>
