@@ -1,8 +1,4 @@
-import {
-  defaultStatusWarningThreshold,
-  StatusColorType,
-  StatusText,
-} from "../../../src";
+import { StatusColorType, StatusText } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -27,6 +23,10 @@ export function StatusTextPage() {
         Privacy-mode adapters should pass <code>disableStatusColor</code> and
         provide the consumer&apos;s privacy color through Mantine&apos;s{" "}
         <code>c</code> prop when needed.
+      </p>
+      <p className={pageStyles.sectionCopy}>
+        Expense warning colors are opt-in: pass <code>warningThreshold</code>
+        explicitly when a warning band is desired.
       </p>
 
       <ComponentDemoSection
@@ -130,7 +130,7 @@ export function StatusTextPage() {
                   <td>
                     <code>number</code>
                   </td>
-                  <td>{defaultStatusWarningThreshold}</td>
+                  <td>undefined; warning is opt-in</td>
                 </tr>
                 <tr>
                   <th>disableStatusColor</th>
@@ -163,7 +163,7 @@ export function StatusTextPage() {
   amount={-80}
   total={100}
   type={StatusColorType.Expense}
-  warningThreshold={105}
+  warningThreshold={90}
 >
   $80 spent of $100
 </StatusText>`}</code>

@@ -38,7 +38,6 @@ export {
 
 export {
   StatusText,
-  defaultStatusWarningThreshold,
   getStatusColor,
   StatusColorType,
   type StatusTextProps,

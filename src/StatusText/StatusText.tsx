@@ -12,8 +12,6 @@ export enum StatusColorType {
   Target,
 }
 
-export const defaultStatusWarningThreshold = 110;
-
 const statusButtonColors = {
   neutral: "info",
   good: "success",
@@ -35,7 +33,7 @@ export function getStatusColor(
   amount: number,
   total: number,
   type: StatusColorType,
-  warningThreshold = defaultStatusWarningThreshold,
+  warningThreshold?: number,
   colors: BudgetBoardColorMode = budgetBoardColors.light,
 ): string {
   if (type === StatusColorType.Income) {
@@ -52,7 +50,10 @@ export function getStatusColor(
       return getSemanticStatusColor(statusButtonColors.bad, colors);
     }
 
-    if (invertedAmount >= total * (warningThreshold / 100)) {
+    if (
+      warningThreshold !== undefined &&
+      invertedAmount >= total * (warningThreshold / 100)
+    ) {
       return getSemanticStatusColor(statusButtonColors.warning, colors);
     }
 
@@ -89,7 +90,7 @@ export function StatusText({
   amount,
   total,
   type = StatusColorType.Total,
-  warningThreshold = defaultStatusWarningThreshold,
+  warningThreshold,
   disableStatusColor = false,
   children,
   c,

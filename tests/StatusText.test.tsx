@@ -3,7 +3,6 @@ import { MantineProvider } from "@mantine/core";
 import { describe, expect, it } from "vitest";
 import { budgetBoardDarkTheme } from "../src/theme";
 import {
-  defaultStatusWarningThreshold,
   getStatusColor,
   StatusColorType,
   StatusText,
@@ -32,13 +31,43 @@ describe("StatusText", () => {
     expect(getStatusColor(100, 100, StatusColorType.Target)).toBe(colors.good);
   });
 
-  it("uses the default and overridden expense warning thresholds", () => {
-    expect(defaultStatusWarningThreshold).toBe(110);
+  it("only applies the expense warning threshold when explicitly provided", () => {
     expect(getStatusColor(-110, 100, StatusColorType.Expense)).toBe(colors.bad);
     expect(getStatusColor(-95, 100, StatusColorType.Expense)).toBe(colors.good);
     expect(getStatusColor(-90, 100, StatusColorType.Expense, 90)).toBe(
       colors.warning,
     );
+  });
+
+  it("keeps warning opt-in at the StatusText component boundary", () => {
+    render(
+      <>
+        <StatusText
+          amount={-90}
+          data-testid="without-threshold"
+          total={100}
+          type={StatusColorType.Expense}
+        >
+          No threshold
+        </StatusText>
+        <StatusText
+          amount={-90}
+          data-testid="with-threshold"
+          total={100}
+          type={StatusColorType.Expense}
+          warningThreshold={90}
+        >
+          Explicit threshold
+        </StatusText>
+      </>,
+    );
+
+    expect(screen.getByTestId("without-threshold")).toHaveStyle({
+      color: colors.good,
+    });
+    expect(screen.getByTestId("with-threshold")).toHaveStyle({
+      color: colors.warning,
+    });
   });
 
   it("handles zero and negative values using the reference comparisons", () => {
