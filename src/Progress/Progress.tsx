@@ -5,7 +5,7 @@ import {
 } from "@mantine/core";
 import type { ProgressRootProps } from "@mantine/core";
 import { useColorScheme } from "@mantine/hooks";
-import { useContext, type CSSProperties, type ReactNode } from "react";
+import { useContext, type CSSProperties } from "react";
 import { budgetBoardColors } from "../colors";
 import type { BudgetBoardContentColorKey } from "../colors";
 import { buttonColors, type ButtonColor } from "../shared/buttonStyles";
@@ -28,7 +28,7 @@ export interface ProgressProps extends Omit<
 > {
   value: number;
   color?: ProgressColor;
-  label?: ReactNode;
+  label?: boolean;
   ariaLabel: string;
   striped?: boolean;
   animated?: boolean;
@@ -123,7 +123,9 @@ export function Progress({
           );
         })}
       </MantineProgress.Root>
-      {label !== undefined && <span className={classes.label}>{label}</span>}
+      {label && (
+        <span className={classes.label}>{clampProgressValue(value)}%</span>
+      )}
     </div>
   );
 
