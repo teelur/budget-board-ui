@@ -52,7 +52,10 @@
 }
 
 .label {
-  color: var(--bb-color-text-primary, #3a3834);
+  color: var(
+    --bb-color-text-primary,
+    var(--bbui-progress-label-color, #3a3834)
+  );
   flex: 0 0 auto;
   font-size: 0.875rem;
   font-weight: 600;

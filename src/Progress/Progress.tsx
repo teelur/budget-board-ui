@@ -70,7 +70,12 @@ export function Progress({
     isAnimated && isStriped ? classes.animatedStripedSection : undefined;
 
   const progress = (
-    <div className={classes.container}>
+    <div
+      className={classes.container}
+      style={
+        { "--bbui-progress-label-color": colors.textPrimary } as CSSProperties
+      }
+    >
       <MantineProgress.Root
         {...rootProps}
         className={[classes.root, className].filter(Boolean).join(" ")}

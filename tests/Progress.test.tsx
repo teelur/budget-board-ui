@@ -143,6 +143,7 @@ describe("Progress", () => {
         <Progress
           ariaLabel="Current progress"
           data-testid="progress"
+          label
           style={{ backgroundColor: "tomato" }}
           value={50}
         />
@@ -155,6 +156,11 @@ describe("Progress", () => {
       "var(--bb-color-surface-sunken, #0d0f12)",
     );
     expect(root.style.backgroundColor).toBe("tomato");
+    expect(
+      screen
+        .getByText("50%")
+        .parentElement?.style.getPropertyValue("--bbui-progress-label-color"),
+    ).toBe("#d8d5ce");
   });
 
   it("forwards root accessibility and data attributes", () => {
