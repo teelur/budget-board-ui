@@ -1,0 +1,64 @@
+.container {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+  min-width: 0;
+  width: 100%;
+}
+
+.root[data-budget-board-progress-color] {
+  --progress-size-xs: calc(0.5rem * var(--mantine-scale, 1));
+  --progress-size-sm: calc(0.75rem * var(--mantine-scale, 1));
+  --progress-size-md: calc(1rem * var(--mantine-scale, 1));
+  --progress-size-lg: calc(1.25rem * var(--mantine-scale, 1));
+  --progress-size-xl: calc(1.5rem * var(--mantine-scale, 1));
+}
+
+.root {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.animatedStripedSection {
+  animation: none !important;
+  background-image: none !important;
+  position: relative;
+}
+
+.animatedStripedSection::after {
+  animation: progress-stripes 1s linear infinite;
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1.25rem 1.25rem;
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+@keyframes progress-stripes {
+  to {
+    background-position: 2.5rem 0;
+  }
+}
+
+.label {
+  color: var(
+    --bb-color-text-primary,
+    var(--bbui-progress-label-color, #3a3834)
+  );
+  flex: 0 0 auto;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}

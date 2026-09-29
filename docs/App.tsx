@@ -15,6 +15,7 @@ import { AmountTextPage } from "./pages/AmountTextPage/AmountTextPage";
 import { BadgePage } from "./pages/BadgePage/BadgePage";
 import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
+import { ProgressPage } from "./pages/ProgressPage/ProgressPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
 import { TypographyPage } from "./pages/TypographyPage/TypographyPage";
 import styles from "./App.module.css";
@@ -129,6 +130,7 @@ export function App() {
               <a href="#amount-text">AmountText</a>
               <a href="#badge">Badge</a>
               <a href="#button">Button</a>
+              <a href="#progress">Progress</a>
               <a href="#segmented-control">SegmentedControl</a>
             </div>
             <p className={`${styles.navHeading} ${styles.navHeadingSpaced}`}>
@@ -177,6 +179,7 @@ export function App() {
               <AmountTextPage />
               <BadgePage />
               <ButtonPage />
+              <ProgressPage />
               <SegmentedControlPage />
             </section>
 
