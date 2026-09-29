@@ -1,0 +1,154 @@
+.stack {
+  display: grid;
+  gap: 1.1rem;
+  max-width: 48rem;
+  width: 100%;
+}
+
+.colorList {
+  display: grid;
+  gap: 0.9rem;
+  width: 100%;
+}
+
+.colorRow {
+  align-items: center;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(5rem, 0.25fr) minmax(0, 1fr);
+}
+
+.colorRow > span {
+  color: var(--bb-color-text-secondary);
+  font-size: 0.8rem;
+}
+
+.playground {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1.1fr) minmax(15rem, 0.9fr);
+}
+
+.playgroundControls,
+.playgroundPreview {
+  border: 1px solid var(--line);
+  min-width: 0;
+  padding: 1.1rem;
+}
+
+.playgroundControls {
+  background: var(--bb-color-surface-elevated);
+  display: grid;
+  gap: 1rem;
+}
+
+.controlGrid {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.field > span,
+.previewLabel {
+  color: var(--muted);
+  font-family: var(--data);
+  font-size: 0.68rem;
+}
+
+.field input:not([type="range"]),
+.field select {
+  background: var(--bb-color-surface);
+  border: 1px solid var(--line);
+  border-radius: 0.15rem;
+  color: var(--ink);
+  min-width: 0;
+  padding: 0.6rem 0.7rem;
+}
+
+.field input[type="range"] {
+  accent-color: var(--bb-color-primary);
+  margin: 0.5rem 0;
+  width: 100%;
+}
+
+.field output {
+  color: var(--bb-color-text-secondary);
+  font-family: var(--data);
+  font-size: 0.75rem;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.toggle input:focus-visible {
+  outline: 2px solid var(--bb-color-focus-ring);
+  outline-offset: 2px;
+}
+
+.toggles {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.toggle {
+  align-items: center;
+  color: var(--bb-color-text-secondary);
+  display: flex;
+  font-size: 0.8rem;
+  gap: 0.45rem;
+}
+
+.toggle input {
+  accent-color: var(--bb-color-primary);
+  height: 1rem;
+  margin: 0;
+  width: 1rem;
+}
+
+.playgroundPreview {
+  align-items: center;
+  background: var(--bb-color-surface-elevated);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.previewStage {
+  align-items: center;
+  background: var(--bb-color-surface);
+  border: 1px dashed var(--line);
+  display: flex;
+  min-height: 8rem;
+  overflow: hidden;
+  padding: 1rem;
+  width: 100%;
+}
+
+.previewStage > * {
+  min-width: 0;
+  width: 100%;
+}
+
+@media (max-width: 800px) {
+  .playground {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .controlGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .colorRow {
+    gap: 0.7rem;
+    grid-template-columns: minmax(4.5rem, 0.3fr) minmax(0, 1fr);
+  }
+}
