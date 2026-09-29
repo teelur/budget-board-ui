@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Progress, progressColors } from "../../../src";
+import { Progress, progressColors, progressTypes } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -14,18 +14,42 @@ function capitalize(value: string) {
 export function ProgressPage() {
   const [selectedColor, setSelectedColor] =
     useState<(typeof progressColors)[number]>("primary");
+  const [selectedType, setSelectedType] =
+    useState<(typeof progressTypes)[number]>("default");
   const [selectedSize, setSelectedSize] =
     useState<(typeof sizes)[number]>("md");
   const [value, setValue] = useState(68);
+  const [amount, setAmount] = useState(-85);
+  const [limit, setLimit] = useState(100);
+  const [warningThreshold, setWarningThreshold] = useState(80);
   const [showLabel, setShowLabel] = useState(true);
   const [showProjection, setShowProjection] = useState(true);
   const [isStriped, setIsStriped] = useState(false);
   const [isAnimated, setIsAnimated] = useState(false);
 
+  const handleTypeChange = (type: (typeof progressTypes)[number]) => {
+    setSelectedType(type);
+
+    if (type === "income") {
+      setAmount(Math.abs(amount));
+    } else if (type === "expense") {
+      setAmount(-Math.abs(amount));
+    }
+  };
+
   const playgroundProps = [
-    `value={${value}}`,
+    ...(selectedType === "default" ? [`value={${value}}`] : []),
     `color="${selectedColor}"`,
     `size="${selectedSize}"`,
+    ...(selectedType === "default"
+      ? []
+      : [
+          `amount={${amount}}`,
+          `limit={${limit}}`,
+          `type="${selectedType}"`,
+          selectedType === "expense" &&
+            `warningThreshold={${warningThreshold}}`,
+        ]),
     showLabel && "label",
     'ariaLabel="Current progress"',
     isStriped && "striped",
@@ -47,7 +71,9 @@ export function ProgressPage() {
       <p className={pageStyles.sectionCopy}>
         A themed Mantine progress bar for a single value or a sequence of
         labeled sections. Values are clamped to the 0–100 range; enable the
-        optional label to display the primary value as a percentage.
+        optional label to display the primary value as a percentage. For income
+        and expense progress, amount and limit determine the percentage and
+        status color; value is optional and overrides the derived percentage.
       </p>
 
       <ComponentDemoSection
@@ -85,6 +111,39 @@ export function ProgressPage() {
               />
             </div>
           ))}
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description="Income stays info-colored until its limit is met, then turns green. Expense amounts are negative; their color turns warning at the threshold and error after exceeding the limit."
+        id="progress-responsive-colors"
+        title="Responsive colors"
+        code={`<Progress
+  amount={-85}
+  ariaLabel="Monthly expenses"
+  limit={100}
+  type="expense"
+/>`}
+      >
+        <div className={styles.stack}>
+          <Progress
+            amount={720}
+            ariaLabel="Monthly income"
+            limit={800}
+            type="income"
+          />
+          <Progress
+            amount={-85}
+            ariaLabel="Monthly expenses"
+            limit={100}
+            type="expense"
+          />
+          <Progress
+            amount={-105}
+            ariaLabel="Over-budget expenses"
+            limit={100}
+            type="expense"
+          />
         </div>
       </ComponentDemoSection>
 
@@ -141,17 +200,86 @@ export function ProgressPage() {
         <div className={styles.playground}>
           <div className={styles.playgroundControls}>
             <div className={styles.controlGrid}>
+              {selectedType === "default" && (
+                <label className={styles.field}>
+                  <span>Value</span>
+                  <input
+                    max={120}
+                    min={0}
+                    onChange={(event) => setValue(Number(event.target.value))}
+                    type="range"
+                    value={value}
+                  />
+                  <output>{value}</output>
+                </label>
+              )}
               <label className={styles.field}>
-                <span>Value</span>
-                <input
-                  max={120}
-                  min={0}
-                  onChange={(event) => setValue(Number(event.target.value))}
-                  type="range"
-                  value={value}
-                />
-                <output>{value}</output>
+                <span>Type</span>
+                <select
+                  onChange={(event) =>
+                    handleTypeChange(
+                      event.target.value as (typeof progressTypes)[number],
+                    )
+                  }
+                  value={selectedType}
+                >
+                  {progressTypes.map((type) => (
+                    <option key={type} value={type}>
+                      {capitalize(type)}
+                    </option>
+                  ))}
+                </select>
               </label>
+              {selectedType !== "default" && (
+                <>
+                  <label className={styles.field}>
+                    <span>
+                      {selectedType === "expense"
+                        ? "Amount (negative)"
+                        : "Amount"}
+                    </span>
+                    <input
+                      max={selectedType === "expense" ? 0 : 120}
+                      min={selectedType === "expense" ? -120 : 0}
+                      onChange={(event) =>
+                        setAmount(Number(event.target.value))
+                      }
+                      step={1}
+                      type="range"
+                      value={amount}
+                    />
+                    <output>{amount}</output>
+                  </label>
+                  <label className={styles.field}>
+                    <span>Limit</span>
+                    <input
+                      max={150}
+                      min={1}
+                      onChange={(event) => setLimit(Number(event.target.value))}
+                      step={1}
+                      type="range"
+                      value={limit}
+                    />
+                    <output>{limit}</output>
+                  </label>
+                  {selectedType === "expense" && (
+                    <label className={styles.field}>
+                      <span>Warning Threshold</span>
+                      <input
+                        max={100}
+                        min={0}
+                        onChange={(event) =>
+                          setWarningThreshold(Number(event.target.value))
+                        }
+                        step={5}
+                        type="range"
+                        value={warningThreshold}
+                      />
+                      <output>{warningThreshold}%</output>
+                    </label>
+                  )}
+                </>
+              )}
               <label className={styles.field}>
                 <span>Color</span>
                 <select
@@ -222,6 +350,16 @@ export function ProgressPage() {
             <span className={styles.previewLabel}>Rendered result</span>
             <div className={styles.previewStage}>
               <Progress
+                {...(selectedType === "default"
+                  ? { value }
+                  : {
+                      amount,
+                      limit,
+                      type: selectedType,
+                      ...(selectedType === "expense"
+                        ? { warningThreshold }
+                        : {}),
+                    })}
                 animated={isAnimated}
                 ariaLabel="Current progress"
                 color={selectedColor}
@@ -241,7 +379,6 @@ export function ProgressPage() {
                   : {})}
                 size={selectedSize}
                 striped={isStriped}
-                value={value}
               />
             </div>
           </div>
@@ -274,14 +411,45 @@ export function ProgressPage() {
                   <td>
                     <code>number</code>
                   </td>
-                  <td>required; clamped to 0–100</td>
+                  <td>
+                    Required for default type; optional for income/expense,
+                    where it overrides the derived percentage; clamped to 0–100
+                  </td>
                 </tr>
                 <tr>
                   <th>color</th>
                   <td>
                     <code>{progressColors.join(" | ")}</code>
                   </td>
-                  <td>primary</td>
+                  <td>
+                    primary; overridden by responsive status when configured
+                  </td>
+                </tr>
+                <tr>
+                  <th>amount / limit</th>
+                  <td>
+                    <code>number</code>
+                  </td>
+                  <td>
+                    Required with <code>type="income"</code> or{" "}
+                    <code>type="expense"</code> to calculate percentage and
+                    status color; expense amounts are negative; a non-positive
+                    limit derives a 0% fill
+                  </td>
+                </tr>
+                <tr>
+                  <th>type</th>
+                  <td>
+                    <code>{progressTypes.join(" | ")}</code>
+                  </td>
+                  <td>default; income and expense enable responsive colors</td>
+                </tr>
+                <tr>
+                  <th>warningThreshold</th>
+                  <td>
+                    <code>number</code>
+                  </td>
+                  <td>80; expense warning percentage of limit</td>
                 </tr>
                 <tr>
                   <th>label</th>

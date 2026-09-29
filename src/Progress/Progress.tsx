@@ -13,6 +13,8 @@ import classes from "./Progress.module.css";
 
 export const progressColors = buttonColors;
 export type ProgressColor = ButtonColor;
+export const progressTypes = ["default", "income", "expense"] as const;
+export type ProgressType = (typeof progressTypes)[number];
 
 export interface ProgressSection {
   value: number;
@@ -22,12 +24,14 @@ export interface ProgressSection {
   animated?: boolean;
 }
 
-export interface ProgressProps extends Omit<
+interface ProgressCommonProps extends Omit<
   ProgressRootProps,
   "children" | "color" | "style"
 > {
-  value: number;
   color?: ProgressColor;
+  amount?: number;
+  limit?: number;
+  warningThreshold?: number;
   label?: boolean;
   ariaLabel: string;
   striped?: boolean;
@@ -36,23 +40,93 @@ export interface ProgressProps extends Omit<
   style?: ProgressRootProps["style"];
 }
 
+export type ProgressProps = ProgressCommonProps &
+  (
+    | { type?: "default"; value: number }
+    | {
+        type: Exclude<ProgressType, "default">;
+        amount: number;
+        limit: number;
+        value?: number;
+      }
+  );
+
 const clampProgressValue = (value: number) => Math.min(100, Math.max(0, value));
+
+const roundAwayFromZero = (value: number) =>
+  value >= 0 ? Math.round(value) : Math.round(value * -1) * -1;
+
+function getProgressValue(
+  amount: number,
+  limit: number,
+  type: Exclude<ProgressType, "default">,
+) {
+  if (limit <= 0) {
+    return 0;
+  }
+
+  const direction = type === "expense" ? -1 : 1;
+  return roundAwayFromZero(((amount * direction) / limit) * 100);
+}
+
+function getResponsiveColor(
+  amount: number,
+  limit: number,
+  type: ProgressType,
+  warningThreshold: number,
+): ProgressColor | undefined {
+  const roundedAmount = Math.sign(amount) * Math.round(Math.abs(amount));
+
+  if (type === "income") {
+    return roundedAmount < limit ? "info" : "success";
+  }
+
+  if (type === "expense") {
+    const amountTowardsLimit = roundedAmount * -1;
+
+    if (amountTowardsLimit > limit) {
+      return "error";
+    }
+
+    if (amountTowardsLimit >= limit * (warningThreshold / 100)) {
+      return "warning";
+    }
+
+    return "success";
+  }
+
+  return undefined;
+}
 
 export function Progress({
   animated,
+  amount,
   ariaLabel,
   className,
-  color = "primary",
+  color: requestedColor = "primary",
   label,
+  limit,
   radius = "xl",
   sections = [],
   size,
   style,
   striped,
+  type = "default",
   value,
+  warningThreshold = 80,
   w = "100%",
   ...rootProps
 }: ProgressProps) {
+  const progressValue =
+    value ??
+    (type !== "default" && amount !== undefined && limit !== undefined
+      ? getProgressValue(amount, limit, type)
+      : 0);
+  const color =
+    amount === undefined || limit === undefined
+      ? requestedColor
+      : (getResponsiveColor(amount, limit, type, warningThreshold) ??
+        requestedColor);
   const mantineContext = useContext(MantineContext);
   const systemColorScheme = useColorScheme("light");
   const colorScheme =
@@ -95,7 +169,7 @@ export function Progress({
           color={sectionColor(color)}
           className={animatedStripedClass(animated, striped)}
           data-budget-board-progress-section-color={color}
-          value={clampProgressValue(value)}
+          value={clampProgressValue(progressValue)}
           withAria
           {...(animated === undefined
             ? {}
@@ -129,7 +203,9 @@ export function Progress({
         })}
       </MantineProgress.Root>
       {label && (
-        <span className={classes.label}>{clampProgressValue(value)}%</span>
+        <span className={classes.label}>
+          {clampProgressValue(progressValue)}%
+        </span>
       )}
     </div>
   );

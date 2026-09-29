@@ -137,6 +137,135 @@ describe("Progress", () => {
     );
   });
 
+  it.each([
+    {
+      amount: 99,
+      expectedColor: "info",
+      limit: 100,
+      type: "income",
+    },
+    {
+      amount: 100,
+      expectedColor: "success",
+      limit: 100,
+      type: "income",
+    },
+    {
+      amount: -79,
+      expectedColor: "success",
+      limit: 100,
+      type: "expense",
+    },
+    {
+      amount: -79.5,
+      expectedColor: "warning",
+      limit: 100,
+      type: "expense",
+    },
+    {
+      amount: -80,
+      expectedColor: "warning",
+      limit: 100,
+      type: "expense",
+    },
+    {
+      amount: -85,
+      expectedColor: "success",
+      limit: 100,
+      type: "expense",
+      warningThreshold: 90,
+    },
+    {
+      amount: -101,
+      expectedColor: "error",
+      limit: 100,
+      type: "expense",
+    },
+  ] as const)(
+    "calculates $type progress color for amount $amount as $expectedColor",
+    ({ amount, expectedColor, limit, type, warningThreshold }) => {
+      render(
+        <Progress
+          amount={amount}
+          ariaLabel="Budget progress"
+          data-testid="progress"
+          limit={limit}
+          type={type}
+          value={50}
+          warningThreshold={warningThreshold}
+        />,
+      );
+
+      expect(screen.getByTestId("progress")).toHaveAttribute(
+        "data-budget-board-progress-color",
+        expectedColor,
+      );
+    },
+  );
+
+  it("uses responsive status color instead of a fixed color when configured", () => {
+    render(
+      <Progress
+        amount={-90}
+        ariaLabel="Budget progress"
+        color="primary"
+        data-testid="progress"
+        limit={100}
+        type="expense"
+        value={90}
+      />,
+    );
+
+    expect(screen.getByTestId("progress")).toHaveAttribute(
+      "data-budget-board-progress-color",
+      "warning",
+    );
+  });
+
+  it.each([
+    { amount: 720, expectedValue: "90", limit: 800, type: "income" },
+    { amount: -85, expectedValue: "85", limit: 100, type: "expense" },
+    { amount: -150, expectedValue: "100", limit: 100, type: "expense" },
+    { amount: 20, expectedValue: "0", limit: 0, type: "income" },
+  ] as const)(
+    "derives the $type fill percentage from amount and limit",
+    ({ amount, expectedValue, limit, type }) => {
+      render(
+        <Progress
+          amount={amount}
+          ariaLabel="Budget progress"
+          data-testid="progress"
+          label
+          limit={limit}
+          type={type}
+        />,
+      );
+
+      expect(screen.getByRole("progressbar")).toHaveAttribute(
+        "aria-valuenow",
+        expectedValue,
+      );
+      expect(screen.getByText(`${expectedValue}%`)).toBeInTheDocument();
+    },
+  );
+
+  it("uses an explicit value as the responsive percentage override", () => {
+    render(
+      <Progress
+        amount={720}
+        ariaLabel="Budget progress"
+        limit={800}
+        type="income"
+        value={75}
+      />,
+    );
+
+    expect(screen.getByRole("progressbar")).toHaveAttribute(
+      "aria-valuenow",
+      "75",
+    );
+  });
+
   it("resolves dark semantic colors and permits caller style overrides", () => {
     render(
       <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
