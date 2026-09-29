@@ -126,6 +126,7 @@ export function ProgressPage() {
             animated
             ariaLabel="Upload progress"
             color="info"
+            striped
             value={42}
           />
         </div>
