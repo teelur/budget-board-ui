@@ -44,6 +44,14 @@ export {
 } from "./SegmentedControl/SegmentedControl";
 
 export {
+  Progress,
+  progressColors,
+  type ProgressColor,
+  type ProgressProps,
+  type ProgressSection,
+} from "./Progress/Progress";
+
+export {
   budgetBoardColors,
   budgetBoardDarkTheme,
   budgetBoardTheme,
