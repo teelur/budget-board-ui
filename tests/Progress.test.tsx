@@ -12,7 +12,7 @@ describe("Progress", () => {
         data-testid="progress"
         value={42}
       />,
-        "derives the $type fill percentage from amount and limit",
+    );
 
     const progress = screen.getByRole("progressbar");
     const root = screen.getByTestId("progress");
@@ -50,34 +50,10 @@ describe("Progress", () => {
 
   it("animates striped sections without animating solid sections", () => {
     render(
-        {
-          amount: 720,
-          expectedLabel: "90",
-          expectedValue: "90",
-          limit: 800,
-          type: "income",
-        },
-        {
-          amount: -85,
-          expectedLabel: "85",
-          expectedValue: "85",
-          limit: 100,
-          type: "expense",
-        },
-        {
-          amount: -150,
-          expectedLabel: "150",
-          expectedValue: "100",
-          limit: 100,
-          type: "expense",
-        },
-        {
-          amount: 20,
-          expectedLabel: "0",
-          expectedValue: "0",
-          limit: 0,
-          type: "income",
-        },
+      <Progress
+        animated
+        ariaLabel="Solid progress"
+        sections={[
           {
             animated: true,
             ariaLabel: "Animated stripes",
@@ -247,10 +223,34 @@ describe("Progress", () => {
   });
 
   it.each([
-    { amount: 720, expectedLabel: "90", expectedValue: "90", limit: 800, type: "income" },
-    { amount: -85, expectedLabel: "85", expectedValue: "85", limit: 100, type: "expense" },
-    { amount: -150, expectedLabel: "150", expectedValue: "100", limit: 100, type: "expense" },
-    { amount: 20, expectedLabel: "0", expectedValue: "0", limit: 0, type: "income" },
+    {
+      amount: 720,
+      expectedLabel: "90",
+      expectedValue: "90",
+      limit: 800,
+      type: "income",
+    },
+    {
+      amount: -85,
+      expectedLabel: "85",
+      expectedValue: "85",
+      limit: 100,
+      type: "expense",
+    },
+    {
+      amount: -150,
+      expectedLabel: "150",
+      expectedValue: "100",
+      limit: 100,
+      type: "expense",
+    },
+    {
+      amount: 20,
+      expectedLabel: "0",
+      expectedValue: "0",
+      limit: 0,
+      type: "income",
+    },
   ] as const)(
     "derives the $type progress percentage from amount and limit",
     ({ amount, expectedLabel, expectedValue, limit, type }) => {

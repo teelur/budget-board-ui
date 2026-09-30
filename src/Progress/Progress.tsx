@@ -201,11 +201,7 @@ export function Progress({
           );
         })}
       </MantineProgress.Root>
-      {label && (
-        <span className={classes.label}>
-          {progressValue}%
-        </span>
-      )}
+      {label && <span className={classes.label}>{progressValue}%</span>}
     </div>
   );
 
