@@ -46,12 +46,12 @@ export {
 export {
   Progress,
   progressColors,
-  progressTypes,
   type ProgressColor,
   type ProgressProps,
   type ProgressSection,
-  type ProgressType,
 } from "./Progress/Progress";
+
+export { progressTypes, type ProgressType } from "./Progress/progressTypes";
 
 export {
   budgetBoardColors,
