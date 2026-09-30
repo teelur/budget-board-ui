@@ -9,12 +9,11 @@ import { useContext, type CSSProperties } from "react";
 import { budgetBoardColors } from "../colors";
 import type { BudgetBoardContentColorKey } from "../colors";
 import { buttonColors, type ButtonColor } from "../shared/buttonStyles";
+import type { ProgressType } from "./progressTypes";
 import classes from "./Progress.module.css";
 
 export const progressColors = buttonColors;
 export type ProgressColor = ButtonColor;
-export const progressTypes = ["default", "income", "expense"] as const;
-export type ProgressType = (typeof progressTypes)[number];
 
 export interface ProgressSection {
   value: number;
@@ -204,7 +203,7 @@ export function Progress({
       </MantineProgress.Root>
       {label && (
         <span className={classes.label}>
-          {clampProgressValue(progressValue)}%
+          {roundAwayFromZero(progressValue)}%
         </span>
       )}
     </div>

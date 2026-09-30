@@ -45,7 +45,7 @@ describe("Progress", () => {
     expect(sections[0]).toHaveAttribute("aria-valuenow", "0");
     expect(sections[1]).toHaveAttribute("aria-valuenow", "100");
     expect(sections[2]).toHaveAttribute("aria-valuenow", "0");
-    expect(screen.getByText("0%")).toBeInTheDocument();
+    expect(screen.getByText("-10%")).toBeInTheDocument();
   });
 
   it("animates striped sections without animating solid sections", () => {
@@ -73,7 +73,7 @@ describe("Progress", () => {
     ).toHaveAttribute("data-animated");
   });
 
-  it("shows the clamped percentage when label is enabled", () => {
+  it("shows the actual percentage when label is enabled", () => {
     render(
       <Progress
         ariaLabel="Actual spending"
@@ -89,12 +89,12 @@ describe("Progress", () => {
             value: 12,
           },
         ]}
-        value={68}
+        value={120.6}
       />,
     );
 
     const [actual, projected] = screen.getAllByRole("progressbar");
-    const label = screen.getByText("68%");
+    const label = screen.getByText("121%");
 
     expect(label).toBeInTheDocument();
     expect(label.closest('[role="progressbar"]')).toBeNull();
@@ -223,13 +223,37 @@ describe("Progress", () => {
   });
 
   it.each([
-    { amount: 720, expectedValue: "90", limit: 800, type: "income" },
-    { amount: -85, expectedValue: "85", limit: 100, type: "expense" },
-    { amount: -150, expectedValue: "100", limit: 100, type: "expense" },
-    { amount: 20, expectedValue: "0", limit: 0, type: "income" },
+    {
+      amount: 720,
+      expectedLabel: "90",
+      expectedValue: "90",
+      limit: 800,
+      type: "income",
+    },
+    {
+      amount: -85,
+      expectedLabel: "85",
+      expectedValue: "85",
+      limit: 100,
+      type: "expense",
+    },
+    {
+      amount: -150,
+      expectedLabel: "150",
+      expectedValue: "100",
+      limit: 100,
+      type: "expense",
+    },
+    {
+      amount: 20,
+      expectedLabel: "0",
+      expectedValue: "0",
+      limit: 0,
+      type: "income",
+    },
   ] as const)(
-    "derives the $type fill percentage from amount and limit",
-    ({ amount, expectedValue, limit, type }) => {
+    "derives the $type progress percentage from amount and limit",
+    ({ amount, expectedLabel, expectedValue, limit, type }) => {
       render(
         <Progress
           amount={amount}
@@ -245,7 +269,7 @@ describe("Progress", () => {
         "aria-valuenow",
         expectedValue,
       );
-      expect(screen.getByText(`${expectedValue}%`)).toBeInTheDocument();
+      expect(screen.getByText(`${expectedLabel}%`)).toBeInTheDocument();
     },
   );
 
