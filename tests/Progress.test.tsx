@@ -89,12 +89,12 @@ describe("Progress", () => {
             value: 12,
           },
         ]}
-        value={120}
+        value={120.6}
       />,
     );
 
     const [actual, projected] = screen.getAllByRole("progressbar");
-    const label = screen.getByText("120%");
+    const label = screen.getByText("121%");
 
     expect(label).toBeInTheDocument();
     expect(label.closest('[role="progressbar"]')).toBeNull();
