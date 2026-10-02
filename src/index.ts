@@ -45,6 +45,8 @@ export {
 
 export { TextInput, type TextInputProps } from "./TextInput/TextInput";
 
+export { Textarea, type TextareaProps } from "./Textarea/Textarea";
+
 export {
   PasswordInput,
   type PasswordInputProps,

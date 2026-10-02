@@ -1,0 +1,28 @@
+.root .input {
+  background-color: var(--bbui-textarea-background);
+  border-color: var(--bbui-textarea-border);
+  color: var(--bbui-textarea-foreground);
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.root .input::placeholder {
+  color: var(--bbui-textarea-placeholder);
+}
+
+.root .input:focus {
+  border-color: var(--bbui-textarea-focus);
+}
+
+.root .input:focus-visible {
+  box-shadow: 0 0 0 2px
+    color-mix(in srgb, var(--bbui-textarea-focus) 28%, transparent);
+}
+
+.root .input:disabled {
+  background-color: var(--bbui-textarea-background);
+  cursor: not-allowed;
+  opacity: 0.55;
+}

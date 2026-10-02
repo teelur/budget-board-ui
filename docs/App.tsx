@@ -7,6 +7,7 @@ import {
   NumberInput,
   PasswordInput,
   TextInput,
+  Textarea,
   budgetBoardColors,
   budgetBoardDarkTheme,
   budgetBoardTheme,
@@ -23,6 +24,7 @@ import { PasswordInputPage } from "./pages/PasswordInputPage/PasswordInputPage";
 import { ProgressPage } from "./pages/ProgressPage/ProgressPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
 import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
+import { TextareaPage } from "./pages/TextareaPage/TextareaPage";
 import { TypographyPage } from "./pages/TypographyPage/TypographyPage";
 import styles from "./App.module.css";
 
@@ -141,6 +143,7 @@ export function App() {
               <a href="#progress">Progress</a>
               <a href="#segmented-control">SegmentedControl</a>
               <a href="#text-input">TextInput</a>
+              <a href="#textarea">Textarea</a>
             </div>
             <p className={`${styles.navHeading} ${styles.navHeadingSpaced}`}>
               Package
@@ -191,6 +194,7 @@ export function App() {
               <NumberInputPage />
               <PasswordInputPage />
               <TextInputPage />
+              <TextareaPage />
               <ProgressPage />
               <SegmentedControlPage />
             </section>
