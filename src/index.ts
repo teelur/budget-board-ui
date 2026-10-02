@@ -43,6 +43,8 @@ export {
   type NumberInputValue,
 } from "./NumberInput/NumberInput";
 
+export { TextInput, type TextInputProps } from "./TextInput/TextInput";
+
 export {
   SegmentedControl,
   segmentedControlColors,

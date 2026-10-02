@@ -5,6 +5,7 @@ import { Moon, Sun } from "lucide-react";
 import {
   Button,
   NumberInput,
+  TextInput,
   budgetBoardColors,
   budgetBoardDarkTheme,
   budgetBoardTheme,
@@ -19,6 +20,7 @@ import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
 import { NumberInputPage } from "./pages/NumberInputPage/NumberInputPage";
 import { ProgressPage } from "./pages/ProgressPage/ProgressPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
+import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
 import { TypographyPage } from "./pages/TypographyPage/TypographyPage";
 import styles from "./App.module.css";
 
@@ -135,6 +137,7 @@ export function App() {
               <a href="#number-input">NumberInput</a>
               <a href="#progress">Progress</a>
               <a href="#segmented-control">SegmentedControl</a>
+              <a href="#text-input">TextInput</a>
             </div>
             <p className={`${styles.navHeading} ${styles.navHeadingSpaced}`}>
               Package
@@ -183,6 +186,7 @@ export function App() {
               <BadgePage />
               <ButtonPage />
               <NumberInputPage />
+              <TextInputPage />
               <ProgressPage />
               <SegmentedControlPage />
             </section>
