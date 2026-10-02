@@ -73,5 +73,9 @@ export function TextInput(props: TextInputProps) {
     />
   );
 
-  return mantineContext ? control : <MantineProvider>{control}</MantineProvider>;
+  return mantineContext ? (
+    control
+  ) : (
+    <MantineProvider>{control}</MantineProvider>
+  );
 }

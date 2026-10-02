@@ -91,7 +91,11 @@ export function TextInputPage() {
         </div>
         <div className={styles.stack}>
           <TextInput aria-label="Read only text" readOnly value="Fixed value" />
-          <TextInput aria-label="Disabled text" disabled placeholder="Unavailable" />
+          <TextInput
+            aria-label="Disabled text"
+            disabled
+            placeholder="Unavailable"
+          />
         </div>
       </ComponentDemoSection>
 

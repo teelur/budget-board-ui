@@ -46,6 +46,11 @@ export {
 export { TextInput, type TextInputProps } from "./TextInput/TextInput";
 
 export {
+  PasswordInput,
+  type PasswordInputProps,
+} from "./PasswordInput/PasswordInput";
+
+export {
   SegmentedControl,
   segmentedControlColors,
   segmentedControlSizes,
