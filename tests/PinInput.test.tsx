@@ -74,7 +74,8 @@ describe("PinInput", () => {
     expect(root.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #1c1e21)",
     );
-    expect(screen.getAllByRole("textbox", { name: "Dark verification code" }))
-      .toHaveLength(4);
+    expect(
+      screen.getAllByRole("textbox", { name: "Dark verification code" }),
+    ).toHaveLength(4);
   });
 });

@@ -48,7 +48,9 @@ export function PinInputPage() {
             value={code}
           />
           <p aria-live="polite" className={styles.value}>
-            {completedCode ? `Completed code: ${completedCode}` : "Enter a code"}
+            {completedCode
+              ? `Completed code: ${completedCode}`
+              : "Enter a code"}
           </p>
         </div>
       </ComponentDemoSection>
