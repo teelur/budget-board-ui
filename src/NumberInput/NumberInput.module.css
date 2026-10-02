@@ -1,0 +1,45 @@
+.root .input {
+  background-color: var(--bbui-number-input-background);
+  border-color: var(--bbui-number-input-border);
+  color: var(--bbui-number-input-foreground);
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.root .input::placeholder {
+  color: var(--bbui-number-input-placeholder);
+}
+
+.root .input:focus {
+  border-color: var(--bbui-number-input-focus);
+}
+
+.root .input:focus-visible {
+  box-shadow: 0 0 0 2px
+    color-mix(in srgb, var(--bbui-number-input-focus) 28%, transparent);
+}
+
+.root .input:disabled {
+  background-color: var(--bbui-number-input-background);
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.root .controls {
+  overflow: hidden;
+}
+
+.root .control {
+  border-inline-start-color: var(--bbui-number-input-border);
+  color: var(--bbui-number-input-stepper-color);
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.root .control:hover:not(:disabled) {
+  background-color: var(--bbui-number-input-stepper-hover);
+  color: var(--bbui-number-input-focus);
+}

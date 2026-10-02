@@ -4,6 +4,7 @@ import { MantineProvider } from "@mantine/core";
 import { Moon, Sun } from "lucide-react";
 import {
   Button,
+  NumberInput,
   budgetBoardColors,
   budgetBoardDarkTheme,
   budgetBoardTheme,
@@ -15,6 +16,7 @@ import { AmountTextPage } from "./pages/AmountTextPage/AmountTextPage";
 import { BadgePage } from "./pages/BadgePage/BadgePage";
 import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
+import { NumberInputPage } from "./pages/NumberInputPage/NumberInputPage";
 import { ProgressPage } from "./pages/ProgressPage/ProgressPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
 import { TypographyPage } from "./pages/TypographyPage/TypographyPage";
@@ -130,6 +132,7 @@ export function App() {
               <a href="#amount-text">AmountText</a>
               <a href="#badge">Badge</a>
               <a href="#button">Button</a>
+              <a href="#number-input">NumberInput</a>
               <a href="#progress">Progress</a>
               <a href="#segmented-control">SegmentedControl</a>
             </div>
@@ -179,6 +182,7 @@ export function App() {
               <AmountTextPage />
               <BadgePage />
               <ButtonPage />
+              <NumberInputPage />
               <ProgressPage />
               <SegmentedControlPage />
             </section>

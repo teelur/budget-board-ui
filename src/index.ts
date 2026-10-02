@@ -35,6 +35,15 @@ export {
 } from "./Button/Button";
 
 export {
+  NumberInput,
+  type NumberInputHandlers,
+  type NumberInputMode,
+  type NumberInputNumericType,
+  type NumberInputProps,
+  type NumberInputValue,
+} from "./NumberInput/NumberInput";
+
+export {
   SegmentedControl,
   segmentedControlColors,
   segmentedControlSizes,
