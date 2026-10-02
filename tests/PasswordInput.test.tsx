@@ -3,7 +3,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { PasswordInput } from "../src/PasswordInput/PasswordInput";
-import classes from "../src/PasswordInput/PasswordInput.module.css";
+import classes from "../src/shared/inputStyles.module.css";
+import componentClasses from "../src/PasswordInput/PasswordInput.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
 
 describe("PasswordInput", () => {
@@ -32,13 +33,13 @@ describe("PasswordInput", () => {
     expect(input).toHaveValue("correct-horse");
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "light");
     expect(
-      root?.style.getPropertyValue("--bbui-password-input-background"),
+      root?.style.getPropertyValue("--bbui-input-background"),
     ).toBe("var(--bb-color-surface-input, #e9eae8)");
     expect(input.parentElement).toHaveClass(classes.input);
-    expect(input).toHaveClass(classes.innerInput);
+    expect(input).toHaveClass(componentClasses.innerInput);
     expect(
       screen.getByRole("button", { name: "Toggle password visibility" }),
-    ).toHaveClass(classes.visibilityToggle);
+    ).toHaveClass(componentClasses.visibilityToggle);
   });
 
   it("toggles password visibility and reports visibility changes", async () => {
@@ -154,10 +155,10 @@ describe("PasswordInput", () => {
     const cardRoot = cardInput.parentElement?.parentElement?.parentElement;
 
     expect(
-      pageRoot?.style.getPropertyValue("--bbui-password-input-background"),
+      pageRoot?.style.getPropertyValue("--bbui-input-background"),
     ).toBe("var(--bb-color-surface-input, #e9eae8)");
     expect(
-      cardRoot?.style.getPropertyValue("--bbui-password-input-background"),
+      cardRoot?.style.getPropertyValue("--bbui-input-background"),
     ).toBe("var(--bb-color-surface-input, #e9eae8)");
   });
 
@@ -173,7 +174,7 @@ describe("PasswordInput", () => {
 
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "dark");
     expect(
-      root?.style.getPropertyValue("--bbui-password-input-background"),
+      root?.style.getPropertyValue("--bbui-input-background"),
     ).toBe("var(--bb-color-surface-input, #1c1e21)");
   });
 });

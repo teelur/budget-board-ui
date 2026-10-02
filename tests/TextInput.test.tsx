@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { TextInput } from "../src/TextInput/TextInput";
-import classes from "../src/TextInput/TextInput.module.css";
+import classes from "../src/shared/inputStyles.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
 
 describe("TextInput", () => {
@@ -31,7 +31,7 @@ describe("TextInput", () => {
     expect(input).toBeRequired();
     expect(input).toHaveClass(classes.input);
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "light");
-    expect(root?.style.getPropertyValue("--bbui-text-input-background")).toBe(
+    expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #e9eae8)",
     );
   });
@@ -79,6 +79,19 @@ describe("TextInput", () => {
     ).toBe("1rem");
   });
 
+  it("merges BBUI classes with callback-based classNames", () => {
+    render(
+      <TextInput
+        aria-label="Callback classes"
+        classNames={() => ({ input: "callback-input" })}
+      />,
+    );
+
+    expect(
+      screen.getByRole("textbox", { name: "Callback classes" }),
+    ).toHaveClass(classes.input, "callback-input");
+  });
+
   it("uses the same explicit fill on page and card surfaces", () => {
     render(
       <>
@@ -99,10 +112,10 @@ describe("TextInput", () => {
     expect(pageRoot).toHaveAttribute("data-budget-board-color-scheme", "light");
     expect(cardRoot).toHaveAttribute("data-budget-board-color-scheme", "light");
     expect(
-      pageRoot?.style.getPropertyValue("--bbui-text-input-background"),
+      pageRoot?.style.getPropertyValue("--bbui-input-background"),
     ).toBe("var(--bb-color-surface-input, #e9eae8)");
     expect(
-      cardRoot?.style.getPropertyValue("--bbui-text-input-background"),
+      cardRoot?.style.getPropertyValue("--bbui-input-background"),
     ).toBe("var(--bb-color-surface-input, #e9eae8)");
   });
 
@@ -117,7 +130,7 @@ describe("TextInput", () => {
     const root = input.parentElement?.parentElement;
 
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "dark");
-    expect(root?.style.getPropertyValue("--bbui-text-input-background")).toBe(
+    expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #1c1e21)",
     );
   });

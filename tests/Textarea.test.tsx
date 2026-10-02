@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { Textarea } from "../src/Textarea/Textarea";
-import classes from "../src/Textarea/Textarea.module.css";
+import classes from "../src/shared/inputStyles.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
 
 describe("Textarea", () => {
@@ -31,7 +31,7 @@ describe("Textarea", () => {
     expect(textarea).toHaveAttribute("rows", "4");
     expect(textarea).toHaveClass(classes.input);
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "light");
-    expect(root?.style.getPropertyValue("--bbui-textarea-background")).toBe(
+    expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #e9eae8)",
     );
   });
@@ -112,10 +112,10 @@ describe("Textarea", () => {
     const pageRoot = pageTextarea.parentElement?.parentElement;
     const cardRoot = cardTextarea.parentElement?.parentElement;
 
-    expect(pageRoot?.style.getPropertyValue("--bbui-textarea-background")).toBe(
+    expect(pageRoot?.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #e9eae8)",
     );
-    expect(cardRoot?.style.getPropertyValue("--bbui-textarea-background")).toBe(
+    expect(cardRoot?.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #e9eae8)",
     );
   });
@@ -131,7 +131,7 @@ describe("Textarea", () => {
     const root = textarea.parentElement?.parentElement;
 
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "dark");
-    expect(root?.style.getPropertyValue("--bbui-textarea-background")).toBe(
+    expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #1c1e21)",
     );
   });

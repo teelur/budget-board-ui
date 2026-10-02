@@ -3,7 +3,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { NumberInput } from "../src/NumberInput/NumberInput";
-import classes from "../src/NumberInput/NumberInput.module.css";
+import classes from "../src/shared/inputStyles.module.css";
+import componentClasses from "../src/NumberInput/NumberInput.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
 
 describe("NumberInput", () => {
@@ -26,15 +27,15 @@ describe("NumberInput", () => {
     const root = input.parentElement?.parentElement;
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "light");
     expect(input).toHaveClass(classes.input);
-    expect(root?.style.getPropertyValue("--bbui-number-input-background")).toBe(
+    expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #e9eae8)",
     );
     expect(
-      root?.style.getPropertyValue("--bbui-number-input-stepper-hover"),
+      root?.style.getPropertyValue("--bbui-input-control-hover"),
     ).toBe("var(--bb-color-surface-elevated, #fffcf7)");
     expect(
       input.parentElement?.querySelector("button.mantine-NumberInput-control"),
-    ).toHaveClass(classes.control);
+    ).toHaveClass(componentClasses.control);
   });
 
   it("preserves controlled change and keyboard step behavior", async () => {
@@ -132,10 +133,10 @@ describe("NumberInput", () => {
     expect(pageRoot).toHaveAttribute("data-budget-board-color-scheme", "light");
     expect(cardRoot).toHaveAttribute("data-budget-board-color-scheme", "light");
     expect(
-      pageRoot?.style.getPropertyValue("--bbui-number-input-background"),
+      pageRoot?.style.getPropertyValue("--bbui-input-background"),
     ).toBe("var(--bb-color-surface-input, #e9eae8)");
     expect(
-      cardRoot?.style.getPropertyValue("--bbui-number-input-background"),
+      cardRoot?.style.getPropertyValue("--bbui-input-background"),
     ).toBe("var(--bb-color-surface-input, #e9eae8)");
   });
 
@@ -151,7 +152,7 @@ describe("NumberInput", () => {
     expect(darkRoot).toHaveAttribute("data-budget-board-color-scheme", "dark");
     expect(screen.getByTestId("dark-amount")).toHaveClass(classes.input);
     expect(
-      darkRoot?.style.getPropertyValue("--bbui-number-input-background"),
+      darkRoot?.style.getPropertyValue("--bbui-input-background"),
     ).toBe("var(--bb-color-surface-input, #1c1e21)");
   });
 });
