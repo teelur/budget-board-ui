@@ -34,6 +34,13 @@ export {
   type ButtonVariant,
 } from "./Button/Button";
 
+export { DateInput, type DateInputProps } from "./DateInput/DateInput";
+
+export {
+  DatePickerInput,
+  type DatePickerInputProps,
+} from "./DatePickerInput/DatePickerInput";
+
 export {
   NumberInput,
   type NumberInputHandlers,
@@ -51,6 +58,8 @@ export {
   PasswordInput,
   type PasswordInputProps,
 } from "./PasswordInput/PasswordInput";
+
+export { PinInput, type PinInputProps } from "./PinInput/PinInput";
 
 export {
   SegmentedControl,

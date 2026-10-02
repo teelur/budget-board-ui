@@ -1,0 +1,11 @@
+.stack {
+  display: grid;
+  gap: 1rem;
+  max-width: 32rem;
+  width: 100%;
+}
+
+.range {
+  max-width: 32rem;
+  width: 100%;
+}

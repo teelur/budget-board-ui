@@ -27,6 +27,12 @@ Import the package stylesheet once in the consuming app:
 import "@teelur/budget-board-ui/styles.css";
 ```
 
+When using `DateInput` or `DatePickerInput`, also import the Mantine Dates stylesheet:
+
+```ts
+import "@mantine/dates/styles.css";
+```
+
 Publishing runs automatically after changes are merged into `main` and publishes canary packages
 to GitHub Packages and npm under the `canary` tag. Publishing a GitHub release publishes the
 matching stable version to both registries. npm publishing uses GitHub Actions OIDC trusted

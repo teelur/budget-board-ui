@@ -19,6 +19,7 @@ export default defineConfig({
         /^react($|\/)/,
         /^react-dom($|\/)/,
         /^@mantine\/core($|\/)/,
+        /^@mantine\/dates($|\/)/,
         /^@mantine\/hooks($|\/)/,
       ],
     },

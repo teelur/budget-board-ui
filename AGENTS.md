@@ -26,7 +26,7 @@ When a repository norm is established or changed, update this file so future age
 - Use the repository's existing design tokens and theme variables instead of adding unrelated styling systems.
 - Use `font-weight: 600` for interactive control labels (buttons, segmented control items, etc.) so they render at a consistent weight against body text. This is documented for consumers in the Typography page (`docs/pages/TypographyPage`) — update it too if this convention changes.
 - When a component reuses `getButtonVariantStyles` (or applies its own `--bbui-*` CSS custom properties) for theming, set those properties on the outermost element sharing the affected descendants, not on an inner decorative element — CSS custom properties only cascade to descendants of the element they're set on.
-- Keep the BBUI `NumberInput`, `PasswordInput`, `TextInput`, and `Textarea` theme resolution, wrapper variables, class-name merging, and shared field styling in `src/shared/inputStyles.ts` and `src/shared/inputStyles.module.css`. Add only component-specific behavior or styling to an individual input.
+- Keep the BBUI `DateInput`, `DatePickerInput`, `NumberInput`, `PasswordInput`, `TextInput`, and `Textarea` theme resolution, wrapper variables, class-name merging, and shared field styling in `src/shared/inputStyles.ts` and `src/shared/inputStyles.module.css`. Add only component-specific behavior or styling to an individual input.
 - Keep source files in `src/`; keep focused tests in `tests/`.
 
 ## Tests

@@ -1,6 +1,7 @@
 import { createElement, useContext } from "react";
 import type { CSSProperties, ReactElement } from "react";
 import { MantineContext, MantineProvider } from "@mantine/core";
+import type { PopoverProps } from "@mantine/core";
 import { useColorScheme } from "@mantine/hooks";
 import { budgetBoardColors } from "../colors";
 import classes from "./inputStyles.module.css";
@@ -41,6 +42,18 @@ export function mergeInputClassNames<T>(
   ) as T;
 }
 
+export function mergeInputPopoverProps(
+  popoverProps: Partial<Omit<PopoverProps, "children">> | undefined,
+  dropdownClassName: string,
+): Partial<Omit<PopoverProps, "children">> {
+  return {
+    ...popoverProps,
+    classNames: mergeInputClassNames(popoverProps?.classNames, {
+      dropdown: dropdownClassName,
+    }),
+  };
+}
+
 export function useBBUIInputStyles() {
   const mantineContext = useContext(MantineContext);
   const systemColorScheme = useColorScheme("light");
@@ -79,6 +92,7 @@ export function useBBUIInputStyles() {
 
   return {
     classes,
+    colorScheme,
     getWrapperProps,
     hasMantineContext: mantineContext !== null,
   };
