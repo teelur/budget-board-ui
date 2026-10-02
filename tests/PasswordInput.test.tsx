@@ -32,9 +32,9 @@ describe("PasswordInput", () => {
     expect(input).toBeRequired();
     expect(input).toHaveValue("correct-horse");
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "light");
-    expect(
-      root?.style.getPropertyValue("--bbui-input-background"),
-    ).toBe("var(--bb-color-surface-input, #e9eae8)");
+    expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
+      "var(--bb-color-surface-input, #e9eae8)",
+    );
     expect(input.parentElement).toHaveClass(classes.input);
     expect(input).toHaveClass(componentClasses.innerInput);
     expect(
@@ -154,12 +154,12 @@ describe("PasswordInput", () => {
     const pageRoot = pageInput.parentElement?.parentElement?.parentElement;
     const cardRoot = cardInput.parentElement?.parentElement?.parentElement;
 
-    expect(
-      pageRoot?.style.getPropertyValue("--bbui-input-background"),
-    ).toBe("var(--bb-color-surface-input, #e9eae8)");
-    expect(
-      cardRoot?.style.getPropertyValue("--bbui-input-background"),
-    ).toBe("var(--bb-color-surface-input, #e9eae8)");
+    expect(pageRoot?.style.getPropertyValue("--bbui-input-background")).toBe(
+      "var(--bb-color-surface-input, #e9eae8)",
+    );
+    expect(cardRoot?.style.getPropertyValue("--bbui-input-background")).toBe(
+      "var(--bb-color-surface-input, #e9eae8)",
+    );
   });
 
   it("uses the dark theme input surface fallback", () => {
@@ -173,8 +173,8 @@ describe("PasswordInput", () => {
     const root = input.parentElement?.parentElement?.parentElement;
 
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "dark");
-    expect(
-      root?.style.getPropertyValue("--bbui-input-background"),
-    ).toBe("var(--bb-color-surface-input, #1c1e21)");
+    expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
+      "var(--bb-color-surface-input, #1c1e21)",
+    );
   });
 });

@@ -30,9 +30,9 @@ describe("NumberInput", () => {
     expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #e9eae8)",
     );
-    expect(
-      root?.style.getPropertyValue("--bbui-input-control-hover"),
-    ).toBe("var(--bb-color-surface-elevated, #fffcf7)");
+    expect(root?.style.getPropertyValue("--bbui-input-control-hover")).toBe(
+      "var(--bb-color-surface-elevated, #fffcf7)",
+    );
     expect(
       input.parentElement?.querySelector("button.mantine-NumberInput-control"),
     ).toHaveClass(componentClasses.control);
@@ -132,12 +132,12 @@ describe("NumberInput", () => {
     expect(cardInput).toHaveClass(classes.input);
     expect(pageRoot).toHaveAttribute("data-budget-board-color-scheme", "light");
     expect(cardRoot).toHaveAttribute("data-budget-board-color-scheme", "light");
-    expect(
-      pageRoot?.style.getPropertyValue("--bbui-input-background"),
-    ).toBe("var(--bb-color-surface-input, #e9eae8)");
-    expect(
-      cardRoot?.style.getPropertyValue("--bbui-input-background"),
-    ).toBe("var(--bb-color-surface-input, #e9eae8)");
+    expect(pageRoot?.style.getPropertyValue("--bbui-input-background")).toBe(
+      "var(--bb-color-surface-input, #e9eae8)",
+    );
+    expect(cardRoot?.style.getPropertyValue("--bbui-input-background")).toBe(
+      "var(--bb-color-surface-input, #e9eae8)",
+    );
   });
 
   it("resolves the surface fallback in dark mode", () => {
@@ -151,8 +151,8 @@ describe("NumberInput", () => {
     const darkRoot = darkInput.parentElement?.parentElement;
     expect(darkRoot).toHaveAttribute("data-budget-board-color-scheme", "dark");
     expect(screen.getByTestId("dark-amount")).toHaveClass(classes.input);
-    expect(
-      darkRoot?.style.getPropertyValue("--bbui-input-background"),
-    ).toBe("var(--bb-color-surface-input, #1c1e21)");
+    expect(darkRoot?.style.getPropertyValue("--bbui-input-background")).toBe(
+      "var(--bb-color-surface-input, #1c1e21)",
+    );
   });
 });

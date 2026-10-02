@@ -61,9 +61,7 @@ export function useBBUIInputStyles() {
     "--bbui-input-control-color": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
   } as CSSProperties;
 
-  function getWrapperProps<
-    T extends { style?: CSSProperties | undefined },
-  >(
+  function getWrapperProps<T extends { style?: CSSProperties | undefined }>(
     wrapperProps?: T,
   ) {
     return {
