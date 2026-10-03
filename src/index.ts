@@ -13,6 +13,11 @@ export {
 } from "./AmountText/AmountText";
 
 export {
+  Autocomplete,
+  type AutocompleteProps,
+} from "./Autocomplete/Autocomplete";
+
+export {
   Badge,
   badgeColors,
   badgeSizes,

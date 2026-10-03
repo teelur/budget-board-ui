@@ -16,6 +16,7 @@ import {
 import type { ColorMode } from "./components/color/colorCardTypes";
 import { ActionIconPage } from "./pages/ActionIconPage/ActionIconPage";
 import { AmountTextPage } from "./pages/AmountTextPage/AmountTextPage";
+import { AutocompletePage } from "./pages/AutocompletePage/AutocompletePage";
 import { BadgePage } from "./pages/BadgePage/BadgePage";
 import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
@@ -139,6 +140,7 @@ export function App() {
               <p className={styles.navGroupHeading}>Components</p>
               <a href="#action-icon">ActionIcon</a>
               <a href="#amount-text">AmountText</a>
+              <a href="#autocomplete">Autocomplete</a>
               <a href="#badge">Badge</a>
               <a href="#button">Button</a>
               <a href="#date-input">DateInput</a>
@@ -195,6 +197,7 @@ export function App() {
                 </p>
               </div>
               <AmountTextPage />
+              <AutocompletePage />
               <BadgePage />
               <ButtonPage />
               <DateInputPage />
