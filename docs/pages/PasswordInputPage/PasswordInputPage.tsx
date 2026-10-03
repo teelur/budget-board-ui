@@ -76,6 +76,7 @@ export function PasswordInputPage() {
         id="password-input-controlled"
         title="Controlled state"
         code={`const [password, setPassword] = useState("");
+const [visible, setVisible] = useState(false);
 
 <PasswordInput
   label="Password"

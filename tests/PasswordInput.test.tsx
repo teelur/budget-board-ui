@@ -112,23 +112,51 @@ describe("PasswordInput", () => {
       <>
         <PasswordInput aria-label="Disabled password" disabled />
         <PasswordInput
+          aria-label="Custom root password"
+          className="consumer-root"
+          classNames={{ root: "consumer-root-slot" }}
+        />
+        <PasswordInput
           aria-label="Read only password"
+          className="consumer-password"
           classNames={{ innerInput: "consumer-password" }}
           readOnly
-          wrapperProps={{ style: { marginTop: "1rem" } }}
+          style={{ paddingLeft: "2rem", paddingRight: "4rem" }}
+        />
+        <PasswordInput
+          aria-label="Wrapper-styled password"
+          wrapperProps={{
+            className: "consumer-password-wrapper",
+            "data-testid": "password-input-wrapper",
+            style: { marginTop: "1rem", paddingLeft: "3rem" },
+          }}
         />
       </>,
     );
 
     expect(screen.getByLabelText("Disabled password")).toBeDisabled();
+    const customRootInput = screen.getByLabelText("Custom root password");
+    expect(
+      customRootInput.parentElement?.parentElement?.parentElement,
+    ).toHaveClass(
+      classes.root,
+      componentClasses.root,
+      "consumer-root-slot",
+      "consumer-root",
+    );
     const readOnlyInput = screen.getByLabelText("Read only password");
     expect(readOnlyInput).toHaveAttribute("readonly");
     expect(readOnlyInput).toHaveClass("consumer-password");
     expect(
-      readOnlyInput.parentElement?.parentElement?.parentElement?.style.getPropertyValue(
-        "margin-top",
-      ),
-    ).toBe("1rem");
+      readOnlyInput.parentElement?.parentElement?.parentElement,
+    ).toHaveClass(classes.root, componentClasses.root);
+    const root = readOnlyInput.parentElement?.parentElement?.parentElement;
+    const wrapper = screen.getByTestId("password-input-wrapper");
+    expect(root?.style.paddingLeft).toBe("2rem");
+    expect(root?.style.paddingRight).toBe("4rem");
+    expect(wrapper.style.marginTop).toBe("1rem");
+    expect(wrapper.style.paddingLeft).toBe("3rem");
+    expect(wrapper.style.paddingRight).toBe("");
   });
 
   it("uses the same explicit fill on page and card surfaces", () => {

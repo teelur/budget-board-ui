@@ -10,13 +10,23 @@ import { budgetBoardDarkTheme } from "../src/theme";
 describe("DatePickerInput", () => {
   it("renders an accessible picker trigger with BBUI field styling", () => {
     render(
-      <DatePickerInput
-        data-testid="date-picker-trigger"
-        defaultValue="2025-06-15"
-        label="Statement date"
-        classNames={{ input: "consumer-date-picker" }}
-        valueFormat="YYYY-MM-DD"
-      />,
+      <>
+        <DatePickerInput
+          data-testid="date-picker-trigger"
+          defaultValue="2025-06-15"
+          label="Statement date"
+          classNames={{ input: "consumer-date-picker" }}
+          style={{ paddingLeft: "2rem", paddingRight: "4rem" }}
+          valueFormat="YYYY-MM-DD"
+        />
+        <DatePickerInput
+          aria-label="Wrapper-styled date picker"
+          wrapperProps={{
+            "data-testid": "date-picker-wrapper",
+            style: { marginTop: "1rem", paddingLeft: "3rem" },
+          }}
+        />
+      </>,
     );
 
     const trigger = screen.getByTestId("date-picker-trigger");
@@ -29,6 +39,12 @@ describe("DatePickerInput", () => {
     expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #e9eae8)",
     );
+    const wrapper = screen.getByTestId("date-picker-wrapper");
+    expect(root?.style.paddingLeft).toBe("2rem");
+    expect(root?.style.paddingRight).toBe("4rem");
+    expect(wrapper.style.marginTop).toBe("1rem");
+    expect(wrapper.style.paddingLeft).toBe("3rem");
+    expect(wrapper.style.paddingRight).toBe("");
   });
 
   it("opens the accessible calendar popover", async () => {
@@ -101,6 +117,7 @@ describe("DatePickerInput", () => {
           defaultDate={new Date(2025, 5, 1)}
           popoverProps={{
             classNames: { dropdown: "consumer-picker-dropdown" },
+            styles: () => ({ dropdown: { borderColor: "red" } }),
           }}
         />
       </MantineProvider>,
@@ -119,6 +136,36 @@ describe("DatePickerInput", () => {
     expect(
       dropdown.style.getPropertyValue("--bbui-calendar-range-foreground"),
     ).toBe("var(--bb-color-text-heading, #f2f0eb)");
+    expect(dropdown.style.borderColor).toBe("red");
+  });
+
+  it("applies BBUI calendar styling to modal content", async () => {
+    const user = userEvent.setup();
+    render(
+      <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
+        <DatePickerInput
+          aria-label="Modal date picker"
+          defaultDate={new Date(2025, 5, 1)}
+          dropdownType="modal"
+          modalProps={{
+            classNames: { content: "consumer-picker-modal" },
+            styles: { content: { borderColor: "red" } },
+          }}
+        />
+      </MantineProvider>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Modal date picker" }));
+    const modalContent = await screen.findByRole("dialog");
+
+    expect(modalContent).toHaveClass(
+      popoverClasses.dropdown,
+      "consumer-picker-modal",
+    );
+    expect(
+      modalContent.style.getPropertyValue("--bbui-calendar-background"),
+    ).toBe("var(--bb-color-surface-elevated, #22252a)");
+    expect(modalContent.style.borderColor).toBe("red");
   });
 
   it("preserves the typed range value API", () => {

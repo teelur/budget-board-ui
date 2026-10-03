@@ -1,7 +1,7 @@
 import { createElement, useContext } from "react";
 import type { CSSProperties, ReactElement } from "react";
 import { MantineContext, MantineProvider } from "@mantine/core";
-import type { PopoverProps } from "@mantine/core";
+import type { ModalProps, PopoverProps } from "@mantine/core";
 import { useColorScheme } from "@mantine/hooks";
 import { budgetBoardColors } from "../colors";
 import classes from "./inputStyles.module.css";
@@ -42,36 +42,71 @@ export function mergeInputClassNames<T>(
   ) as T;
 }
 
+export function mergeInputStyles<TStyles>(
+  styles: TStyles | undefined,
+  slot: string,
+  slotStyle: CSSProperties,
+): NonNullable<TStyles> {
+  const mergeSlot = (consumerStyles: unknown) => {
+    const stylesBySlot = consumerStyles as
+      | Record<string, CSSProperties | undefined>
+      | undefined;
+
+    return {
+      ...stylesBySlot,
+      [slot]: {
+        ...slotStyle,
+        ...stylesBySlot?.[slot],
+      },
+    };
+  };
+
+  if (typeof styles === "function") {
+    const resolveStyles = styles as unknown as (...args: unknown[]) => unknown;
+    return ((...args: unknown[]) =>
+      mergeSlot(resolveStyles(...args))) as NonNullable<TStyles>;
+  }
+
+  return mergeSlot(styles) as NonNullable<TStyles>;
+}
+
 export function mergeInputPopoverProps(
   popoverProps: Partial<Omit<PopoverProps, "children">> | undefined,
   dropdownClassName: string,
   dropdownStyle: CSSProperties,
 ): Partial<Omit<PopoverProps, "children">> {
   const popoverStyles = popoverProps?.styles;
-  const mergeStyles: NonNullable<PopoverProps["styles"]> =
-    typeof popoverStyles === "function"
-      ? (theme, props, ctx) => {
-          const consumerStyles = popoverStyles(theme, props, ctx);
-          return {
-            ...consumerStyles,
-            dropdown: {
-              ...dropdownStyle,
-              ...consumerStyles?.dropdown,
-            },
-          };
-        }
-      : {
-          ...popoverStyles,
-          dropdown: {
-            ...dropdownStyle,
-            ...popoverStyles?.dropdown,
-          },
-        };
+  const mergeStyles: NonNullable<PopoverProps["styles"]> = mergeInputStyles(
+    popoverStyles,
+    "dropdown",
+    dropdownStyle,
+  );
 
   return {
     ...popoverProps,
     classNames: mergeInputClassNames(popoverProps?.classNames, {
       dropdown: dropdownClassName,
+    }),
+    styles: mergeStyles,
+  };
+}
+
+export function mergeInputModalProps(
+  modalProps: Partial<Omit<ModalProps, "children">> | undefined,
+  dropdownClassName: string,
+  dropdownStyle: CSSProperties,
+): Partial<Omit<ModalProps, "children">> {
+  const modalStyles = modalProps?.styles;
+  const mergeStyles: NonNullable<ModalProps["styles"]> = mergeInputStyles(
+    modalStyles,
+    "content",
+    dropdownStyle,
+  );
+
+  return {
+    ...modalProps,
+    classNames: mergeInputClassNames(modalProps?.classNames, {
+      content: dropdownClassName,
     }),
     styles: mergeStyles,
   };
@@ -114,19 +149,15 @@ export function useBBUIInputStyles() {
     return {
       ...wrapperProps,
       "data-budget-board-color-scheme": colorScheme,
-      style: {
-        ...wrapperStyle,
-        ...wrapperProps?.style,
-      },
     } as T & {
       "data-budget-board-color-scheme": typeof colorScheme;
-      style: CSSProperties;
     };
   }
 
   return {
     classes,
     colorScheme,
+    wrapperStyle,
     calendarDropdownStyle,
     getWrapperProps,
     hasMantineContext: mantineContext !== null,

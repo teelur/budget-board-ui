@@ -204,6 +204,16 @@ export function TextareaPage() {
                   <td>consumer classes and styles are preserved</td>
                 </tr>
                 <tr>
+                  <th>style / wrapperProps.style</th>
+                  <td>
+                    <code>CSSProperties</code>
+                  </td>
+                  <td>
+                    style is passed to Mantine's input root; wrapperProps.style
+                    overrides it when both are supplied
+                  </td>
+                </tr>
+                <tr>
                   <th>other props</th>
                   <td>
                     <code>TextareaProps</code>

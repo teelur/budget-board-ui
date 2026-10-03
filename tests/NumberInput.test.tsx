@@ -92,7 +92,14 @@ describe("NumberInput", () => {
           aria-label="Read only"
           classNames={{ input: "consumer-input" }}
           readOnly
-          wrapperProps={{ style: { marginTop: "1rem" } }}
+          style={{ paddingLeft: "2rem", paddingRight: "4rem" }}
+        />
+        <NumberInput
+          aria-label="Wrapper-styled amount"
+          wrapperProps={{
+            "data-testid": "number-input-wrapper",
+            style: { marginTop: "1rem", paddingLeft: "3rem" },
+          }}
         />
       </>,
     );
@@ -104,11 +111,33 @@ describe("NumberInput", () => {
     expect(screen.getByRole("textbox", { name: "Read only" })).toHaveClass(
       "consumer-input",
     );
-    expect(
-      screen
-        .getByRole("textbox", { name: "Read only" })
-        .parentElement?.parentElement?.style.getPropertyValue("margin-top"),
-    ).toBe("1rem");
+    const readOnlyInput = screen.getByRole("textbox", { name: "Read only" });
+    const root = readOnlyInput.parentElement?.parentElement;
+    const wrapper = screen.getByTestId("number-input-wrapper");
+    expect(root?.style.paddingLeft).toBe("2rem");
+    expect(root?.style.paddingRight).toBe("4rem");
+    expect(wrapper.style.marginTop).toBe("1rem");
+    expect(wrapper.style.paddingLeft).toBe("3rem");
+    expect(wrapper.style.paddingRight).toBe("");
+  });
+
+  it("keeps BBUI root classes when wrapperProps provides a class", () => {
+    render(
+      <NumberInput
+        aria-label="Amount"
+        className="consumer-root"
+        wrapperProps={{ className: "consumer-wrapper" }}
+      />,
+    );
+
+    const root = screen.getByRole("textbox", { name: "Amount" }).parentElement
+      ?.parentElement;
+
+    expect(root).toHaveClass(
+      classes.root,
+      componentClasses.root,
+      "consumer-wrapper",
+    );
   });
 
   it("uses the same explicit fill on different parent surfaces", () => {

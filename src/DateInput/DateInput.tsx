@@ -3,6 +3,7 @@ import type { DateInputProps as MantineDateInputProps } from "@mantine/dates";
 import {
   ensureMantineProvider,
   mergeInputClassNames,
+  mergeInputStyles,
   mergeInputPopoverProps,
   useBBUIInputStyles,
 } from "../shared/inputStyles";
@@ -15,7 +16,7 @@ export function DateInput(props: DateInputProps) {
     className,
     classNames,
     popoverProps,
-    style,
+    styles,
     wrapperProps,
     ...dateInputProps
   } = props;
@@ -30,12 +31,12 @@ export function DateInput(props: DateInputProps) {
         root: inputStyles.classes.root,
         input: inputStyles.classes.input,
       })}
+      styles={mergeInputStyles(styles, "root", inputStyles.wrapperStyle)}
       popoverProps={mergeInputPopoverProps(
         popoverProps,
         popoverClasses.dropdown!,
         inputStyles.calendarDropdownStyle,
       )}
-      style={style}
       wrapperProps={inputStyles.getWrapperProps(wrapperProps)}
     />
   );

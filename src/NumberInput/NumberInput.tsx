@@ -7,6 +7,7 @@ import type {
 import {
   ensureMantineProvider,
   mergeInputClassNames,
+  mergeInputStyles,
   useBBUIInputStyles,
 } from "../shared/inputStyles";
 import componentClasses from "./NumberInput.module.css";
@@ -27,22 +28,21 @@ export type {
 export function NumberInput<T extends MantineNumberInputNumericType = number>(
   props: NumberInputProps<T>,
 ) {
-  const { className, classNames, style, wrapperProps, ...numberInputProps } =
+  const { className, classNames, styles, wrapperProps, ...numberInputProps } =
     props;
   const inputStyles = useBBUIInputStyles();
 
   const control = (
     <MantineNumberInput<T>
       {...numberInputProps}
-      className={[inputStyles.classes.root, componentClasses.root, className]
-        .filter(Boolean)
-        .join(" ")}
+      className={className}
       classNames={mergeInputClassNames(classNames, {
+        root: [inputStyles.classes.root, componentClasses.root].join(" "),
         input: inputStyles.classes.input,
         controls: componentClasses.controls,
         control: componentClasses.control,
       })}
-      style={style}
+      styles={mergeInputStyles(styles, "root", inputStyles.wrapperStyle)}
       wrapperProps={inputStyles.getWrapperProps(wrapperProps)}
     />
   );

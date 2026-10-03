@@ -1,7 +1,16 @@
+.root :global(.mantine-Input-wrapper):not([data-error]):not([data-success]) {
+  --input-bd: var(--bbui-input-border);
+  --input-bd-focus: var(--bbui-input-focus);
+}
+
+.root :global(.mantine-Input-wrapper):not([data-error]) {
+  --input-color: var(--bbui-input-foreground);
+}
+
 .root .input {
   background-color: var(--bbui-input-background);
-  border-color: var(--bbui-input-border);
-  color: var(--bbui-input-foreground);
+  border-color: var(--input-bd);
+  color: var(--input-color);
   transition:
     background-color 120ms ease,
     border-color 120ms ease,
@@ -10,10 +19,6 @@
 
 .root .input::placeholder {
   color: var(--bbui-input-placeholder);
-}
-
-.root .input:focus {
-  border-color: var(--bbui-input-focus);
 }
 
 .root .input:focus-visible {

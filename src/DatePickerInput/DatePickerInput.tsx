@@ -6,6 +6,8 @@ import type {
 import {
   ensureMantineProvider,
   mergeInputClassNames,
+  mergeInputStyles,
+  mergeInputModalProps,
   mergeInputPopoverProps,
   useBBUIInputStyles,
 } from "../shared/inputStyles";
@@ -20,9 +22,10 @@ export function DatePickerInput<Type extends DatePickerType = "default">(
   const {
     className,
     classNames,
+    modalProps,
     popoverProps,
     ref,
-    style,
+    styles,
     wrapperProps,
     ...datePickerInputProps
   } = props;
@@ -38,12 +41,17 @@ export function DatePickerInput<Type extends DatePickerType = "default">(
         root: inputStyles.classes.root,
         input: inputStyles.classes.input,
       })}
+      styles={mergeInputStyles(styles, "root", inputStyles.wrapperStyle)}
+      modalProps={mergeInputModalProps(
+        modalProps,
+        popoverClasses.dropdown!,
+        inputStyles.calendarDropdownStyle,
+      )}
       popoverProps={mergeInputPopoverProps(
         popoverProps,
         popoverClasses.dropdown!,
         inputStyles.calendarDropdownStyle,
       )}
-      style={style}
       wrapperProps={inputStyles.getWrapperProps(wrapperProps)}
     />
   );

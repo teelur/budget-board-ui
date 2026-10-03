@@ -10,11 +10,21 @@ import { budgetBoardDarkTheme } from "../src/theme";
 describe("DateInput", () => {
   it("renders a labeled free-form date input with BBUI styling", () => {
     render(
-      <DateInput
-        defaultValue="2025-06-15"
-        label="Transaction date"
-        valueFormat="YYYY-MM-DD"
-      />,
+      <>
+        <DateInput
+          defaultValue="2025-06-15"
+          label="Transaction date"
+          style={{ paddingLeft: "2rem", paddingRight: "4rem" }}
+          valueFormat="YYYY-MM-DD"
+        />
+        <DateInput
+          aria-label="Wrapper-styled date"
+          wrapperProps={{
+            "data-testid": "date-input-wrapper",
+            style: { marginTop: "1rem", paddingLeft: "3rem" },
+          }}
+        />
+      </>,
     );
 
     const input = screen.getByRole("textbox", { name: "Transaction date" });
@@ -26,6 +36,12 @@ describe("DateInput", () => {
     expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #e9eae8)",
     );
+    const wrapper = screen.getByTestId("date-input-wrapper");
+    expect(root?.style.paddingLeft).toBe("2rem");
+    expect(root?.style.paddingRight).toBe("4rem");
+    expect(wrapper.style.marginTop).toBe("1rem");
+    expect(wrapper.style.paddingLeft).toBe("3rem");
+    expect(wrapper.style.paddingRight).toBe("");
   });
 
   it("preserves controlled date changes and custom input classes", async () => {

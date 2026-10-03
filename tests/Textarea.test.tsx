@@ -75,7 +75,15 @@ describe("Textarea", () => {
           aria-label="Read only note"
           classNames={{ input: "consumer-textarea" }}
           readOnly
-          wrapperProps={{ style: { marginTop: "1rem" } }}
+          style={{ paddingLeft: "2rem", paddingRight: "4rem" }}
+          styles={{ root: { color: "tomato" } }}
+        />
+        <Textarea
+          aria-label="Wrapper-styled note"
+          wrapperProps={{
+            "data-testid": "textarea-wrapper",
+            style: { marginTop: "1rem", paddingLeft: "3rem" },
+          }}
         />
       </>,
     );
@@ -88,11 +96,14 @@ describe("Textarea", () => {
     });
     expect(readOnlyTextarea).toHaveAttribute("readonly");
     expect(readOnlyTextarea).toHaveClass("consumer-textarea");
-    expect(
-      readOnlyTextarea.parentElement?.parentElement?.style.getPropertyValue(
-        "margin-top",
-      ),
-    ).toBe("1rem");
+    const root = readOnlyTextarea.parentElement?.parentElement;
+    const wrapper = screen.getByTestId("textarea-wrapper");
+    expect(root?.style.paddingLeft).toBe("2rem");
+    expect(root?.style.paddingRight).toBe("4rem");
+    expect(root?.style.color).toBe("tomato");
+    expect(wrapper.style.marginTop).toBe("1rem");
+    expect(wrapper.style.paddingLeft).toBe("3rem");
+    expect(wrapper.style.paddingRight).toBe("");
   });
 
   it("uses the same explicit fill on page and card surfaces", () => {

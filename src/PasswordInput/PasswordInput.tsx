@@ -3,6 +3,7 @@ import type { PasswordInputProps as MantinePasswordInputProps } from "@mantine/c
 import {
   ensureMantineProvider,
   mergeInputClassNames,
+  mergeInputStyles,
   useBBUIInputStyles,
 } from "../shared/inputStyles";
 import componentClasses from "./PasswordInput.module.css";
@@ -10,22 +11,23 @@ import componentClasses from "./PasswordInput.module.css";
 export type PasswordInputProps = MantinePasswordInputProps;
 
 export function PasswordInput(props: PasswordInputProps) {
-  const { className, classNames, style, wrapperProps, ...passwordInputProps } =
+  const { className, classNames, styles, wrapperProps, ...passwordInputProps } =
     props;
   const inputStyles = useBBUIInputStyles();
 
   const control = (
     <MantinePasswordInput
       {...passwordInputProps}
-      className={[inputStyles.classes.root, componentClasses.root, className]
-        .filter(Boolean)
-        .join(" ")}
       classNames={mergeInputClassNames(classNames, {
+        root: [inputStyles.classes.root, componentClasses.root]
+          .filter(Boolean)
+          .join(" "),
         input: inputStyles.classes.input,
         innerInput: componentClasses.innerInput,
         visibilityToggle: componentClasses.visibilityToggle,
       })}
-      style={style}
+      styles={mergeInputStyles(styles, "root", inputStyles.wrapperStyle)}
+      className={className}
       wrapperProps={inputStyles.getWrapperProps(wrapperProps)}
     />
   );

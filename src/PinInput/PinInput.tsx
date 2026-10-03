@@ -13,7 +13,9 @@ export function PinInput(props: PinInputProps) {
   const inputStyles = useBBUIInputStyles();
   const rootProps = inputStyles.getWrapperProps();
   const mergedStyle: PinInputProps["style"] =
-    style === undefined ? rootProps.style : [rootProps.style, style];
+    style === undefined
+      ? inputStyles.wrapperStyle
+      : [inputStyles.wrapperStyle, style];
 
   const control = (
     <MantinePinInput

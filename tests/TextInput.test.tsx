@@ -21,7 +21,7 @@ describe("TextInput", () => {
     );
 
     const input = screen.getByRole("textbox", { name: "Email address" });
-    const root = input.parentElement?.parentElement;
+    const root = input.closest<HTMLElement>("[data-budget-board-color-scheme]");
 
     expect(input).toHaveValue("person@example.com");
     expect(input).toHaveAttribute("type", "email");
@@ -63,7 +63,14 @@ describe("TextInput", () => {
           aria-label="Read only"
           classNames={{ input: "consumer-input" }}
           readOnly
-          wrapperProps={{ style: { marginTop: "1rem" } }}
+          style={{ paddingLeft: "2rem", paddingRight: "4rem" }}
+        />
+        <TextInput
+          aria-label="Wrapper-styled input"
+          wrapperProps={{
+            "data-testid": "text-input-wrapper",
+            style: { marginTop: "1rem", paddingLeft: "3rem" },
+          }}
         />
       </>,
     );
@@ -72,11 +79,39 @@ describe("TextInput", () => {
     const readOnlyInput = screen.getByRole("textbox", { name: "Read only" });
     expect(readOnlyInput).toHaveAttribute("readonly");
     expect(readOnlyInput).toHaveClass("consumer-input");
-    expect(
-      readOnlyInput.parentElement?.parentElement?.style.getPropertyValue(
-        "margin-top",
-      ),
-    ).toBe("1rem");
+    const root = readOnlyInput.closest<HTMLElement>(
+      "[data-budget-board-color-scheme]",
+    );
+    const wrapper = screen.getByTestId("text-input-wrapper");
+    expect(root?.style.paddingLeft).toBe("2rem");
+    expect(root?.style.paddingRight).toBe("4rem");
+    expect(wrapper.style.marginTop).toBe("1rem");
+    expect(wrapper.style.paddingLeft).toBe("3rem");
+    expect(wrapper.style.paddingRight).toBe("");
+  });
+
+  it("keeps the BBUI root class when wrapperProps has a className", () => {
+    render(
+      <>
+        <TextInput
+          aria-label="Wrapped name"
+          wrapperProps={{ className: "consumer-wrapper" }}
+        />
+        <TextInput aria-label="Consumer class" className="consumer-root" />
+      </>,
+    );
+
+    const input = screen.getByRole("textbox", { name: "Wrapped name" });
+    const root = input.closest<HTMLElement>("[data-budget-board-color-scheme]");
+    const consumerInput = screen.getByRole("textbox", {
+      name: "Consumer class",
+    });
+    const consumerRoot = consumerInput.closest<HTMLElement>(
+      "[data-budget-board-color-scheme]",
+    );
+
+    expect(root).toHaveClass(classes.root, "consumer-wrapper");
+    expect(consumerRoot).toHaveClass(classes.root, "consumer-root");
   });
 
   it("merges BBUI classes with callback-based classNames", () => {
@@ -106,17 +141,21 @@ describe("TextInput", () => {
 
     const pageInput = screen.getByTestId("page-name");
     const cardInput = screen.getByTestId("card-name");
-    const pageRoot = pageInput.parentElement?.parentElement;
-    const cardRoot = cardInput.parentElement?.parentElement;
+    const pageRoot = pageInput.closest<HTMLElement>(
+      "[data-budget-board-color-scheme]",
+    );
+    const cardRoot = cardInput.closest<HTMLElement>(
+      "[data-budget-board-color-scheme]",
+    );
 
     expect(pageRoot).toHaveAttribute("data-budget-board-color-scheme", "light");
     expect(cardRoot).toHaveAttribute("data-budget-board-color-scheme", "light");
-    expect(
-      pageRoot?.style.getPropertyValue("--bbui-input-background"),
-    ).toBe("var(--bb-color-surface-input, #e9eae8)");
-    expect(
-      cardRoot?.style.getPropertyValue("--bbui-input-background"),
-    ).toBe("var(--bb-color-surface-input, #e9eae8)");
+    expect(pageRoot?.style.getPropertyValue("--bbui-input-background")).toBe(
+      "var(--bb-color-surface-input, #e9eae8)",
+    );
+    expect(cardRoot?.style.getPropertyValue("--bbui-input-background")).toBe(
+      "var(--bb-color-surface-input, #e9eae8)",
+    );
   });
 
   it("uses the dark theme input surface fallback", () => {
@@ -127,7 +166,7 @@ describe("TextInput", () => {
     );
 
     const input = screen.getByTestId("dark-name");
-    const root = input.parentElement?.parentElement;
+    const root = input.closest<HTMLElement>("[data-budget-board-color-scheme]");
 
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "dark");
     expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
