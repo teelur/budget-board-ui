@@ -13,6 +13,11 @@ export {
 } from "./AmountText/AmountText";
 
 export {
+  Autocomplete,
+  type AutocompleteProps,
+} from "./Autocomplete/Autocomplete";
+
+export {
   Badge,
   badgeColors,
   badgeSizes,
@@ -36,10 +41,17 @@ export {
 
 export { DateInput, type DateInputProps } from "./DateInput/DateInput";
 
+export { FileInput, type FileInputProps } from "./FileInput/FileInput";
+
 export {
   DatePickerInput,
   type DatePickerInputProps,
 } from "./DatePickerInput/DatePickerInput";
+
+export {
+  MonthPickerInput,
+  type MonthPickerInputProps,
+} from "./MonthPickerInput/MonthPickerInput";
 
 export {
   NumberInput,

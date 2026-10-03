@@ -1,0 +1,25 @@
+.dropdown {
+  background-color: var(--bbui-autocomplete-background);
+  border-color: var(--bbui-autocomplete-border);
+  color: var(--bbui-autocomplete-foreground);
+}
+
+.option {
+  color: var(--bbui-autocomplete-foreground);
+}
+
+.option:hover:not(:disabled):not([data-combobox-disabled]):not(
+    [data-combobox-selected]
+  ) {
+  background-color: var(--bbui-autocomplete-hover);
+}
+
+.option[data-combobox-selected] {
+  background-color: var(--bbui-autocomplete-selected);
+  color: var(--bbui-autocomplete-foreground);
+}
+
+.option:focus-visible {
+  outline: 2px solid var(--bbui-autocomplete-focus);
+  outline-offset: -2px;
+}

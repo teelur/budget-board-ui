@@ -79,7 +79,7 @@ export function TextInputPage() {
 <TextInput label="Read only" readOnly value="Fixed value" />
 <TextInput label="Disabled" disabled placeholder="Unavailable" />`}
       >
-        <div className={styles.sizeSamples}>
+        <div className={styles.stack}>
           {sizes.map((size) => (
             <TextInput
               aria-label={`${size} text`}
@@ -88,8 +88,6 @@ export function TextInputPage() {
               size={size}
             />
           ))}
-        </div>
-        <div className={styles.stack}>
           <TextInput aria-label="Read only text" readOnly value="Fixed value" />
           <TextInput
             aria-label="Disabled text"

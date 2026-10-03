@@ -61,7 +61,7 @@ export function DateInputPage() {
 <DateInput label="Read only" readOnly value="2025-06-15" />
 <DateInput label="Disabled" disabled />`}
       >
-        <div className={styles.sizeSamples}>
+        <div className={styles.stack}>
           {sizes.map((size) => (
             <DateInput
               aria-label={`${size} date`}
@@ -70,8 +70,6 @@ export function DateInputPage() {
               size={size}
             />
           ))}
-        </div>
-        <div className={styles.stack}>
           <DateInput
             aria-label="Read only date"
             readOnly

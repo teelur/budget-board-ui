@@ -4,3 +4,7 @@
   max-width: 32rem;
   width: 100%;
 }
+
+.apiTable {
+  min-width: 40rem;
+}

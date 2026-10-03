@@ -35,6 +35,9 @@ describe("PasswordInput", () => {
     expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #e9eae8)",
     );
+    expect(root?.style.getPropertyValue("--bbui-input-placeholder")).toBe(
+      "var(--bb-color-text-muted, #969087)",
+    );
     expect(input.parentElement).toHaveClass(classes.input);
     expect(input).toHaveClass(componentClasses.innerInput);
     expect(
@@ -203,6 +206,9 @@ describe("PasswordInput", () => {
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "dark");
     expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #1c1e21)",
+    );
+    expect(root?.style.getPropertyValue("--bbui-input-placeholder")).toBe(
+      "var(--bb-color-text-muted, #716f6b)",
     );
   });
 });

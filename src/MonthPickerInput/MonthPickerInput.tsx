@@ -1,7 +1,7 @@
-import { DatePickerInput as MantineDatePickerInput } from "@mantine/dates";
+import { MonthPickerInput as MantineMonthPickerInput } from "@mantine/dates";
 import type {
-  DatePickerInputProps as MantineDatePickerInputProps,
   DatePickerType,
+  MonthPickerInputProps as MantineMonthPickerInputProps,
 } from "@mantine/dates";
 import {
   ensureMantineProvider,
@@ -13,11 +13,11 @@ import {
 } from "../shared/inputStyles";
 import popoverClasses from "../shared/datePickerStyles.module.css";
 
-export type DatePickerInputProps<Type extends DatePickerType = "default"> =
-  MantineDatePickerInputProps<Type>;
+export type MonthPickerInputProps<Type extends DatePickerType = "default"> =
+  MantineMonthPickerInputProps<Type>;
 
-export function DatePickerInput<Type extends DatePickerType = "default">(
-  props: DatePickerInputProps<Type>,
+export function MonthPickerInput<Type extends DatePickerType = "default">(
+  props: MonthPickerInputProps<Type>,
 ) {
   const {
     className,
@@ -27,14 +27,13 @@ export function DatePickerInput<Type extends DatePickerType = "default">(
     ref,
     styles,
     wrapperProps,
-    ...datePickerInputProps
+    ...monthPickerInputProps
   } = props;
   const inputStyles = useBBUIInputStyles();
 
   const control = (
-    <MantineDatePickerInput<Type>
-      {...datePickerInputProps}
-      firstDayOfWeek={datePickerInputProps.firstDayOfWeek ?? 0}
+    <MantineMonthPickerInput<Type>
+      {...monthPickerInputProps}
       {...(ref === undefined ? {} : { ref })}
       className={className}
       classNames={mergeInputClassNames(classNames, {

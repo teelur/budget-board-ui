@@ -26,6 +26,11 @@ describe("DatePickerInput", () => {
             style: { marginTop: "1rem", paddingLeft: "3rem" },
           }}
         />
+        <DatePickerInput
+          aria-label="Placeholder date picker"
+          classNames={{ placeholder: "consumer-placeholder" }}
+          placeholder="Choose a date"
+        />
       </>,
     );
 
@@ -35,9 +40,17 @@ describe("DatePickerInput", () => {
     expect(trigger).toHaveAttribute("type", "button");
     expect(trigger).toHaveTextContent("2025-06-15");
     expect(trigger).toHaveClass(classes.input, "consumer-date-picker");
+    expect(
+      screen
+        .getByRole("button", { name: "Placeholder date picker" })
+        .querySelector(".mantine-InputPlaceholder-placeholder"),
+    ).toHaveClass(classes.placeholder, "consumer-placeholder");
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "light");
     expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #e9eae8)",
+    );
+    expect(root?.style.getPropertyValue("--bbui-input-placeholder")).toBe(
+      "var(--bb-color-text-muted, #969087)",
     );
     const wrapper = screen.getByTestId("date-picker-wrapper");
     expect(root?.style.paddingLeft).toBe("2rem");
@@ -136,6 +149,11 @@ describe("DatePickerInput", () => {
     expect(
       dropdown.style.getPropertyValue("--bbui-calendar-range-foreground"),
     ).toBe("var(--bb-color-text-heading, #f2f0eb)");
+    const trigger = screen.getByRole("button", { name: "Dark date picker" });
+    const root = trigger.closest(`.${classes.root}`);
+    expect(root?.style.getPropertyValue("--bbui-input-placeholder")).toBe(
+      "var(--bb-color-text-muted, #716f6b)",
+    );
     expect(dropdown.style.borderColor).toBe("red");
   });
 

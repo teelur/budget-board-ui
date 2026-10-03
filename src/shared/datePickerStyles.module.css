@@ -21,6 +21,9 @@
 .dropdown :global(.mantine-DateInput-calendarHeaderLevel),
 .dropdown :global(.mantine-DatePickerInput-calendarHeaderControl),
 .dropdown :global(.mantine-DatePickerInput-calendarHeaderLevel),
+.dropdown :global(.mantine-MonthPickerInput-calendarHeaderControl),
+.dropdown :global(.mantine-MonthPickerInput-calendarHeaderLevel),
+.dropdown :global(.mantine-MonthPickerInput-pickerControl),
 .dropdown :global(.mantine-DatePickerInput-pickerControl),
 .dropdown :global(.mantine-PickerControl-pickerControl) {
   color: var(--bbui-calendar-foreground);
@@ -51,6 +54,15 @@
 }
 
 .dropdown
+  :global(.mantine-MonthPickerInput-calendarHeaderControl:hover:not(:disabled)),
+.dropdown
+  :global(.mantine-MonthPickerInput-calendarHeaderLevel:hover:not(:disabled)) {
+  background-color: transparent;
+  outline: 1px solid var(--bbui-calendar-primary);
+  outline-offset: -1px;
+}
+
+.dropdown
   :global(
     .mantine-PickerControl-pickerControl:hover:not(:disabled):not(
         [data-selected]
@@ -72,6 +84,17 @@
   outline-offset: -1px;
 }
 
+.dropdown
+  :global(
+    .mantine-MonthPickerInput-pickerControl:hover:not(:disabled):not(
+        [data-selected]
+      )
+  ) {
+  background-color: transparent;
+  outline: 1px solid var(--bbui-calendar-primary);
+  outline-offset: -1px;
+}
+
 .dropdown :global(.mantine-DateInput-day[data-selected]:hover:not(:disabled)),
 .dropdown
   :global(.mantine-DatePickerInput-day[data-selected]:hover:not(:disabled)),
@@ -81,6 +104,10 @@
 .dropdown
   :global(
     .mantine-DatePickerInput-pickerControl[data-selected]:hover:not(:disabled)
+  ),
+.dropdown
+  :global(
+    .mantine-MonthPickerInput-pickerControl[data-selected]:hover:not(:disabled)
   ),
 .dropdown
   :global(
@@ -107,6 +134,11 @@
   color: var(--bbui-calendar-primary-content);
 }
 
+.dropdown :global(.mantine-MonthPickerInput-pickerControl[data-selected]) {
+  background-color: var(--bbui-calendar-primary);
+  color: var(--bbui-calendar-primary-content);
+}
+
 .dropdown :global(.mantine-DatePickerInput-pickerControl[data-selected]) {
   background-color: var(--bbui-calendar-primary);
   color: var(--bbui-calendar-primary-content);
@@ -118,6 +150,10 @@
 .dropdown :global(.mantine-DateInput-calendarHeaderLevel:focus-visible),
 .dropdown :global(.mantine-DatePickerInput-calendarHeaderControl:focus-visible),
 .dropdown :global(.mantine-DatePickerInput-calendarHeaderLevel:focus-visible),
+.dropdown
+  :global(.mantine-MonthPickerInput-calendarHeaderControl:focus-visible),
+.dropdown :global(.mantine-MonthPickerInput-calendarHeaderLevel:focus-visible),
+.dropdown :global(.mantine-MonthPickerInput-pickerControl:focus-visible),
 .dropdown :global(.mantine-DatePickerInput-pickerControl:focus-visible),
 .dropdown :global(.mantine-PickerControl-pickerControl:focus-visible) {
   outline: 2px solid var(--bbui-calendar-focus);
