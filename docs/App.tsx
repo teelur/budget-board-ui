@@ -4,6 +4,7 @@ import { MantineProvider } from "@mantine/core";
 import { Moon, Sun } from "lucide-react";
 import {
   Button,
+  FileInput,
   NumberInput,
   PasswordInput,
   TextInput,
@@ -22,6 +23,7 @@ import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
 import { DateInputPage } from "./pages/DateInputPage/DateInputPage";
 import { DatePickerInputPage } from "./pages/DatePickerInputPage/DatePickerInputPage";
+import { FileInputPage } from "./pages/FileInputPage/FileInputPage";
 import { MonthPickerInputPage } from "./pages/MonthPickerInputPage/MonthPickerInputPage";
 import { NumberInputPage } from "./pages/NumberInputPage/NumberInputPage";
 import { PasswordInputPage } from "./pages/PasswordInputPage/PasswordInputPage";
@@ -146,6 +148,7 @@ export function App() {
               <a href="#button">Button</a>
               <a href="#date-input">DateInput</a>
               <a href="#date-picker-input">DatePickerInput</a>
+              <a href="#file-input">FileInput</a>
               <a href="#month-picker-input">MonthPickerInput</a>
               <a href="#number-input">NumberInput</a>
               <a href="#password-input">PasswordInput</a>
@@ -204,6 +207,7 @@ export function App() {
               <ButtonPage />
               <DateInputPage />
               <DatePickerInputPage />
+              <FileInputPage />
               <MonthPickerInputPage />
               <NumberInputPage />
               <PasswordInputPage />

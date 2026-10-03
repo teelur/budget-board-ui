@@ -41,6 +41,8 @@ export {
 
 export { DateInput, type DateInputProps } from "./DateInput/DateInput";
 
+export { FileInput, type FileInputProps } from "./FileInput/FileInput";
+
 export {
   DatePickerInput,
   type DatePickerInputProps,
