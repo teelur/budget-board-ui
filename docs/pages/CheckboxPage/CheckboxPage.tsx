@@ -12,9 +12,7 @@ export function CheckboxPage() {
   const [playgroundChecked, setPlaygroundChecked] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const [isIndeterminate, setIsIndeterminate] = useState(false);
-  const [labelPosition, setLabelPosition] = useState<"left" | "right">(
-    "right",
-  );
+  const [labelPosition, setLabelPosition] = useState<"left" | "right">("right");
 
   const playgroundProps = [
     'label="Include pending transactions"',
@@ -154,7 +152,10 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         </div>
       </ComponentDemoSection>
 
-      <section className={pageStyles.componentReferenceSection} id="checkbox-api">
+      <section
+        className={pageStyles.componentReferenceSection}
+        id="checkbox-api"
+      >
         <div className={demoStyles.componentDemoHeading}>
           <div>
             <h3>API reference</h3>

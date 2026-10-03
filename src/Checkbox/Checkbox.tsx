@@ -23,23 +23,16 @@ function mergeCheckboxClassNames(
 ): NonNullable<CheckboxProps["classNames"]> {
   const merge = (consumerClassNames?: CheckboxClassNames) => ({
     ...consumerClassNames,
-    input: [classes.input, consumerClassNames?.input]
-      .filter(Boolean)
-      .join(" "),
-    label: [classes.label, consumerClassNames?.label]
-      .filter(Boolean)
-      .join(" "),
+    input: [classes.input, consumerClassNames?.input].filter(Boolean).join(" "),
+    label: [classes.label, consumerClassNames?.label].filter(Boolean).join(" "),
     description: [classes.description, consumerClassNames?.description]
       .filter(Boolean)
       .join(" "),
-    error: [classes.error, consumerClassNames?.error]
-      .filter(Boolean)
-      .join(" "),
+    error: [classes.error, consumerClassNames?.error].filter(Boolean).join(" "),
   });
 
   if (typeof classNames === "function") {
-    return (theme, props, ctx) =>
-      merge(classNames(theme, props, ctx));
+    return (theme, props, ctx) => merge(classNames(theme, props, ctx));
   }
 
   return merge(classNames);
@@ -53,10 +46,8 @@ export function Checkbox(props: CheckboxProps) {
     wrapperProps,
     ...checkboxProps
   } = props;
-  const {
-    className: wrapperClassName,
-    ...remainingWrapperProps
-  } = wrapperProps ?? {};
+  const { className: wrapperClassName, ...remainingWrapperProps } =
+    wrapperProps ?? {};
   const mantineContext = useContext(MantineContext);
   const systemColorScheme = useColorScheme("light");
   const colorScheme =
@@ -66,14 +57,16 @@ export function Checkbox(props: CheckboxProps) {
         ? "dark"
         : "light";
   const colors = budgetBoardColors[colorScheme];
-  const color =
-    consumerColor ?? `var(--bb-color-primary, ${colors.primary})`;
+  const color = consumerColor ?? `var(--bb-color-primary, ${colors.primary})`;
   const iconColorProps =
     consumerIconColor !== undefined
       ? { iconColor: consumerIconColor }
       : consumerColor === undefined
         ? {
-            iconColor: `var(--bb-color-primary-content, ${colors.primaryContent})` as NonNullable<CheckboxProps["iconColor"]>,
+            iconColor:
+              `var(--bb-color-primary-content, ${colors.primaryContent})` as NonNullable<
+                CheckboxProps["iconColor"]
+              >,
           }
         : {};
 
@@ -88,5 +81,9 @@ export function Checkbox(props: CheckboxProps) {
     />
   );
 
-  return mantineContext ? control : <MantineProvider>{control}</MantineProvider>;
+  return mantineContext ? (
+    control
+  ) : (
+    <MantineProvider>{control}</MantineProvider>
+  );
 }

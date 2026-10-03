@@ -3,7 +3,8 @@
   border-color: var(--bb-color-border-subtle, #d8d5ce);
 }
 
-:global([data-mantine-color-scheme="dark"]) .input:not(:checked):not([data-indeterminate]) {
+:global([data-mantine-color-scheme="dark"])
+  .input:not(:checked):not([data-indeterminate]) {
   background-color: var(--bb-color-surface-input, #1c1e21);
   border-color: var(--bb-color-border-subtle, #3a3d42);
 }
@@ -18,7 +19,8 @@
   border-color: var(--bb-color-border-subtle, #d8d5ce);
 }
 
-:global([data-mantine-color-scheme="dark"]) .input:disabled:not(:checked):not([data-indeterminate]) {
+:global([data-mantine-color-scheme="dark"])
+  .input:disabled:not(:checked):not([data-indeterminate]) {
   background-color: var(--bb-color-surface-sunken, #0d0f12);
   border-color: var(--bb-color-border-subtle, #3a3d42);
 }
