@@ -17,6 +17,7 @@ const semanticColorKeys = [
   "surfaceElevated",
   "navigation",
   "surfaceSunken",
+  "surfaceInput",
   "surfaceOverlay",
   "textHeading",
   "textPrimary",

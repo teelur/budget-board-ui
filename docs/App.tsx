@@ -4,6 +4,10 @@ import { MantineProvider } from "@mantine/core";
 import { Moon, Sun } from "lucide-react";
 import {
   Button,
+  NumberInput,
+  PasswordInput,
+  TextInput,
+  Textarea,
   budgetBoardColors,
   budgetBoardDarkTheme,
   budgetBoardTheme,
@@ -15,8 +19,15 @@ import { AmountTextPage } from "./pages/AmountTextPage/AmountTextPage";
 import { BadgePage } from "./pages/BadgePage/BadgePage";
 import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
+import { DateInputPage } from "./pages/DateInputPage/DateInputPage";
+import { DatePickerInputPage } from "./pages/DatePickerInputPage/DatePickerInputPage";
+import { NumberInputPage } from "./pages/NumberInputPage/NumberInputPage";
+import { PasswordInputPage } from "./pages/PasswordInputPage/PasswordInputPage";
+import { PinInputPage } from "./pages/PinInputPage/PinInputPage";
 import { ProgressPage } from "./pages/ProgressPage/ProgressPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
+import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
+import { TextareaPage } from "./pages/TextareaPage/TextareaPage";
 import { TypographyPage } from "./pages/TypographyPage/TypographyPage";
 import styles from "./App.module.css";
 
@@ -130,8 +141,15 @@ export function App() {
               <a href="#amount-text">AmountText</a>
               <a href="#badge">Badge</a>
               <a href="#button">Button</a>
+              <a href="#date-input">DateInput</a>
+              <a href="#date-picker-input">DatePickerInput</a>
+              <a href="#number-input">NumberInput</a>
+              <a href="#password-input">PasswordInput</a>
+              <a href="#pin-input">PinInput</a>
               <a href="#progress">Progress</a>
               <a href="#segmented-control">SegmentedControl</a>
+              <a href="#text-input">TextInput</a>
+              <a href="#textarea">Textarea</a>
             </div>
             <p className={`${styles.navHeading} ${styles.navHeadingSpaced}`}>
               Package
@@ -179,6 +197,13 @@ export function App() {
               <AmountTextPage />
               <BadgePage />
               <ButtonPage />
+              <DateInputPage />
+              <DatePickerInputPage />
+              <NumberInputPage />
+              <PasswordInputPage />
+              <PinInputPage />
+              <TextInputPage />
+              <TextareaPage />
               <ProgressPage />
               <SegmentedControlPage />
             </section>

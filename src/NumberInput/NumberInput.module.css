@@ -1,0 +1,16 @@
+.root .controls {
+  overflow: hidden;
+}
+
+.root .control {
+  border-inline-start-color: var(--bbui-input-border);
+  color: var(--bbui-input-control-color);
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.root .control:hover:not(:disabled) {
+  background-color: var(--bbui-input-control-hover);
+  color: var(--bbui-input-focus);
+}

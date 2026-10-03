@@ -1,0 +1,20 @@
+.stack {
+  display: grid;
+  gap: 1rem;
+  max-width: 32rem;
+  width: 100%;
+}
+
+.sizeSamples {
+  align-items: end;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  width: 100%;
+}
+
+@media (max-width: 800px) {
+  .sizeSamples {
+    grid-template-columns: 1fr;
+  }
+}

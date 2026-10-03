@@ -57,6 +57,30 @@
   overflow-x: auto;
 }
 
+.referenceGrid table {
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  width: 100%;
+}
+
+.referenceGrid th,
+.referenceGrid td {
+  border-top: 1px solid var(--line);
+  padding: 0.7rem 0.4rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.referenceGrid th {
+  font-family: var(--data);
+  font-size: 0.68rem;
+  font-weight: 500;
+}
+
+.referenceGrid td {
+  color: var(--muted);
+}
+
 .referenceGrid h3 {
   font-size: 1rem;
   margin: 0 0 0.8rem;
