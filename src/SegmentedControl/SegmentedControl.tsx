@@ -159,7 +159,7 @@ export function SegmentedControl({
           ),
           "--bbui-segmented-border": `var(--bb-color-border-subtle, ${budgetBoardColors[colorScheme].borderSubtle})`,
           "--bbui-segmented-neutral-content": `var(--bb-color-neutral-content, ${budgetBoardColors[colorScheme].neutralContent})`,
-          "--bbui-segmented-track-bg": `var(--bb-color-surface, ${budgetBoardColors[colorScheme].surface})`,
+          "--bbui-segmented-track-bg": `var(--bb-color-surface-input, ${budgetBoardColors[colorScheme].surfaceInput})`,
           ...style,
         } as CSSProperties
       }

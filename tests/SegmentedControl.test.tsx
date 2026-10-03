@@ -12,6 +12,15 @@ const data = [
 ];
 
 describe("SegmentedControl", () => {
+  it("uses the input surface color for the track background", () => {
+    render(<SegmentedControl aria-label="Period" data={data} />);
+
+    expect(
+      screen
+        .getByRole("radiogroup")
+        .style.getPropertyValue("--bbui-segmented-track-bg"),
+    ).toBe("var(--bb-color-surface-input, #e9eae8)");
+  });
   it("renders a radiogroup with one radio per item, defaulting to the first item", () => {
     render(<SegmentedControl aria-label="Period" data={data} />);
 
