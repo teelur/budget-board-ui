@@ -4,6 +4,7 @@ import { MantineProvider } from "@mantine/core";
 import { Moon, Sun } from "lucide-react";
 import {
   Button,
+  Checkbox,
   FileInput,
   NumberInput,
   PasswordInput,
@@ -20,6 +21,7 @@ import { AmountTextPage } from "./pages/AmountTextPage/AmountTextPage";
 import { AutocompletePage } from "./pages/AutocompletePage/AutocompletePage";
 import { BadgePage } from "./pages/BadgePage/BadgePage";
 import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
+import { CheckboxPage } from "./pages/CheckboxPage/CheckboxPage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
 import { DateInputPage } from "./pages/DateInputPage/DateInputPage";
 import { DatePickerInputPage } from "./pages/DatePickerInputPage/DatePickerInputPage";
@@ -146,6 +148,7 @@ export function App() {
               <a href="#autocomplete">Autocomplete</a>
               <a href="#badge">Badge</a>
               <a href="#button">Button</a>
+              <a href="#checkbox">Checkbox</a>
               <a href="#date-input">DateInput</a>
               <a href="#date-picker-input">DatePickerInput</a>
               <a href="#file-input">FileInput</a>
@@ -205,6 +208,7 @@ export function App() {
               <AutocompletePage />
               <BadgePage />
               <ButtonPage />
+              <CheckboxPage />
               <DateInputPage />
               <DatePickerInputPage />
               <FileInputPage />

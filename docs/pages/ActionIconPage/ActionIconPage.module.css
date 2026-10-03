@@ -106,8 +106,7 @@
   padding: 0.65rem 0.7rem;
 }
 
-.actionIconField select:focus-visible,
-.actionIconToggle input:focus-visible {
+.actionIconField select:focus-visible {
   outline: 2px solid var(--bb-color-focus-ring);
   outline-offset: 2px;
 }
@@ -122,13 +121,6 @@
   display: flex;
   font-size: 0.8rem;
   gap: 0.45rem;
-}
-
-.actionIconToggle input {
-  accent-color: var(--bb-color-primary);
-  height: 1rem;
-  margin: 0;
-  width: 1rem;
 }
 
 .actionIconPlaygroundPreview {

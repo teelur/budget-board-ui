@@ -5,6 +5,7 @@ import {
   actionIconSizes,
   buttonColors,
   buttonVariants,
+  Checkbox,
 } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
@@ -320,36 +321,33 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                 </p>
               </div>
               <div className={styles.actionIconToggleGrid}>
-                <label className={styles.actionIconToggle}>
-                  <input
-                    checked={isPlaygroundLoading}
-                    onChange={(event) =>
-                      setIsPlaygroundLoading(event.target.checked)
-                    }
-                    type="checkbox"
-                  />
-                  <span>Loading</span>
-                </label>
-                <label className={styles.actionIconToggle}>
-                  <input
-                    checked={isPlaygroundDisabled}
-                    onChange={(event) =>
-                      setIsPlaygroundDisabled(event.target.checked)
-                    }
-                    type="checkbox"
-                  />
-                  <span>Disabled</span>
-                </label>
-                <label className={styles.actionIconToggle}>
-                  <input
-                    checked={isPlaygroundSelected}
-                    onChange={(event) =>
-                      setIsPlaygroundSelected(event.target.checked)
-                    }
-                    type="checkbox"
-                  />
-                  <span>Selected</span>
-                </label>
+                <Checkbox
+                  checked={isPlaygroundLoading}
+                  className={styles.actionIconToggle}
+                  label="Loading"
+                  onChange={(event) =>
+                    setIsPlaygroundLoading(event.target.checked)
+                  }
+                  size="xs"
+                />
+                <Checkbox
+                  checked={isPlaygroundDisabled}
+                  className={styles.actionIconToggle}
+                  label="Disabled"
+                  onChange={(event) =>
+                    setIsPlaygroundDisabled(event.target.checked)
+                  }
+                  size="xs"
+                />
+                <Checkbox
+                  checked={isPlaygroundSelected}
+                  className={styles.actionIconToggle}
+                  label="Selected"
+                  onChange={(event) =>
+                    setIsPlaygroundSelected(event.target.checked)
+                  }
+                  size="xs"
+                />
               </div>
             </div>
           </div>

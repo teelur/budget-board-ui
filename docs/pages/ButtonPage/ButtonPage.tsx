@@ -4,6 +4,7 @@ import {
   buttonColors,
   buttonSizes,
   buttonVariants,
+  Checkbox,
 } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
@@ -393,38 +394,34 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                 </p>
               </div>
               <div className={styles.buttonToggleGrid}>
-                <label className={styles.buttonToggle}>
-                  <input
-                    checked={isLoading}
-                    onChange={(event) => setIsLoading(event.target.checked)}
-                    type="checkbox"
-                  />
-                  <span>Loading</span>
-                </label>
-                <label className={styles.buttonToggle}>
-                  <input
-                    checked={isDisabled}
-                    onChange={(event) => setIsDisabled(event.target.checked)}
-                    type="checkbox"
-                  />
-                  <span>Disabled</span>
-                </label>
-                <label className={styles.buttonToggle}>
-                  <input
-                    checked={isSelected}
-                    onChange={(event) => setIsSelected(event.target.checked)}
-                    type="checkbox"
-                  />
-                  <span>Selected</span>
-                </label>
-                <label className={styles.buttonToggle}>
-                  <input
-                    checked={isFullWidth}
-                    onChange={(event) => setIsFullWidth(event.target.checked)}
-                    type="checkbox"
-                  />
-                  <span>Full width</span>
-                </label>
+                <Checkbox
+                  checked={isLoading}
+                  className={styles.buttonToggle}
+                  label="Loading"
+                  onChange={(event) => setIsLoading(event.target.checked)}
+                  size="xs"
+                />
+                <Checkbox
+                  checked={isDisabled}
+                  className={styles.buttonToggle}
+                  label="Disabled"
+                  onChange={(event) => setIsDisabled(event.target.checked)}
+                  size="xs"
+                />
+                <Checkbox
+                  checked={isSelected}
+                  className={styles.buttonToggle}
+                  label="Selected"
+                  onChange={(event) => setIsSelected(event.target.checked)}
+                  size="xs"
+                />
+                <Checkbox
+                  checked={isFullWidth}
+                  className={styles.buttonToggle}
+                  label="Full width"
+                  onChange={(event) => setIsFullWidth(event.target.checked)}
+                  size="xs"
+                />
               </div>
             </div>
           </div>

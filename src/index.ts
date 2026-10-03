@@ -39,6 +39,8 @@ export {
   type ButtonVariant,
 } from "./Button/Button";
 
+export { Checkbox, type CheckboxProps } from "./Checkbox/Checkbox";
+
 export { DateInput, type DateInputProps } from "./DateInput/DateInput";
 
 export { FileInput, type FileInputProps } from "./FileInput/FileInput";
