@@ -35,6 +35,39 @@ describe("Autocomplete", () => {
     expect(input).toHaveValue("Coffee shop");
   });
 
+  it("resolves class name callbacks with Autocomplete props", async () => {
+    const user = userEvent.setup();
+    render(
+      <Autocomplete
+        aria-label="Merchant"
+        data={["Coffee shop"]}
+        disabled={false}
+        size="lg"
+        classNames={(_theme, callbackProps) => {
+          if (callbackProps.disabled !== false) {
+            throw new Error("Autocomplete classNames received the wrong props");
+          }
+
+          return {
+            dropdown: "large-dropdown",
+            option:
+              callbackProps.size === "lg" ? "large-option" : "small-option",
+          };
+        }}
+      />,
+    );
+
+    const input = screen.getByRole("combobox", { name: "Merchant" });
+    await user.type(input, "coffee");
+
+    expect(document.querySelector(`.${classes.dropdown}`)).toHaveClass(
+      "large-dropdown",
+    );
+    expect(
+      screen.getByRole("option", { hidden: true, name: "Coffee shop" }),
+    ).toHaveClass("large-option");
+  });
+
   it("styles the dropdown for BBUI dark mode and preserves consumer overrides", async () => {
     const user = userEvent.setup();
     render(

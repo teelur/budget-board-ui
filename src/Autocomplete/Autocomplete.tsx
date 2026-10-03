@@ -25,17 +25,18 @@ function resolveClassNames(
 }
 
 function mergeAutocompleteClassNames<TClassNames>(
-  ...classNameSources: unknown[]
+  getAutocompleteClassNames: () => Record<string, string | undefined>,
+  comboboxClassNames: unknown,
 ): TClassNames {
   return ((...args: unknown[]) => {
     const merged: Record<string, string | undefined> = {};
+    const autocomplete = getAutocompleteClassNames();
+    const combobox = resolveClassNames(comboboxClassNames, args);
 
-    for (const source of classNameSources) {
-      const classNames = resolveClassNames(source, args);
-
-      for (const [slot, className] of Object.entries(classNames)) {
-        merged[slot] = [merged[slot], className].filter(Boolean).join(" ");
-      }
+    for (const slot of ["dropdown", "option"]) {
+      merged[slot] = [autocomplete[slot], combobox[slot]]
+        .filter(Boolean)
+        .join(" ");
     }
 
     return merged;
@@ -99,6 +100,20 @@ export function Autocomplete(props: AutocompleteProps) {
     dropdown: classes.dropdown,
     option: classes.option,
   });
+  let resolvedAutocompleteClassNames: Record<string, string | undefined> =
+    typeof autocompleteClassNames === "function"
+      ? {}
+      : (autocompleteClassNames as Record<string, string | undefined>);
+  const classNamesForAutocomplete =
+    typeof autocompleteClassNames === "function"
+      ? (((...args: unknown[]) => {
+          resolvedAutocompleteClassNames = resolveClassNames(
+            autocompleteClassNames,
+            args,
+          );
+          return resolvedAutocompleteClassNames;
+        }) as typeof autocompleteClassNames)
+      : autocompleteClassNames;
   const autocompleteStyles = mergeInputStyles(
     styles,
     "root",
@@ -109,11 +124,11 @@ export function Autocomplete(props: AutocompleteProps) {
     <MantineAutocomplete
       {...autocompleteProps}
       className={className}
-      classNames={autocompleteClassNames}
+      classNames={classNamesForAutocomplete}
       comboboxProps={{
         ...comboboxProps,
         classNames: mergeAutocompleteClassNames(
-          autocompleteClassNames,
+          () => resolvedAutocompleteClassNames,
           comboboxProps?.classNames,
         ) as NonNullable<NonNullable<typeof comboboxProps>["classNames"]>,
         styles: mergeAutocompleteStyles<
