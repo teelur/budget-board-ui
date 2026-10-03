@@ -34,6 +34,9 @@ describe("NumberInput", () => {
       "var(--bb-color-surface-elevated, #fffcf7)",
     );
     expect(
+      root?.style.getPropertyValue("--bbui-input-control-hover-border"),
+    ).toBe("var(--bb-color-button-hover-border, #3b5bdb)");
+    expect(
       input.parentElement?.querySelector("button.mantine-NumberInput-control"),
     ).toHaveClass(componentClasses.control);
   });
