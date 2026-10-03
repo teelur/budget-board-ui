@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MantineProvider } from "@mantine/core";
 import { describe, expect, it, vi } from "vitest";
 import { MonthPickerInput } from "../src/MonthPickerInput/MonthPickerInput";
 import popoverClasses from "../src/shared/datePickerStyles.module.css";
@@ -10,13 +11,15 @@ describe("MonthPickerInput", () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
     render(
-      <MonthPickerInput
-        aria-label="Pick a month"
-        data-testid="month-picker-trigger"
-        defaultDate={new Date(2025, 5, 1)}
-        onChange={onChange}
-        valueFormat="MMMM YYYY"
-      />,
+      <MantineProvider env="test">
+        <MonthPickerInput
+          aria-label="Pick a month"
+          data-testid="month-picker-trigger"
+          defaultDate={new Date(2025, 5, 1)}
+          onChange={onChange}
+          valueFormat="MMMM YYYY"
+        />
+      </MantineProvider>,
     );
 
     const trigger = screen.getByTestId("month-picker-trigger");
