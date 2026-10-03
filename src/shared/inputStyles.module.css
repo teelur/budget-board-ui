@@ -19,6 +19,11 @@
 
 .root .input::placeholder {
   color: var(--bbui-input-placeholder);
+  opacity: 1;
+}
+
+.root .placeholder {
+  color: var(--bbui-input-placeholder);
 }
 
 .root .input:focus-visible {

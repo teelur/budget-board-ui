@@ -92,7 +92,7 @@ export function NumberInputPage() {
 <NumberInput label="Read only" readOnly value={10} />
 <NumberInput label="Disabled" disabled value={10} />`}
       >
-        <div className={styles.sizeSamples}>
+        <div className={styles.stack}>
           {sizes.map((size) => (
             <NumberInput
               aria-label={`${size} amount`}
@@ -101,8 +101,6 @@ export function NumberInputPage() {
               size={size}
             />
           ))}
-        </div>
-        <div className={styles.stack}>
           <NumberInput aria-label="Read only amount" readOnly value={10} />
           <NumberInput aria-label="Disabled amount" disabled value={10} />
         </div>

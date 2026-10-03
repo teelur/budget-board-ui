@@ -107,7 +107,7 @@ const [visible, setVisible] = useState(false);
 <PasswordInput label="Read only" readOnly value="Fixed value" />
 <PasswordInput label="Disabled" disabled />`}
       >
-        <div className={styles.sizeSamples}>
+        <div className={styles.stack}>
           {sizes.map((size) => (
             <PasswordInput
               aria-label={`${size} password`}
@@ -116,8 +116,6 @@ const [visible, setVisible] = useState(false);
               size={size}
             />
           ))}
-        </div>
-        <div className={styles.stack}>
           <PasswordInput
             aria-label="Read only password"
             readOnly

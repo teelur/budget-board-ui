@@ -114,7 +114,7 @@ export function TextareaPage() {
         code={`<Textarea label="Compact" size="sm" minRows={2} />
 <Textarea label="Resizable" resize="vertical" minRows={3} />`}
       >
-        <div className={styles.sizeSamples}>
+        <div className={styles.stack}>
           {sizes.map((size) => (
             <Textarea
               aria-label={`${size} note`}
@@ -124,13 +124,13 @@ export function TextareaPage() {
               size={size}
             />
           ))}
+          <Textarea
+            aria-label="Resizable note"
+            minRows={3}
+            placeholder="Drag to resize"
+            resize="vertical"
+          />
         </div>
-        <Textarea
-          aria-label="Resizable note"
-          minRows={3}
-          placeholder="Drag to resize"
-          resize="vertical"
-        />
       </ComponentDemoSection>
 
       <section

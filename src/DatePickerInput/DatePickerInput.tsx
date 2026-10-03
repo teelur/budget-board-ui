@@ -40,6 +40,7 @@ export function DatePickerInput<Type extends DatePickerType = "default">(
       classNames={mergeInputClassNames(classNames, {
         root: inputStyles.classes.root,
         input: inputStyles.classes.input,
+        placeholder: inputStyles.classes.placeholder,
       })}
       styles={mergeInputStyles(styles, "root", inputStyles.wrapperStyle)}
       modalProps={mergeInputModalProps(
