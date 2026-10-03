@@ -204,6 +204,7 @@ export function App() {
                   references.
                 </p>
               </div>
+              <ActionIconPage />
               <AmountTextPage />
               <AutocompletePage />
               <BadgePage />
