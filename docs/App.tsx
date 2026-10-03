@@ -22,6 +22,7 @@ import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
 import { DateInputPage } from "./pages/DateInputPage/DateInputPage";
 import { DatePickerInputPage } from "./pages/DatePickerInputPage/DatePickerInputPage";
+import { MonthPickerInputPage } from "./pages/MonthPickerInputPage/MonthPickerInputPage";
 import { NumberInputPage } from "./pages/NumberInputPage/NumberInputPage";
 import { PasswordInputPage } from "./pages/PasswordInputPage/PasswordInputPage";
 import { PinInputPage } from "./pages/PinInputPage/PinInputPage";
@@ -145,6 +146,7 @@ export function App() {
               <a href="#button">Button</a>
               <a href="#date-input">DateInput</a>
               <a href="#date-picker-input">DatePickerInput</a>
+              <a href="#month-picker-input">MonthPickerInput</a>
               <a href="#number-input">NumberInput</a>
               <a href="#password-input">PasswordInput</a>
               <a href="#pin-input">PinInput</a>
@@ -202,6 +204,7 @@ export function App() {
               <ButtonPage />
               <DateInputPage />
               <DatePickerInputPage />
+              <MonthPickerInputPage />
               <NumberInputPage />
               <PasswordInputPage />
               <PinInputPage />

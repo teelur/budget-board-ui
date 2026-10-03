@@ -47,6 +47,11 @@ export {
 } from "./DatePickerInput/DatePickerInput";
 
 export {
+  MonthPickerInput,
+  type MonthPickerInputProps,
+} from "./MonthPickerInput/MonthPickerInput";
+
+export {
   NumberInput,
   type NumberInputHandlers,
   type NumberInputMode,
