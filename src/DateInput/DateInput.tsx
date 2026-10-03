@@ -32,7 +32,8 @@ export function DateInput(props: DateInputProps) {
       })}
       popoverProps={mergeInputPopoverProps(
         popoverProps,
-        `${popoverClasses.dropdown} ${popoverClasses[inputStyles.colorScheme]}`,
+        popoverClasses.dropdown!,
+        inputStyles.calendarDropdownStyle,
       )}
       style={style}
       wrapperProps={inputStyles.getWrapperProps(wrapperProps)}

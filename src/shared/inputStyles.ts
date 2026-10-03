@@ -45,12 +45,35 @@ export function mergeInputClassNames<T>(
 export function mergeInputPopoverProps(
   popoverProps: Partial<Omit<PopoverProps, "children">> | undefined,
   dropdownClassName: string,
+  dropdownStyle: CSSProperties,
 ): Partial<Omit<PopoverProps, "children">> {
+  const popoverStyles = popoverProps?.styles;
+  const mergeStyles: NonNullable<PopoverProps["styles"]> =
+    typeof popoverStyles === "function"
+      ? (theme, props, ctx) => {
+          const consumerStyles = popoverStyles(theme, props, ctx);
+          return {
+            ...consumerStyles,
+            dropdown: {
+              ...dropdownStyle,
+              ...consumerStyles?.dropdown,
+            },
+          };
+        }
+      : {
+          ...popoverStyles,
+          dropdown: {
+            ...dropdownStyle,
+            ...popoverStyles?.dropdown,
+          },
+        };
+
   return {
     ...popoverProps,
     classNames: mergeInputClassNames(popoverProps?.classNames, {
       dropdown: dropdownClassName,
     }),
+    styles: mergeStyles,
   };
 }
 
@@ -73,6 +96,17 @@ export function useBBUIInputStyles() {
     "--bbui-input-control-hover": `var(--bb-color-surface-elevated, ${colors.surfaceElevated})`,
     "--bbui-input-control-color": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
   } as CSSProperties;
+  const calendarDropdownStyle = {
+    "--bbui-calendar-background": `var(--bb-color-surface-elevated, ${colors.surfaceElevated})`,
+    "--bbui-calendar-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
+    "--bbui-calendar-foreground": `var(--bb-color-text-primary, ${colors.textPrimary})`,
+    "--bbui-calendar-muted": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
+    "--bbui-calendar-primary": `var(--bb-color-primary, ${colors.primary})`,
+    "--bbui-calendar-primary-content": `var(--bb-color-primary-content, ${colors.primaryContent})`,
+    "--bbui-calendar-range": `var(--bb-color-selection, ${colors.selection})`,
+    "--bbui-calendar-range-foreground": `var(--bb-color-text-${colorScheme === "dark" ? "heading" : "primary"}, ${colorScheme === "dark" ? colors.textHeading : colors.textPrimary})`,
+    "--bbui-calendar-focus": `var(--bb-color-focus-ring, ${colors.focusRing})`,
+  } as CSSProperties;
 
   function getWrapperProps<T extends { style?: CSSProperties | undefined }>(
     wrapperProps?: T,
@@ -93,6 +127,7 @@ export function useBBUIInputStyles() {
   return {
     classes,
     colorScheme,
+    calendarDropdownStyle,
     getWrapperProps,
     hasMantineContext: mantineContext !== null,
   };

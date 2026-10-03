@@ -40,7 +40,8 @@ export function DatePickerInput<Type extends DatePickerType = "default">(
       })}
       popoverProps={mergeInputPopoverProps(
         popoverProps,
-        `${popoverClasses.dropdown} ${popoverClasses[inputStyles.colorScheme]}`,
+        popoverClasses.dropdown!,
+        inputStyles.calendarDropdownStyle,
       )}
       style={style}
       wrapperProps={inputStyles.getWrapperProps(wrapperProps)}

@@ -54,16 +54,26 @@ describe("DateInput", () => {
       <DateInput
         aria-label="Calendar date"
         defaultDate={new Date(2025, 5, 1)}
-        popoverProps={{ classNames: { dropdown: "consumer-date-dropdown" } }}
+        popoverProps={{
+          classNames: { dropdown: "consumer-date-dropdown" },
+          styles: { dropdown: { color: "tomato" } },
+        }}
       />,
     );
 
     await user.click(screen.getByRole("textbox", { name: "Calendar date" }));
     await screen.findByRole("button", { name: "June 2025" });
 
-    expect(
-      container.ownerDocument.querySelector(`.${popoverClasses.dropdown}`),
-    ).toHaveClass(popoverClasses.light, "consumer-date-dropdown");
+    const dropdown = container.ownerDocument.querySelector(
+      `.${popoverClasses.dropdown}`,
+    );
+
+    expect(dropdown).toHaveClass("consumer-date-dropdown");
+    expect(dropdown).not.toHaveClass("light", "dark");
+    expect(dropdown?.style.color).toBe("tomato");
+    expect(dropdown?.style.getPropertyValue("--bbui-calendar-background")).toBe(
+      "var(--bb-color-surface-elevated, #fffcf7)",
+    );
   });
 
   it("starts the calendar week on Sunday by default", async () => {

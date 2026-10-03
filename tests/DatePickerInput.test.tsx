@@ -111,9 +111,14 @@ describe("DatePickerInput", () => {
 
     expect(dropdown).toHaveClass(
       popoverClasses.dropdown,
-      popoverClasses.dark,
       "consumer-picker-dropdown",
     );
+    expect(dropdown.style.getPropertyValue("--bbui-calendar-background")).toBe(
+      "var(--bb-color-surface-elevated, #22252a)",
+    );
+    expect(
+      dropdown.style.getPropertyValue("--bbui-calendar-range-foreground"),
+    ).toBe("var(--bb-color-text-heading, #f2f0eb)");
   });
 
   it("preserves the typed range value API", () => {

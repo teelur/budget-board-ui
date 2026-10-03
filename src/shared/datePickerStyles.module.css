@@ -4,30 +4,6 @@
   color: var(--bbui-calendar-foreground);
 }
 
-.light {
-  --bbui-calendar-background: var(--bb-color-surface-elevated, #fffcf7);
-  --bbui-calendar-border: var(--bb-color-border-subtle, #d8d5ce);
-  --bbui-calendar-foreground: var(--bb-color-text-primary, #3a3834);
-  --bbui-calendar-muted: var(--bb-color-text-secondary, #68645d);
-  --bbui-calendar-primary: var(--bb-color-primary, #4c6ef5);
-  --bbui-calendar-primary-content: var(--bb-color-primary-content, #fffaf2);
-  --bbui-calendar-range: var(--bb-color-selection, #dbe4ff);
-  --bbui-calendar-range-foreground: var(--bb-color-text-primary, #3a3834);
-  --bbui-calendar-focus: var(--bb-color-focus-ring, #4c6ef5);
-}
-
-.dark {
-  --bbui-calendar-background: var(--bb-color-surface-elevated, #22252a);
-  --bbui-calendar-border: var(--bb-color-border-subtle, #3a3d42);
-  --bbui-calendar-foreground: var(--bb-color-text-primary, #d8d5ce);
-  --bbui-calendar-muted: var(--bb-color-text-secondary, #aaa69e);
-  --bbui-calendar-primary: var(--bb-color-primary, #91a7ff);
-  --bbui-calendar-primary-content: var(--bb-color-primary-content, #1e2450);
-  --bbui-calendar-range: var(--bb-color-selection, #1e2450);
-  --bbui-calendar-range-foreground: var(--bb-color-text-heading, #f2f0eb);
-  --bbui-calendar-focus: var(--bb-color-focus-ring, #91a7ff);
-}
-
 .dropdown :global([data-calendar]) {
   color: var(--bbui-calendar-foreground);
 }
