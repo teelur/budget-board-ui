@@ -4,7 +4,6 @@ import { MantineProvider } from "@mantine/core";
 import { Moon, Sun } from "lucide-react";
 import {
   Button,
-  Checkbox,
   FileInput,
   NumberInput,
   PasswordInput,
