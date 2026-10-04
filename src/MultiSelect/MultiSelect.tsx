@@ -14,7 +14,10 @@ import {
 } from "../shared/comboboxStyles";
 import comboboxClasses from "../shared/comboboxStyles.module.css";
 
-export interface MultiSelectProps extends MantineMultiSelectProps {
+export interface MultiSelectProps extends Omit<
+  MantineMultiSelectProps,
+  "creatable" | "getCreateLabel" | "onCreate"
+> {
   creatable?: boolean;
   getCreateLabel?: (query: string) => ReactNode;
   onCreate?: (
