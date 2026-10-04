@@ -1,5 +1,5 @@
-import { Autocomplete as MantineAutocomplete } from "@mantine/core";
-import type { AutocompleteProps as MantineAutocompleteProps } from "@mantine/core";
+import { Select as MantineSelect } from "@mantine/core";
+import type { SelectProps as MantineSelectProps } from "@mantine/core";
 import {
   ensureMantineProvider,
   mergeInputStyles,
@@ -12,16 +12,16 @@ import {
 } from "../shared/comboboxStyles";
 import comboboxClasses from "../shared/comboboxStyles.module.css";
 
-export type AutocompleteProps = MantineAutocompleteProps;
+export type SelectProps = MantineSelectProps;
 
-export function Autocomplete(props: AutocompleteProps) {
+export function Select(props: SelectProps) {
   const {
     className,
     classNames,
     comboboxProps,
     styles,
     wrapperProps,
-    ...autocompleteProps
+    ...selectProps
   } = props;
   const inputStyles = useBBUIInputStyles();
   const { componentClassNames, comboboxClassNames } =
@@ -47,8 +47,8 @@ export function Autocomplete(props: AutocompleteProps) {
   );
 
   const control = (
-    <MantineAutocomplete
-      {...autocompleteProps}
+    <MantineSelect
+      {...selectProps}
       className={className}
       classNames={componentClassNames}
       comboboxProps={{

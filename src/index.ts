@@ -41,6 +41,16 @@ export {
 
 export { Checkbox, type CheckboxProps } from "./Checkbox/Checkbox";
 
+export {
+  CategorySelect,
+  type CategorySelectOption,
+  type CategorySelectProps,
+} from "./CategorySelect/CategorySelect";
+
+export { Select, type SelectProps } from "./Select/Select";
+
+export { MultiSelect, type MultiSelectProps } from "./MultiSelect/MultiSelect";
+
 export { DateInput, type DateInputProps } from "./DateInput/DateInput";
 
 export { FileInput, type FileInputProps } from "./FileInput/FileInput";

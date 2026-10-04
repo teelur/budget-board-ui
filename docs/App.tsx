@@ -21,16 +21,19 @@ import { AutocompletePage } from "./pages/AutocompletePage/AutocompletePage";
 import { BadgePage } from "./pages/BadgePage/BadgePage";
 import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
 import { CheckboxPage } from "./pages/CheckboxPage/CheckboxPage";
+import { CategorySelectPage } from "./pages/CategorySelectPage/CategorySelectPage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
 import { DateInputPage } from "./pages/DateInputPage/DateInputPage";
 import { DatePickerInputPage } from "./pages/DatePickerInputPage/DatePickerInputPage";
 import { FileInputPage } from "./pages/FileInputPage/FileInputPage";
 import { MonthPickerInputPage } from "./pages/MonthPickerInputPage/MonthPickerInputPage";
+import { MultiSelectPage } from "./pages/MultiSelectPage/MultiSelectPage";
 import { NumberInputPage } from "./pages/NumberInputPage/NumberInputPage";
 import { PasswordInputPage } from "./pages/PasswordInputPage/PasswordInputPage";
 import { PinInputPage } from "./pages/PinInputPage/PinInputPage";
 import { ProgressPage } from "./pages/ProgressPage/ProgressPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
+import { SelectPage } from "./pages/SelectPage/SelectPage";
 import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
 import { TextareaPage } from "./pages/TextareaPage/TextareaPage";
 import { TypographyPage } from "./pages/TypographyPage/TypographyPage";
@@ -148,15 +151,18 @@ export function App() {
               <a href="#badge">Badge</a>
               <a href="#button">Button</a>
               <a href="#checkbox">Checkbox</a>
+              <a href="#category-select">CategorySelect</a>
               <a href="#date-input">DateInput</a>
               <a href="#date-picker-input">DatePickerInput</a>
               <a href="#file-input">FileInput</a>
+              <a href="#multi-select">MultiSelect</a>
               <a href="#month-picker-input">MonthPickerInput</a>
               <a href="#number-input">NumberInput</a>
               <a href="#password-input">PasswordInput</a>
               <a href="#pin-input">PinInput</a>
               <a href="#progress">Progress</a>
               <a href="#segmented-control">SegmentedControl</a>
+              <a href="#select">Select</a>
               <a href="#text-input">TextInput</a>
               <a href="#textarea">Textarea</a>
             </div>
@@ -209,9 +215,11 @@ export function App() {
               <BadgePage />
               <ButtonPage />
               <CheckboxPage />
+              <CategorySelectPage />
               <DateInputPage />
               <DatePickerInputPage />
               <FileInputPage />
+              <MultiSelectPage />
               <MonthPickerInputPage />
               <NumberInputPage />
               <PasswordInputPage />
@@ -220,6 +228,7 @@ export function App() {
               <TextareaPage />
               <ProgressPage />
               <SegmentedControlPage />
+              <SelectPage />
             </section>
 
             <footer className={styles.siteFooter}>

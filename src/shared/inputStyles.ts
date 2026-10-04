@@ -133,6 +133,7 @@ export function useBBUIInputStyles() {
     "--bbui-input-control-color": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
   } as CSSProperties;
   const calendarDropdownStyle = {
+    backgroundColor: "var(--bbui-calendar-background)",
     "--bbui-calendar-background": `var(--bb-color-surface-elevated, ${colors.surfaceElevated})`,
     "--bbui-calendar-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
     "--bbui-calendar-foreground": `var(--bb-color-text-primary, ${colors.textPrimary})`,
