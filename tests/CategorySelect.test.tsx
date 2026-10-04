@@ -50,9 +50,7 @@ describe("CategorySelect", () => {
         selector: `.${categoryClasses.childLabel}`,
       }),
     ).toBeInTheDocument();
-    expect(
-      document.querySelector(`.${comboboxClasses.dropdown}`),
-    ).toHaveStyle({
+    expect(document.querySelector(`.${comboboxClasses.dropdown}`)).toHaveStyle({
       "--bbui-combobox-secondary-foreground":
         "var(--bb-color-text-secondary, #68645d)",
     });
@@ -92,6 +90,29 @@ describe("CategorySelect", () => {
     expect(onChange).toHaveBeenCalledWith("");
   });
 
+  it("forwards trigger clicks and does not open when read-only", async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    render(
+      <CategorySelect
+        aria-label="Read-only category"
+        data={categories}
+        onChange={() => undefined}
+        onClick={onClick}
+        readOnly
+        value={null}
+      />,
+    );
+
+    const trigger = screen.getByRole("button", { name: "Read-only category" });
+    await user.click(trigger);
+
+    expect(onClick).toHaveBeenCalledOnce();
+    expect(
+      screen.queryByRole("option", { name: "Food" }),
+    ).not.toBeInTheDocument();
+  });
+
   it("uses BBUI dropdown tokens in dark mode", async () => {
     const user = userEvent.setup();
     render(
@@ -108,11 +129,8 @@ describe("CategorySelect", () => {
     await user.click(screen.getByRole("button", { name: "Dark category" }));
     await screen.findByRole("option", { hidden: true, name: "Food" });
 
-    expect(
-      document.querySelector(`.${comboboxClasses.dropdown}`),
-    ).toHaveStyle({
-      "--bbui-combobox-background":
-        "var(--bb-color-surface-elevated, #22252a)",
+    expect(document.querySelector(`.${comboboxClasses.dropdown}`)).toHaveStyle({
+      "--bbui-combobox-background": "var(--bb-color-surface-elevated, #22252a)",
       "--bbui-combobox-secondary-foreground":
         "var(--bb-color-text-secondary, #aaa69e)",
     });

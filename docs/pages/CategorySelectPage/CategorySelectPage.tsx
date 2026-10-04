@@ -109,6 +109,22 @@ export function CategorySelectPage() {
                   <td>selected value, or an empty string when toggled off</td>
                 </tr>
                 <tr>
+                  <th>onClick</th>
+                  <td>
+                    <code>MouseEventHandler&lt;HTMLButtonElement&gt;</code>
+                  </td>
+                  <td>
+                    trigger click handler, called before the dropdown toggles
+                  </td>
+                </tr>
+                <tr>
+                  <th>readOnly</th>
+                  <td>
+                    <code>boolean</code>
+                  </td>
+                  <td>prevents the category dropdown from opening</td>
+                </tr>
+                <tr>
                   <th>placeholder / searchPlaceholder</th>
                   <td>
                     <code>string</code>
@@ -127,7 +143,9 @@ export function CategorySelectPage() {
                   <td>
                     <code>primary parent / secondary child label</code>
                   </td>
-                  <td>all options remain selectable; child rows stay aligned</td>
+                  <td>
+                    all options remain selectable; child rows stay aligned
+                  </td>
                 </tr>
                 <tr>
                   <th>withinPortal</th>

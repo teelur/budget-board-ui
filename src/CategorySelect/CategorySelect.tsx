@@ -8,7 +8,7 @@ import {
 } from "@mantine/core";
 import type { ComboboxProps, InputBaseProps } from "@mantine/core";
 import { useMemo, useState } from "react";
-import type { ReactNode } from "react";
+import type { MouseEventHandler, ReactNode } from "react";
 import {
   ensureMantineProvider,
   mergeInputClassNames,
@@ -40,6 +40,8 @@ export interface CategorySelectProps extends Omit<
   searchPlaceholder?: string;
   nothingFoundMessage?: ReactNode;
   withinPortal?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  readOnly?: boolean;
   comboboxProps?: Omit<
     ComboboxProps,
     "children" | "onOptionSubmit" | "store" | "withinPortal"
@@ -66,6 +68,8 @@ export function CategorySelect({
   data,
   value,
   onChange,
+  onClick,
+  readOnly,
   classNames,
   comboboxProps,
   styles,
@@ -84,9 +88,7 @@ export function CategorySelect({
   );
   const searchTerm = search.trim().toLocaleLowerCase();
   const filteredOptions = flattenedOptions.filter((option) =>
-    `${option.label} ${option.value}`
-      .toLocaleLowerCase()
-      .includes(searchTerm),
+    `${option.label} ${option.value}`.toLocaleLowerCase().includes(searchTerm),
   );
   const combobox = useCombobox({
     onDropdownClose: () => {
@@ -127,7 +129,9 @@ export function CategorySelect({
   const control = (
     <Combobox
       {...comboboxProps}
-      classNames={dropdownClassNames as NonNullable<ComboboxProps["classNames"]>}
+      classNames={
+        dropdownClassNames as NonNullable<ComboboxProps["classNames"]>
+      }
       onOptionSubmit={(selectedValue) => {
         onChange(selectedValue === value ? "" : selectedValue);
         combobox.closeDropdown();
@@ -142,8 +146,8 @@ export function CategorySelect({
           classNames={inputClassNames}
           component="button"
           onClick={(event) => {
-            inputProps.onClick?.(event);
-            if (!inputProps.readOnly) {
+            onClick?.(event);
+            if (!readOnly) {
               combobox.toggleDropdown();
             }
           }}
@@ -158,9 +162,7 @@ export function CategorySelect({
           {selectedOption ? (
             selectedOption.label
           ) : (
-            <Input.Placeholder>
-              {placeholder}
-            </Input.Placeholder>
+            <Input.Placeholder>{placeholder}</Input.Placeholder>
           )}
         </InputBase>
       </Combobox.Target>
