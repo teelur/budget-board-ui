@@ -141,7 +141,12 @@ export function CategorySelect({
           {...inputProps}
           classNames={inputClassNames}
           component="button"
-          onClick={() => combobox.toggleDropdown()}
+          onClick={(event) => {
+            inputProps.onClick?.(event);
+            if (!inputProps.readOnly) {
+              combobox.toggleDropdown();
+            }
+          }}
           rightSection={<Combobox.Chevron />}
           rightSectionPointerEvents="none"
           styles={inputComponentStyles}
