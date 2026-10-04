@@ -55,7 +55,7 @@ export function mergeComponentComboboxClassNames<TClassNames>(
       : (mergedClassNames as TClassNames);
   const nestedClassNames = ((...args: unknown[]) => {
     const nested = resolveClassNames(comboboxClassNames, args);
-    const result: ClassNames = {};
+    const result: ClassNames = { ...nested };
 
     for (const slot of ["dropdown", "option"]) {
       result[slot] = [resolvedComponentClassNames[slot], nested[slot]]
