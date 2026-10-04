@@ -1,0 +1,9 @@
+.parentLabel {
+  color: var(--bbui-combobox-foreground);
+}
+
+.childLabel {
+  border-inline-start: 1px solid var(--bbui-combobox-border);
+  color: var(--bbui-combobox-secondary-foreground);
+  padding-inline-start: 10px;
+}

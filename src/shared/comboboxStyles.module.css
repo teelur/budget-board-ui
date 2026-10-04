@@ -1,0 +1,25 @@
+.dropdown {
+  background-color: var(--bbui-combobox-background);
+  border-color: var(--bbui-combobox-border);
+  color: var(--bbui-combobox-foreground);
+}
+
+.option {
+  color: var(--bbui-combobox-foreground);
+}
+
+.option:hover:not(:disabled):not([data-combobox-disabled]):not(
+    [data-combobox-selected]
+  ) {
+  background-color: var(--bbui-combobox-hover);
+}
+
+.option[data-combobox-selected] {
+  background-color: var(--bbui-combobox-selected);
+  color: var(--bbui-combobox-foreground);
+}
+
+.option:focus-visible {
+  outline: 2px solid var(--bbui-combobox-focus);
+  outline-offset: -2px;
+}

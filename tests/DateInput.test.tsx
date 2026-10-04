@@ -87,6 +87,9 @@ describe("DateInput", () => {
     expect(dropdown).toHaveClass("consumer-date-dropdown");
     expect(dropdown).not.toHaveClass("light", "dark");
     expect(dropdown?.style.color).toBe("tomato");
+    expect(dropdown?.style.backgroundColor).toBe(
+      "var(--bbui-calendar-background)",
+    );
     expect(dropdown?.style.getPropertyValue("--bbui-calendar-background")).toBe(
       "var(--bb-color-surface-elevated, #fffcf7)",
     );

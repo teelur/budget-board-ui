@@ -99,6 +99,8 @@
   align-self: start;
   display: grid;
   gap: 0.65rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
   position: sticky;
   top: 2rem;
 }
@@ -232,7 +234,9 @@
     display: flex;
     gap: 1rem;
     margin-bottom: 3rem;
+    max-height: none;
     overflow-x: auto;
+    overflow-y: visible;
     position: static;
     white-space: nowrap;
   }

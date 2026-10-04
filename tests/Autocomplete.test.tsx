@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { Autocomplete } from "../src/Autocomplete/Autocomplete";
-import classes from "../src/Autocomplete/Autocomplete.module.css";
+import classes from "../src/shared/comboboxStyles.module.css";
 import inputClasses from "../src/shared/inputStyles.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
 
@@ -100,7 +100,7 @@ describe("Autocomplete", () => {
     expect(dropdown?.getAttribute("style")).toContain("border-color: red");
     expect(dropdown?.getAttribute("style")).toContain("border-width: 3px");
     expect(dropdown).toHaveStyle({
-      "--bbui-autocomplete-background":
+      "--bbui-combobox-background":
         "var(--bb-color-surface-elevated, #22252a)",
     });
     expect(option).toHaveClass(classes.option, "consumer-option");
