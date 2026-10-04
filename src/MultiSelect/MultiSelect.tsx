@@ -134,6 +134,9 @@ export function MultiSelect(props: MultiSelectProps) {
   const handleOptionSubmit = (value: string) => {
     if (query && !queryExists && value === query) {
       const created = onCreate?.(query);
+      if (created === null) {
+        return;
+      }
       const option =
         typeof created === "string"
           ? { value: created, label: created }
