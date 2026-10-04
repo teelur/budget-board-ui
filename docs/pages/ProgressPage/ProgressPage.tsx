@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Progress, progressColors, progressTypes } from "../../../src";
+import {
+  Checkbox,
+  Progress,
+  progressColors,
+  progressTypes,
+} from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -312,38 +317,34 @@ export function ProgressPage() {
               </label>
             </div>
             <div className={styles.toggles}>
-              <label className={styles.toggle}>
-                <input
-                  checked={showLabel}
-                  onChange={(event) => setShowLabel(event.target.checked)}
-                  type="checkbox"
-                />
-                <span>Show Label</span>
-              </label>
-              <label className={styles.toggle}>
-                <input
-                  checked={showProjection}
-                  onChange={(event) => setShowProjection(event.target.checked)}
-                  type="checkbox"
-                />
-                <span>Projected Section</span>
-              </label>
-              <label className={styles.toggle}>
-                <input
-                  checked={isStriped}
-                  onChange={(event) => setIsStriped(event.target.checked)}
-                  type="checkbox"
-                />
-                <span>Striped Primary</span>
-              </label>
-              <label className={styles.toggle}>
-                <input
-                  checked={isAnimated}
-                  onChange={(event) => setIsAnimated(event.target.checked)}
-                  type="checkbox"
-                />
-                <span>Animate Stripes</span>
-              </label>
+              <Checkbox
+                checked={showLabel}
+                className={styles.toggle}
+                label="Show Label"
+                onChange={(event) => setShowLabel(event.target.checked)}
+                size="xs"
+              />
+              <Checkbox
+                checked={showProjection}
+                className={styles.toggle}
+                label="Projected Section"
+                onChange={(event) => setShowProjection(event.target.checked)}
+                size="xs"
+              />
+              <Checkbox
+                checked={isStriped}
+                className={styles.toggle}
+                label="Striped Primary"
+                onChange={(event) => setIsStriped(event.target.checked)}
+                size="xs"
+              />
+              <Checkbox
+                checked={isAnimated}
+                className={styles.toggle}
+                label="Animate Stripes"
+                onChange={(event) => setIsAnimated(event.target.checked)}
+                size="xs"
+              />
             </div>
           </div>
           <div className={styles.playgroundPreview}>

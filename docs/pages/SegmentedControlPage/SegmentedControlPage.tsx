@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Checkbox,
   SegmentedControl,
   segmentedControlColors,
   segmentedControlSizes,
@@ -294,22 +295,20 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                 ))}
               </select>
             </label>
-            <label className={styles.toggle}>
-              <input
-                checked={isFullWidth}
-                onChange={(event) => setIsFullWidth(event.target.checked)}
-                type="checkbox"
-              />
-              <span>Full width</span>
-            </label>
-            <label className={styles.toggle}>
-              <input
-                checked={isDisabled}
-                onChange={(event) => setIsDisabled(event.target.checked)}
-                type="checkbox"
-              />
-              <span>Disabled</span>
-            </label>
+            <Checkbox
+              checked={isFullWidth}
+              className={styles.toggle}
+              label="Full width"
+              onChange={(event) => setIsFullWidth(event.target.checked)}
+              size="xs"
+            />
+            <Checkbox
+              checked={isDisabled}
+              className={styles.toggle}
+              label="Disabled"
+              onChange={(event) => setIsDisabled(event.target.checked)}
+              size="xs"
+            />
           </div>
           <div className={styles.playgroundPreview}>
             <SegmentedControl

@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Badge, badgeColors, badgeSizes, badgeVariants } from "../../../src";
+import {
+  Badge,
+  badgeColors,
+  badgeSizes,
+  badgeVariants,
+  Checkbox,
+} from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -235,14 +241,13 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                 />
               </label>
             </div>
-            <label className={styles.toggle}>
-              <input
-                checked={isConstrained}
-                onChange={(event) => setIsConstrained(event.target.checked)}
-                type="checkbox"
-              />
-              <span>Constrain dimensions</span>
-            </label>
+            <Checkbox
+              checked={isConstrained}
+              className={styles.toggle}
+              label="Constrain dimensions"
+              onChange={(event) => setIsConstrained(event.target.checked)}
+              size="xs"
+            />
           </div>
           <div className={styles.playgroundPreview}>
             <span className={styles.previewLabel}>Rendered result</span>
