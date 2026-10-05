@@ -25,21 +25,27 @@ import categoryClasses from "./CategorySelect.module.css";
 
 export interface CategorySelectOption {
   value: string;
-  label: string;
+  label?: string;
   children?: CategorySelectOption[];
 }
 
-export interface CategorySelectProps extends Omit<
+export interface CategorySelectCategory {
+  value: string;
+  parent: string;
+  categoryType?: string;
+}
+
+interface CategorySelectCommonProps extends Omit<
   InputBaseProps,
   "defaultValue" | "onChange" | "value"
 > {
-  data: CategorySelectOption[];
   value: string | null;
   onChange: (value: string) => void;
   placeholder?: string;
   searchPlaceholder?: string;
   nothingFoundMessage?: ReactNode;
   withinPortal?: boolean;
+  includeUncategorized?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   readOnly?: boolean;
   comboboxProps?: Omit<
@@ -47,6 +53,12 @@ export interface CategorySelectProps extends Omit<
     "children" | "onOptionSubmit" | "store" | "withinPortal"
   >;
 }
+
+export type CategorySelectProps = CategorySelectCommonProps &
+  (
+    | { categories: CategorySelectCategory[]; data?: never }
+    | { categories?: never; data: CategorySelectOption[] }
+  );
 
 interface FlattenedCategorySelectOption {
   value: string;
@@ -59,13 +71,51 @@ function flattenOptions(
   depth = 0,
 ): FlattenedCategorySelectOption[] {
   return options.flatMap((option) => [
-    { value: option.value, label: option.label, depth },
+    { value: option.value, label: option.label ?? option.value, depth },
     ...(option.children ? flattenOptions(option.children, depth + 1) : []),
   ]);
 }
 
+function flattenCategories(
+  categories: CategorySelectCategory[],
+): FlattenedCategorySelectOption[] {
+  const compareCategories = (
+    first: CategorySelectCategory,
+    second: CategorySelectCategory,
+  ) =>
+    first.value
+      .toLocaleLowerCase()
+      .localeCompare(second.value.toLocaleLowerCase());
+
+  return categories
+    .filter((category) => category.parent.length === 0)
+    .sort(compareCategories)
+    .flatMap((parent) => [
+      { value: parent.value, label: parent.value, depth: 0 },
+      ...categories
+        .filter(
+          (category) =>
+            category.parent.toLocaleLowerCase() ===
+            parent.value.toLocaleLowerCase(),
+        )
+        .sort(compareCategories)
+        .map((category) => ({
+          value: category.value,
+          label: category.value,
+          depth: 1,
+        })),
+    ]);
+}
+
+function categoryValuesMatch(first: string, second: string | null): boolean {
+  return (
+    second !== null && first.toLocaleLowerCase() === second.toLocaleLowerCase()
+  );
+}
+
 export function CategorySelect({
   data,
+  categories,
   value,
   onChange,
   onClick,
@@ -78,14 +128,35 @@ export function CategorySelect({
   searchPlaceholder = "Search categories",
   nothingFoundMessage = "No categories found",
   withinPortal = false,
+  includeUncategorized = false,
   ...inputProps
 }: CategorySelectProps) {
   const [search, setSearch] = useState("");
   const inputStyles = useBBUIInputStyles();
-  const flattenedOptions = useMemo(() => flattenOptions(data), [data]);
-  const selectedOption = flattenedOptions.find(
-    (option) => option.value === value,
-  );
+  const flattenedOptions = useMemo(() => {
+    const options = categories
+      ? flattenCategories(categories)
+      : flattenOptions(data ?? []);
+
+    return includeUncategorized
+      ? [
+          ...options,
+          { value: "uncategorized", label: "uncategorized", depth: 0 },
+        ]
+      : options;
+  }, [categories, data, includeUncategorized]);
+  const selectedOption =
+    value === null
+      ? undefined
+      : flattenedOptions.find((option) =>
+          categoryValuesMatch(option.value, value),
+        );
+  const selectedLabel =
+    value === null
+      ? null
+      : categories && categoryValuesMatch(value, "uncategorized")
+        ? "Uncategorized"
+        : (selectedOption?.label ?? null);
   const searchTerm = search.trim().toLocaleLowerCase();
   const filteredOptions = flattenedOptions.filter((option) =>
     `${option.label} ${option.value}`.toLocaleLowerCase().includes(searchTerm),
@@ -106,6 +177,9 @@ export function CategorySelect({
     "root",
     inputStyles.wrapperStyle,
   );
+  const searchClassNames = mergeInputClassNames(inputStyles.classes, {
+    input: categoryClasses.searchInput,
+  });
   const { componentClassNames: dropdownClassNames } =
     mergeComponentComboboxClassNames(
       comboboxProps?.classNames,
@@ -122,7 +196,7 @@ export function CategorySelect({
   );
   const searchStyles = mergeInputStyles(
     undefined,
-    "root",
+    "input",
     inputStyles.wrapperStyle,
   );
 
@@ -133,7 +207,9 @@ export function CategorySelect({
         dropdownClassNames as NonNullable<ComboboxProps["classNames"]>
       }
       onOptionSubmit={(selectedValue) => {
-        onChange(selectedValue === value ? "" : selectedValue);
+        onChange(
+          categoryValuesMatch(selectedValue, value) ? "" : selectedValue,
+        );
         combobox.closeDropdown();
       }}
       store={combobox}
@@ -159,8 +235,8 @@ export function CategorySelect({
           multiline
           pointer
         >
-          {selectedOption ? (
-            selectedOption.label
+          {selectedLabel ? (
+            selectedLabel
           ) : (
             <Input.Placeholder>{placeholder}</Input.Placeholder>
           )}
@@ -168,7 +244,7 @@ export function CategorySelect({
       </Combobox.Target>
       <Combobox.Dropdown maw="min(90vw, 32rem)">
         <Combobox.Search
-          classNames={inputStyles.classes}
+          classNames={searchClassNames}
           onChange={(event) => setSearch(event.currentTarget.value)}
           placeholder={searchPlaceholder}
           size={inputProps.size ?? "sm"}
@@ -179,12 +255,12 @@ export function CategorySelect({
           {filteredOptions.length > 0 ? (
             filteredOptions.map((option) => (
               <Combobox.Option
-                active={option.value === value}
+                active={categoryValuesMatch(option.value, value)}
                 key={option.value}
                 value={option.value}
               >
                 <Group gap="xs" wrap="nowrap">
-                  {option.value === value ? (
+                  {categoryValuesMatch(option.value, value) ? (
                     <CheckIcon aria-hidden size={12} />
                   ) : (
                     <span aria-hidden style={{ width: 12 }} />

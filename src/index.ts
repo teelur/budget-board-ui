@@ -43,6 +43,7 @@ export { Checkbox, type CheckboxProps } from "./Checkbox/Checkbox";
 
 export {
   CategorySelect,
+  type CategorySelectCategory,
   type CategorySelectOption,
   type CategorySelectProps,
 } from "./CategorySelect/CategorySelect";

@@ -85,13 +85,17 @@ export function CategorySelectPage() {
             <table>
               <tbody>
                 <tr>
-                  <th>data</th>
+                  <th>categories / data</th>
                   <td>
-                    <code>CategorySelectOption[]</code>
+                    <code>
+                      CategorySelectCategory[] / CategorySelectOption[]
+                    </code>
                   </td>
                   <td>
-                    options with <code>value</code>, <code>label</code>, and
-                    optional nested <code>children</code>
+                    provide one: flat category records with <code>value</code>
+                    and <code>parent</code>, or nested options with{" "}
+                    <code>value</code>, optional <code>label</code> (defaults to{" "}
+                    <code>value</code>), and optional <code>children</code>
                   </td>
                 </tr>
                 <tr>
@@ -153,6 +157,13 @@ export function CategorySelectPage() {
                     <code>boolean</code>
                   </td>
                   <td>false</td>
+                </tr>
+                <tr>
+                  <th>includeUncategorized</th>
+                  <td>
+                    <code>boolean</code>
+                  </td>
+                  <td>false; appends an uncategorized option</td>
                 </tr>
                 <tr>
                   <th>comboboxProps</th>

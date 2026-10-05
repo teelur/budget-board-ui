@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 import { CategorySelect } from "../src/CategorySelect/CategorySelect";
 import categoryClasses from "../src/CategorySelect/CategorySelect.module.css";
 import comboboxClasses from "../src/shared/comboboxStyles.module.css";
+import inputStylesClasses from "../src/shared/inputStyles.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
 
 const categories = [
@@ -70,6 +71,31 @@ describe("CategorySelect", () => {
     expect(onChange).toHaveBeenCalledWith("Utilities");
   });
 
+  it("uses option values when labels are omitted", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(
+      <CategorySelect
+        aria-label="Category"
+        data={[{ value: "Home", children: [{ value: "Utilities" }] }]}
+        onChange={onChange}
+        value={null}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Category" }));
+    await user.type(screen.getByPlaceholderText("Search categories"), "util");
+
+    const option = screen.getByRole("option", {
+      hidden: true,
+      name: "Utilities",
+    });
+    expect(option).toBeInTheDocument();
+
+    await user.click(option);
+    expect(onChange).toHaveBeenCalledWith("Utilities");
+  });
+
   it("clears the current selection when selected again", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
@@ -88,6 +114,88 @@ describe("CategorySelect", () => {
     );
 
     expect(onChange).toHaveBeenCalledWith("");
+  });
+
+  it("accepts BB flat categories and uncategorized options", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    const budgetBoardCategories = [
+      { value: "Utilities", parent: "Home", categoryType: "expense" },
+      { value: "Food", parent: "", categoryType: "expense" },
+      { value: "Home", parent: "", categoryType: "expense" },
+      { value: "Groceries", parent: "Food", categoryType: "expense" },
+    ];
+
+    render(
+      <CategorySelect
+        aria-label="Category"
+        categories={budgetBoardCategories}
+        includeUncategorized
+        onChange={onChange}
+        value="home"
+      />,
+    );
+
+    const trigger = screen.getByRole("button", { name: "Category" });
+    expect(trigger.closest(`.${inputStylesClasses.root}`)).toHaveStyle({
+      "--bbui-input-background": "var(--bb-color-surface-input, #e9eae8)",
+    });
+
+    await user.click(trigger);
+
+    expect(
+      screen
+        .getByRole("option", { hidden: true, name: "Home" })
+        .querySelector("svg"),
+    ).toBeInTheDocument();
+
+    expect(
+      screen
+        .getAllByRole("option", { hidden: true })
+        .map((option) => option.textContent?.trim()),
+    ).toEqual(["Food", "Groceries", "Home", "Utilities", "uncategorized"]);
+
+    await user.click(
+      screen.getByRole("option", { hidden: true, name: "uncategorized" }),
+    );
+    expect(onChange).toHaveBeenCalledWith("uncategorized");
+
+    await user.click(trigger);
+    await user.click(
+      screen.getByRole("option", { hidden: true, name: "Home" }),
+    );
+    expect(onChange).toHaveBeenLastCalledWith("");
+  });
+
+  it("formats the selected uncategorized value like BB", () => {
+    render(
+      <CategorySelect
+        aria-label="Category"
+        categories={[]}
+        includeUncategorized
+        onChange={() => undefined}
+        value="uncategorized"
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "Category" })).toHaveTextContent(
+      "Uncategorized",
+    );
+  });
+
+  it("shows the placeholder for a missing category value", () => {
+    render(
+      <CategorySelect
+        aria-label="Category"
+        categories={[{ value: "Home", parent: "" }]}
+        onChange={() => undefined}
+        value="Archived category"
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "Category" })).toHaveTextContent(
+      "Select a category",
+    );
   });
 
   it("forwards trigger clicks and does not open when read-only", async () => {
@@ -134,6 +242,9 @@ describe("CategorySelect", () => {
       "--bbui-combobox-secondary-foreground":
         "var(--bb-color-text-secondary, #aaa69e)",
     });
+    expect(screen.getByPlaceholderText("Search categories")).toHaveClass(
+      categoryClasses.searchInput,
+    );
   });
 
   it("forwards disabled state", () => {

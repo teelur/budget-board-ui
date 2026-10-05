@@ -7,3 +7,21 @@
   color: var(--bbui-combobox-secondary-foreground);
   padding-inline-start: 10px;
 }
+
+.searchInput:global(.mantine-Input-input) {
+  --input-bd: var(--bbui-input-border);
+  --input-bd-focus: var(--bbui-input-focus);
+  background-color: var(--bbui-input-background);
+  border-color: var(--bbui-input-border);
+  color: var(--bbui-input-foreground);
+}
+
+.searchInput:global(.mantine-Input-input)::placeholder {
+  color: var(--bbui-input-placeholder);
+  opacity: 1;
+}
+
+.searchInput:global(.mantine-Input-input):focus-visible {
+  box-shadow: 0 0 0 2px
+    color-mix(in srgb, var(--bbui-input-focus) 28%, transparent);
+}

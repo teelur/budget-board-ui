@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { MultiSelect } from "../src/MultiSelect/MultiSelect";
+import inputStylesClasses from "../src/shared/inputStyles.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
 
 describe("MultiSelect", () => {
@@ -46,6 +47,39 @@ describe("MultiSelect", () => {
     expect(
       screen.queryByText("Checking", { selector: ".mantine-Pill-label" }),
     ).not.toBeInTheDocument();
+  });
+
+  it("supports Mantine selection limits with BBUI input styles", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(
+      <MultiSelect
+        aria-label="Accounts"
+        data={[
+          { value: "checking", label: "Checking" },
+          { value: "savings", label: "Savings" },
+        ]}
+        maxValues={1}
+        onChange={onChange}
+        searchable
+      />,
+    );
+
+    const input = screen.getByRole("combobox", { name: "Accounts" });
+    expect(input.closest(`.${inputStylesClasses.root}`)).toHaveStyle({
+      "--bbui-input-background": "var(--bb-color-surface-input, #e9eae8)",
+    });
+
+    await user.click(input);
+    await user.click(
+      await screen.findByRole("option", { hidden: true, name: "Checking" }),
+    );
+    await user.click(
+      await screen.findByRole("option", { hidden: true, name: "Savings" }),
+    );
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith(["checking"]);
   });
 
   it("supports Mantine's creatable option flow", async () => {
@@ -94,9 +128,11 @@ describe("MultiSelect", () => {
     await user.click(screen.getByRole("combobox", { name: "Dark accounts" }));
     await screen.findByRole("option", { hidden: true, name: "Checking" });
 
-    expect(document.querySelector(".mantine-MultiSelect-dropdown")).toHaveStyle({
-      "--bbui-combobox-background":
-        "var(--bb-color-surface-elevated, #22252a)",
-    });
+    expect(document.querySelector(".mantine-MultiSelect-dropdown")).toHaveStyle(
+      {
+        "--bbui-combobox-background":
+          "var(--bb-color-surface-elevated, #22252a)",
+      },
+    );
   });
 });
