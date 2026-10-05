@@ -156,7 +156,7 @@ export function CategorySelect({
       ? null
       : categories && categoryValuesMatch(value, "uncategorized")
         ? "Uncategorized"
-        : (selectedOption?.label ?? (categories ? "Uncategorized" : null));
+        : (selectedOption?.label ?? null);
   const searchTerm = search.trim().toLocaleLowerCase();
   const filteredOptions = flattenedOptions.filter((option) =>
     `${option.label} ${option.value}`.toLocaleLowerCase().includes(searchTerm),
@@ -260,7 +260,7 @@ export function CategorySelect({
                 value={option.value}
               >
                 <Group gap="xs" wrap="nowrap">
-                  {option.value === value ? (
+                  {categoryValuesMatch(option.value, value) ? (
                     <CheckIcon aria-hidden size={12} />
                   ) : (
                     <span aria-hidden style={{ width: 12 }} />

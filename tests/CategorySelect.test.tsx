@@ -138,11 +138,16 @@ describe("CategorySelect", () => {
 
     const trigger = screen.getByRole("button", { name: "Category" });
     expect(trigger.closest(`.${inputStylesClasses.root}`)).toHaveStyle({
-      "--bbui-input-background":
-        "var(--bb-color-surface-input, #e9eae8)",
+      "--bbui-input-background": "var(--bb-color-surface-input, #e9eae8)",
     });
 
     await user.click(trigger);
+
+    expect(
+      screen
+        .getByRole("option", { hidden: true, name: "Home" })
+        .querySelector("svg"),
+    ).toBeInTheDocument();
 
     expect(
       screen
@@ -175,6 +180,21 @@ describe("CategorySelect", () => {
 
     expect(screen.getByRole("button", { name: "Category" })).toHaveTextContent(
       "Uncategorized",
+    );
+  });
+
+  it("shows the placeholder for a missing category value", () => {
+    render(
+      <CategorySelect
+        aria-label="Category"
+        categories={[{ value: "Home", parent: "" }]}
+        onChange={() => undefined}
+        value="Archived category"
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "Category" })).toHaveTextContent(
+      "Select a category",
     );
   });
 
