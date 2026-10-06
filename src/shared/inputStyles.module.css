@@ -1,6 +1,10 @@
 .root :global(.mantine-Input-wrapper):not([data-error]):not([data-success]) {
   --input-bd: var(--bbui-input-border);
-  --input-bd-focus: var(--bbui-input-focus);
+  --input-bd-focus: color-mix(
+    in srgb,
+    var(--bbui-input-focus) 96%,
+    var(--bbui-input-foreground)
+  );
 }
 
 .root :global(.mantine-Input-wrapper):not([data-error]) {
