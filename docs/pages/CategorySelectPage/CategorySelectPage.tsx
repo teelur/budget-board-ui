@@ -40,7 +40,7 @@ export function CategorySelectPage() {
       </p>
 
       <ComponentDemoSection
-        description="Parent labels use primary text; child labels use secondary text with a subtle inset and guide. All categories remain selectable."
+        description="Parent labels use semibold primary text; child labels use secondary text with a subtle inset and guide. All categories remain selectable."
         id="category-select-basic"
         title="Basic usage"
         code={`const [value, setValue] = useState<string | null>(null);

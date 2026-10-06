@@ -1,5 +1,6 @@
 .parentLabel {
   color: var(--bbui-combobox-foreground);
+  font-weight: 600;
 }
 
 .childLabel {
