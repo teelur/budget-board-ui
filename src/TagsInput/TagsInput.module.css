@@ -1,0 +1,19 @@
+.root .inputField {
+  background-color: transparent;
+  color: var(--bbui-input-foreground);
+}
+
+.root .inputField::placeholder {
+  color: var(--bbui-input-placeholder);
+  opacity: 1;
+}
+
+.root .inputField:disabled {
+  cursor: not-allowed;
+}
+
+.root .pill {
+  background-color: var(--bbui-tags-pill-background);
+  border: 1px solid var(--bbui-tags-pill-border);
+  color: var(--bbui-tags-pill-foreground);
+}

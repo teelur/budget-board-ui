@@ -36,6 +36,7 @@ import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedCont
 import { SelectPage } from "./pages/SelectPage/SelectPage";
 import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
 import { TextareaPage } from "./pages/TextareaPage/TextareaPage";
+import { TagsInputPage } from "./pages/TagsInputPage/TagsInputPage";
 import { TypographyPage } from "./pages/TypographyPage/TypographyPage";
 import styles from "./App.module.css";
 
@@ -164,6 +165,7 @@ export function App() {
               <a href="#segmented-control">SegmentedControl</a>
               <a href="#select">Select</a>
               <a href="#text-input">TextInput</a>
+              <a href="#tags-input">TagsInput</a>
               <a href="#textarea">Textarea</a>
             </div>
             <p className={`${styles.navHeading} ${styles.navHeadingSpaced}`}>
@@ -220,6 +222,7 @@ export function App() {
               <DatePickerInputPage />
               <FileInputPage />
               <MultiSelectPage />
+              <TagsInputPage />
               <MonthPickerInputPage />
               <NumberInputPage />
               <PasswordInputPage />

@@ -52,6 +52,8 @@ export { Select, type SelectProps } from "./Select/Select";
 
 export { MultiSelect, type MultiSelectProps } from "./MultiSelect/MultiSelect";
 
+export { TagsInput, type TagsInputProps } from "./TagsInput/TagsInput";
+
 export { DateInput, type DateInputProps } from "./DateInput/DateInput";
 
 export { FileInput, type FileInputProps } from "./FileInput/FileInput";
