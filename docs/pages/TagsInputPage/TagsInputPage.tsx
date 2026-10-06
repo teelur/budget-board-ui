@@ -73,7 +73,7 @@ export function TagsInputPage() {
                 <tr>
                   <th>data</th>
                   <td>
-                    <code>string[]</code>
+<code>ComboboxData</code>
                   </td>
                   <td>
                     suggested values; Mantine option and group data also work
