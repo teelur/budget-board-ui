@@ -13,8 +13,7 @@
   color: var(--input-color);
   transition:
     background-color 120ms ease,
-    border-color 120ms ease,
-    box-shadow 120ms ease;
+    border-color 120ms ease;
 }
 
 .root .input::placeholder {
@@ -24,11 +23,6 @@
 
 .root .placeholder {
   color: var(--bbui-input-placeholder);
-}
-
-.root .input:focus-visible {
-  box-shadow: 0 0 0 2px
-    color-mix(in srgb, var(--bbui-input-focus) 28%, transparent);
 }
 
 .root .input:disabled {
