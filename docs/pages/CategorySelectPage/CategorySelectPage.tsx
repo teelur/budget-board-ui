@@ -40,7 +40,7 @@ export function CategorySelectPage() {
       </p>
 
       <ComponentDemoSection
-        description="Parent labels use semibold primary text; child labels use secondary text with a subtle inset and guide. All categories remain selectable."
+        description="Parent labels use semibold primary text; child labels use secondary text with a subtle indent. All categories remain selectable."
         id="category-select-basic"
         title="Basic usage"
         code={`const [value, setValue] = useState<string | null>(null);
@@ -145,11 +145,11 @@ export function CategorySelectPage() {
                 <tr>
                   <th>parent and child styling</th>
                   <td>
-                    <code>primary parent / secondary child label</code>
+                    <code>
+                      semibold primary parent / inset secondary child label
+                    </code>
                   </td>
-                  <td>
-                    all options remain selectable; child rows stay aligned
-                  </td>
+                  <td>all options remain selectable; child labels are inset</td>
                 </tr>
                 <tr>
                   <th>withinPortal</th>
