@@ -31,7 +31,7 @@ const lightColors = {
   borderStrong: "#aaa69e",
   buttonHoverBorder: "#3b5bdb",
   focusRing: "#4c6ef5",
-  selection: "#dbe4ff",
+  selection: "#c7d4ff",
   info: "#1971c2",
   infoContent: "#e7f5ff",
   success: "#2f9e44",
