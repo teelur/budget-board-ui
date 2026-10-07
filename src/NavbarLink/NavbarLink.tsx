@@ -155,7 +155,7 @@ export function NavbarLink({
           <ChevronDownIcon aria-hidden="true" size="1rem" />
         </button>
       </div>
-      <Collapse expanded={isGroupExpanded} id={panelId}>
+      <Collapse in={isGroupExpanded} id={panelId}>
         <div className={classes.children} inert={!isGroupExpanded}>
           {items?.map((item) => (
             <button
