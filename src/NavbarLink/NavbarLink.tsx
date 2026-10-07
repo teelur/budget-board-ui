@@ -1,19 +1,12 @@
-import type {
-  ButtonHTMLAttributes,
-  CSSProperties,
-  ReactNode,
-} from "react";
-import {
-  Group,
-  Text,
-  Tooltip,
-  UnstyledButton,
-} from "@mantine/core";
+import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from "react";
+import { Group, Text, Tooltip, UnstyledButton } from "@mantine/core";
 import { useBBUITheme, ensureBBUIMantineProvider } from "../shared/themeStyles";
 import classes from "./NavbarLink.module.css";
 
-export interface NavbarLinkProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+export interface NavbarLinkProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "children"
+> {
   icon: ReactNode;
   label: string;
   active?: boolean;
@@ -79,9 +72,5 @@ export function NavbarLink({
     </Tooltip>
   );
 
-  return ensureBBUIMantineProvider(
-    navbarLink,
-    hasMantineContext,
-    colorScheme,
-  );
+  return ensureBBUIMantineProvider(navbarLink, hasMantineContext, colorScheme);
 }

@@ -66,16 +66,16 @@ export function NavbarLinkPage() {
           <div className={styles.example}>
             <span className={styles.caption}>Collapsed</span>
             <div className={styles.collapsed}>
-              <NavbarLink
-                icon={<Home aria-hidden="true" />}
-                label="Overview"
-              />
+              <NavbarLink icon={<Home aria-hidden="true" />} label="Overview" />
               <NavbarLink
                 active
                 icon={<ArrowLeftRight aria-hidden="true" />}
                 label="Transactions"
               />
-              <NavbarLink icon={<Wallet aria-hidden="true" />} label="Accounts" />
+              <NavbarLink
+                icon={<Wallet aria-hidden="true" />}
+                label="Accounts"
+              />
             </div>
           </div>
         </div>
@@ -114,7 +114,10 @@ export function NavbarLinkPage() {
                   <td>
                     <code>string</code>
                   </td>
-                  <td>Required; used as visible text or the collapsed tooltip and accessible name.</td>
+                  <td>
+                    Required; used as visible text or the collapsed tooltip and
+                    accessible name.
+                  </td>
                 </tr>
                 <tr>
                   <th>active</th>
@@ -128,7 +131,9 @@ export function NavbarLinkPage() {
                   <td>
                     <code>boolean</code>
                   </td>
-                  <td>false; shows the text and disables the tooltip when true.</td>
+                  <td>
+                    false; shows the text and disables the tooltip when true.
+                  </td>
                 </tr>
                 <tr>
                   <th>labelSize</th>
@@ -142,10 +147,15 @@ export function NavbarLinkPage() {
                   <td>
                     <code>boolean</code>
                   </td>
-                  <td>false; reduces the minimum height and horizontal padding.</td>
+                  <td>
+                    false; reduces the minimum height and horizontal padding.
+                  </td>
                 </tr>
                 <tr>
-                  <th>onClick, disabled, type, className, style, aria/data attributes</th>
+                  <th>
+                    onClick, disabled, type, className, style, aria/data
+                    attributes
+                  </th>
                   <td>
                     <code>ButtonHTMLAttributes&lt;HTMLButtonElement&gt;</code>
                   </td>

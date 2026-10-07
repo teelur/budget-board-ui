@@ -25,10 +25,7 @@ describe("NavbarLink", () => {
     expect(link).toHaveAttribute("name", "transactions");
     expect(link).toHaveAttribute("title", "Open transactions");
     expect(link).toHaveAttribute("type", "button");
-    expect(link).toHaveAttribute(
-      "aria-label",
-      "Open transactions navigation",
-    );
+    expect(link).toHaveAttribute("aria-label", "Open transactions navigation");
   });
 
   it("keeps a collapsed item accessible and displays its tooltip", async () => {
@@ -76,10 +73,7 @@ describe("NavbarLink", () => {
   it("resolves semantic colors in dark mode", () => {
     render(
       <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
-        <NavbarLink
-          icon={<span aria-hidden="true">I</span>}
-          label="Accounts"
-        />
+        <NavbarLink icon={<span aria-hidden="true">I</span>} label="Accounts" />
       </MantineProvider>,
     );
 
