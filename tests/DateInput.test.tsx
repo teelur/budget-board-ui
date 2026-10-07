@@ -93,6 +93,15 @@ describe("DateInput", () => {
     expect(dropdown?.style.getPropertyValue("--bbui-calendar-background")).toBe(
       "var(--bb-color-surface-elevated, #fffcf7)",
     );
+    expect(dropdown?.style.getPropertyValue("--bbui-calendar-hover")).toBe(
+      "var(--bb-color-surface-hover, #e7e3da)",
+    );
+    expect(dropdown?.style.getPropertyValue("--bbui-calendar-selection")).toBe(
+      "var(--bb-color-selection, #dbe4ff)",
+    );
+    expect(
+      dropdown?.style.getPropertyValue("--bbui-calendar-selection-foreground"),
+    ).toBe("var(--bb-color-text-primary, #3a3834)");
   });
 
   it("starts the calendar week on Sunday by default", async () => {
@@ -116,10 +125,14 @@ describe("DateInput", () => {
     expect(weekdays).toEqual(["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]);
   });
 
-  it("resolves shared field tokens in dark mode", () => {
-    render(
+  it("resolves shared field tokens in dark mode", async () => {
+    const user = userEvent.setup();
+    const { container } = render(
       <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
-        <DateInput aria-label="Dark due date" />
+        <DateInput
+          aria-label="Dark due date"
+          defaultDate={new Date(2025, 5, 1)}
+        />
       </MantineProvider>,
     );
 
@@ -130,5 +143,17 @@ describe("DateInput", () => {
     expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
       "var(--bb-color-surface-input, #1c1e21)",
     );
+    await user.click(input);
+    await screen.findByRole("button", { name: "June 2025" });
+    const dropdown = container.ownerDocument.querySelector(
+      `.${popoverClasses.dropdown}`,
+    );
+
+    expect(dropdown?.style.getPropertyValue("--bbui-calendar-selection")).toBe(
+      "var(--bb-color-selection, #414b85)",
+    );
+    expect(
+      dropdown?.style.getPropertyValue("--bbui-calendar-selection-foreground"),
+    ).toBe("var(--bb-color-text-primary, #d8d5ce)");
   });
 });

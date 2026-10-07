@@ -80,6 +80,16 @@ const darkColors = [
 
 const surfaceRoles = [
   {
+    name: "Hover surface",
+    token: "--bb-color-surface-hover",
+    lightValue: budgetBoardColors.light.surfaceHover.toUpperCase(),
+    darkValue: budgetBoardColors.dark.surfaceHover.toUpperCase(),
+    description:
+      "A neutral interaction surface for hover states, distinct from primary-tinted selection.",
+    lightClassName: "color-light-hover",
+    darkClassName: "color-dark-hover",
+  },
+  {
     name: "Sunken surface",
     token: "--bb-color-surface-sunken",
     lightValue: budgetBoardColors.light.surfaceSunken.toUpperCase(),
@@ -169,8 +179,7 @@ const themeRoles = [
     darkValue: budgetBoardColors.dark.primary.toUpperCase(),
     lightContent: budgetBoardColors.light.primaryContent.toUpperCase(),
     darkContent: budgetBoardColors.dark.primaryContent.toUpperCase(),
-    description:
-      "Primary actions, active states, and the clearest call to action.",
+    description: "Primary actions and the clearest call to action.",
     lightClassName: "theme-role-light-primary",
     darkClassName: "theme-role-dark-primary",
   },
@@ -288,7 +297,7 @@ const semanticColorGroups = [
         lightClassName: "semantic-role-light-selection",
         darkClassName: "semantic-role-dark-selection",
         description:
-          "Selected rows, fields, and active regions without overpowering their content.",
+          "Primary-tinted selected surfaces for navigation, options, rows, and fields; distinct from neutral hover.",
       },
       {
         name: "Button hover border",

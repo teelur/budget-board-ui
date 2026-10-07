@@ -128,8 +128,8 @@ export function useBBUIInputStyles() {
     "--bbui-input-focus": `var(--bb-color-focus-ring, ${colors.focusRing})`,
     "--bbui-input-foreground": `var(--bb-color-text-primary, ${colors.textPrimary})`,
     "--bbui-input-placeholder": `var(--bb-color-text-muted, ${colors.textMuted})`,
-    "--bbui-input-control-hover": `var(--bb-color-surface-elevated, ${colors.surfaceElevated})`,
-    "--bbui-input-control-hover-border": `var(--bb-color-button-hover-border, ${colors.buttonHoverBorder})`,
+    "--bbui-input-control-hover": `var(--bb-color-surface-hover, ${colors.surfaceHover})`,
+    "--bbui-input-control-hover-border": `var(--bb-color-border-strong, ${colors.borderStrong})`,
     "--bbui-input-control-color": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
   } as CSSProperties;
   const calendarDropdownStyle = {
@@ -138,10 +138,10 @@ export function useBBUIInputStyles() {
     "--bbui-calendar-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
     "--bbui-calendar-foreground": `var(--bb-color-text-primary, ${colors.textPrimary})`,
     "--bbui-calendar-muted": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
+    "--bbui-calendar-hover": `var(--bb-color-surface-hover, ${colors.surfaceHover})`,
     "--bbui-calendar-primary": `var(--bb-color-primary, ${colors.primary})`,
-    "--bbui-calendar-primary-content": `var(--bb-color-primary-content, ${colors.primaryContent})`,
-    "--bbui-calendar-range": `var(--bb-color-selection, ${colors.selection})`,
-    "--bbui-calendar-range-foreground": `var(--bb-color-text-${colorScheme === "dark" ? "heading" : "primary"}, ${colorScheme === "dark" ? colors.textHeading : colors.textPrimary})`,
+    "--bbui-calendar-selection": `var(--bb-color-selection, ${colors.selection})`,
+    "--bbui-calendar-selection-foreground": `var(--bb-color-text-primary, ${colors.textPrimary})`,
     "--bbui-calendar-focus": `var(--bb-color-focus-ring, ${colors.focusRing})`,
   } as CSSProperties;
 

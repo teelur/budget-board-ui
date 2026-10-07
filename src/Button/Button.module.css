@@ -28,7 +28,9 @@
 }
 
 .root.selected:not(:disabled):not([data-budget-board-variant="filled"]) {
-  background: var(--bbui-button-active);
+  background: var(--bbui-button-selected);
+  border-color: var(--bbui-button-selected);
+  color: var(--bbui-button-selected-color);
 }
 
 .root[data-budget-board-selected="false"][data-budget-board-variant="filled"]:not(
@@ -39,7 +41,7 @@
   color: var(--bbui-button-bg);
 }
 
-.root:hover:not(:disabled) {
+.root:hover:not(:disabled):not(.selected) {
   background: var(--bbui-button-hover);
   border-color: var(--bbui-button-hover-border);
 }

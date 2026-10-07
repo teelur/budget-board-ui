@@ -58,6 +58,10 @@ describe("Button", () => {
     expect(button).toHaveAttribute("data-budget-board-selected", "true");
     expect(button).toHaveAttribute("aria-pressed", "true");
     expect(button.className).toContain("selected");
+    expect(button.style.getPropertyValue("--bbui-button-selected")).toBe(
+      "var(--bb-color-selection, #dbe4ff)",
+    );
+    expect(buttonStyles).toContain("background: var(--bbui-button-selected);");
 
     await user.hover(button);
     await user.click(button);
@@ -207,7 +211,7 @@ describe("Button", () => {
       screen
         .getByRole("button", { name: "Warning ghost" })
         .style.getPropertyValue("--bbui-button-hover-border"),
-    ).toBe("var(--bb-color-button-hover-border, #3b5bdb)");
+    ).toBe("var(--bb-color-border-strong, #aaa69e)");
   });
 
   it("resolves dark semantic palette roles", () => {
@@ -215,6 +219,9 @@ describe("Button", () => {
       <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
         <Button>Primary</Button>
         <Button color="error">Error</Button>
+        <Button selected variant="ghost">
+          Selected
+        </Button>
       </MantineProvider>,
     );
 
@@ -244,6 +251,18 @@ describe("Button", () => {
         .getByRole("button", { name: "Primary" })
         .style.getPropertyValue("--bbui-button-hover-border"),
     ).toBe("var(--bb-color-button-hover-border, #91a7ff)");
+    expect(
+      screen
+        .getByRole("button", { name: "Selected" })
+        .style.getPropertyValue("--bbui-button-selected"),
+    ).toBe("var(--bb-color-selection, #414b85)");
+    expect(
+      screen
+        .getByRole("button", { name: "Selected" })
+        .style.getPropertyValue("--bbui-button-hover"),
+    ).toBe(
+      "var(--budget-board-button-primary-ghost-hover, var(--bb-color-surface-hover, #34373a))",
+    );
   });
 
   it("resolves the dark system preference when the color scheme is auto", () => {

@@ -47,7 +47,7 @@ export function NavbarLink({
           {
             "--bbui-navbar-link-secondary": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
             "--bbui-navbar-link-primary": `var(--bb-color-text-primary, ${colors.textPrimary})`,
-            "--bbui-navbar-link-hover": `var(--bb-color-surface-elevated, ${colors.surfaceElevated})`,
+            "--bbui-navbar-link-hover": `var(--bb-color-surface-hover, ${colors.surfaceHover})`,
             "--bbui-navbar-link-active": `var(--bb-color-selection, ${colors.selection})`,
             "--bbui-navbar-link-focus": `var(--bb-color-focus-ring, ${colors.focusRing})`,
           } as CSSProperties,
@@ -61,7 +61,13 @@ export function NavbarLink({
           wrap="nowrap"
           w="100%"
         >
-          {icon}
+          <span
+            className={[classes.icon, isLabelVisible && classes.iconInset]
+              .filter(Boolean)
+              .join(" ")}
+          >
+            {icon}
+          </span>
           {isLabelVisible && (
             <Text className={classes.label} component="span" size={labelSize}>
               {label}

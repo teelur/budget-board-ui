@@ -1,6 +1,5 @@
 .root {
   --bbui-navbar-link-color: var(--bbui-navbar-link-secondary);
-  position: relative;
   display: flex;
   width: 100%;
   min-height: 2rem;
@@ -18,7 +17,7 @@
     flex-shrink: 0;
   }
 
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled):not([data-active="true"]) {
     background-color: var(--bbui-navbar-link-hover);
     color: var(--bbui-navbar-link-primary);
   }
@@ -50,4 +49,16 @@
   font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.icon {
+  display: inline-flex;
+  width: 1.125rem;
+  flex: 0 0 1.125rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconInset {
+  transform: translateX(0.5rem);
 }

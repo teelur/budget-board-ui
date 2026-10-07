@@ -15,7 +15,7 @@ export function getComboboxDropdownStyle(
     "--bbui-combobox-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
     "--bbui-combobox-foreground": `var(--bb-color-text-primary, ${colors.textPrimary})`,
     "--bbui-combobox-secondary-foreground": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
-    "--bbui-combobox-hover": `var(--bb-color-surface-input, ${colors.surfaceInput})`,
+    "--bbui-combobox-hover": `var(--bb-color-surface-hover, ${colors.surfaceHover})`,
     "--bbui-combobox-selected": `var(--bb-color-selection, ${colors.selection})`,
     "--bbui-combobox-focus": `var(--bb-color-focus-ring, ${colors.focusRing})`,
   } as CSSProperties;

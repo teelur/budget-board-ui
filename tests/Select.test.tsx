@@ -37,7 +37,10 @@ describe("Select", () => {
       <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
         <Select
           aria-label="Dark account type"
-          classNames={{ dropdown: "consumer-dropdown", option: "consumer-option" }}
+          classNames={{
+            dropdown: "consumer-dropdown",
+            option: "consumer-option",
+          }}
           comboboxProps={{
             classNames: { dropdown: "nested-dropdown" },
             styles: { dropdown: { borderWidth: "3px" } },
@@ -65,14 +68,17 @@ describe("Select", () => {
       "var(--bbui-combobox-background)",
     );
     expect(dropdown).toHaveStyle({
-      "--bbui-combobox-background":
-        "var(--bb-color-surface-elevated, #22252a)",
+      "--bbui-combobox-background": "var(--bb-color-surface-elevated, #22252a)",
+      "--bbui-combobox-hover": "var(--bb-color-surface-hover, #34373a)",
+      "--bbui-combobox-selected": "var(--bb-color-selection, #414b85)",
     });
   });
 
   it("forwards disabled state", () => {
     render(<Select aria-label="Unavailable" data={[]} disabled />);
 
-    expect(screen.getByRole("combobox", { name: "Unavailable" })).toBeDisabled();
+    expect(
+      screen.getByRole("combobox", { name: "Unavailable" }),
+    ).toBeDisabled();
   });
 });

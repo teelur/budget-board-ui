@@ -29,7 +29,7 @@ export function NavbarLinkPage() {
       </p>
 
       <ComponentDemoSection
-        description="Expanded links show their text labels. Collapsed links keep an accessible name and reveal the label in a tooltip."
+        description="Expanded links show their text labels. Collapsed links keep an accessible name and reveal the label in a tooltip. Hover uses a neutral surface; active items keep the primary-tinted selection surface."
         id="navbar-link-states"
         title="States"
         code={navbarLinkExample}
