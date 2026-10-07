@@ -41,7 +41,8 @@
   color: var(--bbui-button-bg);
 }
 
-.root:hover:not(:disabled):not(.selected) {
+.root:hover:not(:disabled):not(.selected),
+.root:hover:not(:disabled)[data-budget-board-variant="filled"] {
   background: var(--bbui-button-hover);
   border-color: var(--bbui-button-hover-border);
 }
