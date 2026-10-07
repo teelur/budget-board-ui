@@ -9,7 +9,13 @@
   color: var(--bbui-app-shell-text);
 }
 
-.navigation {
+.root .headerSurface {
+  border-color: var(--bbui-app-shell-border);
+  background-color: var(--bbui-app-shell-header);
+  color: var(--bbui-app-shell-text);
+}
+
+.root .navigation {
   border-color: var(--bbui-app-shell-border);
   background-color: var(--bbui-app-shell-navigation);
   color: var(--bbui-app-shell-text);

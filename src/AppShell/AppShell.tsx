@@ -48,6 +48,7 @@ export function AppShell({ className, style, ...props }: AppShellProps) {
           "--app-shell-border-color": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
           "--bbui-app-shell-page": `var(--bb-color-page, ${colors.page})`,
           "--bbui-app-shell-surface": `var(--bb-color-surface, ${colors.surface})`,
+          "--bbui-app-shell-header": `var(--bb-color-surface-sunken, ${colors.surfaceSunken})`,
           "--bbui-app-shell-navigation": `var(--bb-color-navigation, ${colors.navigation})`,
           "--bbui-app-shell-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
           "--bbui-app-shell-text": `var(--bb-color-text-primary, ${colors.textPrimary})`,
@@ -82,7 +83,7 @@ export function AppShellHeader({ className, ...props }: AppShellHeaderProps) {
   return (
     <MantineAppShellHeader
       {...props}
-      className={mergeClassName(classes.surface, className)}
+      className={mergeClassName(classes.headerSurface, className)}
     />
   );
 }
