@@ -10,6 +10,7 @@ import {
   AppShellNavbar,
   AppShellSection,
 } from "../src/AppShell/AppShell";
+import classes from "../src/AppShell/AppShell.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
 
 describe("AppShell", () => {
@@ -38,7 +39,9 @@ describe("AppShell", () => {
       "Application",
     );
     expect(screen.getByTestId("header")).toHaveTextContent("Header");
+    expect(screen.getByTestId("header")).toHaveClass(classes.headerSurface);
     expect(screen.getByTestId("navbar")).toBeInTheDocument();
+    expect(screen.getByTestId("navbar")).toHaveClass(classes.navigation);
     expect(screen.getByTestId("aside")).toBeInTheDocument();
     expect(screen.getByTestId("main")).toHaveTextContent("Content");
     expect(screen.getByTestId("footer")).toHaveTextContent("Footer");
@@ -61,6 +64,9 @@ describe("AppShell", () => {
     expect(appShell.style.getPropertyValue("--bbui-app-shell-navigation")).toBe(
       "var(--bb-color-navigation, #f1efe9)",
     );
+    expect(appShell.style.getPropertyValue("--bbui-app-shell-header")).toBe(
+      "var(--bb-color-surface-sunken, #ebe8df)",
+    );
   });
 
   it("resolves semantic palette defaults in dark mode", () => {
@@ -75,5 +81,10 @@ describe("AppShell", () => {
         .getByTestId("app-shell")
         .style.getPropertyValue("--bbui-app-shell-page"),
     ).toBe("var(--bb-color-page, #111214)");
+    expect(
+      screen
+        .getByTestId("app-shell")
+        .style.getPropertyValue("--bbui-app-shell-header"),
+    ).toBe("var(--bb-color-surface-sunken, #0d0f12)");
   });
 });

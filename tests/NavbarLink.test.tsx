@@ -18,10 +18,21 @@ describe("NavbarLink", () => {
     const iconInsetStyles = navbarLinkStyles.match(
       /\.iconInset\s*\{([^}]*)\}/,
     )?.[1];
+    const iconCollapsedStyles = navbarLinkStyles.match(
+      /\.iconCollapsed\s*\{([^}]*)\}/,
+    )?.[1];
+    const childrenStyles = navbarLinkStyles.match(
+      /\.children\s*\{([^}]*)\}/,
+    )?.[1];
 
     expect(iconStyles).toContain("width: 1.125rem;");
     expect(iconInsetStyles).toContain("transform: translateX(0.5rem);");
+    expect(iconCollapsedStyles).toContain("width: 1.375rem;");
+    expect(iconCollapsedStyles).toContain("flex-basis: 1.375rem;");
+    expect(iconCollapsedStyles).toContain("height: 1.375rem;");
     expect(iconStyles).toContain("justify-content: center;");
+    expect(childrenStyles).toContain("padding-left: 1.1875rem;");
+    expect(childrenStyles).toContain("margin: 0.25rem 0 0 1.0625rem;");
   });
 
   it("shows the label when expanded and forwards button attributes", () => {
@@ -44,6 +55,14 @@ describe("NavbarLink", () => {
     expect(link).toHaveAttribute("title", "Open transactions");
     expect(link).toHaveAttribute("type", "button");
     expect(link).toHaveAttribute("aria-label", "Open transactions navigation");
+    expect(screen.getByText("Transactions")).toHaveStyle({
+      fontWeight: "600",
+    });
+    expect(
+      screen
+        .getByText("Transactions")
+        .parentElement?.style.getPropertyValue("--group-gap"),
+    ).toBe("var(--mantine-spacing-md)");
     expect(link.style.getPropertyValue("--bbui-navbar-link-hover")).toBe(
       "var(--bb-color-surface-hover, #e7e3da)",
     );
@@ -92,6 +111,148 @@ describe("NavbarLink", () => {
     );
     await user.click(link);
     expect(onClick).toHaveBeenCalledOnce();
+  });
+
+  it("renders a disclosure independently from the parent and child actions", async () => {
+    const onParentClick = vi.fn();
+    const onChildClick = vi.fn();
+    const user = userEvent.setup();
+    render(
+      <NavbarLink
+        icon={<span aria-hidden="true">I</span>}
+        items={[
+          {
+            id: "account-types",
+            label: "Account types",
+            active: true,
+            onClick: onChildClick,
+          },
+        ]}
+        label="Accounts"
+        onClick={onParentClick}
+        showLabel
+      />,
+    );
+
+    const disclosure = screen.getByRole("button", { name: "Expand Accounts" });
+    const parent = screen.getByRole("button", { name: "Accounts" });
+    const panelId = disclosure.getAttribute("aria-controls");
+
+    expect(disclosure).toHaveAttribute("aria-expanded", "false");
+    expect(panelId).toBeTruthy();
+    expect(document.getElementById(panelId!)).not.toBeNull();
+
+    await user.click(disclosure);
+
+    expect(
+      screen.getByRole("button", { name: "Collapse Accounts" }),
+    ).toHaveAttribute("aria-expanded", "true");
+    const child = await screen.findByRole("button", { name: "Account types" });
+    expect(child).toHaveAttribute("data-active", "true");
+
+    await user.click(parent);
+    await user.click(child);
+    expect(onParentClick).toHaveBeenCalledOnce();
+    expect(onChildClick).toHaveBeenCalledOnce();
+  });
+
+  it("supports controlled expansion and localized disclosure labels", async () => {
+    const onExpandedChange = vi.fn();
+    const user = userEvent.setup();
+    const props = {
+      icon: <span aria-hidden="true">I</span>,
+      items: [{ id: "deleted", label: "Deleted accounts", onClick: vi.fn() }],
+      label: "Accounts",
+      onExpandedChange,
+      expandLabel: "Show account pages",
+      collapseLabel: "Hide account pages",
+      showLabel: true,
+    };
+    const { rerender } = render(<NavbarLink {...props} expanded={false} />);
+
+    await user.click(
+      screen.getByRole("button", { name: "Show account pages" }),
+    );
+    expect(onExpandedChange).toHaveBeenCalledWith(true);
+    expect(
+      screen.getByRole("button", { name: "Show account pages" }),
+    ).toHaveAttribute("aria-expanded", "false");
+
+    rerender(<NavbarLink {...props} expanded />);
+    expect(
+      screen.getByRole("button", { name: "Hide account pages" }),
+    ).toHaveAttribute("aria-expanded", "true");
+    expect(
+      await screen.findByRole("button", { name: "Deleted accounts" }),
+    ).toBeInTheDocument();
+  });
+
+  it("toggles child links with keyboard activation", async () => {
+    const user = userEvent.setup();
+    render(
+      <NavbarLink
+        icon={<span aria-hidden="true">I</span>}
+        items={[{ id: "categories", label: "Categories", onClick: vi.fn() }]}
+        label="Transactions"
+        showLabel
+      />,
+    );
+
+    const disclosure = screen.getByRole("button", {
+      name: "Expand Transactions",
+    });
+    disclosure.focus();
+    await user.keyboard("{Enter}");
+
+    expect(
+      screen.getByRole("button", { name: "Collapse Transactions" }),
+    ).toHaveAttribute("aria-expanded", "true");
+    expect(
+      await screen.findByRole("button", { name: "Categories" }),
+    ).toBeInTheDocument();
+  });
+
+  it("hides grouped navigation controls when labels are collapsed", () => {
+    render(
+      <NavbarLink
+        defaultExpanded
+        icon={<span aria-hidden="true">I</span>}
+        items={[{ id: "categories", label: "Categories", onClick: vi.fn() }]}
+        label="Transactions"
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "Transactions" })).toBeVisible();
+    expect(
+      screen.queryByRole("button", { name: "Expand Transactions" }),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText("Categories")).not.toBeInTheDocument();
+  });
+
+  it("preserves disabled child-link behavior", async () => {
+    const onChildClick = vi.fn();
+    const user = userEvent.setup();
+    render(
+      <NavbarLink
+        defaultExpanded
+        icon={<span aria-hidden="true">I</span>}
+        items={[
+          {
+            id: "deleted",
+            label: "Deleted accounts",
+            disabled: true,
+            onClick: onChildClick,
+          },
+        ]}
+        label="Accounts"
+        showLabel
+      />,
+    );
+
+    const child = screen.getByRole("button", { name: "Deleted accounts" });
+    expect(child).toBeDisabled();
+    await user.click(child);
+    expect(onChildClick).not.toHaveBeenCalled();
   });
 
   it("resolves semantic colors in dark mode", () => {

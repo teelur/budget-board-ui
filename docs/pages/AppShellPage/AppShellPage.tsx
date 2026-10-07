@@ -136,9 +136,18 @@ export function AppShellPage() {
                   </td>
                 </tr>
                 <tr>
-                  <th>AppShellHeader / Aside / Footer</th>
+                  <th>AppShellHeader</th>
                   <td>
-                    <code>AppShellHeaderProps</code>,{" "}
+                    <code>AppShellHeaderProps</code>
+                  </td>
+                  <td>
+                    Mantine defaults. Uses the <code>surface-sunken</code> and
+                    <code>border-subtle</code> tokens.
+                  </td>
+                </tr>
+                <tr>
+                  <th>AppShellAside / Footer</th>
+                  <td>
                     <code>AppShellAsideProps</code>,{" "}
                     <code>AppShellFooterProps</code>
                   </td>
