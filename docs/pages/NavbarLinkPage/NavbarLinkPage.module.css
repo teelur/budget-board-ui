@@ -1,0 +1,41 @@
+.examples {
+  display: grid;
+  width: 100%;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 2rem;
+}
+
+.example {
+  min-width: 0;
+}
+
+.caption {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: var(--bb-color-text-secondary);
+  font-family: var(--data);
+  font-size: 0.64rem;
+  text-transform: uppercase;
+}
+
+.expanded {
+  display: flex;
+  width: min(100%, 15rem);
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.collapsed {
+  display: flex;
+  width: 2.75rem;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+@media (max-width: 560px) {
+  .examples {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+}

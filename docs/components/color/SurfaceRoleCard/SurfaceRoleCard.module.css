@@ -9,6 +9,11 @@
   height: 4rem;
 }
 
+.color-light-hover,
+.color-dark-hover {
+  background: var(--bb-color-surface-hover);
+}
+
 .color-light-sunken {
   background: var(--bb-color-surface-sunken);
 }

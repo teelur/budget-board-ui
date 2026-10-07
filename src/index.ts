@@ -6,6 +6,25 @@ export {
 } from "./ActionIcon/ActionIcon";
 
 export {
+  AppShell,
+  AppShellAside,
+  AppShellFooter,
+  AppShellHeader,
+  AppShellMain,
+  AppShellNavbar,
+  AppShellSection,
+  type AppShellAsideProps,
+  type AppShellFooterProps,
+  type AppShellHeaderProps,
+  type AppShellMainProps,
+  type AppShellNavbarProps,
+  type AppShellProps,
+  type AppShellSectionProps,
+} from "./AppShell/AppShell";
+
+export { NavbarLink, type NavbarLinkProps } from "./NavbarLink/NavbarLink";
+
+export {
   AmountText,
   getStatusColor,
   StatusColorType,

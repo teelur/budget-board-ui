@@ -27,6 +27,8 @@ export type ButtonStyle = CSSProperties &
     | "--bbui-button-color"
     | "--bbui-button-hover"
     | "--bbui-button-active"
+    | "--bbui-button-selected"
+    | "--bbui-button-selected-color"
     | "--bbui-button-border"
     | "--bbui-button-hover-border"
     | "--bbui-button-focus",
@@ -40,7 +42,11 @@ export function getButtonVariantStyles(
 ): ButtonStyle {
   const background = `var(--bb-color-${color}, ${colors[color]})`;
   const content = `var(--bb-color-${color}-content, ${colors[`${color}Content` as BudgetBoardContentColorKey]})`;
-  const hoverBorder = `var(--bb-color-button-hover-border, ${colors.buttonHoverBorder})`;
+  const hoverSurface = `var(--bb-color-surface-hover, ${colors.surfaceHover})`;
+  const selectedSurface = `var(--bb-color-selection, ${colors.selection})`;
+  const selectedColor = `var(--bb-color-text-primary, ${colors.textPrimary})`;
+  const hoverBorder = `var(--bb-color-border-strong, ${colors.borderStrong})`;
+  const filledHoverBorder = `var(--bb-color-button-hover-border, ${colors.buttonHoverBorder})`;
   const focusRing = `var(--bb-color-focus-ring, ${colors.focusRing})`;
   const colorToken = `var(--budget-board-button-${color}`;
   const hoverFallback = `color-mix(in srgb, ${background} 88%, ${content})`;
@@ -49,8 +55,10 @@ export function getButtonVariantStyles(
     return {
       "--bbui-button-bg": "transparent",
       "--bbui-button-color": `${colorToken}-outline-color, ${background})`,
-      "--bbui-button-hover": `${colorToken}-outline-hover, color-mix(in srgb, ${background} 12%, transparent))`,
+      "--bbui-button-hover": `${colorToken}-outline-hover, ${hoverSurface})`,
       "--bbui-button-active": `${colorToken}-outline-active, color-mix(in srgb, ${background} 20%, transparent))`,
+      "--bbui-button-selected": selectedSurface,
+      "--bbui-button-selected-color": selectedColor,
       "--bbui-button-border": `${colorToken}-outline-border, ${background})`,
       "--bbui-button-hover-border": hoverBorder,
       "--bbui-button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
@@ -61,8 +69,10 @@ export function getButtonVariantStyles(
     return {
       "--bbui-button-bg": "transparent",
       "--bbui-button-color": `${colorToken}-ghost-color, ${background})`,
-      "--bbui-button-hover": `${colorToken}-ghost-hover, color-mix(in srgb, ${background} 12%, transparent))`,
+      "--bbui-button-hover": `${colorToken}-ghost-hover, ${hoverSurface})`,
       "--bbui-button-active": `${colorToken}-ghost-active, color-mix(in srgb, ${background} 20%, transparent))`,
+      "--bbui-button-selected": selectedSurface,
+      "--bbui-button-selected-color": selectedColor,
       "--bbui-button-border": "transparent",
       "--bbui-button-hover-border": hoverBorder,
       "--bbui-button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
@@ -74,8 +84,10 @@ export function getButtonVariantStyles(
     "--bbui-button-color": `${colorToken}-color, ${content})`,
     "--bbui-button-hover": `${colorToken}-hover, ${hoverFallback})`,
     "--bbui-button-active": `${colorToken}-active, color-mix(in srgb, ${background} 80%, ${content}))`,
+    "--bbui-button-selected": selectedSurface,
+    "--bbui-button-selected-color": selectedColor,
     "--bbui-button-border": "transparent",
-    "--bbui-button-hover-border": hoverBorder,
+    "--bbui-button-hover-border": filledHoverBorder,
     "--bbui-button-focus": `var(--budget-board-button-focus-ring, ${focusRing})`,
   };
 }

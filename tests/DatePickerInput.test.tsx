@@ -147,8 +147,8 @@ describe("DatePickerInput", () => {
       "var(--bb-color-surface-elevated, #22252a)",
     );
     expect(
-      dropdown.style.getPropertyValue("--bbui-calendar-range-foreground"),
-    ).toBe("var(--bb-color-text-heading, #f2f0eb)");
+      dropdown.style.getPropertyValue("--bbui-calendar-selection-foreground"),
+    ).toBe("var(--bb-color-text-primary, #d8d5ce)");
     const trigger = screen.getByRole("button", { name: "Dark date picker" });
     const root = trigger.closest(`.${classes.root}`);
     expect(root?.style.getPropertyValue("--bbui-input-placeholder")).toBe(

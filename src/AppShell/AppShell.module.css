@@ -1,0 +1,25 @@
+.root {
+  background-color: var(--bbui-app-shell-page);
+  color: var(--bbui-app-shell-text);
+}
+
+.surface {
+  border-color: var(--bbui-app-shell-border);
+  background-color: var(--bbui-app-shell-surface);
+  color: var(--bbui-app-shell-text);
+}
+
+.navigation {
+  border-color: var(--bbui-app-shell-border);
+  background-color: var(--bbui-app-shell-navigation);
+  color: var(--bbui-app-shell-text);
+}
+
+.main {
+  background-color: var(--bbui-app-shell-page);
+  color: var(--bbui-app-shell-text);
+}
+
+.section {
+  color: var(--bbui-app-shell-text);
+}

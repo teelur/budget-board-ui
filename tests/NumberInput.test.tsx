@@ -31,11 +31,11 @@ describe("NumberInput", () => {
       "var(--bb-color-surface-input, #e9eae8)",
     );
     expect(root?.style.getPropertyValue("--bbui-input-control-hover")).toBe(
-      "var(--bb-color-surface-elevated, #fffcf7)",
+      "var(--bb-color-surface-hover, #e7e3da)",
     );
     expect(
       root?.style.getPropertyValue("--bbui-input-control-hover-border"),
-    ).toBe("var(--bb-color-button-hover-border, #3b5bdb)");
+    ).toBe("var(--bb-color-border-strong, #aaa69e)");
     expect(
       input.parentElement?.querySelector("button.mantine-NumberInput-control"),
     ).toHaveClass(componentClasses.control);
