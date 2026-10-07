@@ -107,7 +107,7 @@ export function NavbarLinkPage() {
                   <td>
                     <code>ReactNode</code>
                   </td>
-                  <td>Required; decorative icons are marked aria-hidden.</td>
+                    <td>Required; callers should mark decorative icons aria-hidden.</td>
                 </tr>
                 <tr>
                   <th>label</th>
