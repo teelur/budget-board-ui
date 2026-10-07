@@ -22,7 +22,11 @@ export {
   type AppShellSectionProps,
 } from "./AppShell/AppShell";
 
-export { NavbarLink, type NavbarLinkProps } from "./NavbarLink/NavbarLink";
+export {
+  NavbarLink,
+  type NavbarLinkItem,
+  type NavbarLinkProps,
+} from "./NavbarLink/NavbarLink";
 
 export {
   AmountText,
