@@ -97,7 +97,7 @@ describe("DateInput", () => {
       "var(--bb-color-surface-hover, #e7e3da)",
     );
     expect(dropdown?.style.getPropertyValue("--bbui-calendar-selection")).toBe(
-      "var(--bb-color-selection, #dbe4ff)",
+      "var(--bb-color-selection, #c7d4ff)",
     );
     expect(
       dropdown?.style.getPropertyValue("--bbui-calendar-selection-foreground"),

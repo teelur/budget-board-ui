@@ -91,7 +91,7 @@ describe("budgetBoardColors", () => {
     expect(budgetBoardColors.light.buttonHoverBorder).toBe("#3b5bdb");
     expect(budgetBoardColors.light.focusRing).toBe("#4c6ef5");
     expect(budgetBoardColors.light.surfaceHover).toBe("#e7e3da");
-    expect(budgetBoardColors.light.selection).toBe("#dbe4ff");
+    expect(budgetBoardColors.light.selection).toBe("#c7d4ff");
     expect(budgetBoardColors.light.info).toBe("#1971c2");
     expect(budgetBoardColors.light.infoContent).toBe("#e7f5ff");
     expect(budgetBoardColors.light.success).toBe("#2f9e44");

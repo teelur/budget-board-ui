@@ -59,7 +59,7 @@ describe("Button", () => {
     expect(button).toHaveAttribute("aria-pressed", "true");
     expect(button.className).toContain("selected");
     expect(button.style.getPropertyValue("--bbui-button-selected")).toBe(
-      "var(--bb-color-selection, #dbe4ff)",
+      "var(--bb-color-selection, #c7d4ff)",
     );
     expect(buttonStyles).toContain("background: var(--bbui-button-selected);");
 

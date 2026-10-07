@@ -149,7 +149,7 @@ describe("ActionIcon", () => {
     expect(actionIcon).toHaveAttribute("aria-pressed", "true");
     expect(actionIcon).toHaveAttribute("data-budget-board-selected", "true");
     expect(actionIcon.style.getPropertyValue("--bbui-button-selected")).toBe(
-      "var(--bb-color-selection, #dbe4ff)",
+      "var(--bb-color-selection, #c7d4ff)",
     );
     expect(actionIconStyles).toContain(
       "background: var(--bbui-button-selected);",
