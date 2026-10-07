@@ -17,6 +17,7 @@ import {
 import type { ColorMode } from "./components/color/colorCardTypes";
 import { ActionIconPage } from "./pages/ActionIconPage/ActionIconPage";
 import { AmountTextPage } from "./pages/AmountTextPage/AmountTextPage";
+import { AppShellPage } from "./pages/AppShellPage/AppShellPage";
 import { AutocompletePage } from "./pages/AutocompletePage/AutocompletePage";
 import { BadgePage } from "./pages/BadgePage/BadgePage";
 import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
@@ -28,6 +29,7 @@ import { DatePickerInputPage } from "./pages/DatePickerInputPage/DatePickerInput
 import { FileInputPage } from "./pages/FileInputPage/FileInputPage";
 import { MonthPickerInputPage } from "./pages/MonthPickerInputPage/MonthPickerInputPage";
 import { MultiSelectPage } from "./pages/MultiSelectPage/MultiSelectPage";
+import { NavbarLinkPage } from "./pages/NavbarLinkPage/NavbarLinkPage";
 import { NumberInputPage } from "./pages/NumberInputPage/NumberInputPage";
 import { PasswordInputPage } from "./pages/PasswordInputPage/PasswordInputPage";
 import { PinInputPage } from "./pages/PinInputPage/PinInputPage";
@@ -148,6 +150,7 @@ export function App() {
               <p className={styles.navGroupHeading}>Components</p>
               <a href="#action-icon">ActionIcon</a>
               <a href="#amount-text">AmountText</a>
+              <a href="#app-shell">AppShell</a>
               <a href="#autocomplete">Autocomplete</a>
               <a href="#badge">Badge</a>
               <a href="#button">Button</a>
@@ -158,6 +161,7 @@ export function App() {
               <a href="#file-input">FileInput</a>
               <a href="#multi-select">MultiSelect</a>
               <a href="#month-picker-input">MonthPickerInput</a>
+              <a href="#navbar-link">NavbarLink</a>
               <a href="#number-input">NumberInput</a>
               <a href="#password-input">PasswordInput</a>
               <a href="#pin-input">PinInput</a>
@@ -213,6 +217,7 @@ export function App() {
               </div>
               <ActionIconPage />
               <AmountTextPage />
+              <AppShellPage />
               <AutocompletePage />
               <BadgePage />
               <ButtonPage />
@@ -222,6 +227,7 @@ export function App() {
               <DatePickerInputPage />
               <FileInputPage />
               <MultiSelectPage />
+              <NavbarLinkPage />
               <TagsInputPage />
               <MonthPickerInputPage />
               <NumberInputPage />
