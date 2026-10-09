@@ -95,21 +95,30 @@ describe("Card", () => {
     }
   });
 
-  it("renders a labeled divider and forwards Mantine Divider props", () => {
+  it("renders a label on a section border", () => {
     render(
       <Card>
-        <span>Use email</span>
-        <Card.Divider data-testid="divider" label="or" labelPosition="right" />
-        <span>Use identity provider</span>
+        <Card.Section
+          data-testid="labeled-section"
+          label="or"
+          labelPosition="right"
+        >
+          Use email
+        </Card.Section>
+        <Card.Section withBorder={false} label="Hidden label">
+          Use identity provider
+        </Card.Section>
       </Card>,
     );
 
-    const divider = screen.getByTestId("divider");
+    const section = screen.getByTestId("labeled-section");
+    const label = screen.getByText("or");
 
-    expect(divider).toHaveClass(classes.divider);
-    expect(divider).toHaveAttribute("data-orientation", "horizontal");
-    expect(divider).toHaveAttribute("data-with-label");
-    expect(screen.getByText("or")).toHaveAttribute("data-position", "right");
+    expect(section).toHaveClass(classes.section, classes.labeledSection);
+    expect(section).toHaveAttribute("data-with-border");
+    expect(label).toHaveAttribute("data-position", "right");
+    expect(label.closest("[data-with-border]")).toBe(section);
+    expect(screen.queryByText("Hidden label")).not.toBeInTheDocument();
   });
 
   it("allows consumer styling and Mantine border overrides", () => {

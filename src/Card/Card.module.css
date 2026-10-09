@@ -13,12 +13,28 @@
   padding: 1rem;
 }
 
+.root .labeledSection[data-with-border] {
+  border-bottom-color: transparent;
+  position: relative;
+}
+
 .root .divider {
   --divider-color: var(--bbui-card-border);
   color: var(--bbui-card-text-secondary);
 }
 
+.sectionDivider {
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  position: absolute;
+  right: 0;
+  transform: translateY(50%);
+  z-index: 1;
+}
+
 .divider :global(.mantine-Divider-label) {
+  background-color: var(--bbui-card-surface);
   color: var(--bbui-card-text-secondary);
 }
 
