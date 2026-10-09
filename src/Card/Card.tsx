@@ -22,8 +22,8 @@ type CardPartProps = MantineCardSectionProps & {
 };
 
 export type CardHeaderProps = CardPartProps;
-export type CardSectionProps = CardPartProps;
-export type CardDividerProps = MantineDividerProps;
+export type CardSectionProps = CardPartProps &
+  Pick<MantineDividerProps, "label" | "labelPosition">;
 
 function mergeClassName(...classNames: Array<string | undefined>) {
   return classNames.filter(Boolean).join(" ");
@@ -51,14 +51,38 @@ function CardPart({
 
 CardPart.displayName = "@mantine/core/CardSection";
 
-function CardDivider({ className, ...props }: CardDividerProps) {
+function CardSection({
+  children,
+  className,
+  label,
+  labelPosition = "center",
+  withBorder = true,
+  ...props
+}: CardSectionProps) {
+  const hasLabel = label !== undefined && label !== null && withBorder;
+
   return (
-    <MantineDivider
+    <CardPart
       {...props}
-      className={mergeClassName(classes.divider, className)}
-    />
+      className={mergeClassName(
+        className,
+        hasLabel ? classes.labeledSection : undefined,
+      )}
+      withBorder={withBorder}
+    >
+      {children}
+      {hasLabel ? (
+        <MantineDivider
+          className={mergeClassName(classes.divider, classes.sectionDivider)}
+          label={label}
+          labelPosition={labelPosition}
+        />
+      ) : null}
+    </CardPart>
   );
 }
+
+CardSection.displayName = "@mantine/core/CardSection";
 
 const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
   { className, hoverable = false, style, withBorder = true, ...props },
@@ -96,8 +120,7 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
 export const Card = Object.assign(
   createPolymorphicComponent<"div", CardProps>(CardRoot),
   {
-    Divider: CardDivider,
     Header: CardPart,
-    Section: CardPart,
+    Section: CardSection,
   },
 );

@@ -22,10 +22,9 @@ const splitCardExample = `<Card>
   <Card.Section>Rainy day savings <strong>$4,202.18</strong></Card.Section>
 </Card>`;
 
-const labeledDividerExample = `<Card p={0}>
-  <div>Sign in with email</div>
-  <Card.Divider label="or" />
-  <div>Continue with identity provider</div>
+const labeledSectionExample = `<Card>
+  <Card.Section label="or">Sign in with email</Card.Section>
+  <Card.Section>Continue with identity provider</Card.Section>
 </Card>`;
 
 const hoverableCardExample = `<Card component="a" href="#card-api" hoverable>
@@ -65,20 +64,19 @@ export function CardPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Insert a labeled divider between content groups, such as local and identity-provider sign-in options."
-        id="card-divider"
-        title="Labeled divider"
-        code={labeledDividerExample}
+        description="Put a label directly on a section's border; the section still owns its full padding."
+        id="card-section-label"
+        title="Labeled section border"
+        code={labeledSectionExample}
       >
         <div className={styles.preview}>
-          <Card className={styles.authCard} p={0}>
-            <div className={styles.authOption}>
+          <Card className={styles.authCard}>
+            <Card.Section label="or">
               <strong>Sign in with email</strong>
-            </div>
-            <Card.Divider label="or" />
-            <div className={styles.authOption}>
+            </Card.Section>
+            <Card.Section>
               <strong>Continue with identity provider</strong>
-            </div>
+            </Card.Section>
           </Card>
         </div>
       </ComponentDemoSection>
@@ -167,18 +165,6 @@ export function CardPage() {
                   </td>
                 </tr>
                 <tr>
-                  <th>Card.Divider</th>
-                  <td>
-                    <code>CardDividerProps</code>
-                  </td>
-                  <td>
-                    Mantine Divider props, including optional React content in
-                    <code>label</code> and <code>labelPosition</code>. The line
-                    uses <code>border-subtle</code>; the label uses
-                    <code>text-secondary</code>.
-                  </td>
-                </tr>
-                <tr>
                   <th>Card.Header</th>
                   <td>
                     <code>CardHeaderProps</code>
@@ -202,9 +188,11 @@ export function CardPage() {
                   <td>
                     Repeat for body sections. Defaults to <code>1rem</code>
                     padding on all four sides; adjacent sections do not share or
-                    collapse padding. Override padding with <code>p</code>,
-                    <code>px</code>, or <code>py</code>; set
-                    <code>withBorder</code> to false to disable the separator.
+                    collapse padding. <code>withBorder</code> controls the
+                    separator and optional <code>label</code> and
+                    <code>labelPosition</code> place content on that border.
+                    Override padding with <code>p</code>, <code>px</code>, or
+                    <code>py</code>.
                   </td>
                 </tr>
                 <tr>
