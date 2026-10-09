@@ -43,7 +43,9 @@ export function TypographyPage() {
       </div>
       <p className={pageStyles.sectionCopy}>
         A small type system keeps the interface warm and readable while giving
-        financial values a precise, aligned rhythm.
+        financial values a precise, aligned rhythm. See the{" "}
+        <a href="#text-components">text components and API</a> for reusable
+        hierarchy roles.
       </p>
 
       <div className={styles.typographyGrid}>
