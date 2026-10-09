@@ -84,7 +84,7 @@ export function CardPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Card.Header and each Card.Section inherit horizontal card padding and receive a separator. Set py or p to control vertical spacing."
+        description="Each Card.Header and Card.Section owns its padding and gets an automatic separator. Override p, px, or py per part."
         id="card-sections"
         title="Header and sections"
         code={splitCardExample}
@@ -184,10 +184,11 @@ export function CardPage() {
                     <code>CardHeaderProps</code>
                   </td>
                   <td>
-                    Arbitrary React content. Inherits horizontal root padding
-                    and adds a <code>border-subtle</code> separator by default.
-                    Mantine spacing props such as <code>py</code> control
-                    vertical padding.
+                    Arbitrary React content. Owns <code>1rem</code> padding by
+                    default, uses <code>{"inheritPadding={false}"}</code>, and
+                    adds a <code>border-subtle</code> separator. Override
+                    padding with Mantine spacing props such as <code>p</code>,
+                    <code>px</code>, or <code>py</code>.
                   </td>
                 </tr>
                 <tr>
@@ -196,11 +197,13 @@ export function CardPage() {
                     <code>CardSectionProps</code>
                   </td>
                   <td>
-                    Repeat for body sections. Inherits horizontal root padding
-                    and uses the same <code>border-subtle</code> separator
-                    between adjacent sections. Set <code>inheritPadding</code>
-                    or <code>withBorder</code> to false to disable the
-                    respective default.
+                    Repeat for body sections. Owns <code>1rem</code> padding by
+                    default, uses <code>{"inheritPadding={false}"}</code>, and
+                    gets an automatic <code>border-subtle</code> separator
+                    between adjacent sections, including when rendered through a
+                    child component. Override padding with <code>p</code>,
+                    <code>px</code>, or <code>py</code>; set
+                    <code>withBorder</code> to false to disable the separator.
                   </td>
                 </tr>
                 <tr>

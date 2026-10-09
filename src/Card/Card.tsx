@@ -18,6 +18,7 @@ export type CardProps = MantineCardProps & {
 
 type CardPartProps = MantineCardSectionProps & {
   children?: ReactNode;
+  "data-orientation"?: "horizontal" | "vertical";
 };
 
 export type CardHeaderProps = CardPartProps;
@@ -29,8 +30,10 @@ function mergeClassName(...classNames: Array<string | undefined>) {
 }
 
 function CardPart({
+  "data-orientation": orientation = "vertical",
   className,
-  inheritPadding = true,
+  inheritPadding = false,
+  p = "1rem",
   withBorder = true,
   ...props
 }: CardPartProps) {
@@ -38,7 +41,9 @@ function CardPart({
     <MantineCard.Section
       {...props}
       className={mergeClassName(classes.section, className)}
+      data-orientation={orientation}
       inheritPadding={inheritPadding}
+      p={p}
       withBorder={withBorder}
     />
   );
