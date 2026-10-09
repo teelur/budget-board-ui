@@ -26,7 +26,7 @@ describe("Card", () => {
     expect(screen.getByText("Available balance")).toBeInTheDocument();
   });
 
-  it("separates the header and adjacent sections while inheriting padding", () => {
+  it("separates padded header and adjacent sections", () => {
     render(
       <Card>
         <Card.Header data-testid="header" py="sm">
@@ -46,8 +46,9 @@ describe("Card", () => {
 
       expect(section).toHaveClass(classes.section);
       expect(section).toHaveAttribute("data-with-border");
-      expect(section).toHaveAttribute("data-inherit-padding");
+      expect(section).not.toHaveAttribute("data-inherit-padding");
       expect(section).toHaveAttribute("data-orientation", "vertical");
+      expect(section.style.padding).toBe("1rem");
     }
 
     const header = screen.getByTestId("header");
@@ -60,6 +61,33 @@ describe("Card", () => {
     expect(screen.getByText("Accounts")).toBeInTheDocument();
     expect(screen.getByText("Checking")).toBeInTheDocument();
     expect(screen.getByText("Savings")).toBeInTheDocument();
+  });
+
+  it("keeps automatic section separators when parts render through a child component", () => {
+    function NestedSections() {
+      return (
+        <>
+          <Card.Section data-testid="nested-first">Email</Card.Section>
+          <Card.Section data-testid="nested-second">
+            Identity provider
+          </Card.Section>
+        </>
+      );
+    }
+
+    render(
+      <Card p={0}>
+        <NestedSections />
+      </Card>,
+    );
+
+    for (const testId of ["nested-first", "nested-second"]) {
+      expect(screen.getByTestId(testId)).toHaveAttribute(
+        "data-orientation",
+        "vertical",
+      );
+      expect(screen.getByTestId(testId).style.padding).toBe("1rem");
+    }
   });
 
   it("renders a labeled divider and forwards Mantine Divider props", () => {
