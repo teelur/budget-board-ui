@@ -1,5 +1,6 @@
 import type { ColorMode } from "../colorCardTypes";
 import { valueForMode } from "../colorCardTypes";
+import { Card } from "../../../../src";
 import colorCardStyles from "../ColorCard/ColorCard.module.css";
 import styles from "./RoleCard.module.css";
 
@@ -39,7 +40,7 @@ export function RoleCard({
   );
 
   return (
-    <div className={styles[cardClassName]}>
+    <Card className={styles[cardClassName]} p="sm">
       <div
         className={`${styles[swatchClassName]} ${
           styles[
@@ -67,6 +68,6 @@ export function RoleCard({
           </>
         ) : null}
       </div>
-    </div>
+    </Card>
   );
 }

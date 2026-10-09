@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NumberInput } from "../../../src";
+import { Card, NumberInput } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -63,24 +63,23 @@ export function NumberInputPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="The field keeps the same theme-aware fill on page and elevated card surfaces."
+        description="Compare the field fill on the page with its fill inside the BBUI Card surface."
         id="number-input-surfaces"
         title="Surface consistency"
         code={`<NumberInput label="Page surface" defaultValue={250} />
-<NumberInput label="Card surface" defaultValue={250} />`}
+      <Card p="lg">
+        <NumberInput label="Card surface" defaultValue={250} />
+      </Card>`}
       >
         <div className={styles.surfaceSamples}>
           <div className={`${styles.surfaceSample} ${styles.pageSurface}`}>
             <span>Page surface</span>
             <NumberInput aria-label="Page surface amount" defaultValue={250} />
           </div>
-          <div className={`${styles.surfaceSample} ${styles.cardSurface}`}>
-            <span>Elevated surface</span>
-            <NumberInput
-              aria-label="Elevated surface amount"
-              defaultValue={250}
-            />
-          </div>
+          <Card className={styles.surfaceSample} display="grid" p="lg">
+            <span>Card surface</span>
+            <NumberInput aria-label="Card surface amount" defaultValue={250} />
+          </Card>
         </div>
       </ComponentDemoSection>
 

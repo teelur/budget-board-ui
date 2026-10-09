@@ -1,7 +1,4 @@
 .textRoleCard {
-  background: var(--bb-color-surface);
-  border: 1px solid var(--bb-color-border);
-  display: grid;
   grid-template-columns: 5rem minmax(0, 1fr);
 }
 

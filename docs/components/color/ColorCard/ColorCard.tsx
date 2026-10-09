@@ -1,3 +1,4 @@
+import { Card } from "../../../../src";
 import styles from "./ColorCard.module.css";
 
 export interface ColorCardData {
@@ -10,7 +11,7 @@ export interface ColorCardData {
 
 export function ColorCard({ color }: { color: ColorCardData }) {
   return (
-    <div className={styles.colorCard}>
+    <Card className={styles.colorCard} p={0}>
       <div className={`${styles.colorSwatch} ${styles[color.className]}`} />
       <div className={styles.colorCardContent}>
         <div className={styles.colorCardHeading}>
@@ -20,6 +21,6 @@ export function ColorCard({ color }: { color: ColorCardData }) {
         <code>{color.token}</code>
         <p>{color.description}</p>
       </div>
-    </div>
+    </Card>
   );
 }

@@ -1,4 +1,4 @@
-import { TextInput } from "../../../src";
+import { Card, TextInput } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -50,24 +50,23 @@ export function TextInputPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="The field keeps the same neutral fill on page and elevated card surfaces."
+        description="Compare the field fill on the page and inside the BBUI Card surface."
         id="text-input-surfaces"
         title="Surface consistency"
         code={`<TextInput label="Page surface" placeholder="Type here" />
-<TextInput label="Card surface" placeholder="Type here" />`}
+      <Card p="lg">
+        <TextInput label="Card surface" placeholder="Type here" />
+      </Card>`}
       >
         <div className={styles.surfaceSamples}>
           <div className={`${styles.surfaceSample} ${styles.pageSurface}`}>
             <span>Page surface</span>
             <TextInput aria-label="Page surface text" placeholder="Type here" />
           </div>
-          <div className={`${styles.surfaceSample} ${styles.cardSurface}`}>
-            <span>Elevated surface</span>
-            <TextInput
-              aria-label="Elevated surface text"
-              placeholder="Type here"
-            />
-          </div>
+          <Card className={styles.surfaceSample} display="grid" p="lg">
+            <span>Card surface</span>
+            <TextInput aria-label="Card surface text" placeholder="Type here" />
+          </Card>
         </div>
       </ComponentDemoSection>
 

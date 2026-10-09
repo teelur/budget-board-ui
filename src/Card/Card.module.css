@@ -1,0 +1,52 @@
+.root:global(.mantine-Card-root) {
+  background-color: var(--bbui-card-surface);
+  border-color: var(--bbui-card-border);
+  color: var(--bbui-card-text);
+}
+
+.root .section[data-with-border] {
+  --border-color: var(--bbui-card-border);
+  color: inherit;
+}
+
+.root .divider {
+  --divider-color: var(--bbui-card-border);
+  color: var(--bbui-card-text-secondary);
+}
+
+.divider :global(.mantine-Divider-label) {
+  color: var(--bbui-card-text-secondary);
+}
+
+.hoverable {
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease;
+}
+
+.hoverable:hover {
+  background-color: var(--bbui-card-hover-surface);
+  border-color: var(--bbui-card-hover-border);
+}
+
+.hoverable:active {
+  background-color: var(--bbui-card-hover-surface);
+  border-color: var(--bbui-card-focus-ring);
+}
+
+button.root {
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+.hoverable:focus-visible {
+  outline: 2px solid var(--bbui-card-focus-ring);
+  outline-offset: -3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hoverable {
+    transition: none;
+  }
+}

@@ -21,6 +21,7 @@ import { AppShellPage } from "./pages/AppShellPage/AppShellPage";
 import { AutocompletePage } from "./pages/AutocompletePage/AutocompletePage";
 import { BadgePage } from "./pages/BadgePage/BadgePage";
 import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
+import { CardPage } from "./pages/CardPage/CardPage";
 import { CheckboxPage } from "./pages/CheckboxPage/CheckboxPage";
 import { CategorySelectPage } from "./pages/CategorySelectPage/CategorySelectPage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
@@ -154,6 +155,7 @@ export function App() {
               <a href="#autocomplete">Autocomplete</a>
               <a href="#badge">Badge</a>
               <a href="#button">Button</a>
+              <a href="#card">Card</a>
               <a href="#checkbox">Checkbox</a>
               <a href="#category-select">CategorySelect</a>
               <a href="#date-input">DateInput</a>
@@ -221,6 +223,7 @@ export function App() {
               <AutocompletePage />
               <BadgePage />
               <ButtonPage />
+              <CardPage />
               <CheckboxPage />
               <CategorySelectPage />
               <DateInputPage />

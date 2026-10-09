@@ -1,5 +1,6 @@
 import type { ColorMode } from "../colorCardTypes";
 import { valueForMode } from "../colorCardTypes";
+import { Card } from "../../../../src";
 import colorCardStyles from "../ColorCard/ColorCard.module.css";
 import styles from "./TextRoleCard.module.css";
 
@@ -20,7 +21,7 @@ export function TextRoleCard({
   colorMode: ColorMode;
 }) {
   return (
-    <div className={styles.textRoleCard}>
+    <Card className={styles.textRoleCard} display="grid" p={0}>
       <div className={`${styles.textRoleSample} ${styles[role.className]}`}>
         Aa
       </div>
@@ -34,6 +35,6 @@ export function TextRoleCard({
         <code>{role.token}</code>
         <p>{role.description}</p>
       </div>
-    </div>
+    </Card>
   );
 }

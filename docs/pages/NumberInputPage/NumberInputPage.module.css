@@ -16,7 +16,6 @@
   display: grid;
   gap: 0.75rem;
   min-width: 0;
-  padding: 1.25rem;
 }
 
 .surfaceSample > span {
@@ -26,11 +25,7 @@
 
 .pageSurface {
   background: var(--bb-color-page);
-}
-
-.cardSurface {
-  background: var(--bb-color-surface-elevated);
-  border: 1px solid var(--line);
+  padding: 1.25rem;
 }
 
 @media (max-width: 800px) {
