@@ -1,0 +1,82 @@
+.preview {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 38rem;
+}
+
+.plainCard,
+.splitCard,
+.authCard,
+.linkCard {
+  max-width: 100%;
+}
+
+.eyebrow,
+.cardSubtitle,
+.accountCount {
+  color: var(--muted);
+  font-family: var(--data);
+  font-size: 0.72rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.55rem;
+  text-transform: uppercase;
+}
+
+.cardTitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.amount {
+  display: block;
+  font-family: var(--data);
+  font-size: 1.5rem;
+  margin-top: 0.65rem;
+}
+
+.cardHeader {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.cardSubtitle {
+  display: block;
+  margin: 0.3rem 0 0;
+}
+
+.accountCount {
+  flex: 0 0 auto;
+}
+
+.accountRow {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  justify-content: space-between;
+}
+
+.accountRow strong {
+  font-family: var(--data);
+  font-size: 0.85rem;
+}
+
+.authOption {
+  padding: 1rem;
+}
+
+.linkCard {
+  color: inherit;
+  gap: 0.45rem;
+  text-decoration: none;
+}
+
+.linkCard strong {
+  font-weight: 600;
+}
