@@ -11,15 +11,15 @@ const plainCardExample = `<Card>
 </Card>`;
 
 const splitCardExample = `<Card>
-  <Card.Header py="sm">
+  <Card.Header>
     <div>
       <h3>Account balances</h3>
       <p>Updated just now</p>
     </div>
     <span>3 accounts</span>
   </Card.Header>
-  <Card.Section py="sm">Everyday checking <strong>$4,218.32</strong></Card.Section>
-  <Card.Section py="sm">Rainy day savings <strong>$4,202.18</strong></Card.Section>
+  <Card.Section>Everyday checking <strong>$4,218.32</strong></Card.Section>
+  <Card.Section>Rainy day savings <strong>$4,202.18</strong></Card.Section>
 </Card>`;
 
 const labeledDividerExample = `<Card p={0}>
@@ -91,20 +91,20 @@ export function CardPage() {
       >
         <div className={styles.preview}>
           <Card className={styles.splitCard}>
-            <Card.Header className={styles.cardHeader} py="sm">
+            <Card.Header className={styles.cardHeader}>
               <div>
                 <h3 className={styles.cardTitle}>Account balances</h3>
                 <p className={styles.cardSubtitle}>Updated just now</p>
               </div>
               <span className={styles.accountCount}>3 accounts</span>
             </Card.Header>
-            <Card.Section py="sm">
+            <Card.Section>
               <div className={styles.accountRow}>
                 <span>Everyday checking</span>
                 <strong>$4,218.32</strong>
               </div>
             </Card.Section>
-            <Card.Section py="sm">
+            <Card.Section>
               <div className={styles.accountRow}>
                 <span>Rainy day savings</span>
                 <strong>$4,202.18</strong>
@@ -184,11 +184,14 @@ export function CardPage() {
                     <code>CardHeaderProps</code>
                   </td>
                   <td>
-                    Arbitrary React content. Owns <code>1rem</code> padding by
-                    default, uses <code>{"inheritPadding={false}"}</code>, and
-                    adds a <code>border-subtle</code> separator. Override
-                    padding with Mantine spacing props such as <code>p</code>,
-                    <code>px</code>, or <code>py</code>.
+                    Arbitrary React content. Defaults to <code>1rem</code>
+                    padding on all four sides. Its separator is on the section
+                    edge, and the next part starts with its own full padding.
+                    Uses
+                    <code>{"inheritPadding={false}"}</code> and adds a
+                    <code>border-subtle</code> separator. Override padding with
+                    Mantine props such as <code>p</code>, <code>px</code>, or
+                    <code>py</code>.
                   </td>
                 </tr>
                 <tr>
@@ -197,11 +200,9 @@ export function CardPage() {
                     <code>CardSectionProps</code>
                   </td>
                   <td>
-                    Repeat for body sections. Owns <code>1rem</code> padding by
-                    default, uses <code>{"inheritPadding={false}"}</code>, and
-                    gets an automatic <code>border-subtle</code> separator
-                    between adjacent sections, including when rendered through a
-                    child component. Override padding with <code>p</code>,
+                    Repeat for body sections. Defaults to <code>1rem</code>
+                    padding on all four sides; adjacent sections do not share or
+                    collapse padding. Override padding with <code>p</code>,
                     <code>px</code>, or <code>py</code>; set
                     <code>withBorder</code> to false to disable the separator.
                   </td>
