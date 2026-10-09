@@ -1,6 +1,4 @@
 .colorCard {
-  background: var(--bb-color-surface);
-  border: 1px solid var(--bb-color-border);
   min-width: 0;
 }
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Textarea } from "../../../src";
+import { Card, Textarea } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -57,21 +57,23 @@ export function TextareaPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="The multiline field keeps the same neutral fill on page and elevated card surfaces."
+        description="Compare the multiline field fill on the page and inside the BBUI Card surface."
         id="textarea-surfaces"
         title="Surface consistency"
         code={`<Textarea label="Page surface" minRows={3} />
-<Textarea label="Card surface" minRows={3} />`}
+      <Card p="lg">
+        <Textarea label="Card surface" minRows={3} />
+      </Card>`}
       >
         <div className={styles.surfaceSamples}>
           <div className={`${styles.surfaceSample} ${styles.pageSurface}`}>
             <span>Page surface</span>
             <Textarea aria-label="Page note" minRows={3} />
           </div>
-          <div className={`${styles.surfaceSample} ${styles.cardSurface}`}>
-            <span>Elevated surface</span>
-            <Textarea aria-label="Elevated surface note" minRows={3} />
-          </div>
+          <Card className={styles.surfaceSample} display="grid" p="lg">
+            <span>Card surface</span>
+            <Textarea aria-label="Card surface note" minRows={3} />
+          </Card>
         </div>
       </ComponentDemoSection>
 

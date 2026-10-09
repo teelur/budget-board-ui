@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PasswordInput } from "../../../src";
+import { Card, PasswordInput } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -53,21 +53,23 @@ export function PasswordInputPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="The password field keeps the same neutral fill over page and elevated card surfaces."
+        description="Compare the password field fill on the page and inside the BBUI Card surface."
         id="password-input-surfaces"
         title="Surface consistency"
         code={`<PasswordInput label="Page surface" />
-<PasswordInput label="Card surface" />`}
+      <Card p="lg">
+        <PasswordInput label="Card surface" />
+      </Card>`}
       >
         <div className={styles.surfaceSamples}>
           <div className={`${styles.surfaceSample} ${styles.pageSurface}`}>
             <span>Page surface</span>
             <PasswordInput aria-label="Page password" />
           </div>
-          <div className={`${styles.surfaceSample} ${styles.cardSurface}`}>
-            <span>Elevated surface</span>
-            <PasswordInput aria-label="Elevated surface password" />
-          </div>
+          <Card className={styles.surfaceSample} display="grid" p="lg">
+            <span>Card surface</span>
+            <PasswordInput aria-label="Card surface password" />
+          </Card>
         </div>
       </ComponentDemoSection>
 

@@ -1,11 +1,7 @@
 .theme-role-card,
 .semantic-color-card {
-  background: var(--bb-color-surface);
-  border: 1px solid var(--bb-color-border);
-  display: grid;
   gap: 0.7rem;
   min-width: 0;
-  padding: 0.8rem;
 }
 
 .theme-role-swatch,

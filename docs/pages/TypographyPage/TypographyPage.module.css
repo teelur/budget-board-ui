@@ -6,12 +6,8 @@
 }
 
 .typographyCard {
-  background: var(--bb-color-surface);
-  border: 1px solid var(--bb-color-border);
-  display: grid;
   gap: 0.55rem;
   min-width: 0;
-  padding: 1.25rem;
 }
 
 .typographyCard .demoLabel {
@@ -56,13 +52,9 @@
 
 .typographyTransaction {
   align-items: center;
-  background: var(--bb-color-surface);
-  border: 1px solid var(--bb-color-border);
-  display: flex;
   gap: 1rem;
   justify-content: space-between;
   margin-top: 1rem;
-  padding: 1.25rem;
 }
 
 .typographyTransaction div {
@@ -82,12 +74,8 @@
 }
 
 .typographyControls {
-  background: var(--bb-color-surface);
-  border: 1px solid var(--bb-color-border);
-  display: grid;
   gap: 1rem;
   margin-top: 1rem;
-  padding: 1.25rem;
 }
 
 .typographyControls > div {

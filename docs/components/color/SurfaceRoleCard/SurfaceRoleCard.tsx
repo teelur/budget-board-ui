@@ -1,5 +1,6 @@
 import type { ColorMode } from "../colorCardTypes";
 import { valueForMode } from "../colorCardTypes";
+import { Card } from "../../../../src";
 import colorCardStyles from "../ColorCard/ColorCard.module.css";
 import styles from "./SurfaceRoleCard.module.css";
 
@@ -21,7 +22,7 @@ export function SurfaceRoleCard({
   colorMode: ColorMode;
 }) {
   return (
-    <div className={styles.surfaceRoleCard}>
+    <Card className={styles.surfaceRoleCard} p={0}>
       <div
         className={`${styles.surfaceRoleSwatch} ${
           styles[
@@ -39,6 +40,6 @@ export function SurfaceRoleCard({
         <code>{role.token}</code>
         <p>{role.description}</p>
       </div>
-    </div>
+    </Card>
   );
 }

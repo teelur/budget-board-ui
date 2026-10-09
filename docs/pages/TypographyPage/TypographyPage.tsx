@@ -1,4 +1,9 @@
-import { Button, SegmentedControl, budgetBoardTypography } from "../../../src";
+import {
+  Button,
+  Card,
+  SegmentedControl,
+  budgetBoardTypography,
+} from "../../../src";
 import pageStyles from "../Page.module.css";
 import styles from "./TypographyPage.module.css";
 
@@ -43,7 +48,12 @@ export function TypographyPage() {
 
       <div className={styles.typographyGrid}>
         {typographyRoles.map((role) => (
-          <div className={styles.typographyCard} key={role.token}>
+          <Card
+            className={styles.typographyCard}
+            display="grid"
+            key={role.token}
+            p="lg"
+          >
             <span className={`${pageStyles.demoLabel} ${styles.demoLabel}`}>
               {role.name}
             </span>
@@ -57,11 +67,11 @@ export function TypographyPage() {
             <code>{role.token}</code>
             <p>{role.family}</p>
             <small>{role.description}</small>
-          </div>
+          </Card>
         ))}
       </div>
 
-      <div className={styles.typographyTransaction}>
+      <Card className={styles.typographyTransaction} display="flex" p="lg">
         <div>
           <strong>Neighborhood Market and Household Supplies</strong>
           <span>Sep 19, 2026 · Groceries</span>
@@ -71,9 +81,9 @@ export function TypographyPage() {
         >
           -$1,284.50
         </strong>
-      </div>
+      </Card>
 
-      <div className={styles.typographyControls}>
+      <Card className={styles.typographyControls} display="grid" p="lg">
         <div>
           <Button size="compact-md">Save changes</Button>
           <SegmentedControl
@@ -91,7 +101,7 @@ export function TypographyPage() {
           similar) render at <code>font-weight: 600</code> within the Body role,
           so they read as firmer and more tappable than surrounding copy.
         </p>
-      </div>
+      </Card>
     </section>
   );
 }
