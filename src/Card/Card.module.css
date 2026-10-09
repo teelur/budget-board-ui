@@ -29,6 +29,17 @@
   border-color: var(--bbui-card-hover-border);
 }
 
+.hoverable:active {
+  background-color: var(--bbui-card-hover-surface);
+  border-color: var(--bbui-card-focus-ring);
+}
+
+button.root {
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
 .hoverable:focus-visible {
   outline: 2px solid var(--bbui-card-focus-ring);
   outline-offset: -3px;
