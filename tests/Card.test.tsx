@@ -48,7 +48,12 @@ describe("Card", () => {
       expect(section).toHaveAttribute("data-with-border");
       expect(section).not.toHaveAttribute("data-inherit-padding");
       expect(section).toHaveAttribute("data-orientation", "vertical");
-      expect(section.style.padding).toBe("1rem");
+      expect(section.style.padding).toBe("");
+      expect(section.style.getPropertyValue("padding-block")).toBe(
+        testId === "second-section"
+          ? "var(--mantine-spacing-xs)"
+          : "var(--mantine-spacing-sm)",
+      );
     }
 
     const header = screen.getByTestId("header");
@@ -86,7 +91,7 @@ describe("Card", () => {
         "data-orientation",
         "vertical",
       );
-      expect(screen.getByTestId(testId).style.padding).toBe("1rem");
+      expect(screen.getByTestId(testId).style.padding).toBe("");
     }
   });
 

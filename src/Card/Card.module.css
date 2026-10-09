@@ -9,6 +9,10 @@
   color: inherit;
 }
 
+.root .section {
+  padding: 1rem;
+}
+
 .root .divider {
   --divider-color: var(--bbui-card-border);
   color: var(--bbui-card-text-secondary);

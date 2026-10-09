@@ -33,7 +33,7 @@ function CardPart({
   "data-orientation": orientation = "vertical",
   className,
   inheritPadding = false,
-  p = "1rem",
+  p,
   withBorder = true,
   ...props
 }: CardPartProps) {
@@ -43,7 +43,7 @@ function CardPart({
       className={mergeClassName(classes.section, className)}
       data-orientation={orientation}
       inheritPadding={inheritPadding}
-      p={p}
+      {...(p === undefined ? {} : { p })}
       withBorder={withBorder}
     />
   );
