@@ -1,4 +1,4 @@
-.root {
+.root:global(.mantine-Card-root) {
   background-color: var(--bbui-card-surface);
   border-color: var(--bbui-card-border);
   color: var(--bbui-card-text);
