@@ -82,7 +82,7 @@ function CardSection({
   );
 }
 
-CardSection.displayName = "@teelur/budget-board-ui/CardSection";
+CardSection.displayName = "@mantine/core/CardSection";
 
 const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
   { className, hoverable = false, style, withBorder = true, ...props },
