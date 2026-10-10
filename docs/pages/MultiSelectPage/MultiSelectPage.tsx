@@ -1,4 +1,5 @@
 import { MultiSelect } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -23,6 +24,47 @@ export function MultiSelectPage() {
       <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Select several options, with optional query-based option creation.
       </BodyText>
+
+      <ApiPlayground
+        componentName="MultiSelect"
+        controls={[
+          {
+            key: "size",
+            label: "Size",
+            type: "select",
+            options: ["xs", "sm", "md", "lg", "xl"],
+          },
+          { key: "searchable", label: "Searchable", type: "toggle" },
+          { key: "clearable", label: "Clearable", type: "toggle" },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+        ]}
+        defaultValues={{
+          size: "md",
+          searchable: true,
+          clearable: true,
+          disabled: false,
+        }}
+        description="Explore the multi-value field with search, clear, size, and disabled options."
+        id="multi-select-playground"
+        staticCodeProps={[
+          "data={accounts}",
+          'label="Accounts"',
+          'placeholder="Select accounts"',
+        ]}
+        render={(values) => (
+          <div style={{ maxWidth: "30rem", width: "100%" }}>
+            <MultiSelect
+              clearable={values.clearable as boolean}
+              data={accounts}
+              disabled={values.disabled as boolean}
+              label="Accounts"
+              placeholder="Select accounts"
+              searchable={values.searchable as boolean}
+              size={values.size as "xs" | "sm" | "md" | "lg" | "xl"}
+            />
+          </div>
+        )}
+      />
 
       <ComponentDemoSection
         description="Search for and select multiple accounts."

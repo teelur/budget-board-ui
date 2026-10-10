@@ -1,4 +1,5 @@
 import { FileInput } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -19,6 +20,47 @@ export function FileInputPage() {
         Mantine file selection behavior with the same BBUI surface and focus
         styling as the other input components.
       </BodyText>
+
+      <ApiPlayground
+        componentName="FileInput"
+        controls={[
+          {
+            key: "size",
+            label: "Size",
+            type: "select",
+            options: ["xs", "sm", "md", "lg", "xl"],
+          },
+          { key: "clearable", label: "Clearable", type: "toggle" },
+          { key: "multiple", label: "Multiple files", type: "toggle" },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+        ]}
+        defaultValues={{
+          size: "md",
+          clearable: true,
+          multiple: false,
+          disabled: false,
+        }}
+        description="Compare file-field sizes, clear controls, multiple selection, and disabled styling."
+        id="file-input-playground"
+        staticCodeProps={[
+          'label="Statement"',
+          'placeholder="Choose a PDF"',
+          'accept="application/pdf"',
+        ]}
+        render={(values) => (
+          <div style={{ maxWidth: "32rem", width: "100%" }}>
+            <FileInput
+              accept="application/pdf"
+              clearable={values.clearable as boolean}
+              disabled={values.disabled as boolean}
+              label="Statement"
+              multiple={values.multiple as boolean}
+              placeholder="Choose a PDF"
+              size={values.size as "xs" | "sm" | "md" | "lg" | "xl"}
+            />
+          </div>
+        )}
+      />
 
       <ComponentDemoSection
         description="Choose a file, restrict accepted file types, and optionally show Mantine's clear control."

@@ -1,5 +1,6 @@
 import { ArrowLeftRight, Goal, Home, Wallet } from "lucide-react";
 import { NavbarLink } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -42,6 +43,35 @@ export function NavbarLinkPage() {
         optional collapsible child links. The consuming application controls
         routing, selection, and label visibility.
       </BodyText>
+
+      <ApiPlayground
+        componentName="NavbarLink"
+        controls={[
+          { key: "showLabel", label: "Show label", type: "toggle" },
+          { key: "active", label: "Active", type: "toggle" },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+        ]}
+        defaultValues={{ showLabel: true, active: true, disabled: false }}
+        description="Compare expanded and collapsed navigation styling, active feedback, and disabled state."
+        id="navbar-link-playground"
+        staticCodeProps={[
+          'icon={<ArrowLeftRight aria-hidden="true" />}',
+          'label="Transactions"',
+          "onClick={() => {}}",
+        ]}
+        render={(values) => (
+          <div className={styles.expanded}>
+            <NavbarLink
+              active={values.active as boolean}
+              disabled={values.disabled as boolean}
+              icon={<ArrowLeftRight aria-hidden="true" />}
+              label="Transactions"
+              onClick={() => {}}
+              showLabel={values.showLabel as boolean}
+            />
+          </div>
+        )}
+      />
 
       <ComponentDemoSection
         description="Expanded links show labels and can contain a collapsible child list. The parent action and disclosure control stay separate. Collapsed links keep an accessible name and reveal the parent label in a tooltip; child links stay hidden."

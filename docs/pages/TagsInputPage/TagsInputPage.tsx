@@ -1,4 +1,5 @@
 import { TagsInput } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -19,6 +20,46 @@ export function TagsInputPage() {
       <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Enter free-form tags or select from suggested values.
       </BodyText>
+
+      <ApiPlayground
+        componentName="TagsInput"
+        controls={[
+          {
+            key: "size",
+            label: "Size",
+            type: "select",
+            options: ["xs", "sm", "md", "lg", "xl"],
+          },
+          { key: "clearable", label: "Clearable", type: "toggle" },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+          { key: "placeholder", label: "Placeholder", type: "text" },
+        ]}
+        defaultValues={{
+          size: "md",
+          clearable: true,
+          disabled: false,
+          placeholder: "Add a category",
+        }}
+        description="Compare tag-field sizes, selected-value pills, clear controls, and disabled styling."
+        id="tags-input-playground"
+        staticCodeProps={[
+          "data={suggestedTags}",
+          'label="Categories"',
+        ]}
+        render={(values) => (
+          <div style={{ maxWidth: "30rem", width: "100%" }}>
+            <TagsInput
+              clearable={values.clearable as boolean}
+              data={suggestedTags}
+              disabled={values.disabled as boolean}
+              label="Categories"
+              placeholder={values.placeholder as string}
+              size={values.size as "xs" | "sm" | "md" | "lg" | "xl"}
+              defaultValue={["Home", "Food"]}
+            />
+          </div>
+        )}
+      />
 
       <ComponentDemoSection
         description="Type a value and press Enter to add a tag."

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { PinInput } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -23,6 +24,33 @@ export function PinInputPage() {
         Segmented PIN and one-time-code entry with BBUI field styling and
         Mantine keyboard behavior.
       </BodyText>
+
+      <ApiPlayground
+        componentName="PinInput"
+        controls={[
+          { key: "length", label: "Length", type: "number", min: 4, max: 8 },
+          { key: "size", label: "Size", type: "select", options: ["sm", "md", "lg"] },
+          { key: "mask", label: "Mask value", type: "toggle" },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+        ]}
+        defaultValues={{ length: 6, size: "md", mask: false, disabled: false }}
+        description="Change the number of code cells and compare their size, masking, and disabled styling."
+        id="pin-input-playground"
+        staticCodeProps={[
+          'ariaLabel="Verification code"',
+          'type="number"',
+        ]}
+        render={(values) => (
+          <PinInput
+            ariaLabel="Verification code"
+            disabled={values.disabled as boolean}
+            length={values.length as number}
+            mask={values.mask as boolean}
+            size={values.size as "sm" | "md" | "lg"}
+            type="number"
+          />
+        )}
+      />
 
       <ComponentDemoSection
         description="Control the code value and respond when all cells are filled."

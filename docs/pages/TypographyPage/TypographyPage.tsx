@@ -4,9 +4,10 @@ import {
   SegmentedControl,
   budgetBoardTypography,
 } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import pageStyles from "../Page.module.css";
 import styles from "./TypographyPage.module.css";
-import { BodyText, CaptionText, DataText, HeadingText } from "../../../src";
+import { BodyText, CaptionText, DataText, HeadingText, type TextTone } from "../../../src";
 
 const typographyRoles = [
   {
@@ -48,6 +49,59 @@ export function TypographyPage() {
         <a href="#text-components">text components and API</a> for reusable
         hierarchy roles.
       </BodyText>
+
+      <ApiPlayground
+        componentName="BodyText"
+        controls={[
+          {
+            key: "tone",
+            label: "Tone",
+            type: "select",
+            options: ["heading", "primary", "secondary", "metadata", "muted"],
+          },
+          {
+            key: "font",
+            label: "Font role",
+            type: "select",
+            options: ["body", "display", "data"],
+            formatCode: (value) =>
+              `ff=${JSON.stringify(`var(--bb-font-${value})`)}`,
+          },
+          {
+            key: "fontSize",
+            label: "Font size",
+            type: "range",
+            min: 14,
+            max: 40,
+            formatCode: (value) => `fz="${Number(value) / 16}rem"`,
+          },
+          {
+            key: "fontWeight",
+            label: "Font weight",
+            type: "select",
+            options: ["400", "500", "600", "700"],
+            formatCode: (value) => `fw={${value}}`,
+          },
+        ]}
+        defaultValues={{
+          tone: "primary",
+          font: "body",
+          fontSize: 24,
+          fontWeight: "600",
+        }}
+        description="Tune a text role's semantic tone, font family, size, and weight to inspect hierarchy and contrast."
+        id="typography-playground"
+        render={(values) => (
+          <BodyText
+            ff={`var(--bb-font-${values.font})`}
+            fw={Number(values.fontWeight)}
+            fz={`${Number(values.fontSize) / 16}rem`}
+            tone={values.tone as TextTone}
+          >
+            Budget Board · $12,480.00
+          </BodyText>
+        )}
+      />
 
       <div className={styles.typographyGrid}>
         {typographyRoles.map((role) => (

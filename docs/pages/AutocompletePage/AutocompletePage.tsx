@@ -1,4 +1,5 @@
 import { Autocomplete } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -25,6 +26,41 @@ export function AutocompletePage() {
       <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Mantine Autocomplete behavior with BBUI input and dropdown styling.
       </BodyText>
+
+      <ApiPlayground
+        componentName="Autocomplete"
+        controls={[
+          {
+            key: "size",
+            label: "Size",
+            type: "select",
+            options: ["xs", "sm", "md", "lg", "xl"],
+          },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+          { key: "label", label: "Label", type: "text" },
+          { key: "placeholder", label: "Placeholder", type: "text" },
+        ]}
+        defaultValues={{
+          size: "md",
+          disabled: false,
+          label: "Merchant",
+          placeholder: "Search merchants",
+        }}
+        description="Change the field size, label, placeholder, and disabled state while testing the dropdown."
+        id="autocomplete-playground"
+        staticCodeProps={["data={merchants}"]}
+        render={(values) => (
+          <div style={{ maxWidth: "32rem", width: "100%" }}>
+            <Autocomplete
+              data={merchants}
+              disabled={values.disabled as boolean}
+              label={values.label as string}
+              placeholder={values.placeholder as string}
+              size={values.size as "xs" | "sm" | "md" | "lg" | "xl"}
+            />
+          </div>
+        )}
+      />
 
       <ComponentDemoSection
         description="Type to filter the available merchant suggestions."

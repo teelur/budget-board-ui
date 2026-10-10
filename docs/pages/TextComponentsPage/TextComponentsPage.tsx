@@ -5,6 +5,7 @@ import {
   DisplayText,
   HeadingText,
 } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -25,6 +26,70 @@ export function TextComponentsPage() {
         semantic color. Use HeadingText for document headings; DisplayText is
         visual display copy and does not create a heading.
       </BodyText>
+
+      <ApiPlayground
+        componentName={(values) => values.role as string}
+        controls={[
+          {
+            key: "role",
+            label: "Text role",
+            type: "select",
+            options: [
+              "BodyText",
+              "CaptionText",
+              "DataText",
+              "DisplayText",
+              "HeadingText",
+            ],
+            formatCode: () => null,
+          },
+          {
+            key: "tone",
+            label: "Tone",
+            type: "select",
+            options: ["heading", "primary", "secondary", "metadata", "muted"],
+          },
+          {
+            key: "fontSize",
+            label: "Font size",
+            type: "range",
+            min: 12,
+            max: 40,
+            formatCode: (value) => `fz="${Number(value) / 16}rem"`,
+          },
+        ]}
+        defaultValues={{ role: "BodyText", tone: "primary", fontSize: 20 }}
+        description="Switch between semantic typography roles and tune their tone and size to compare hierarchy."
+        id="text-components-playground"
+        render={(values) => {
+          const sharedProps = {
+            fz: `${Number(values.fontSize) / 16}rem`,
+            tone: values.tone as
+              | "heading"
+              | "primary"
+              | "secondary"
+              | "metadata"
+              | "muted",
+          };
+
+          switch (values.role) {
+            case "CaptionText":
+              return <CaptionText {...sharedProps}>Updated just now</CaptionText>;
+            case "DataText":
+              return <DataText {...sharedProps}>-$1,284.50</DataText>;
+            case "DisplayText":
+              return <DisplayText {...sharedProps}>Budget Board</DisplayText>;
+            case "HeadingText":
+              return <HeadingText {...sharedProps} level={3}>Monthly overview</HeadingText>;
+            default:
+              return (
+                <BodyText {...sharedProps}>
+                  Readable supporting copy goes here.
+                </BodyText>
+              );
+          }
+        }}
+      />
 
       <ComponentDemoSection
         description="Use each role for its typographic purpose; headings preserve the document outline."

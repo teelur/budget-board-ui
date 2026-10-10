@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { DatePickerInput } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -29,6 +30,40 @@ export function DatePickerInputPage() {
       <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Calendar-first date selection with single, multiple, and range modes.
       </BodyText>
+
+      <ApiPlayground
+        componentName="DatePickerInput"
+        controls={[
+          {
+            key: "size",
+            label: "Size",
+            type: "select",
+            options: sizes,
+          },
+          { key: "clearable", label: "Clearable", type: "toggle" },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+        ]}
+        defaultValues={{ size: "md", clearable: false, disabled: false }}
+        description="Adjust the date field size and compare clearable or disabled states."
+        id="date-picker-input-playground"
+        staticCodeProps={[
+          'label="Statement date"',
+          'defaultValue="2025-06-15"',
+          'valueFormat="YYYY-MM-DD"',
+        ]}
+        render={(values) => (
+          <div style={{ maxWidth: "32rem", width: "100%" }}>
+            <DatePickerInput
+              clearable={values.clearable as boolean}
+              defaultValue="2025-06-15"
+              disabled={values.disabled as boolean}
+              label="Statement date"
+              size={values.size as (typeof sizes)[number]}
+              valueFormat="YYYY-MM-DD"
+            />
+          </div>
+        )}
+      />
 
       <ComponentDemoSection
         description="Use the picker trigger for a single date or choose a range without giving up the shared BBUI field styling."

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Card, PasswordInput } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -26,6 +27,43 @@ export function PasswordInputPage() {
         Mantine password input behavior and visibility toggle with BBUI field
         styling.
       </BodyText>
+
+      <ApiPlayground
+        componentName="PasswordInput"
+        controls={[
+          { key: "size", label: "Size", type: "select", options: sizes },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+          {
+            key: "visibilityToggleFocusable",
+            label: "Focusable visibility toggle",
+            type: "toggle",
+          },
+        ]}
+        defaultValues={{
+          size: "md",
+          disabled: false,
+          visibilityToggleFocusable: true,
+        }}
+        description="Try different field sizes and inspect disabled and visibility-toggle focus styling."
+        id="password-input-playground"
+        staticCodeProps={[
+          'label="Account password"',
+          'autoComplete="current-password"',
+        ]}
+        render={(values) => (
+          <div style={{ maxWidth: "32rem", width: "100%" }}>
+            <PasswordInput
+              autoComplete="current-password"
+              disabled={values.disabled as boolean}
+              label="Account password"
+              size={values.size as (typeof sizes)[number]}
+              visibilityToggleFocusable={
+                values.visibilityToggleFocusable as boolean
+              }
+            />
+          </div>
+        )}
+      />
 
       <ComponentDemoSection
         description="The visibility control preserves Mantine's reveal/hide behavior and can be made keyboard-focusable."
