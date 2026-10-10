@@ -22,9 +22,9 @@ export type {
 } from "./colors";
 
 export const budgetBoardTypography = {
-  body: '"IBM Plex Sans", sans-serif',
-  data: '"IBM Plex Sans", sans-serif',
-  display: '"Plus Jakarta Sans", sans-serif',
+  body: '"IBM Plex Sans Variable", sans-serif',
+  data: '"IBM Plex Sans Variable", sans-serif',
+  display: '"Plus Jakarta Sans Variable", sans-serif',
 } as const;
 
 export type BudgetBoardFontKey = keyof typeof budgetBoardTypography;
