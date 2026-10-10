@@ -4,6 +4,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./TextareaPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
@@ -14,15 +15,15 @@ export function TextareaPage() {
     <section className={pageStyles.componentSection} id="textarea">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Inputs</p>
-          <h2>Textarea</h2>
+          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
+          <HeadingText level={2}>Textarea</HeadingText>
         </div>
         <code>import {"{ Textarea }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         A multiline text field with Mantine row sizing and autosize behavior,
         styled to match the BBUI input family.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Use autosize with row limits for notes that grow naturally while staying within a predictable range."
@@ -67,11 +68,11 @@ export function TextareaPage() {
       >
         <div className={styles.surfaceSamples}>
           <div className={`${styles.surfaceSample} ${styles.pageSurface}`}>
-            <span>Page surface</span>
+            <BodyText component="span">Page surface</BodyText>
             <Textarea aria-label="Page note" minRows={3} />
           </div>
           <Card className={styles.surfaceSample} display="grid" p="lg">
-            <span>Card surface</span>
+            <BodyText component="span">Card surface</BodyText>
             <Textarea aria-label="Card surface note" minRows={3} />
           </Card>
         </div>
@@ -141,8 +142,8 @@ export function TextareaPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>BBUI styling with Mantine Textarea props.</p>
+            <HeadingText level={3}>API reference</HeadingText>
+            <BodyText component="p">BBUI styling with Mantine Textarea props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

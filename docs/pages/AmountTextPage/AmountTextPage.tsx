@@ -3,20 +3,21 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./AmountTextPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 export function AmountTextPage() {
   return (
     <section className={pageStyles.componentSection} id="amount-text">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Financial semantics</p>
-          <h2>AmountText</h2>
+          <BodyText component="p" className={pageStyles.eyebrow}>Financial semantics</BodyText>
+          <HeadingText level={2}>AmountText</HeadingText>
         </div>
         <code>import {"{ AmountText }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         Amount-aware colors, formatting, and privacy masking.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Status colors preserve the financial meaning of each value."
@@ -117,8 +118,8 @@ export function AmountTextPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>Financial props plus the complete Mantine TextProps surface.</p>
+            <HeadingText level={3}>API reference</HeadingText>
+            <BodyText component="p">Financial props plus the complete Mantine TextProps surface.</BodyText>
           </div>
           <a
             aria-label="Link to AmountText API reference section"

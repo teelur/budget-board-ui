@@ -3,6 +3,7 @@ import { CategorySelect } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 const categories = [
   {
@@ -28,16 +29,16 @@ export function CategorySelectPage() {
     <section className={pageStyles.componentSection} id="category-select">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Inputs</p>
-          <h2>CategorySelect</h2>
+          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
+          <HeadingText level={2}>CategorySelect</HeadingText>
         </div>
         <code>
           import {"{ CategorySelect }"} from '@teelur/budget-board-ui';
         </code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         Search and select from a hierarchical list of categories.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Parent labels use semibold primary text; child labels use secondary text with a subtle indent. All categories remain selectable."
@@ -69,8 +70,8 @@ export function CategorySelectPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>Hierarchical category options with searchable selection.</p>
+            <HeadingText level={3}>API reference</HeadingText>
+            <BodyText component="p">Hierarchical category options with searchable selection.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

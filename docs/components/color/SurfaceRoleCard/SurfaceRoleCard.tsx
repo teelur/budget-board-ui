@@ -3,6 +3,7 @@ import { valueForMode } from "../colorCardTypes";
 import { Card } from "../../../../src";
 import colorCardStyles from "../ColorCard/ColorCard.module.css";
 import styles from "./SurfaceRoleCard.module.css";
+import { BodyText } from "../../../../src";
 
 export interface SurfaceRoleData {
   name: string;
@@ -32,13 +33,13 @@ export function SurfaceRoleCard({
       />
       <div className={styles.surfaceRoleContent}>
         <div className={colorCardStyles.colorCardHeading}>
-          <strong>{role.name}</strong>
+          <BodyText component="strong" fw={700}>{role.name}</BodyText>
           <code>
             {valueForMode(role.lightValue, role.darkValue, colorMode)}
           </code>
         </div>
         <code>{role.token}</code>
-        <p>{role.description}</p>
+        <BodyText component="p">{role.description}</BodyText>
       </div>
     </Card>
   );

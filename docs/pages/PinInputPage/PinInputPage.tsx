@@ -4,6 +4,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./PinInputPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 export function PinInputPage() {
   const [code, setCode] = useState("");
@@ -13,15 +14,15 @@ export function PinInputPage() {
     <section className={pageStyles.componentSection} id="pin-input">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Inputs</p>
-          <h2>PinInput</h2>
+          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
+          <HeadingText level={2}>PinInput</HeadingText>
         </div>
         <code>import {"{ PinInput }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         Segmented PIN and one-time-code entry with BBUI field styling and
         Mantine keyboard behavior.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Control the code value and respond when all cells are filled."
@@ -47,11 +48,11 @@ export function PinInputPage() {
             type="number"
             value={code}
           />
-          <p aria-live="polite" className={styles.value}>
+          <BodyText component="p" aria-live="polite" className={styles.value}>
             {completedCode
               ? `Completed code: ${completedCode}`
               : "Enter a code"}
-          </p>
+          </BodyText>
         </div>
       </ComponentDemoSection>
 
@@ -65,11 +66,11 @@ export function PinInputPage() {
       >
         <div className={styles.states}>
           <div className={styles.state}>
-            <span className={styles.stateLabel}>Masked</span>
+            <BodyText component="span" className={styles.stateLabel}>Masked</BodyText>
             <PinInput ariaLabel="Masked code" length={4} mask type="number" />
           </div>
           <div className={styles.state}>
-            <span className={styles.stateLabel}>Disabled</span>
+            <BodyText component="span" className={styles.stateLabel}>Disabled</BodyText>
             <PinInput
               ariaLabel="Disabled code"
               disabled
@@ -78,7 +79,7 @@ export function PinInputPage() {
             />
           </div>
           <div className={styles.state}>
-            <span className={styles.stateLabel}>Read only</span>
+            <BodyText component="span" className={styles.stateLabel}>Read only</BodyText>
             <PinInput
               ariaLabel="Read-only code"
               defaultValue="2048"
@@ -88,7 +89,7 @@ export function PinInputPage() {
             />
           </div>
           <div className={styles.state}>
-            <span className={styles.stateLabel}>Large cells</span>
+            <BodyText component="span" className={styles.stateLabel}>Large cells</BodyText>
             <PinInput
               ariaLabel="Large code"
               length={4}
@@ -105,8 +106,8 @@ export function PinInputPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>BBUI field styling and Mantine PinInput props.</p>
+            <HeadingText level={3}>API reference</HeadingText>
+            <BodyText component="p">BBUI field styling and Mantine PinInput props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

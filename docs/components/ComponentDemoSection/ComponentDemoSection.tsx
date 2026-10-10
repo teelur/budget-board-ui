@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { KeyboardEvent, ReactNode } from "react";
 import { Button } from "../../../src";
 import styles from "./ComponentDemoSection.module.css";
+import { HeadingText, BodyText } from "../../../src";
 
 type ComponentDemoTab = "preview" | "code";
 
@@ -54,8 +55,8 @@ export function ComponentDemoSection({
     <section className={styles.componentDemoSection} id={id}>
       <div className={styles.componentDemoHeading}>
         <div>
-          <h3>{title}</h3>
-          <p>{description}</p>
+          <HeadingText level={3}>{title}</HeadingText>
+          <BodyText component="p">{description}</BodyText>
         </div>
         <a
           aria-label={`Link to ${title} section`}

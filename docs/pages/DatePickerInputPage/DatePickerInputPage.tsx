@@ -4,6 +4,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./DatePickerInputPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
@@ -18,16 +19,16 @@ export function DatePickerInputPage() {
     <section className={pageStyles.componentSection} id="date-picker-input">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Inputs</p>
-          <h2>DatePickerInput</h2>
+          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
+          <HeadingText level={2}>DatePickerInput</HeadingText>
         </div>
         <code>
           import {"{ DatePickerInput }"} from '@teelur/budget-board-ui';
         </code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         Calendar-first date selection with single, multiple, and range modes.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Use the picker trigger for a single date or choose a range without giving up the shared BBUI field styling."
@@ -99,8 +100,8 @@ const [range, setRange] = useState<[string | null, string | null]>([null, null])
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>BBUI field styling with Mantine DatePickerInput props.</p>
+            <HeadingText level={3}>API reference</HeadingText>
+            <BodyText component="p">BBUI field styling with Mantine DatePickerInput props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

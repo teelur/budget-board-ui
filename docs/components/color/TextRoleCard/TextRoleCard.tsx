@@ -3,6 +3,7 @@ import { valueForMode } from "../colorCardTypes";
 import { Card } from "../../../../src";
 import colorCardStyles from "../ColorCard/ColorCard.module.css";
 import styles from "./TextRoleCard.module.css";
+import { BodyText } from "../../../../src";
 
 export interface TextRoleData {
   name: string;
@@ -27,13 +28,13 @@ export function TextRoleCard({
       </div>
       <div className={styles.textRoleContent}>
         <div className={colorCardStyles.colorCardHeading}>
-          <strong>{role.name}</strong>
+          <BodyText component="strong" fw={700}>{role.name}</BodyText>
           <code>
             {valueForMode(role.lightValue, role.darkValue, colorMode)}
           </code>
         </div>
         <code>{role.token}</code>
-        <p>{role.description}</p>
+        <BodyText component="p">{role.description}</BodyText>
       </div>
     </Card>
   );

@@ -11,6 +11,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./ActionIconPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 function capitalize(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
@@ -76,19 +77,19 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
     <section className={pageStyles.componentSection} id="action-icon">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Actions</p>
-          <h2>ActionIcon</h2>
+          <BodyText component="p" className={pageStyles.eyebrow}>Actions</BodyText>
+          <HeadingText level={2}>ActionIcon</HeadingText>
         </div>
         <code>import {"{ ActionIcon }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         A square icon-only action with the same semantic colors, variants, and
         interaction states as Button.
-      </p>
-      <p className={pageStyles.sectionCopy}>
+      </BodyText>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         Icon-only controls must provide an accessible name, usually with
         <code>aria-label</code>.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Use the same visual variants as Button while keeping the control square."
@@ -170,20 +171,20 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
               >
                 <MoreHorizontal size={16} />
               </ActionIcon>
-              <span>{actionIconSizeLabels[size]}</span>
+              <BodyText component="span">{actionIconSizeLabels[size]}</BodyText>
             </div>
           ))}
           <div className={styles.actionIconSizeItem}>
             <ActionIcon aria-label="48 pixel action" size={48}>
               <MoreHorizontal size={16} />
             </ActionIcon>
-            <span>Custom: 48px</span>
+            <BodyText component="span">Custom: 48px</BodyText>
           </div>
           <div className={styles.actionIconSizeItem}>
             <ActionIcon aria-label="2.5 rem action" size="2.5rem">
               <MoreHorizontal size={16} />
             </ActionIcon>
-            <span>Custom: 2.5rem</span>
+            <BodyText component="span">Custom: 2.5rem</BodyText>
           </div>
         </div>
       </ComponentDemoSection>
@@ -224,7 +225,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           <ActionIcon aria-label="Unavailable" disabled>
             <Trash2 size={16} />
           </ActionIcon>
-          <span aria-live="polite">{isSelected ? "Pinned" : "Not pinned"}</span>
+          <BodyText component="span" aria-live="polite">{isSelected ? "Pinned" : "Not pinned"}</BodyText>
         </div>
       </ComponentDemoSection>
 
@@ -238,14 +239,14 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           <div className={styles.actionIconPlaygroundControls}>
             <div className={styles.actionIconControlGroup}>
               <div>
-                <p className={styles.actionIconControlHeading}>Appearance</p>
-                <p className={styles.actionIconControlCopy}>
+                <BodyText component="p" className={styles.actionIconControlHeading}>Appearance</BodyText>
+                <BodyText component="p" className={styles.actionIconControlCopy}>
                   Tune the visual treatment and scale.
-                </p>
+                </BodyText>
               </div>
               <div className={styles.actionIconControlGrid}>
                 <label className={styles.actionIconField}>
-                  <span>Variant</span>
+                  <BodyText component="span">Variant</BodyText>
                   <select
                     value={selectedVariant}
                     onChange={(event) =>
@@ -262,7 +263,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   </select>
                 </label>
                 <label className={styles.actionIconField}>
-                  <span>Color</span>
+                  <BodyText component="span">Color</BodyText>
                   <select
                     value={selectedColor}
                     onChange={(event) =>
@@ -279,7 +280,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   </select>
                 </label>
                 <label className={styles.actionIconField}>
-                  <span>Size</span>
+                  <BodyText component="span">Size</BodyText>
                   <select
                     value={selectedSize}
                     onChange={(event) =>
@@ -294,7 +295,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   </select>
                 </label>
                 <label className={styles.actionIconField}>
-                  <span>Icon</span>
+                  <BodyText component="span">Icon</BodyText>
                   <select
                     value={selectedIcon}
                     onChange={(event) =>
@@ -315,10 +316,10 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
 
             <div className={styles.actionIconControlGroup}>
               <div>
-                <p className={styles.actionIconControlHeading}>Behavior</p>
-                <p className={styles.actionIconControlCopy}>
+                <BodyText component="p" className={styles.actionIconControlHeading}>Behavior</BodyText>
+                <BodyText component="p" className={styles.actionIconControlCopy}>
                   Test availability and selection states.
-                </p>
+                </BodyText>
               </div>
               <div className={styles.actionIconToggleGrid}>
                 <Checkbox
@@ -353,9 +354,9 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           </div>
 
           <div className={styles.actionIconPlaygroundPreview}>
-            <span className={styles.actionIconPreviewLabel}>
+            <BodyText component="span" className={styles.actionIconPreviewLabel}>
               Rendered result
-            </span>
+            </BodyText>
             <div className={styles.actionIconPreviewStage}>
               <ActionIcon
                 aria-label={`${actionIconIconLabels[selectedIcon]} action`}
@@ -379,8 +380,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>Every public prop, its accepted values, and its default.</p>
+            <HeadingText level={3}>API reference</HeadingText>
+            <BodyText component="p">Every public prop, its accepted values, and its default.</BodyText>
           </div>
           <a
             aria-label="Link to ActionIcon API reference section"

@@ -10,6 +10,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./ButtonPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 function capitalize(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
@@ -77,20 +78,20 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
     <section className={pageStyles.componentSection} id="button">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Actions</p>
-          <h2>Button</h2>
+          <BodyText component="p" className={pageStyles.eyebrow}>Actions</BodyText>
+          <HeadingText level={2}>Button</HeadingText>
         </div>
         <code>import {"{ Button }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         A compact action primitive with independent appearance, semantic color,
         interaction, sizing, and slot support.
-      </p>
-      <p className={pageStyles.sectionCopy}>
+      </BodyText>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         Buttons follow the active Mantine color scheme. This documentation site
         switches between <code>budgetBoardTheme</code> and
         <code>budgetBoardDarkTheme</code> through <code>MantineProvider</code>.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Use filled, outline, or ghost treatments to establish hierarchy."
@@ -204,9 +205,9 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           >
             Toggle selection
           </Button>
-          <span aria-live="polite">
+          <BodyText component="span" aria-live="polite">
             {isShowcaseSelected ? "Selected" : "Unselected"}
-          </span>
+          </BodyText>
         </div>
       </ComponentDemoSection>
 
@@ -274,14 +275,14 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           <div className={styles.buttonPlaygroundControls}>
             <div className={styles.buttonControlGroup}>
               <div>
-                <p className={styles.buttonControlHeading}>Appearance</p>
-                <p className={styles.buttonControlCopy}>
+                <BodyText component="p" className={styles.buttonControlHeading}>Appearance</BodyText>
+                <BodyText component="p" className={styles.buttonControlCopy}>
                   Tune the visual treatment and scale.
-                </p>
+                </BodyText>
               </div>
               <div className={styles.buttonControlGrid}>
                 <label className={styles.buttonField}>
-                  <span>Variant</span>
+                  <BodyText component="span">Variant</BodyText>
                   <select
                     value={selectedVariant}
                     onChange={(event) =>
@@ -298,7 +299,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   </select>
                 </label>
                 <label className={styles.buttonField}>
-                  <span>Color</span>
+                  <BodyText component="span">Color</BodyText>
                   <select
                     value={selectedColor}
                     onChange={(event) =>
@@ -315,7 +316,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   </select>
                 </label>
                 <label className={styles.buttonField}>
-                  <span>Size</span>
+                  <BodyText component="span">Size</BodyText>
                   <select
                     value={selectedSize}
                     onChange={(event) =>
@@ -330,7 +331,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   </select>
                 </label>
                 <label className={styles.buttonField}>
-                  <span>Type</span>
+                  <BodyText component="span">Type</BodyText>
                   <select
                     value={selectedType}
                     onChange={(event) =>
@@ -349,13 +350,13 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
 
             <div className={styles.buttonControlGroup}>
               <div>
-                <p className={styles.buttonControlHeading}>Content</p>
-                <p className={styles.buttonControlCopy}>
+                <BodyText component="p" className={styles.buttonControlHeading}>Content</BodyText>
+                <BodyText component="p" className={styles.buttonControlCopy}>
                   Preview labels and optional edge sections.
-                </p>
+                </BodyText>
               </div>
               <label className={styles.buttonField}>
-                <span>Label</span>
+                <BodyText component="span">Label</BodyText>
                 <input
                   onChange={(event) => setButtonLabel(event.target.value)}
                   type="text"
@@ -364,7 +365,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
               </label>
               <div className={styles.buttonControlGrid}>
                 <label className={styles.buttonField}>
-                  <span>Left section</span>
+                  <BodyText component="span">Left section</BodyText>
                   <input
                     aria-label="Left section"
                     onChange={(event) => setLeftSection(event.target.value)}
@@ -374,7 +375,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   />
                 </label>
                 <label className={styles.buttonField}>
-                  <span>Right section</span>
+                  <BodyText component="span">Right section</BodyText>
                   <input
                     aria-label="Right section"
                     onChange={(event) => setRightSection(event.target.value)}
@@ -388,10 +389,10 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
 
             <div className={styles.buttonControlGroup}>
               <div>
-                <p className={styles.buttonControlHeading}>Behavior</p>
-                <p className={styles.buttonControlCopy}>
+                <BodyText component="p" className={styles.buttonControlHeading}>Behavior</BodyText>
+                <BodyText component="p" className={styles.buttonControlCopy}>
                   Test availability and layout states.
-                </p>
+                </BodyText>
               </div>
               <div className={styles.buttonToggleGrid}>
                 <Checkbox
@@ -427,7 +428,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           </div>
 
           <div className={styles.buttonPlaygroundPreview}>
-            <span className={styles.buttonPreviewLabel}>Rendered result</span>
+            <BodyText component="span" className={styles.buttonPreviewLabel}>Rendered result</BodyText>
             <div className={styles.buttonPreviewStage}>
               <Button
                 selected={isSelected}
@@ -451,8 +452,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       <section className={pageStyles.componentReferenceSection} id="button-api">
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>Every public prop, its accepted values, and its default.</p>
+            <HeadingText level={3}>API reference</HeadingText>
+            <BodyText component="p">Every public prop, its accepted values, and its default.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

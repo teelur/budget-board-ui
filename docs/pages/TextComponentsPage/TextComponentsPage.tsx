@@ -15,16 +15,16 @@ export function TextComponentsPage() {
     <section className={pageStyles.componentSection} id="text-components">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Typography</p>
-          <h2>Text components</h2>
+          <BodyText component="p" className={pageStyles.eyebrow}>Typography</BodyText>
+          <HeadingText level={2}>Text components</HeadingText>
         </div>
         <code>5 roles · semantic tones</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         Choose a role for the content and hierarchy, then use tone for its
         semantic color. Use HeadingText for document headings; DisplayText is
         visual display copy and does not create a heading.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Use each role for its typographic purpose; headings preserve the document outline."
@@ -76,8 +76,8 @@ export function TextComponentsPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>Defaults and props for using each BBUI text component.</p>
+            <HeadingText level={3}>API reference</HeadingText>
+            <BodyText component="p">Defaults and props for using each BBUI text component.</BodyText>
           </div>
           <a
             aria-label="Link to text components API reference"
@@ -89,7 +89,7 @@ export function TextComponentsPage() {
         </div>
 
         <section className={styles.apiSection}>
-          <h4>Role defaults</h4>
+          <HeadingText level={4}>Role defaults</HeadingText>
           <div className={pageStyles.referenceGrid}>
             <div>
               <table>
@@ -162,7 +162,7 @@ export function TextComponentsPage() {
         </section>
 
         <section className={styles.apiSection}>
-          <h4>Props shared by all text roles</h4>
+          <HeadingText level={4}>Props shared by all text roles</HeadingText>
           <div className={styles.apiTableScroll}>
             <table className={styles.apiTable}>
               <thead>
@@ -247,7 +247,7 @@ export function TextComponentsPage() {
         </section>
 
         <section className={styles.apiSection}>
-          <h4>HeadingText-specific prop</h4>
+          <HeadingText level={4}>HeadingText-specific prop</HeadingText>
           <div className={styles.apiTableScroll}>
             <table className={styles.apiTable}>
               <thead>

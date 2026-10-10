@@ -4,6 +4,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./DateInputPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
@@ -14,15 +15,15 @@ export function DateInputPage() {
     <section className={pageStyles.componentSection} id="date-input">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Inputs</p>
-          <h2>DateInput</h2>
+          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
+          <HeadingText level={2}>DateInput</HeadingText>
         </div>
         <code>import {"{ DateInput }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         Free-form date entry with a calendar dropdown and the shared BBUI field
         treatment.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Type a date directly or choose it from the calendar. Values use Mantine's date string API."
@@ -86,8 +87,8 @@ export function DateInputPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>BBUI field styling with Mantine DateInput props.</p>
+            <HeadingText level={3}>API reference</HeadingText>
+            <BodyText component="p">BBUI field styling with Mantine DateInput props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

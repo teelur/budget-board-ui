@@ -3,6 +3,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./TextInputPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
@@ -11,15 +12,15 @@ export function TextInputPage() {
     <section className={pageStyles.componentSection} id="text-input">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Inputs</p>
-          <h2>TextInput</h2>
+          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
+          <HeadingText level={2}>TextInput</HeadingText>
         </div>
         <code>import {"{ TextInput }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         Mantine text input behavior with the same BBUI surface and focus styling
         as NumberInput.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Use native text input types with Mantine labels, descriptions, and placeholders."
@@ -60,11 +61,11 @@ export function TextInputPage() {
       >
         <div className={styles.surfaceSamples}>
           <div className={`${styles.surfaceSample} ${styles.pageSurface}`}>
-            <span>Page surface</span>
+            <BodyText component="span">Page surface</BodyText>
             <TextInput aria-label="Page surface text" placeholder="Type here" />
           </div>
           <Card className={styles.surfaceSample} display="grid" p="lg">
-            <span>Card surface</span>
+            <BodyText component="span">Card surface</BodyText>
             <TextInput aria-label="Card surface text" placeholder="Type here" />
           </Card>
         </div>
@@ -102,8 +103,8 @@ export function TextInputPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>BBUI styling with Mantine TextInput props.</p>
+            <HeadingText level={3}>API reference</HeadingText>
+            <BodyText component="p">BBUI styling with Mantine TextInput props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

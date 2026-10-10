@@ -11,6 +11,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./AppShellPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 const shellExample = `<AppShell
   header={{ height: 52 }}
@@ -35,16 +36,16 @@ export function AppShellPage() {
     <section className={pageStyles.componentSection} id="app-shell">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Layout</p>
-          <h2>AppShell</h2>
+          <BodyText component="p" className={pageStyles.eyebrow}>Layout</BodyText>
+          <HeadingText level={2}>AppShell</HeadingText>
         </div>
         <code>import {"{ AppShell }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         Mantine AppShell primitives with Budget Board semantic surfaces. Layout,
         responsive breakpoints, and collapsed state remain controlled by the
         consuming application.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Compose the shell from Mantine-compatible primitives. The navigation collapses below the configured breakpoint."
@@ -67,8 +68,8 @@ export function AppShellPage() {
           >
             <AppShellHeader>
               <div className={styles.header}>
-                <strong>Budget Board</strong>
-                <span>October 2026</span>
+                <BodyText component="strong" fw={700}>Budget Board</BodyText>
+                <BodyText component="span">October 2026</BodyText>
               </div>
             </AppShellHeader>
             <AppShellNavbar>
@@ -92,9 +93,9 @@ export function AppShellPage() {
               </AppShellSection>
             </AppShellNavbar>
             <AppShellMain className={styles.main} p="md">
-              <span className={styles.eyebrow}>Overview</span>
-              <strong>Monthly budget</strong>
-              <span>Income and spending at a glance.</span>
+              <BodyText component="span" className={styles.eyebrow}>Overview</BodyText>
+              <BodyText component="strong" fw={700}>Monthly budget</BodyText>
+              <BodyText component="span">Income and spending at a glance.</BodyText>
             </AppShellMain>
           </AppShell>
         </div>
@@ -106,11 +107,11 @@ export function AppShellPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>
+            <HeadingText level={3}>API reference</HeadingText>
+            <BodyText component="p">
               Mantine props and styles APIs are forwarded; BBUI adds semantic
               surface defaults.
-            </p>
+            </BodyText>
           </div>
           <a
             aria-label="Link to AppShell API reference"

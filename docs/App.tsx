@@ -4,11 +4,6 @@ import { MantineProvider } from "@mantine/core";
 import { Moon, Sun } from "lucide-react";
 import {
   Button,
-  FileInput,
-  NumberInput,
-  PasswordInput,
-  TextInput,
-  Textarea,
   budgetBoardColors,
   budgetBoardDarkTheme,
   budgetBoardTheme,
@@ -43,6 +38,7 @@ import { TagsInputPage } from "./pages/TagsInputPage/TagsInputPage";
 import { TextComponentsPage } from "./pages/TextComponentsPage/TextComponentsPage";
 import { TypographyPage } from "./pages/TypographyPage/TypographyPage";
 import styles from "./App.module.css";
+import { BodyText, HeadingText } from "../src";
 
 function toCssName(name: string) {
   return name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
@@ -109,8 +105,10 @@ export function App() {
         <header className={styles.siteHeader} ref={headerRef}>
           <div className={styles.brandMark}>BB</div>
           <div>
-            <p className={styles.eyebrow}>Component library</p>
-            <h1>Budget Board UI</h1>
+            <BodyText component="p" className={styles.eyebrow}>
+              Component library
+            </BodyText>
+            <HeadingText level={1}>Budget Board UI</HeadingText>
           </div>
           <div className={styles.headerActions}>
             <Button
@@ -141,15 +139,21 @@ export function App() {
             className={styles.sideNav}
             aria-label="Documentation navigation"
           >
-            <p className={styles.navHeading}>On this page</p>
+            <BodyText component="p" className={styles.navHeading}>
+              On this page
+            </BodyText>
             <a href="#overview">Overview</a>
             <div className={styles.navGroup}>
-              <p className={styles.navGroupHeading}>Design</p>
+              <BodyText component="p" className={styles.navGroupHeading}>
+                Design
+              </BodyText>
               <a href="#color-theme">Color theme</a>
               <a href="#typography">Typography</a>
             </div>
             <div className={styles.navGroup}>
-              <p className={styles.navGroupHeading}>Components</p>
+              <BodyText component="p" className={styles.navGroupHeading}>
+                Components
+              </BodyText>
               <a href="#action-icon">ActionIcon</a>
               <a href="#amount-text">AmountText</a>
               <a href="#app-shell">AppShell</a>
@@ -176,35 +180,44 @@ export function App() {
               <a href="#tags-input">TagsInput</a>
               <a href="#textarea">Textarea</a>
             </div>
-            <p className={`${styles.navHeading} ${styles.navHeadingSpaced}`}>
+            <BodyText
+              component="p"
+              className={`${styles.navHeading} ${styles.navHeadingSpaced}`}
+            >
               Package
-            </p>
+            </BodyText>
             <code>@teelur/budget-board-ui</code>
           </aside>
 
           <main className={styles.mainContent}>
             <section className={styles.intro} id="overview">
-              <p className={styles.eyebrow}>Budget Board UI</p>
-              <h2>The building blocks behind Budget Board.</h2>
-              <p className={styles.introCopy}>
+              <BodyText component="p" className={styles.eyebrow}>
+                Budget Board UI
+              </BodyText>
+              <HeadingText level={2}>
+                The building blocks behind Budget Board.
+              </HeadingText>
+              <BodyText component="p" className={styles.introCopy}>
                 A reference for the components shipped by Budget Board UI.
                 Browse the examples and public API in one place.
-              </p>
+              </BodyText>
               <div className={styles.introMeta}>
-                <span>React 19</span>
-                <span>Mantine 9</span>
-                <span>TypeScript</span>
+                <BodyText component="span">React 19</BodyText>
+                <BodyText component="span">Mantine 9</BodyText>
+                <BodyText component="span">TypeScript</BodyText>
               </div>
             </section>
 
             <section className={styles.docsSection} id="design">
               <div className={styles.docsSectionHeading}>
-                <p className={styles.eyebrow}>Visual language</p>
-                <h2>Design</h2>
-                <p>
+                <BodyText component="p" className={styles.eyebrow}>
+                  Visual language
+                </BodyText>
+                <HeadingText level={2}>Design</HeadingText>
+                <BodyText component="p">
                   The shared color and type decisions that give Budget Board a
                   consistent visual rhythm.
-                </p>
+                </BodyText>
               </div>
               <ColorThemePage colorMode={colorMode} />
               <TypographyPage />
@@ -212,12 +225,14 @@ export function App() {
 
             <section className={styles.docsSection} id="components">
               <div className={styles.docsSectionHeading}>
-                <p className={styles.eyebrow}>Interface building blocks</p>
-                <h2>Components</h2>
-                <p>
+                <BodyText component="p" className={styles.eyebrow}>
+                  Interface building blocks
+                </BodyText>
+                <HeadingText level={2}>Components</HeadingText>
+                <BodyText component="p">
                   Interface primitives with live examples, states, and API
                   references.
-                </p>
+                </BodyText>
               </div>
               <ActionIconPage />
               <AmountTextPage />

@@ -10,6 +10,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./BadgePage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 function capitalize(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
@@ -51,19 +52,19 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
     <section className={pageStyles.componentSection} id="badge">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Status & metadata</p>
-          <h2>Badge</h2>
+          <BodyText component="p" className={pageStyles.eyebrow}>Status & metadata</BodyText>
+          <HeadingText level={2}>Badge</HeadingText>
         </div>
         <code>import {"{ Badge }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         A compact passive label for status, category, and metadata. Use Button
         or ActionIcon when the label needs to perform an action.
-      </p>
-      <p className={pageStyles.sectionCopy}>
+      </BodyText>
+      <BodyText component="p" className={pageStyles.sectionCopy}>
         Badge does not announce itself as a live region. Add the appropriate
         ARIA semantics at the call site when a status update needs announcing.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Use filled, light, outline, or ghost treatments to establish the right visual weight."
@@ -118,7 +119,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           {badgeSizes.map((size) => (
             <div className={styles.sizeItem} key={size}>
               <Badge size={size}>{capitalize(size)}</Badge>
-              <span>{badgeSizeLabels[size]}</span>
+              <BodyText component="span">{badgeSizeLabels[size]}</BodyText>
             </div>
           ))}
         </div>
@@ -165,7 +166,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           <div className={styles.playgroundControls}>
             <div className={styles.controlGrid}>
               <label className={styles.field}>
-                <span>Color</span>
+                <BodyText component="span">Color</BodyText>
                 <select
                   onChange={(event) =>
                     setSelectedColor(event.target.value as typeof selectedColor)
@@ -180,7 +181,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                 </select>
               </label>
               <label className={styles.field}>
-                <span>Variant</span>
+                <BodyText component="span">Variant</BodyText>
                 <select
                   onChange={(event) =>
                     setSelectedVariant(
@@ -197,7 +198,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                 </select>
               </label>
               <label className={styles.field}>
-                <span>Size</span>
+                <BodyText component="span">Size</BodyText>
                 <select
                   onChange={(event) =>
                     setSelectedSize(event.target.value as typeof selectedSize)
@@ -212,7 +213,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                 </select>
               </label>
               <label className={styles.field}>
-                <span>Label</span>
+                <BodyText component="span">Label</BodyText>
                 <input
                   onChange={(event) => setBadgeLabel(event.target.value)}
                   placeholder="Badge label"
@@ -221,7 +222,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                 />
               </label>
               <label className={styles.field}>
-                <span>Left section</span>
+                <BodyText component="span">Left section</BodyText>
                 <input
                   aria-label="Left section"
                   onChange={(event) => setLeftSection(event.target.value)}
@@ -231,7 +232,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                 />
               </label>
               <label className={styles.field}>
-                <span>Right section</span>
+                <BodyText component="span">Right section</BodyText>
                 <input
                   aria-label="Right section"
                   onChange={(event) => setRightSection(event.target.value)}
@@ -250,7 +251,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
             />
           </div>
           <div className={styles.playgroundPreview}>
-            <span className={styles.previewLabel}>Rendered result</span>
+            <BodyText component="span" className={styles.previewLabel}>Rendered result</BodyText>
             <div className={styles.previewStage}>
               <Badge
                 color={selectedColor}
@@ -273,8 +274,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       <section className={pageStyles.componentReferenceSection} id="badge-api">
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>Every public prop, its accepted values, and its default.</p>
+            <HeadingText level={3}>API reference</HeadingText>
+            <BodyText component="p">Every public prop, its accepted values, and its default.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"
