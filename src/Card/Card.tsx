@@ -14,6 +14,7 @@ import classes from "./Card.module.css";
 
 export type CardProps = MantineCardProps & {
   hoverable?: boolean;
+  selected?: boolean;
 };
 
 type CardPartProps = MantineCardSectionProps & {
@@ -88,9 +89,10 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
     className,
     hoverable = false,
     p = "0.5rem",
-    style,
-    withBorder = true,
-    ...props
+      selected,
+      style,
+      withBorder = true,
+      ...props
   },
   ref,
 ) {
@@ -101,8 +103,12 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
       className={mergeClassName(
         classes.root,
         hoverable ? classes.hoverable : undefined,
+        selected ? classes.selected : undefined,
         className,
       )}
+      data-budget-board-selected={
+        selected === undefined ? undefined : selected ? "true" : "false"
+      }
       p={p}
       ref={ref}
       style={[

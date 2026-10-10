@@ -11,6 +11,11 @@ const plainCardExample = `<Card>
   <strong>$8,420.50</strong>
 </Card>`;
 
+const selectedCardExample = `<Card selected>
+  <strong>Primary checking</strong>
+  <span>Selected account</span>
+</Card>`;
+
 const splitCardExample = `<Card>
   <Card.Section>
     <div>
@@ -69,6 +74,20 @@ export function CardPage() {
             >
               $8,420.50
             </DataText>
+          </Card>
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description="selected adds token-based visual emphasis. The parent controls the selected state; it does not add interaction behavior."
+        id="card-selected"
+        title="Selected card"
+        code={selectedCardExample}
+      >
+        <div className={styles.preview}>
+          <Card className={styles.plainCard} selected>
+            <BodyText component="strong" fw={600}>Primary checking</BodyText>
+            <BodyText component="span" tone="muted">Selected account</BodyText>
           </Card>
         </div>
       </ComponentDemoSection>
@@ -191,6 +210,16 @@ export function CardPage() {
                     <code>labelPosition</code> place content on that border.
                     Override padding with <code>p</code>, <code>px</code>, or
                     <code>py</code>.
+                  </td>
+                </tr>
+                <tr>
+                  <th>selected</th>
+                  <td>boolean</td>
+                  <td>
+                    Defaults to <code>false</code>. Applies token-based
+                    selected surface and border styling when true; this is a
+                    visual state only and does not add interaction or ARIA
+                    semantics.
                   </td>
                 </tr>
                 <tr>
