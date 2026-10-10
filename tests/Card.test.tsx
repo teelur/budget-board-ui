@@ -34,6 +34,29 @@ describe("Card", () => {
     expect(screen.getByText("Available balance")).toBeInTheDocument();
   });
 
+  it("uses the sunken semantic surface for nested cards in both color schemes", () => {
+    render(
+      <>
+        <Card data-testid="light-card" surface="sunken" />
+        <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
+          <Card data-testid="dark-card" surface="sunken" />
+        </MantineProvider>
+      </>,
+    );
+
+    expect(
+      screen.getByTestId("light-card").style.getPropertyValue(
+        "--bbui-card-surface",
+      ),
+    ).toBe("var(--bb-color-surface-sunken, #ebe8df)");
+    expect(
+      screen.getByTestId("dark-card").style.getPropertyValue(
+        "--bbui-card-surface",
+      ),
+    ).toBe("var(--bb-color-surface-sunken, #0d0f12)");
+    expect(screen.getByTestId("light-card")).not.toHaveAttribute("surface");
+  });
+
   it("applies selected styling only when selected", () => {
     render(
       <>
