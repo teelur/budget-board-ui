@@ -27,6 +27,8 @@ Import the package stylesheet once in the consuming app:
 import "@teelur/budget-board-ui/styles.css";
 ```
 
+The stylesheet includes BBUI's IBM Plex Sans and Plus Jakarta Sans variable fonts.
+
 When using `DateInput` or `DatePickerInput`, also import the Mantine Dates stylesheet:
 
 ```ts

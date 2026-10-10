@@ -1,3 +1,6 @@
+import "@fontsource-variable/ibm-plex-sans/index.css";
+import "@fontsource-variable/plus-jakarta-sans/index.css";
+
 export {
   ActionIcon,
   actionIconSizes,

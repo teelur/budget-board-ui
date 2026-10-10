@@ -195,6 +195,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource-variable/ibm-plex-sans@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "@fontsource-variable/ibm-plex-sans@npm:5.3.0"
+  checksum: 10c0/3fe44e92a441c956654d08be2fc1310f5527e241961f1386f4dcbe1ecfee4d3a387e1ca8b108afa48184647f3aa9db0d6547c2dd63a0442c2d369401c9a2e306
+  languageName: node
+  linkType: hard
+
+"@fontsource-variable/plus-jakarta-sans@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "@fontsource-variable/plus-jakarta-sans@npm:5.3.0"
+  checksum: 10c0/ab1a3e2f50a0d8b0c1e3549188a8b178a6fe56628cf473bf50a9df96d90af5b7678691f53cf6eefa25b4317ba2d3af3d84a13e9d72518e6c40b7bcf84afffa2b
+  languageName: node
+  linkType: hard
+
 "@isaacs/fs-minipass@npm:^4.0.0":
   version: 4.0.1
   resolution: "@isaacs/fs-minipass@npm:4.0.1"
@@ -392,6 +406,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@teelur/budget-board-ui@workspace:."
   dependencies:
+    "@fontsource-variable/ibm-plex-sans": "npm:^5.3.0"
+    "@fontsource-variable/plus-jakarta-sans": "npm:^5.3.0"
     "@mantine/core": "npm:9.6.1"
     "@mantine/dates": "npm:9.6.1"
     "@mantine/hooks": "npm:9.6.1"

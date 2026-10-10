@@ -81,6 +81,14 @@ describe("budgetBoardColors", () => {
     expect(Object.keys(budgetBoardTypography)).toEqual(fontKeys);
   });
 
+  it("uses the bundled variable font families", () => {
+    expect(budgetBoardTypography).toEqual({
+      body: '"IBM Plex Sans Variable", sans-serif',
+      data: '"IBM Plex Sans Variable", sans-serif',
+      display: '"Plus Jakarta Sans Variable", sans-serif',
+    });
+  });
+
   it("finalizes structural and feedback roles in both modes", () => {
     expect(budgetBoardColors.light.borderSubtle).toBe("#d8d5ce");
     expect(budgetBoardColors.light.borderStrong).toBe("#aaa69e");
