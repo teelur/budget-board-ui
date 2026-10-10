@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { DateInput } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -24,6 +25,42 @@ export function DateInputPage() {
         Free-form date entry with a calendar dropdown and the shared BBUI field
         treatment.
       </BodyText>
+
+      <ApiPlayground
+        componentName="DateInput"
+        controls={[
+          {
+            key: "size",
+            label: "Size",
+            type: "select",
+            options: sizes,
+          },
+          { key: "clearable", label: "Clearable", type: "toggle" },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+        ]}
+        defaultValues={{ size: "md", clearable: false, disabled: false }}
+        description="Compare field sizes and clearable or disabled styling while keeping the calendar behavior available."
+        id="date-input-playground"
+        staticCodeProps={[
+          'label="Transaction date"',
+          'placeholder="Choose a date"',
+          'defaultValue="2025-06-15"',
+          'valueFormat="YYYY-MM-DD"',
+        ]}
+        render={(values) => (
+          <div style={{ maxWidth: "32rem", width: "100%" }}>
+            <DateInput
+              clearable={values.clearable as boolean}
+              defaultValue="2025-06-15"
+              disabled={values.disabled as boolean}
+              label="Transaction date"
+              placeholder="Choose a date"
+              size={values.size as (typeof sizes)[number]}
+              valueFormat="YYYY-MM-DD"
+            />
+          </div>
+        )}
+      />
 
       <ComponentDemoSection
         description="Type a date directly or choose it from the calendar. Values use Mantine's date string API."

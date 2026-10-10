@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CategorySelect } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -24,6 +25,7 @@ const categories = [
 
 export function CategorySelectPage() {
   const [value, setValue] = useState<string | null>(null);
+  const [playgroundValue, setPlaygroundValue] = useState<string | null>(null);
 
   return (
     <section className={pageStyles.componentSection} id="category-select">
@@ -39,6 +41,43 @@ export function CategorySelectPage() {
       <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Search and select from a hierarchical list of categories.
       </BodyText>
+
+      <ApiPlayground
+        componentName="CategorySelect"
+        controls={[
+          { key: "readOnly", label: "Read only", type: "toggle" },
+          {
+            key: "includeUncategorized",
+            label: "Include uncategorized",
+            type: "toggle",
+          },
+          { key: "placeholder", label: "Placeholder", type: "text" },
+        ]}
+        defaultValues={{
+          readOnly: false,
+          includeUncategorized: false,
+          placeholder: "Select a category",
+        }}
+        description="Inspect the hierarchical option styling and try read-only or uncategorized states."
+        id="category-select-playground"
+        staticCodeProps={[
+          "data={categories}",
+          "value={value}",
+          "onChange={setValue}",
+        ]}
+        render={(values) => (
+          <div style={{ maxWidth: "30rem", width: "100%" }}>
+            <CategorySelect
+              data={categories}
+              includeUncategorized={values.includeUncategorized as boolean}
+              onChange={setPlaygroundValue}
+              placeholder={values.placeholder as string}
+              readOnly={values.readOnly as boolean}
+              value={playgroundValue}
+            />
+          </div>
+        )}
+      />
 
       <ComponentDemoSection
         description="Parent labels use semibold primary text; child labels use secondary text with a subtle indent. All categories remain selectable."

@@ -1,4 +1,5 @@
 import { Select } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -23,6 +24,47 @@ export function SelectPage() {
       <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Mantine Select behavior with BBUI field, dropdown, and option styling.
       </BodyText>
+
+      <ApiPlayground
+        componentName="Select"
+        controls={[
+          {
+            key: "size",
+            label: "Size",
+            type: "select",
+            options: ["xs", "sm", "md", "lg", "xl"],
+          },
+          { key: "searchable", label: "Searchable", type: "toggle" },
+          { key: "clearable", label: "Clearable", type: "toggle" },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+        ]}
+        defaultValues={{
+          size: "md",
+          searchable: true,
+          clearable: true,
+          disabled: false,
+        }}
+        description="Explore select field density, search, clearing, and disabled styling along with its dropdown."
+        id="select-playground"
+        staticCodeProps={[
+          "data={accountTypes}",
+          'label="Account type"',
+          'placeholder="Choose an account type"',
+        ]}
+        render={(values) => (
+          <div style={{ maxWidth: "30rem", width: "100%" }}>
+            <Select
+              clearable={values.clearable as boolean}
+              data={accountTypes}
+              disabled={values.disabled as boolean}
+              label="Account type"
+              placeholder="Choose an account type"
+              searchable={values.searchable as boolean}
+              size={values.size as "xs" | "sm" | "md" | "lg" | "xl"}
+            />
+          </div>
+        )}
+      />
 
       <ComponentDemoSection
         description="Search or choose one item from a list."

@@ -7,6 +7,7 @@ import {
   AppShellSection,
   NavbarLink,
 } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -46,6 +47,100 @@ export function AppShellPage() {
         responsive breakpoints, and collapsed state remain controlled by the
         consuming application.
       </BodyText>
+
+      <ApiPlayground
+        componentName="AppShell"
+        controls={[
+          {
+            key: "headerHeight",
+            label: "Header height",
+            type: "range",
+            min: 40,
+            max: 72,
+            formatCode: (value) => `header={{ height: ${value} }}`,
+          },
+          {
+            key: "navbarWidth",
+            label: "Navigation width",
+            type: "range",
+            min: 140,
+            max: 240,
+            formatCode: (value) =>
+              `navbar={{ breakpoint: "sm", collapsed: { mobile: true }, width: ${value} }}`,
+          },
+          { key: "withBorder", label: "Show borders", type: "toggle" },
+        ]}
+        defaultValues={{ headerHeight: 52, navbarWidth: 184, withBorder: true }}
+        description="Adjust shell header and navigation dimensions and compare the shared page, navigation, and header surfaces."
+        id="app-shell-playground"
+        staticCodeProps={[
+          'h={300}',
+          'mode="static"',
+        ]}
+        childrenCode={`<AppShellHeader>Budget Board</AppShellHeader>
+<AppShellNavbar>
+  <NavbarLink icon={<Home />} label="Overview" showLabel />
+</AppShellNavbar>
+<AppShellMain>Monthly budget</AppShellMain>`}
+        render={(values) => (
+          <div className={styles.preview}>
+            <AppShell
+              aria-label="Interactive AppShell example"
+              h={300}
+              header={{ height: values.headerHeight as number }}
+              mode="static"
+              navbar={{
+                breakpoint: "sm",
+                collapsed: { mobile: true },
+                width: values.navbarWidth as number,
+              }}
+              withBorder={values.withBorder as boolean}
+            >
+              <AppShellHeader>
+                <div className={styles.header}>
+                  <BodyText component="strong" fw={700} fz="0.75rem">
+                    Budget Board
+                  </BodyText>
+                  <BodyText component="span" fz="0.75rem" tone="secondary">
+                    October 2026
+                  </BodyText>
+                </div>
+              </AppShellHeader>
+              <AppShellNavbar>
+                <AppShellSection className={styles.navigation} grow>
+                  <NavbarLink
+                    active
+                    icon={<Home aria-hidden="true" />}
+                    label="Overview"
+                    showLabel
+                  />
+                  <NavbarLink
+                    icon={<ArrowLeftRight aria-hidden="true" />}
+                    label="Transactions"
+                    showLabel
+                  />
+                  <NavbarLink
+                    icon={<Wallet aria-hidden="true" />}
+                    label="Accounts"
+                    showLabel
+                  />
+                </AppShellSection>
+              </AppShellNavbar>
+              <AppShellMain className={styles.main} p="md">
+                <BodyText component="span" className={styles.eyebrow} tone="secondary" ff="var(--bb-font-data)" fz="0.62rem">
+                  Overview
+                </BodyText>
+                <BodyText component="strong" fw={700} fz="0.8rem">
+                  Monthly budget
+                </BodyText>
+                <BodyText component="span" fz="0.8rem" tone="secondary">
+                  Income and spending at a glance.
+                </BodyText>
+              </AppShellMain>
+            </AppShell>
+          </div>
+        )}
+      />
 
       <ComponentDemoSection
         description="Compose the shell from Mantine-compatible primitives. The navigation collapses below the configured breakpoint."

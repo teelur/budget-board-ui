@@ -1,4 +1,5 @@
 import { AmountText, StatusColorType } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -18,6 +19,35 @@ export function AmountTextPage() {
       <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Amount-aware colors, formatting, and privacy masking.
       </BodyText>
+
+      <ApiPlayground
+        componentName="AmountText"
+        controls={[
+          { key: "amount", label: "Amount", type: "range", min: -150, max: 0 },
+          {
+            key: "disableStatusColor",
+            label: "Disable status color",
+            type: "toggle",
+          },
+        ]}
+        defaultValues={{ amount: -80, disableStatusColor: false }}
+        description="Adjust the expense amount and switch semantic status coloring on or off."
+        id="amount-text-playground"
+        staticCodeProps={[
+          "total={100}",
+          "type={StatusColorType.Expense}",
+          'currency="USD"',
+        ]}
+        render={(values) => (
+          <AmountText
+            amount={values.amount as number}
+            currency="USD"
+            disableStatusColor={values.disableStatusColor as boolean}
+            total={100}
+            type={StatusColorType.Expense}
+          />
+        )}
+      />
 
       <ComponentDemoSection
         description="Status colors preserve the financial meaning of each value."

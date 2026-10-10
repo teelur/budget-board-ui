@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Card, NumberInput } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -24,6 +25,44 @@ export function NumberInputPage() {
         Mantine number-entry behavior with a BBUI surface, border, focus ring,
         and stepper treatment.
       </BodyText>
+
+      <ApiPlayground
+        componentName="NumberInput"
+        controls={[
+          { key: "size", label: "Size", type: "select", options: sizes },
+          { key: "prefix", label: "Prefix", type: "text" },
+          { key: "step", label: "Step", type: "number", min: 1, max: 100 },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+        ]}
+        defaultValues={{
+          size: "md",
+          prefix: "$",
+          step: 50,
+          disabled: false,
+        }}
+        description="Inspect field sizing, prefixes, stepper increments, and disabled styling."
+        id="number-input-playground"
+        staticCodeProps={[
+          'label="Monthly amount"',
+          "min={0}",
+          "max={10000}",
+          "defaultValue={250}",
+        ]}
+        render={(values) => (
+          <div style={{ maxWidth: "32rem", width: "100%" }}>
+            <NumberInput
+              defaultValue={250}
+              disabled={values.disabled as boolean}
+              label="Monthly amount"
+              max={10000}
+              min={0}
+              prefix={values.prefix as string}
+              size={values.size as (typeof sizes)[number]}
+              step={values.step as number}
+            />
+          </div>
+        )}
+      />
 
       <ComponentDemoSection
         description="Use Mantine's controlled value and change API with labels, descriptions, prefixes, and numeric constraints."

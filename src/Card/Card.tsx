@@ -12,8 +12,12 @@ import type {
 import { ensureBBUIMantineProvider, useBBUITheme } from "../shared/themeStyles";
 import classes from "./Card.module.css";
 
+export type CardSurface = "default" | "sunken";
+
 export type CardProps = MantineCardProps & {
   hoverable?: boolean;
+  selected?: boolean;
+  surface?: CardSurface;
 };
 
 type CardPartProps = MantineCardSectionProps & {
@@ -88,7 +92,9 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
     className,
     hoverable = false,
     p = "0.5rem",
+    selected,
     style,
+    surface = "default",
     withBorder = true,
     ...props
   },
@@ -101,13 +107,20 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
       className={mergeClassName(
         classes.root,
         hoverable ? classes.hoverable : undefined,
+        selected ? classes.selected : undefined,
         className,
       )}
+      data-budget-board-selected={
+        selected === undefined ? undefined : selected ? "true" : "false"
+      }
       p={p}
       ref={ref}
       style={[
         {
-          "--bbui-card-surface": `var(--bb-color-surface, ${colors.surface})`,
+          "--bbui-card-surface":
+            surface === "sunken"
+              ? `var(--bb-color-surface-sunken, ${colors.surfaceSunken})`
+              : `var(--bb-color-surface, ${colors.surface})`,
           "--bbui-card-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
           "--bbui-card-text": `var(--bb-color-text-primary, ${colors.textPrimary})`,
           "--bbui-card-text-secondary": `var(--bb-color-text-secondary, ${colors.textSecondary})`,

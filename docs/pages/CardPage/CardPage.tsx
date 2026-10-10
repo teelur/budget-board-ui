@@ -1,14 +1,29 @@
 import { Card } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./CardPage.module.css";
 import { BodyText, DataText, HeadingText } from "../../../src";
+import type { CardSurface } from "../../../src";
 
 const plainCardExample = `<Card>
   <p>OCTOBER 2026</p>
   <h3>Available balance</h3>
   <strong>$8,420.50</strong>
+</Card>`;
+
+const nestedCardExample = `<Card>
+  <strong>Monthly budget</strong>
+  <Card surface="sunken">
+    <span>Remaining</span>
+    <strong>$640.00</strong>
+  </Card>
+</Card>`;
+
+const selectedCardExample = `<Card selected>
+  <strong>Primary checking</strong>
+  <span>Selected account</span>
 </Card>`;
 
 const splitCardExample = `<Card>
@@ -69,6 +84,72 @@ export function CardPage() {
             >
               $8,420.50
             </DataText>
+          </Card>
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description={'Use surface="sunken" to distinguish a card nested inside another card.'}
+        id="card-nested"
+        title="Nested card surface"
+        code={nestedCardExample}
+      >
+        <div className={styles.preview}>
+          <Card p="sm">
+            <BodyText component="strong" fw={600}>Monthly budget</BodyText>
+            <Card surface="sunken" mt="sm">
+              <BodyText component="span" tone="muted">Remaining</BodyText>
+              <DataText component="strong" fz="1.1rem" fw={700} lh={1.5}>
+                $640.00
+              </DataText>
+            </Card>
+          </Card>
+        </div>
+      </ComponentDemoSection>
+
+      <ApiPlayground
+        componentName="Card"
+        controls={[
+          {
+            key: "surface",
+            label: "Surface",
+            type: "select",
+            options: ["default", "sunken"],
+          },
+          { key: "selected", label: "Selected", type: "toggle" },
+          { key: "hoverable", label: "Hoverable", type: "toggle" },
+        ]}
+        defaultValues={{
+          surface: "default",
+          selected: false,
+          hoverable: false,
+        }}
+        description="Try the default and sunken surfaces and compare selected and hoverable styling."
+        id="card-playground"
+        childrenCode="Account overview"
+        render={(values) => (
+          <Card
+            hoverable={values.hoverable as boolean}
+            selected={values.selected as boolean}
+            surface={values.surface as CardSurface}
+          >
+            <BodyText component="strong" fw={600}>
+              Account overview
+            </BodyText>
+          </Card>
+        )}
+      />
+
+      <ComponentDemoSection
+        description="selected adds token-based visual emphasis. The parent controls the selected state; it does not add interaction behavior."
+        id="card-selected"
+        title="Selected card"
+        code={selectedCardExample}
+      >
+        <div className={styles.preview}>
+          <Card className={styles.plainCard} selected>
+            <BodyText component="strong" fw={600}>Primary checking</BodyText>
+            <BodyText component="span" tone="muted">Selected account</BodyText>
           </Card>
         </div>
       </ComponentDemoSection>
@@ -179,6 +260,18 @@ export function CardPage() {
                   </td>
                 </tr>
                 <tr>
+                  <th>surface</th>
+                  <td>
+                    <code>CardSurface</code>
+                  </td>
+                  <td>
+                    Defaults to <code>default</code>, which uses the standard
+                    surface. Use <code>sunken</code> for nested cards; it uses
+                    the <code>surface-sunken</code> token in light and dark
+                    modes.
+                  </td>
+                </tr>
+                <tr>
                   <th>Card.Section</th>
                   <td>
                     <code>CardSectionProps</code>
@@ -191,6 +284,16 @@ export function CardPage() {
                     <code>labelPosition</code> place content on that border.
                     Override padding with <code>p</code>, <code>px</code>, or
                     <code>py</code>.
+                  </td>
+                </tr>
+                <tr>
+                  <th>selected</th>
+                  <td>boolean</td>
+                  <td>
+                    Defaults to <code>false</code>. Applies token-based
+                    selected surface and border styling when true; this is a
+                    visual state only and does not add interaction or ARIA
+                    semantics.
                   </td>
                 </tr>
                 <tr>

@@ -34,6 +34,50 @@ describe("Card", () => {
     expect(screen.getByText("Available balance")).toBeInTheDocument();
   });
 
+  it("uses the sunken semantic surface for nested cards in both color schemes", () => {
+    render(
+      <>
+        <Card data-testid="light-card" surface="sunken" />
+        <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
+          <Card data-testid="dark-card" surface="sunken" />
+        </MantineProvider>
+      </>,
+    );
+
+    expect(
+      screen.getByTestId("light-card").style.getPropertyValue(
+        "--bbui-card-surface",
+      ),
+    ).toBe("var(--bb-color-surface-sunken, #ebe8df)");
+    expect(
+      screen.getByTestId("dark-card").style.getPropertyValue(
+        "--bbui-card-surface",
+      ),
+    ).toBe("var(--bb-color-surface-sunken, #0d0f12)");
+    expect(screen.getByTestId("light-card")).not.toHaveAttribute("surface");
+  });
+
+  it("applies selected styling only when selected", () => {
+    render(
+      <>
+        <Card data-testid="selected" selected />
+        <Card data-testid="unselected" selected={false} />
+        <Card data-testid="default" />
+      </>,
+    );
+
+    const selected = screen.getByTestId("selected");
+    const unselected = screen.getByTestId("unselected");
+    const defaultCard = screen.getByTestId("default");
+
+    expect(selected).toHaveClass(classes.selected);
+    expect(selected).toHaveAttribute("data-budget-board-selected", "true");
+    expect(unselected).not.toHaveClass(classes.selected);
+    expect(unselected).toHaveAttribute("data-budget-board-selected", "false");
+    expect(defaultCard).not.toHaveClass(classes.selected);
+    expect(defaultCard).not.toHaveAttribute("data-budget-board-selected");
+  });
+
   it("applies independent padding and separators to card sections", () => {
     render(
       <Card>
@@ -210,6 +254,17 @@ describe("Card", () => {
     const hoverableStyles = cardStyles.match(/\.hoverable\s*\{([^}]*)\}/)?.[1];
 
     expect(hoverableStyles).toContain("cursor: pointer;");
+  });
+
+  it("uses semantic selected surface and border colors", () => {
+    const selectedStyles = cardStyles.match(/\.selected\s*\{([^}]*)\}/)?.[1];
+
+    expect(selectedStyles).toContain(
+      "background-color: var(--bbui-card-hover-surface);",
+    );
+    expect(selectedStyles).toContain(
+      "border-color: var(--bbui-card-hover-border);",
+    );
   });
 
   it("uses half-rem default padding for card parts", () => {

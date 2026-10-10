@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Card, Textarea } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -24,6 +25,42 @@ export function TextareaPage() {
         A multiline text field with Mantine row sizing and autosize behavior,
         styled to match the BBUI input family.
       </BodyText>
+
+      <ApiPlayground
+        componentName="Textarea"
+        controls={[
+          { key: "size", label: "Size", type: "select", options: sizes },
+          {
+            key: "minRows",
+            label: "Minimum rows",
+            type: "range",
+            min: 2,
+            max: 6,
+          },
+          { key: "autosize", label: "Autosize", type: "toggle" },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+        ]}
+        defaultValues={{ size: "md", minRows: 3, autosize: true, disabled: false }}
+        description="Adjust textarea density, row count, autosizing, and disabled styling."
+        id="textarea-playground"
+        staticCodeProps={[
+          'label="Transaction note"',
+          'placeholder="Write a note"',
+        ]}
+        render={(values) => (
+          <div style={{ maxWidth: "32rem", width: "100%" }}>
+            <Textarea
+              autosize={values.autosize as boolean}
+              disabled={values.disabled as boolean}
+              label="Transaction note"
+              maxRows={(values.minRows as number) + 3}
+              minRows={values.minRows as number}
+              placeholder="Write a note"
+              size={values.size as (typeof sizes)[number]}
+            />
+          </div>
+        )}
+      />
 
       <ComponentDemoSection
         description="Use autosize with row limits for notes that grow naturally while staying within a predictable range."
