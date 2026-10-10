@@ -9,9 +9,7 @@ import type {
 
 declare module "@mantine/core" {
   export interface MantineThemeSizesOverride {
-    fontSizes: {
-      xxs: string;
-    };
+    fontSizes: "xxs";
   }
 }
 
