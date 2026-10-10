@@ -180,7 +180,7 @@ export function App() {
               <a href="#tags-input">TagsInput</a>
               <a href="#textarea">Textarea</a>
             </div>
-            <BodyText component="p" tone="muted" size="xxs">
+<BodyText className={styles.navHeadingSpaced} component="p" tone="muted" size="xxs" tt="uppercase">
               Package
             </BodyText>
             <code>@teelur/budget-board-ui</code>
