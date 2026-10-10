@@ -1,9 +1,16 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { MantineProvider } from "@mantine/core";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { Card } from "../src";
 import classes from "../src/Card/Card.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
+
+const cardStyles = readFileSync(
+  resolve(process.cwd(), "src/Card/Card.module.css"),
+  "utf8",
+);
 
 describe("Card", () => {
   it("renders conventional content with semantic surface defaults", () => {
@@ -17,6 +24,7 @@ describe("Card", () => {
 
     expect(card).toHaveClass(classes.root);
     expect(card).toHaveAttribute("data-with-border");
+    expect(card.style.padding).toBe("0.5rem");
     expect(card.style.getPropertyValue("--bbui-card-surface")).toBe(
       "var(--bb-color-surface, #ffffff)",
     );
@@ -126,6 +134,7 @@ describe("Card", () => {
       <Card
         className="consumer-card"
         data-testid="card"
+        p="1rem"
         style={{ "--bbui-card-surface": "pink" } as React.CSSProperties}
         withBorder={false}
       />,
@@ -136,6 +145,7 @@ describe("Card", () => {
     expect(card).toHaveClass(classes.root, "consumer-card");
     expect(card).not.toHaveAttribute("data-with-border");
     expect(card.style.getPropertyValue("--bbui-card-surface")).toBe("pink");
+    expect(card.style.padding).toBe("1rem");
   });
 
   it("resolves semantic surface colors in dark mode", () => {
@@ -190,5 +200,11 @@ describe("Card", () => {
 
     fireEvent.click(button);
     expect(onClick).toHaveBeenCalledOnce();
+  });
+
+  it("uses a pointer cursor for hoverable cards", () => {
+    const hoverableStyles = cardStyles.match(/\.hoverable\s*\{([^}]*)\}/)?.[1];
+
+    expect(hoverableStyles).toContain("cursor: pointer;");
   });
 });

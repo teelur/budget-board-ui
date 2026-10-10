@@ -127,7 +127,7 @@ export function CardPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="hoverable adds visual hover and focus feedback. Select a native button or link root when the card is interactive."
+        description="hoverable adds visual hover and focus feedback with a pointer cursor. Select a native button or link root when the card is interactive."
         id="card-hoverable"
         title="Hoverable link"
         code={hoverableCardExample}
@@ -174,7 +174,7 @@ export function CardPage() {
                   <td>
                     Mantine Card props and polymorphic roots. Defaults to a
                     <code>surface</code> background, <code>border-subtle</code>
-                    border, and Mantine <code>md</code> padding. Consumer props
+                    border, and <code>0.5rem</code> padding. Consumer props
                     override these defaults.
                   </td>
                 </tr>
@@ -213,10 +213,10 @@ export function CardPage() {
                   <th>hoverable</th>
                   <td>boolean</td>
                   <td>
-                    Defaults to <code>false</code>. Adds token-based hover and
-                    focus-visible styling only; it does not add click behavior,
-                    roles, or keyboard handling. Choose a native button or link
-                    root for interactive cards.
+                    Defaults to <code>false</code>. Adds token-based hover,
+                    focus-visible, and pointer-cursor styling without adding
+                    click behavior, roles, or keyboard handling. Choose a
+                    native button or link root for interactive cards.
                   </td>
                 </tr>
                 <tr>
