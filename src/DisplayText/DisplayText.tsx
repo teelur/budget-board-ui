@@ -5,5 +5,5 @@ import type { TextRoleProps } from "../shared/TextRole";
 export type DisplayTextProps = TextRoleProps;
 
 export function DisplayText(props: DisplayTextProps): ReactElement {
-  return <TextRole {...props} role="display" />;
+  return <TextRole {...props} textRole="display" />;
 }

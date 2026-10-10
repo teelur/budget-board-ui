@@ -86,14 +86,14 @@ export function TextRole({
   fz,
   fw,
   lh,
-  role,
+  textRole,
   size,
   tone,
   unstyled,
   ...textProps
-}: TextRoleProps & { role: TextRoleName }): ReactElement {
+}: TextRoleProps & { textRole: TextRoleName }): ReactElement {
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
-  const defaults: TextRoleDefaults = roleDefaults[role];
+  const defaults: TextRoleDefaults = roleDefaults[textRole];
   const roleStyleProps = unstyled
     ? {
         ...(c === undefined ? {} : { c }),
@@ -108,7 +108,7 @@ export function TextRole({
         ff: ff ?? defaults.font,
         fw: fw ?? defaults.weight,
         size: size ?? defaults.size,
-        ...(role === "display"
+        ...(textRole === "display"
           ? { fz: fz ?? "1.6rem", lh: lh ?? 1.1 }
           : {
               ...(fz === undefined ? {} : { fz }),
@@ -120,12 +120,12 @@ export function TextRole({
       {...textProps}
       {...roleStyleProps}
       className={[
-        !unstyled && role === "data" ? classes.data : undefined,
+        !unstyled && textRole === "data" ? classes.data : undefined,
         className,
       ]
         .filter(Boolean)
         .join(" ")}
-      data-budget-board-text-role={role}
+      data-budget-board-text-role={textRole}
       renderRoot={(props) =>
         createElement(component ?? defaults.component, props)
       }

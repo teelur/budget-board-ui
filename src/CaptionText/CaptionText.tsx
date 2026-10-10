@@ -5,5 +5,5 @@ import type { TextRoleProps } from "../shared/TextRole";
 export type CaptionTextProps = TextRoleProps;
 
 export function CaptionText(props: CaptionTextProps): ReactElement {
-  return <TextRole {...props} role="caption" />;
+  return <TextRole {...props} textRole="caption" />;
 }

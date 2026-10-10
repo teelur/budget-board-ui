@@ -5,5 +5,5 @@ import type { TextRoleProps } from "../shared/TextRole";
 export type DataTextProps = TextRoleProps;
 
 export function DataText(props: DataTextProps): ReactElement {
-  return <TextRole {...props} role="data" />;
+  return <TextRole {...props} textRole="data" />;
 }

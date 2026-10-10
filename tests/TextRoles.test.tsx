@@ -156,6 +156,36 @@ describe("text role components", () => {
     });
   });
 
+  it("forwards the ARIA role on every text role component", () => {
+    render(
+      <>
+        <BodyText data-testid="body-status" role="status">
+          Body
+        </BodyText>
+        <DisplayText data-testid="display-status" role="status">
+          Display
+        </DisplayText>
+        <CaptionText data-testid="caption-status" role="status">
+          Caption
+        </CaptionText>
+        <DataText data-testid="data-status" role="status">
+          Data
+        </DataText>
+      </>,
+    );
+
+    expect(screen.getByTestId("body-status")).toHaveAttribute("role", "status");
+    expect(screen.getByTestId("display-status")).toHaveAttribute(
+      "role",
+      "status",
+    );
+    expect(screen.getByTestId("caption-status")).toHaveAttribute(
+      "role",
+      "status",
+    );
+    expect(screen.getByTestId("data-status")).toHaveAttribute("role", "status");
+  });
+
   it("renders DataText with tabular-number role metadata and allows overrides", () => {
     render(
       <DataText c="rebeccapurple" component="output" data-testid="balance">
