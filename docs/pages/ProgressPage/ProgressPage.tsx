@@ -69,12 +69,12 @@ export function ProgressPage() {
     <section className={pageStyles.componentSection} id="progress">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Feedback</BodyText>
-          <HeadingText level={2}>Progress</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Feedback</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>Progress</HeadingText>
         </div>
         <code>import {"{ Progress }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         A themed Mantine progress bar for a single value or a sequence of
         labeled sections. Values are clamped to the 0–100 range; enable the
         optional label to display the primary value as a percentage. For income
@@ -349,7 +349,7 @@ export function ProgressPage() {
             </div>
           </div>
           <div className={styles.playgroundPreview}>
-            <BodyText component="span" className={styles.previewLabel}>Rendered result</BodyText>
+            <BodyText component="span" className={styles.previewLabel} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Rendered result</BodyText>
             <div className={styles.previewStage}>
               <Progress
                 {...(selectedType === "default"
@@ -393,8 +393,8 @@ export function ProgressPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">Every public prop, its accepted values, and its default.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">Every public prop, its accepted values, and its default.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

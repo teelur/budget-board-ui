@@ -15,12 +15,12 @@ export function NumberInputPage() {
     <section className={pageStyles.componentSection} id="number-input">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
-          <HeadingText level={2}>NumberInput</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>NumberInput</HeadingText>
         </div>
         <code>import {"{ NumberInput }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Mantine number-entry behavior with a BBUI surface, border, focus ring,
         and stepper treatment.
       </BodyText>
@@ -112,8 +112,8 @@ export function NumberInputPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">Every BBUI default and the key numeric input props.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">Every BBUI default and the key numeric input props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

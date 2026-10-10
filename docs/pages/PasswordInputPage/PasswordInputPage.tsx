@@ -15,14 +15,14 @@ export function PasswordInputPage() {
     <section className={pageStyles.componentSection} id="password-input">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
-          <HeadingText level={2}>PasswordInput</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>PasswordInput</HeadingText>
         </div>
         <code>
           import {"{ PasswordInput }"} from '@teelur/budget-board-ui';
         </code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Mantine password input behavior and visibility toggle with BBUI field
         styling.
       </BodyText>
@@ -134,8 +134,8 @@ const [visible, setVisible] = useState(false);
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">BBUI styling and Mantine PasswordInput props.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">BBUI styling and Mantine PasswordInput props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

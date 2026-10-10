@@ -10,7 +10,12 @@ import {
 } from "./themeStyles";
 import classes from "./textStyles.module.css";
 
-export type TextTone = "primary" | "secondary" | "metadata" | "muted";
+export type TextTone =
+  | "heading"
+  | "primary"
+  | "secondary"
+  | "metadata"
+  | "muted";
 
 export type TextRoleProps = Omit<TextProps, "component"> & {
   children?: ReactNode;
@@ -60,6 +65,7 @@ type TextRoleDefaults = {
 };
 
 const toneColorKeys = {
+  heading: "textHeading",
   primary: "textPrimary",
   secondary: "textSecondary",
   metadata: "textMetadata",
@@ -83,35 +89,47 @@ export function TextRole({
   role,
   size,
   tone,
+  unstyled,
   ...textProps
 }: TextRoleProps & { role: TextRoleName }): ReactElement {
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
   const defaults: TextRoleDefaults = roleDefaults[role];
-  const displayStyleProps =
-    role === "display"
-      ? { fz: fz ?? "1.6rem", lh: lh ?? 1.1 }
-      : {
-          ...(fz === undefined ? {} : { fz }),
-          ...(lh === undefined ? {} : { lh }),
-        };
+  const roleStyleProps = unstyled
+    ? {
+        ...(c === undefined ? {} : { c }),
+        ...(ff === undefined ? {} : { ff }),
+        ...(fz === undefined ? {} : { fz }),
+        ...(fw === undefined ? {} : { fw }),
+        ...(lh === undefined ? {} : { lh }),
+        ...(size === undefined ? {} : { size }),
+      }
+    : {
+        c: c ?? getToneColor(tone ?? defaults.tone, colors),
+        ff: ff ?? defaults.font,
+        fw: fw ?? defaults.weight,
+        size: size ?? defaults.size,
+        ...(role === "display"
+          ? { fz: fz ?? "1.6rem", lh: lh ?? 1.1 }
+          : {
+              ...(fz === undefined ? {} : { fz }),
+              ...(lh === undefined ? {} : { lh }),
+            }),
+      };
   const element = (
     <Text
       {...textProps}
-      c={c ?? getToneColor(tone ?? defaults.tone, colors)}
+      {...roleStyleProps}
       className={[
-        role === "data" ? classes.data : undefined,
+        !unstyled && role === "data" ? classes.data : undefined,
         className,
       ]
         .filter(Boolean)
         .join(" ")}
       data-budget-board-text-role={role}
-      ff={ff ?? defaults.font}
-      fw={fw ?? defaults.weight}
       renderRoot={(props) =>
         createElement(component ?? defaults.component, props)
       }
-      size={size ?? defaults.size}
-      {...displayStyleProps}
+      {...(unstyled ? { unstyled: true } : {})}
     >
       {children}
     </Text>

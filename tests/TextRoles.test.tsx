@@ -7,9 +7,14 @@ import {
   DataText,
   DisplayText,
   HeadingText,
+  budgetBoardTheme,
 } from "../src";
 
 describe("text role components", () => {
+  it("adds the xxs Mantine font size to the BBUI theme", () => {
+    expect(budgetBoardTheme.fontSizes.xxs).toBe("0.65rem");
+  });
+
   it("renders HeadingText as a level-two semantic heading by default", () => {
     render(<HeadingText>Section title</HeadingText>);
 
@@ -37,6 +42,54 @@ describe("text role components", () => {
     expect(heading.tagName).toBe("DIV");
     expect(heading).toHaveAttribute("id", "heading-id");
     expect(heading).toHaveAttribute("data-budget-board-text-role", "heading");
+  });
+
+  it("preserves the rendered element's native and custom styles when unstyled", () => {
+    render(
+      <>
+        <BodyText
+          className="existing-copy"
+          data-testid="unstyled-body"
+          unstyled
+        >
+          Body copy
+        </BodyText>
+        <HeadingText
+          className="existing-heading"
+          data-testid="unstyled-heading"
+          level={3}
+          unstyled
+        >
+          Section heading
+        </HeadingText>
+        <BodyText
+          c="rebeccapurple"
+          data-testid="unstyled-override"
+          fw={600}
+          unstyled
+        >
+          Explicit styles
+        </BodyText>
+      </>,
+    );
+
+    const body = screen.getByTestId("unstyled-body");
+    expect(body.tagName).toBe("P");
+    expect(body).toHaveClass("existing-copy");
+    expect(body.style.color).toBe("");
+    expect(body.style.fontFamily).toBe("");
+    expect(body.style.getPropertyValue("--text-fz")).toBe("");
+
+    const heading = screen.getByTestId("unstyled-heading");
+    expect(heading.tagName).toBe("H3");
+    expect(heading).toHaveClass("existing-heading");
+    expect(heading.style.color).toBe("");
+    expect(heading.style.fontFamily).toBe("");
+
+    expect(screen.getByTestId("unstyled-override")).toHaveStyle({
+      color: "rgb(102, 51, 153)",
+      fontWeight: "600",
+    });
   });
 
   it("renders DisplayText as a large non-semantic role with overrides", () => {
@@ -75,15 +128,27 @@ describe("text role components", () => {
   it("keeps semantic tone independent from BodyText and CaptionText", () => {
     render(
       <>
+        <BodyText data-testid="heading-tone" tone="heading">
+          Heading tone
+        </BodyText>
         <BodyText data-testid="body" tone="metadata">
           Body
         </BodyText>
+        <HeadingText data-testid="heading" tone="heading">
+          Heading
+        </HeadingText>
         <CaptionText data-testid="caption">Caption</CaptionText>
       </>,
     );
 
+    expect(screen.getByTestId("heading-tone")).toHaveStyle({
+      color: "var(--bb-color-text-heading, #242321)",
+    });
     expect(screen.getByTestId("body")).toHaveStyle({
       color: "var(--bb-color-text-metadata, #807a70)",
+    });
+    expect(screen.getByTestId("heading")).toHaveStyle({
+      color: "var(--bb-color-text-heading, #242321)",
     });
     expect(screen.getByTestId("caption").tagName).toBe("SPAN");
     expect(screen.getByTestId("caption")).toHaveStyle({

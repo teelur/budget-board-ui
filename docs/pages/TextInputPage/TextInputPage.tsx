@@ -12,12 +12,12 @@ export function TextInputPage() {
     <section className={pageStyles.componentSection} id="text-input">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
-          <HeadingText level={2}>TextInput</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>TextInput</HeadingText>
         </div>
         <code>import {"{ TextInput }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Mantine text input behavior with the same BBUI surface and focus styling
         as NumberInput.
       </BodyText>
@@ -103,8 +103,8 @@ export function TextInputPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">BBUI styling with Mantine TextInput props.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">BBUI styling with Mantine TextInput props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

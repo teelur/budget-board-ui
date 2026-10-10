@@ -11,12 +11,12 @@ export function TagsInputPage() {
     <section className={pageStyles.componentSection} id="tags-input">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
-          <HeadingText level={2}>TagsInput</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>TagsInput</HeadingText>
         </div>
         <code>import {"{ TagsInput }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Enter free-form tags or select from suggested values.
       </BodyText>
 
@@ -56,8 +56,8 @@ export function TagsInputPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">BBUI styling with Mantine TagsInput props and behavior.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">BBUI styling with Mantine TagsInput props and behavior.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

@@ -49,7 +49,11 @@ export function RoleCard({
           ]
         }`}
       >
-        {contentValue ? <BodyText component="span">Aa</BodyText> : null}
+        {contentValue ? (
+          <BodyText c="inherit" component="span" fw={700} fz="1.5rem">
+            Aa
+          </BodyText>
+        ) : null}
       </div>
       <div className={styles[contentClassName]}>
         <div className={colorCardStyles.colorCardHeading}>
@@ -59,11 +63,19 @@ export function RoleCard({
           </code>
         </div>
         <code>{role.token}</code>
-        <BodyText component="p">{role.description}</BodyText>
+        <BodyText
+          component="p"
+          fz="0.78rem"
+          lh={1.55}
+          m="0.35rem 0 0"
+          tone="muted"
+        >
+          {role.description}
+        </BodyText>
         {contentValue ? (
           <>
             <code>{role.token}-content</code>
-            <BodyText component="span" className={contentValueClassName}>
+            <BodyText component="span" className={contentValueClassName} tone="muted" ff="var(--bb-font-data)" fz="0.64rem">
               Content: {contentValue}
             </BodyText>
           </>

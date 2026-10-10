@@ -78,16 +78,16 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
     <section className={pageStyles.componentSection} id="button">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Actions</BodyText>
-          <HeadingText level={2}>Button</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Actions</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>Button</HeadingText>
         </div>
         <code>import {"{ Button }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         A compact action primitive with independent appearance, semantic color,
         interaction, sizing, and slot support.
       </BodyText>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Buttons follow the active Mantine color scheme. This documentation site
         switches between <code>budgetBoardTheme</code> and
         <code>budgetBoardDarkTheme</code> through <code>MantineProvider</code>.
@@ -275,8 +275,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           <div className={styles.buttonPlaygroundControls}>
             <div className={styles.buttonControlGroup}>
               <div>
-                <BodyText component="p" className={styles.buttonControlHeading}>Appearance</BodyText>
-                <BodyText component="p" className={styles.buttonControlCopy}>
+                <BodyText component="p" className={styles.buttonControlHeading} tone="heading" ff="var(--bb-font-display)" fz="0.95rem" fw={700} m={0}>Appearance</BodyText>
+                <BodyText component="p" className={styles.buttonControlCopy} tone="muted" fz="0.76rem" m="0.2rem 0 0">
                   Tune the visual treatment and scale.
                 </BodyText>
               </div>
@@ -350,8 +350,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
 
             <div className={styles.buttonControlGroup}>
               <div>
-                <BodyText component="p" className={styles.buttonControlHeading}>Content</BodyText>
-                <BodyText component="p" className={styles.buttonControlCopy}>
+                <BodyText component="p" className={styles.buttonControlHeading} tone="heading" ff="var(--bb-font-display)" fz="0.95rem" fw={700} m={0}>Content</BodyText>
+                <BodyText component="p" className={styles.buttonControlCopy} tone="muted" fz="0.76rem" m="0.2rem 0 0">
                   Preview labels and optional edge sections.
                 </BodyText>
               </div>
@@ -389,8 +389,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
 
             <div className={styles.buttonControlGroup}>
               <div>
-                <BodyText component="p" className={styles.buttonControlHeading}>Behavior</BodyText>
-                <BodyText component="p" className={styles.buttonControlCopy}>
+                <BodyText component="p" className={styles.buttonControlHeading} tone="heading" ff="var(--bb-font-display)" fz="0.95rem" fw={700} m={0}>Behavior</BodyText>
+                <BodyText component="p" className={styles.buttonControlCopy} tone="muted" fz="0.76rem" m="0.2rem 0 0">
                   Test availability and layout states.
                 </BodyText>
               </div>
@@ -428,7 +428,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           </div>
 
           <div className={styles.buttonPlaygroundPreview}>
-            <BodyText component="span" className={styles.buttonPreviewLabel}>Rendered result</BodyText>
+            <BodyText component="span" className={styles.buttonPreviewLabel} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Rendered result</BodyText>
             <div className={styles.buttonPreviewStage}>
               <Button
                 selected={isSelected}
@@ -452,8 +452,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       <section className={pageStyles.componentReferenceSection} id="button-api">
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">Every public prop, its accepted values, and its default.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">Every public prop, its accepted values, and its default.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

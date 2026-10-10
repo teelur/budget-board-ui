@@ -15,6 +15,7 @@ export type HeadingTextProps = Omit<TitleProps, "component" | "order"> & {
 };
 
 const toneColorKeys = {
+  heading: "textHeading",
   primary: "textPrimary",
   secondary: "textSecondary",
   metadata: "textMetadata",
@@ -30,23 +31,33 @@ export function HeadingText({
   fw,
   level = 2,
   tone = "primary",
+  unstyled,
   ...titleProps
 }: HeadingTextProps): ReactElement {
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
   const colorKey = toneColorKeys[tone];
+  const roleStyleProps = unstyled
+    ? {
+        ...(c === undefined ? {} : { c }),
+        ...(ff === undefined ? {} : { ff }),
+        ...(fw === undefined ? {} : { fw }),
+      }
+    : {
+        c:
+          c ??
+          `var(--bb-color-text-${tone}, ${colors[colorKey]})`,
+        ff: ff ?? budgetBoardTypography.display,
+        fw: fw ?? 700,
+      };
   const element = (
     <Title
       {...titleProps}
-      c={
-        c ??
-          `var(--bb-color-text-${tone}, ${colors[colorKey]})`
-      }
+      {...roleStyleProps}
       className={className}
       component={component ?? `h${level}`}
       data-budget-board-text-role="heading"
-      ff={ff ?? budgetBoardTypography.display}
-      fw={fw ?? 700}
       order={level}
+      {...(unstyled ? { unstyled: true } : {})}
     >
       {children}
     </Title>

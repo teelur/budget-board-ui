@@ -52,16 +52,16 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
     <section className={pageStyles.componentSection} id="badge">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Status & metadata</BodyText>
-          <HeadingText level={2}>Badge</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Status & metadata</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>Badge</HeadingText>
         </div>
         <code>import {"{ Badge }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         A compact passive label for status, category, and metadata. Use Button
         or ActionIcon when the label needs to perform an action.
       </BodyText>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Badge does not announce itself as a live region. Add the appropriate
         ARIA semantics at the call site when a status update needs announcing.
       </BodyText>
@@ -251,7 +251,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
             />
           </div>
           <div className={styles.playgroundPreview}>
-            <BodyText component="span" className={styles.previewLabel}>Rendered result</BodyText>
+            <BodyText component="span" className={styles.previewLabel} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Rendered result</BodyText>
             <div className={styles.previewStage}>
               <Badge
                 color={selectedColor}
@@ -274,8 +274,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       <section className={pageStyles.componentReferenceSection} id="badge-api">
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">Every public prop, its accepted values, and its default.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">Every public prop, its accepted values, and its default.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

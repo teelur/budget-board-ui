@@ -29,14 +29,14 @@ export function CategorySelectPage() {
     <section className={pageStyles.componentSection} id="category-select">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
-          <HeadingText level={2}>CategorySelect</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>CategorySelect</HeadingText>
         </div>
         <code>
           import {"{ CategorySelect }"} from '@teelur/budget-board-ui';
         </code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Search and select from a hierarchical list of categories.
       </BodyText>
 
@@ -70,8 +70,8 @@ export function CategorySelectPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">Hierarchical category options with searchable selection.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">Hierarchical category options with searchable selection.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

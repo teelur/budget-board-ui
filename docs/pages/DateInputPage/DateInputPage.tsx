@@ -15,12 +15,12 @@ export function DateInputPage() {
     <section className={pageStyles.componentSection} id="date-input">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
-          <HeadingText level={2}>DateInput</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>DateInput</HeadingText>
         </div>
         <code>import {"{ DateInput }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Free-form date entry with a calendar dropdown and the shared BBUI field
         treatment.
       </BodyText>
@@ -87,8 +87,8 @@ export function DateInputPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">BBUI field styling with Mantine DateInput props.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">BBUI field styling with Mantine DateInput props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

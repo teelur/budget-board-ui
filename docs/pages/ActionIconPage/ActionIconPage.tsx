@@ -77,16 +77,16 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
     <section className={pageStyles.componentSection} id="action-icon">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Actions</BodyText>
-          <HeadingText level={2}>ActionIcon</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Actions</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>ActionIcon</HeadingText>
         </div>
         <code>import {"{ ActionIcon }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         A square icon-only action with the same semantic colors, variants, and
         interaction states as Button.
       </BodyText>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Icon-only controls must provide an accessible name, usually with
         <code>aria-label</code>.
       </BodyText>
@@ -239,8 +239,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           <div className={styles.actionIconPlaygroundControls}>
             <div className={styles.actionIconControlGroup}>
               <div>
-                <BodyText component="p" className={styles.actionIconControlHeading}>Appearance</BodyText>
-                <BodyText component="p" className={styles.actionIconControlCopy}>
+                <BodyText component="p" className={styles.actionIconControlHeading} tone="heading" ff="var(--bb-font-display)" fz="0.95rem" fw={700} m={0}>Appearance</BodyText>
+                <BodyText component="p" className={styles.actionIconControlCopy} tone="muted" fz="0.76rem" m="0.2rem 0 0">
                   Tune the visual treatment and scale.
                 </BodyText>
               </div>
@@ -316,8 +316,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
 
             <div className={styles.actionIconControlGroup}>
               <div>
-                <BodyText component="p" className={styles.actionIconControlHeading}>Behavior</BodyText>
-                <BodyText component="p" className={styles.actionIconControlCopy}>
+                <BodyText component="p" className={styles.actionIconControlHeading} tone="heading" ff="var(--bb-font-display)" fz="0.95rem" fw={700} m={0}>Behavior</BodyText>
+                <BodyText component="p" className={styles.actionIconControlCopy} tone="muted" fz="0.76rem" m="0.2rem 0 0">
                   Test availability and selection states.
                 </BodyText>
               </div>
@@ -354,7 +354,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
           </div>
 
           <div className={styles.actionIconPlaygroundPreview}>
-            <BodyText component="span" className={styles.actionIconPreviewLabel}>
+            <BodyText component="span" className={styles.actionIconPreviewLabel} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">
               Rendered result
             </BodyText>
             <div className={styles.actionIconPreviewStage}>
@@ -380,8 +380,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">Every public prop, its accepted values, and its default.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">Every public prop, its accepted values, and its default.</BodyText>
           </div>
           <a
             aria-label="Link to ActionIcon API reference section"

@@ -14,12 +14,12 @@ export function PinInputPage() {
     <section className={pageStyles.componentSection} id="pin-input">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
-          <HeadingText level={2}>PinInput</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>PinInput</HeadingText>
         </div>
         <code>import {"{ PinInput }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Segmented PIN and one-time-code entry with BBUI field styling and
         Mantine keyboard behavior.
       </BodyText>
@@ -48,7 +48,7 @@ export function PinInputPage() {
             type="number"
             value={code}
           />
-          <BodyText component="p" aria-live="polite" className={styles.value}>
+          <BodyText component="p" aria-live="polite" className={styles.value} tone="muted" fz="0.78rem" m={0}>
             {completedCode
               ? `Completed code: ${completedCode}`
               : "Enter a code"}
@@ -66,11 +66,11 @@ export function PinInputPage() {
       >
         <div className={styles.states}>
           <div className={styles.state}>
-            <BodyText component="span" className={styles.stateLabel}>Masked</BodyText>
+            <BodyText component="span" className={styles.stateLabel} tone="muted" fz="0.78rem">Masked</BodyText>
             <PinInput ariaLabel="Masked code" length={4} mask type="number" />
           </div>
           <div className={styles.state}>
-            <BodyText component="span" className={styles.stateLabel}>Disabled</BodyText>
+            <BodyText component="span" className={styles.stateLabel} tone="muted" fz="0.78rem">Disabled</BodyText>
             <PinInput
               ariaLabel="Disabled code"
               disabled
@@ -79,7 +79,7 @@ export function PinInputPage() {
             />
           </div>
           <div className={styles.state}>
-            <BodyText component="span" className={styles.stateLabel}>Read only</BodyText>
+            <BodyText component="span" className={styles.stateLabel} tone="muted" fz="0.78rem">Read only</BodyText>
             <PinInput
               ariaLabel="Read-only code"
               defaultValue="2048"
@@ -89,7 +89,7 @@ export function PinInputPage() {
             />
           </div>
           <div className={styles.state}>
-            <BodyText component="span" className={styles.stateLabel}>Large cells</BodyText>
+            <BodyText component="span" className={styles.stateLabel} tone="muted" fz="0.78rem">Large cells</BodyText>
             <PinInput
               ariaLabel="Large code"
               length={4}
@@ -106,8 +106,8 @@ export function PinInputPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">BBUI field styling and Mantine PinInput props.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">BBUI field styling and Mantine PinInput props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

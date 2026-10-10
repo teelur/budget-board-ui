@@ -62,14 +62,14 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
     <section className={pageStyles.componentSection} id="segmented-control">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
-          <HeadingText level={2}>SegmentedControl</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>SegmentedControl</HeadingText>
         </div>
         <code>
           import {"{ SegmentedControl }"} from '@teelur/budget-board-ui';
         </code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         A radiogroup for picking one option from a small, always-visible set,
         with an animated indicator that follows the active segment.
       </BodyText>
@@ -333,8 +333,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">Every public prop, its accepted values, and its default.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">Every public prop, its accepted values, and its default.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

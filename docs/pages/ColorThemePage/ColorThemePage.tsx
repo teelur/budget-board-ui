@@ -375,12 +375,12 @@ export function ColorThemePage({ colorMode }: { colorMode: ColorMode }) {
     <section className={pageStyles.componentSection} id="color-theme">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Color foundations</BodyText>
-          <HeadingText level={2}>Color theme</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Color foundations</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>Color theme</HeadingText>
         </div>
         <code>{colorMode} mode</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         A restrained background system keeps the canvas, working surfaces, and
         application chrome distinct without relying on heavy shadows. Surfaces,
         text, and theme roles establish the visual foundation for the rest of
@@ -388,8 +388,8 @@ export function ColorThemePage({ colorMode }: { colorMode: ColorMode }) {
         palettes.
       </BodyText>
       <div className={styles.colorThemeSection}>
-        <BodyText component="p" className={styles.themeSubheading}>Surfaces</BodyText>
-        <BodyText component="p" className={styles.themeSubheadingCopy}>
+        <BodyText component="p" className={styles.themeSubheading} ff="var(--bb-font-data)" fz="0.72rem" m="2.5rem 0 1rem">Surfaces</BodyText>
+        <BodyText component="p" className={styles.themeSubheadingCopy} tone="secondary" fz="0.82rem" lh={1.55} m="-0.3rem 0 1rem">
           Light and dark surfaces use the same quiet, grounded hierarchy while
           adapting their values to the surrounding mode. Small shifts in value
           create depth without depending on heavy shadows.
@@ -410,8 +410,8 @@ export function ColorThemePage({ colorMode }: { colorMode: ColorMode }) {
           ))}
         </div>
 
-        <BodyText component="p" className={styles.themeSubheading}>Text roles</BodyText>
-        <BodyText component="p" className={styles.themeSubheadingCopy}>
+        <BodyText component="p" className={styles.themeSubheading} ff="var(--bb-font-data)" fz="0.72rem" m="2.5rem 0 1rem">Text roles</BodyText>
+        <BodyText component="p" className={styles.themeSubheadingCopy} tone="secondary" fz="0.82rem" lh={1.55} m="-0.3rem 0 1rem">
           Both modes use a measured neutral scale to keep financial information
           readable at a glance. Stronger values establish hierarchy while muted
           roles recede when attention should move elsewhere.
@@ -422,8 +422,8 @@ export function ColorThemePage({ colorMode }: { colorMode: ColorMode }) {
           ))}
         </div>
 
-        <BodyText component="p" className={styles.themeSubheading}>Theme roles</BodyText>
-        <BodyText component="p" className={styles.themeSubheadingCopy}>
+        <BodyText component="p" className={styles.themeSubheading} ff="var(--bb-font-data)" fz="0.72rem" m="2.5rem 0 1rem">Theme roles</BodyText>
+        <BodyText component="p" className={styles.themeSubheadingCopy} tone="secondary" fz="0.82rem" lh={1.55} m="-0.3rem 0 1rem">
           Indigo, emerald, and orange bring consistent energy to actions and
           emphasis in both modes without overwhelming the foundation. Each light
           and dark value is paired with deliberate content colors for clear
@@ -443,8 +443,8 @@ export function ColorThemePage({ colorMode }: { colorMode: ColorMode }) {
           ))}
         </div>
 
-        <BodyText component="p" className={styles.themeSubheading}>Semantic roles</BodyText>
-        <BodyText component="p" className={styles.themeSubheadingCopy}>
+        <BodyText component="p" className={styles.themeSubheading} ff="var(--bb-font-data)" fz="0.72rem" m="2.5rem 0 1rem">Semantic roles</BodyText>
+        <BodyText component="p" className={styles.themeSubheadingCopy} tone="secondary" fz="0.82rem" lh={1.55} m="-0.3rem 0 1rem">
           Structural roles establish separation, interaction states guide
           attention and input, and feedback states communicate system status
           with neighboring hues that stay harmonious with the theme roles.

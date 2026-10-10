@@ -7,6 +7,14 @@ import type {
   BudgetBoardContentColorKey,
 } from "./colors";
 
+declare module "@mantine/core" {
+  export interface MantineThemeSizesOverride {
+    fontSizes: {
+      xxs: string;
+    };
+  }
+}
+
 export { budgetBoardColors } from "./colors";
 export type {
   BudgetBoardColorKey,
@@ -27,6 +35,9 @@ export type BudgetBoardTypography = typeof budgetBoardTypography;
 function createBudgetBoardTheme(colors: BudgetBoardColorMode) {
   return createTheme({
     fontFamily: budgetBoardTypography.body,
+    fontSizes: {
+      xxs: "0.65rem",
+    },
     headings: {
       fontFamily: budgetBoardTypography.display,
     },

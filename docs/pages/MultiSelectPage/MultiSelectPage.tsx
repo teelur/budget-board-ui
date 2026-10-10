@@ -15,12 +15,12 @@ export function MultiSelectPage() {
     <section className={pageStyles.componentSection} id="multi-select">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
-          <HeadingText level={2}>MultiSelect</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>MultiSelect</HeadingText>
         </div>
         <code>import {"{ MultiSelect }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Select several options, with optional query-based option creation.
       </BodyText>
 
@@ -79,8 +79,8 @@ export function MultiSelectPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">BBUI styling with Mantine MultiSelect props and behavior.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">BBUI styling with Mantine MultiSelect props and behavior.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

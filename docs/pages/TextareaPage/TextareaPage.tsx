@@ -15,12 +15,12 @@ export function TextareaPage() {
     <section className={pageStyles.componentSection} id="textarea">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Inputs</BodyText>
-          <HeadingText level={2}>Textarea</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>Textarea</HeadingText>
         </div>
         <code>import {"{ Textarea }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         A multiline text field with Mantine row sizing and autosize behavior,
         styled to match the BBUI input family.
       </BodyText>
@@ -142,8 +142,8 @@ export function TextareaPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">BBUI styling with Mantine Textarea props.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">BBUI styling with Mantine Textarea props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

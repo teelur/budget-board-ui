@@ -18,7 +18,7 @@ export function SemanticColorGroup({
 }) {
   return (
     <div className={styles.semanticColorGroup}>
-      <HeadingText level={3}>{group.name}</HeadingText>
+      <HeadingText level={3} tone="heading" lh={1.5}>{group.name}</HeadingText>
       <div className={styles.semanticColorGrid}>
         {group.roles.map((role) => (
           <RoleCard

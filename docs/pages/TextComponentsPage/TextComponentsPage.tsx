@@ -15,12 +15,12 @@ export function TextComponentsPage() {
     <section className={pageStyles.componentSection} id="text-components">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow}>Typography</BodyText>
-          <HeadingText level={2}>Text components</HeadingText>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Typography</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>Text components</HeadingText>
         </div>
         <code>5 roles · semantic tones</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Choose a role for the content and hierarchy, then use tone for its
         semantic color. Use HeadingText for document headings; DisplayText is
         visual display copy and does not create a heading.
@@ -49,7 +49,8 @@ export function TextComponentsPage() {
         description="Tone is independent from typography role; Mantine style props can override role defaults."
         id="text-component-tones"
         title="Tones and overrides"
-        code={`<BodyText tone="secondary">Supporting content</BodyText>
+        code={`<BodyText tone="heading">Section title</BodyText>
+<BodyText tone="secondary">Supporting content</BodyText>
 <CaptionText tone="metadata">Updated just now</CaptionText>
 <DisplayText fz="2rem" tone="muted">Display copy</DisplayText>
 <DataText fw={600} c="var(--bb-color-text-primary)">
@@ -57,6 +58,7 @@ export function TextComponentsPage() {
 </DataText>`}
       >
         <div className={styles.toneGrid}>
+          <BodyText tone="heading">Heading</BodyText>
           <BodyText tone="primary">Primary</BodyText>
           <BodyText tone="secondary">Secondary</BodyText>
           <BodyText tone="metadata">Metadata</BodyText>
@@ -76,8 +78,8 @@ export function TextComponentsPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3}>API reference</HeadingText>
-            <BodyText component="p">Defaults and props for using each BBUI text component.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">Defaults and props for using each BBUI text component.</BodyText>
           </div>
           <a
             aria-label="Link to text components API reference"
@@ -176,7 +178,8 @@ export function TextComponentsPage() {
                 <tr>
                   <th>tone</th>
                   <td>
-                    <code>TextTone</code>: primary, secondary, metadata, muted
+                    <code>TextTone</code>: heading, primary, secondary,
+                    metadata, muted
                   </td>
                   <td>
                     Selects a semantic text color. Defaults are shown above;
@@ -211,7 +214,8 @@ export function TextComponentsPage() {
                   <td>
                     Mantine Text sizing on DisplayText, BodyText, CaptionText,
                     and DataText; Title sizing on HeadingText. Explicit size
-                    overrides the role default.
+                    overrides the role default. BBUI adds <code>xxs</code> at
+                    <code>0.65rem</code>.
                   </td>
                 </tr>
                 <tr>
@@ -239,6 +243,18 @@ export function TextComponentsPage() {
                   <td>
                     Forwarded to the root. HeadingText uses TitleProps; the
                     other roles use TextProps.
+                  </td>
+                </tr>
+                <tr>
+                  <th>unstyled</th>
+                  <td>
+                    <code>boolean</code>
+                  </td>
+                  <td>
+                    Suppresses BBUI role defaults and Mantine styles while
+                    preserving the semantic element. Explicit style props still
+                    apply; reserve it for content that intentionally uses
+                    custom styling instead of BBUI typography.
                   </td>
                 </tr>
               </tbody>

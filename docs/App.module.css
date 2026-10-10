@@ -29,11 +29,6 @@
 }
 
 .eyebrow {
-  color: var(--muted);
-  font-family: var(--data);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  margin: 0;
   text-transform: uppercase;
 }
 
@@ -140,15 +135,6 @@
 .navGroup a {
   border-left: 1px solid var(--line);
   padding-left: 0.75rem;
-}
-
-.navHeading {
-  color: var(--muted);
-  font-family: var(--data);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  margin: 0;
-  text-transform: uppercase;
 }
 
 .navHeadingSpaced {
