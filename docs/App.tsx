@@ -146,9 +146,7 @@ export function App() {
             </BodyText>
             <a href="#overview">Overview</a>
             <div className={styles.navGroup}>
-              <BodyText component="p" tone="heading" size="xxs" tt="uppercase">
-                Design
-              </BodyText>
+<BodyText className={styles.navGroupHeading} component="p" tone="heading" size="xxs" tt="uppercase">
               <a href="#color-theme">Color theme</a>
               <a href="#typography">Typography</a>
             </div>
