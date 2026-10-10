@@ -10,7 +10,7 @@
 }
 
 .root .section {
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .root .labeledSection[data-with-border] {
@@ -39,6 +39,7 @@
 }
 
 .hoverable {
+  cursor: pointer;
   transition:
     background-color 120ms ease,
     border-color 120ms ease;

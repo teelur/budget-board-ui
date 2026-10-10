@@ -21,7 +21,6 @@ type CardPartProps = MantineCardSectionProps & {
   "data-orientation"?: "horizontal" | "vertical";
 };
 
-export type CardHeaderProps = CardPartProps;
 export type CardSectionProps = CardPartProps &
   Pick<MantineDividerProps, "label" | "labelPosition">;
 
@@ -85,7 +84,14 @@ function CardSection({
 CardSection.displayName = "@mantine/core/CardSection";
 
 const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
-  { className, hoverable = false, style, withBorder = true, ...props },
+  {
+    className,
+    hoverable = false,
+    p = "0.5rem",
+    style,
+    withBorder = true,
+    ...props
+  },
   ref,
 ) {
   const { colors, colorScheme, hasMantineContext } = useBBUITheme();
@@ -97,6 +103,7 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
         hoverable ? classes.hoverable : undefined,
         className,
       )}
+      p={p}
       ref={ref}
       style={[
         {
@@ -120,7 +127,6 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
 export const Card = Object.assign(
   createPolymorphicComponent<"div", CardProps>(CardRoot),
   {
-    Header: CardPart,
     Section: CardSection,
   },
 );

@@ -1,9 +1,16 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { MantineProvider } from "@mantine/core";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { Card } from "../src";
 import classes from "../src/Card/Card.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
+
+const cardStyles = readFileSync(
+  resolve(process.cwd(), "src/Card/Card.module.css"),
+  "utf8",
+);
 
 describe("Card", () => {
   it("renders conventional content with semantic surface defaults", () => {
@@ -17,6 +24,7 @@ describe("Card", () => {
 
     expect(card).toHaveClass(classes.root);
     expect(card).toHaveAttribute("data-with-border");
+    expect(card.style.padding).toBe("0.5rem");
     expect(card.style.getPropertyValue("--bbui-card-surface")).toBe(
       "var(--bb-color-surface, #ffffff)",
     );
@@ -26,22 +34,26 @@ describe("Card", () => {
     expect(screen.getByText("Available balance")).toBeInTheDocument();
   });
 
-  it("separates padded header and adjacent sections", () => {
+  it("applies independent padding and separators to card sections", () => {
     render(
       <Card>
-        <Card.Header data-testid="header" py="sm">
-          Accounts
-        </Card.Header>
         <Card.Section data-testid="first-section" py="sm">
+          Accounts
+        </Card.Section>
+        <Card.Section data-testid="second-section" py="sm">
           Checking
         </Card.Section>
-        <Card.Section data-testid="second-section" py="xs">
+        <Card.Section data-testid="third-section" py="xs">
           Savings
         </Card.Section>
       </Card>,
     );
 
-    for (const testId of ["header", "first-section", "second-section"]) {
+    for (const testId of [
+      "first-section",
+      "second-section",
+      "third-section",
+    ]) {
       const section = screen.getByTestId(testId);
 
       expect(section).toHaveClass(classes.section);
@@ -50,16 +62,16 @@ describe("Card", () => {
       expect(section).toHaveAttribute("data-orientation", "vertical");
       expect(section.style.padding).toBe("");
       expect(section.style.getPropertyValue("padding-block")).toBe(
-        testId === "second-section"
+        testId === "third-section"
           ? "var(--mantine-spacing-xs)"
           : "var(--mantine-spacing-sm)",
       );
     }
 
-    const header = screen.getByTestId("header");
-    expect(header).toHaveClass(classes.section);
-    expect(header).toHaveAttribute("data-first-section", "true");
-    expect(screen.getByTestId("second-section")).toHaveAttribute(
+    const firstSection = screen.getByTestId("first-section");
+    expect(firstSection).toHaveClass(classes.section);
+    expect(firstSection).toHaveAttribute("data-first-section", "true");
+    expect(screen.getByTestId("third-section")).toHaveAttribute(
       "data-last-section",
       "true",
     );
@@ -126,6 +138,7 @@ describe("Card", () => {
       <Card
         className="consumer-card"
         data-testid="card"
+        p="1rem"
         style={{ "--bbui-card-surface": "pink" } as React.CSSProperties}
         withBorder={false}
       />,
@@ -136,6 +149,7 @@ describe("Card", () => {
     expect(card).toHaveClass(classes.root, "consumer-card");
     expect(card).not.toHaveAttribute("data-with-border");
     expect(card.style.getPropertyValue("--bbui-card-surface")).toBe("pink");
+    expect(card.style.padding).toBe("1rem");
   });
 
   it("resolves semantic surface colors in dark mode", () => {
@@ -190,5 +204,17 @@ describe("Card", () => {
 
     fireEvent.click(button);
     expect(onClick).toHaveBeenCalledOnce();
+  });
+
+  it("uses a pointer cursor for hoverable cards", () => {
+    const hoverableStyles = cardStyles.match(/\.hoverable\s*\{([^}]*)\}/)?.[1];
+
+    expect(hoverableStyles).toContain("cursor: pointer;");
+  });
+
+  it("uses half-rem default padding for card parts", () => {
+    const sectionStyles = cardStyles.match(/\.section\s*\{([^}]*)\}/)?.[1];
+
+    expect(sectionStyles).toContain("padding: 0.5rem;");
   });
 });

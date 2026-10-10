@@ -12,13 +12,13 @@ const plainCardExample = `<Card>
 </Card>`;
 
 const splitCardExample = `<Card>
-  <Card.Header>
+  <Card.Section>
     <div>
       <h3>Account balances</h3>
       <p>Updated just now</p>
     </div>
     <span>3 accounts</span>
-  </Card.Header>
+  </Card.Section>
   <Card.Section>Everyday checking <strong>$4,218.32</strong></Card.Section>
   <Card.Section>Rainy day savings <strong>$4,202.18</strong></Card.Section>
 </Card>`;
@@ -92,20 +92,20 @@ export function CardPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Each Card.Header and Card.Section owns its padding and gets an automatic separator. Override p, px, or py per part."
+        description="Each Card.Section owns its padding and gets an automatic separator. Override p, px, or py per section."
         id="card-sections"
-        title="Header and sections"
+        title="Card sections"
         code={splitCardExample}
       >
         <div className={styles.preview}>
           <Card className={styles.splitCard}>
-            <Card.Header className={styles.cardHeader}>
+            <Card.Section className={styles.cardHeader}>
               <div>
                 <HeadingText level={3} className={styles.cardTitle} tone="heading" fz="1.05rem" fw={600} m={0} lh={1.5}>Account balances</HeadingText>
                 <BodyText component="p" className={styles.cardSubtitle} tone="muted" ff="var(--bb-font-data)" fz="0.72rem" m="0.3rem 0 0">Updated just now</BodyText>
               </div>
               <BodyText component="span" className={styles.accountCount} tone="muted" ff="var(--bb-font-data)" fz="0.72rem">3 accounts</BodyText>
-            </Card.Header>
+            </Card.Section>
             <Card.Section>
               <div className={styles.accountRow}>
                 <BodyText component="span">Everyday checking</BodyText>
@@ -127,7 +127,7 @@ export function CardPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="hoverable adds visual hover and focus feedback. Select a native button or link root when the card is interactive."
+        description="hoverable adds visual hover and focus feedback with a pointer cursor. Select a native button or link root when the card is interactive."
         id="card-hoverable"
         title="Hoverable link"
         code={hoverableCardExample}
@@ -174,24 +174,8 @@ export function CardPage() {
                   <td>
                     Mantine Card props and polymorphic roots. Defaults to a
                     <code>surface</code> background, <code>border-subtle</code>
-                    border, and Mantine <code>md</code> padding. Consumer props
+                    border, and <code>0.5rem</code> padding. Consumer props
                     override these defaults.
-                  </td>
-                </tr>
-                <tr>
-                  <th>Card.Header</th>
-                  <td>
-                    <code>CardHeaderProps</code>
-                  </td>
-                  <td>
-                    Arbitrary React content. Defaults to <code>1rem</code>
-                    padding on all four sides. Its separator is on the section
-                    edge, and the next part starts with its own full padding.
-                    Uses
-                    <code>{"inheritPadding={false}"}</code> and adds a
-                    <code>border-subtle</code> separator. Override padding with
-                    Mantine props such as <code>p</code>, <code>px</code>, or
-                    <code>py</code>.
                   </td>
                 </tr>
                 <tr>
@@ -200,7 +184,7 @@ export function CardPage() {
                     <code>CardSectionProps</code>
                   </td>
                   <td>
-                    Repeat for body sections. Defaults to <code>1rem</code>
+                    Use for each card content section. Defaults to <code>0.5rem</code>
                     padding on all four sides; adjacent sections do not share or
                     collapse padding. <code>withBorder</code> controls the
                     separator and optional <code>label</code> and
@@ -213,10 +197,10 @@ export function CardPage() {
                   <th>hoverable</th>
                   <td>boolean</td>
                   <td>
-                    Defaults to <code>false</code>. Adds token-based hover and
-                    focus-visible styling only; it does not add click behavior,
-                    roles, or keyboard handling. Choose a native button or link
-                    root for interactive cards.
+                    Defaults to <code>false</code>. Adds token-based hover,
+                    focus-visible, and pointer-cursor styling without adding
+                    click behavior, roles, or keyboard handling. Choose a
+                    native button or link root for interactive cards.
                   </td>
                 </tr>
                 <tr>
