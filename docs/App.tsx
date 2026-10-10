@@ -188,9 +188,15 @@ export function App() {
 
           <main className={styles.mainContent}>
             <section className={styles.intro} id="overview">
-              <BodyText component="p" tone="muted" size="xxs">
-                Budget Board UI
-              </BodyText>
+<BodyText
+  component="p"
+  ff="var(--bb-font-data)"
+  fz="0.68rem"
+  ls="0.08em"
+  m={0}
+  tone="muted"
+  tt="uppercase"
+>
               <HeadingText level={2} tone="heading" lh="h1">
                 The building blocks behind Budget Board.
               </HeadingText>
