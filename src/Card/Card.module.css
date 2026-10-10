@@ -51,12 +51,20 @@
 }
 
 .hoverable:hover {
-  background-color: var(--bbui-card-hover-surface);
+  background-color: color-mix(
+    in srgb,
+    var(--bbui-card-hover-surface) 40%,
+    var(--bbui-card-surface)
+  );
   border-color: var(--bbui-card-hover-border);
 }
 
 .hoverable:active {
-  background-color: var(--bbui-card-hover-surface);
+  background-color: color-mix(
+    in srgb,
+    var(--bbui-card-hover-surface) 40%,
+    var(--bbui-card-surface)
+  );
   border-color: var(--bbui-card-focus-ring);
 }
 

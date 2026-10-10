@@ -267,6 +267,20 @@ describe("Card", () => {
     );
   });
 
+  it("softens hover and active surfaces while preserving their borders", () => {
+    const hoverStyles = cardStyles.match(/\.hoverable:hover\s*\{([^}]*)\}/)?.[1];
+    const activeStyles = cardStyles.match(/\.hoverable:active\s*\{([^}]*)\}/)?.[1];
+    const softenedSurface =
+      /background-color:\s*color-mix\(\s*in srgb,\s*var\(--bbui-card-hover-surface\)\s+40%,\s*var\(--bbui-card-surface\)\s*\);/;
+
+    expect(hoverStyles).toMatch(softenedSurface);
+    expect(hoverStyles).toContain(
+      "border-color: var(--bbui-card-hover-border);",
+    );
+    expect(activeStyles).toMatch(softenedSurface);
+    expect(activeStyles).toContain("border-color: var(--bbui-card-focus-ring);");
+  });
+
   it("uses half-rem default padding for card parts", () => {
     const sectionStyles = cardStyles.match(/\.section\s*\{([^}]*)\}/)?.[1];
 
