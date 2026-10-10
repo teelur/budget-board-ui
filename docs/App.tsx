@@ -146,7 +146,15 @@ export function App() {
             </BodyText>
             <a href="#overview">Overview</a>
             <div className={styles.navGroup}>
-<BodyText className={styles.navGroupHeading} component="p" tone="heading" size="xxs" tt="uppercase">
+              <BodyText
+                className={styles.navGroupHeading}
+                component="p"
+                tone="heading"
+                size="xxs"
+                tt="uppercase"
+              >
+                Design
+              </BodyText>
               <a href="#color-theme">Color theme</a>
               <a href="#typography">Typography</a>
             </div>
@@ -180,7 +188,12 @@ export function App() {
               <a href="#tags-input">TagsInput</a>
               <a href="#textarea">Textarea</a>
             </div>
-<BodyText className={styles.navHeadingSpaced} component="p" tone="muted" size="xxs" tt="uppercase">
+            <BodyText
+              className={styles.navHeadingSpaced}
+              component="p"
+              tone="muted"
+              size="xxs"
+            >
               Package
             </BodyText>
             <code>@teelur/budget-board-ui</code>
@@ -188,15 +201,16 @@ export function App() {
 
           <main className={styles.mainContent}>
             <section className={styles.intro} id="overview">
-<BodyText
-  component="p"
-  ff="var(--bb-font-data)"
-  fz="0.68rem"
-  ls="0.08em"
-  m={0}
-  tone="muted"
-  tt="uppercase"
->
+              <BodyText
+                component="p"
+                ff="var(--bb-font-data)"
+                fz="0.68rem"
+                m={0}
+                tone="muted"
+                tt="uppercase"
+              >
+                Budget Board UI
+              </BodyText>
               <HeadingText level={2} tone="heading" lh="h1">
                 The building blocks behind Budget Board.
               </HeadingText>
