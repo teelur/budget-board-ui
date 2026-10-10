@@ -137,6 +137,23 @@ export function TextComponentsPage() {
         </div>
       </ComponentDemoSection>
 
+      <ComponentDemoSection
+        description="Opt in to container-responsive sizing for dashboard content. Resize the container to see each role scale within its own readable range."
+        id="text-component-responsive"
+        title="Container-responsive sizing"
+        code={`<div style={{ containerType: "inline-size" }}>
+  <DisplayText responsive>Monthly overview</DisplayText>
+</div>`}
+      >
+        <div className={styles.responsivePreview}>
+          <DisplayText responsive>Monthly overview</DisplayText>
+          <BodyText responsive>
+            Text size follows this container&apos;s width, not the viewport.
+          </BodyText>
+          <DataText responsive>$12,480.00</DataText>
+        </div>
+      </ComponentDemoSection>
+
       <section
         className={pageStyles.componentReferenceSection}
         id="text-components-api"
@@ -291,6 +308,39 @@ export function TextComponentsPage() {
                   <td>
                     Override the role font family, size, weight, and line
                     height.
+                  </td>
+                </tr>
+                <tr>
+                  <th>responsive</th>
+                  <td>
+                    <code>boolean</code>; default <code>false</code>
+                  </td>
+                  <td>
+                    Scales font size with the nearest inline-size container
+                    using container query units. Set
+                    <code>container-type: inline-size</code> on the widget or
+                    another ancestor to make sizing follow that width. Each
+                    text role has its own clamped minimum, scaling rate, and
+                    maximum:
+                    <ul>
+                      <li>
+                        DisplayText: <code>clamp(1.25rem, 6cqi, 4rem)</code>
+                      </li>
+                      <li>
+                        HeadingText: <code>clamp(1.25rem, 5cqi, 3.5rem)</code>
+                      </li>
+                      <li>
+                        BodyText: <code>clamp(0.875rem, 3cqi, 1.75rem)</code>
+                      </li>
+                      <li>
+                        CaptionText: <code>clamp(0.75rem, 2.25cqi, 1.25rem)</code>
+                      </li>
+                      <li>
+                        DataText: <code>clamp(0.875rem, 5cqi, 3rem)</code>
+                      </li>
+                    </ul>
+                    When enabled, responsive sizing takes precedence over
+                    <code>size</code> and <code>fz</code>.
                   </td>
                 </tr>
                 <tr>

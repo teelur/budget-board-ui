@@ -6,11 +6,15 @@ import {
   ensureBBUIMantineProvider,
   useBBUITheme,
 } from "../shared/themeStyles";
-import type { TextTone } from "../shared/TextRole";
+import {
+  getResponsiveTextFontSize,
+  type TextTone,
+} from "../shared/TextRole";
 
 export type HeadingTextProps = Omit<TitleProps, "component" | "order"> & {
   component?: ElementType;
   level?: TitleOrder;
+  responsive?: boolean;
   tone?: TextTone;
 };
 
@@ -28,18 +32,22 @@ export function HeadingText({
   c,
   component,
   ff,
+  fz,
   fw,
   level = 2,
+  responsive,
   tone = "primary",
   unstyled,
   ...titleProps
 }: HeadingTextProps): ReactElement {
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
   const colorKey = toneColorKeys[tone];
+  const resolvedFz = responsive ? getResponsiveTextFontSize("heading") : fz;
   const roleStyleProps = unstyled
     ? {
         ...(c === undefined ? {} : { c }),
         ...(ff === undefined ? {} : { ff }),
+        ...(resolvedFz === undefined ? {} : { fz: resolvedFz }),
         ...(fw === undefined ? {} : { fw }),
       }
     : {
@@ -47,6 +55,7 @@ export function HeadingText({
           c ??
           `var(--bb-color-text-${tone}, ${colors[colorKey]})`,
         ff: ff ?? budgetBoardTypography.display,
+        ...(resolvedFz === undefined ? {} : { fz: resolvedFz }),
         fw: fw ?? 700,
       };
   const element = (
