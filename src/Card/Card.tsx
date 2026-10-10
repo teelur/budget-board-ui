@@ -21,7 +21,6 @@ type CardPartProps = MantineCardSectionProps & {
   "data-orientation"?: "horizontal" | "vertical";
 };
 
-export type CardHeaderProps = CardPartProps;
 export type CardSectionProps = CardPartProps &
   Pick<MantineDividerProps, "label" | "labelPosition">;
 
@@ -128,7 +127,6 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
 export const Card = Object.assign(
   createPolymorphicComponent<"div", CardProps>(CardRoot),
   {
-    Header: CardPart,
     Section: CardSection,
   },
 );
