@@ -9,6 +9,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./ProgressPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
@@ -68,18 +69,18 @@ export function ProgressPage() {
     <section className={pageStyles.componentSection} id="progress">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Feedback</p>
-          <h2>Progress</h2>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Feedback</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>Progress</HeadingText>
         </div>
         <code>import {"{ Progress }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         A themed Mantine progress bar for a single value or a sequence of
         labeled sections. Values are clamped to the 0–100 range; enable the
         optional label to display the primary value as a percentage. For income
         and expense progress, amount and limit determine the percentage and
         status color; value is optional and overrides the derived percentage.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Show the computed percentage beside the bar and give the primary section an accessible name."
@@ -108,7 +109,7 @@ export function ProgressPage() {
         <div className={styles.colorList}>
           {progressColors.map((color) => (
             <div className={styles.colorRow} key={color}>
-              <span>{capitalize(color)}</span>
+              <BodyText component="span">{capitalize(color)}</BodyText>
               <Progress
                 ariaLabel={`${capitalize(color)} progress`}
                 color={color}
@@ -207,7 +208,7 @@ export function ProgressPage() {
             <div className={styles.controlGrid}>
               {selectedType === "default" && (
                 <label className={styles.field}>
-                  <span>Value</span>
+                  <BodyText component="span">Value</BodyText>
                   <input
                     max={120}
                     min={0}
@@ -219,7 +220,7 @@ export function ProgressPage() {
                 </label>
               )}
               <label className={styles.field}>
-                <span>Type</span>
+                <BodyText component="span">Type</BodyText>
                 <select
                   onChange={(event) =>
                     handleTypeChange(
@@ -238,11 +239,11 @@ export function ProgressPage() {
               {selectedType !== "default" && (
                 <>
                   <label className={styles.field}>
-                    <span>
+                    <BodyText component="span">
                       {selectedType === "expense"
                         ? "Amount (negative)"
                         : "Amount"}
-                    </span>
+                    </BodyText>
                     <input
                       max={selectedType === "expense" ? 0 : 120}
                       min={selectedType === "expense" ? -120 : 0}
@@ -256,7 +257,7 @@ export function ProgressPage() {
                     <output>{amount}</output>
                   </label>
                   <label className={styles.field}>
-                    <span>Limit</span>
+                    <BodyText component="span">Limit</BodyText>
                     <input
                       max={150}
                       min={1}
@@ -269,7 +270,7 @@ export function ProgressPage() {
                   </label>
                   {selectedType === "expense" && (
                     <label className={styles.field}>
-                      <span>Warning Threshold</span>
+                      <BodyText component="span">Warning Threshold</BodyText>
                       <input
                         max={100}
                         min={0}
@@ -286,7 +287,7 @@ export function ProgressPage() {
                 </>
               )}
               <label className={styles.field}>
-                <span>Color</span>
+                <BodyText component="span">Color</BodyText>
                 <select
                   onChange={(event) =>
                     setSelectedColor(event.target.value as typeof selectedColor)
@@ -301,7 +302,7 @@ export function ProgressPage() {
                 </select>
               </label>
               <label className={styles.field}>
-                <span>Size</span>
+                <BodyText component="span">Size</BodyText>
                 <select
                   onChange={(event) =>
                     setSelectedSize(event.target.value as typeof selectedSize)
@@ -348,7 +349,7 @@ export function ProgressPage() {
             </div>
           </div>
           <div className={styles.playgroundPreview}>
-            <span className={styles.previewLabel}>Rendered result</span>
+            <BodyText component="span" className={styles.previewLabel} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Rendered result</BodyText>
             <div className={styles.previewStage}>
               <Progress
                 {...(selectedType === "default"
@@ -392,8 +393,8 @@ export function ProgressPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>Every public prop, its accepted values, and its default.</p>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">Every public prop, its accepted values, and its default.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

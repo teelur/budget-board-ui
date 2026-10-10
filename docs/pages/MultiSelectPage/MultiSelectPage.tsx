@@ -2,6 +2,7 @@ import { MultiSelect } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 const accounts = [
   { value: "checking", label: "Checking" },
@@ -14,14 +15,14 @@ export function MultiSelectPage() {
     <section className={pageStyles.componentSection} id="multi-select">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Inputs</p>
-          <h2>MultiSelect</h2>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>MultiSelect</HeadingText>
         </div>
         <code>import {"{ MultiSelect }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Select several options, with optional query-based option creation.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Search for and select multiple accounts."
@@ -78,8 +79,8 @@ export function MultiSelectPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>BBUI styling with Mantine MultiSelect props and behavior.</p>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">BBUI styling with Mantine MultiSelect props and behavior.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

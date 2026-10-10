@@ -4,6 +4,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./CheckboxPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
@@ -30,15 +31,15 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
     <section className={pageStyles.componentSection} id="checkbox">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Inputs</p>
-          <h2>Checkbox</h2>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>Checkbox</HeadingText>
         </div>
         <code>import {"{ Checkbox }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Mantine checkbox behavior with BBUI colors, typography, and keyboard
         focus treatment.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Use a label and optional description to identify the setting or choice."
@@ -124,7 +125,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
               />
             </div>
             <label className={styles.field}>
-              <span>Label position</span>
+              <BodyText component="span">Label position</BodyText>
               <select
                 onChange={(event) =>
                   setLabelPosition(event.target.value as typeof labelPosition)
@@ -158,8 +159,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>BBUI styling with Mantine Checkbox props.</p>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">BBUI styling with Mantine Checkbox props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

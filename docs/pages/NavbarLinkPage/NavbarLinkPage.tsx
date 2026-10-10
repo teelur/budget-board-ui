@@ -4,6 +4,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./NavbarLinkPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 const navbarLinkExample = `<NavbarLink
   icon={<ArrowLeftRight aria-hidden="true" />}
@@ -31,16 +32,16 @@ export function NavbarLinkPage() {
     <section className={pageStyles.componentSection} id="navbar-link">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Navigation</p>
-          <h2>NavbarLink</h2>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Navigation</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>NavbarLink</HeadingText>
         </div>
         <code>import {"{ NavbarLink }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         An accessible icon-and-label action for application navigation, with
         optional collapsible child links. The consuming application controls
         routing, selection, and label visibility.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Expanded links show labels and can contain a collapsible child list. The parent action and disclosure control stay separate. Collapsed links keep an accessible name and reveal the parent label in a tooltip; child links stay hidden."
@@ -50,7 +51,7 @@ export function NavbarLinkPage() {
       >
         <div className={styles.examples}>
           <div className={styles.example}>
-            <span className={styles.caption}>Expanded</span>
+            <BodyText component="span" className={styles.caption} tone="secondary" ff="var(--bb-font-data)" fz="0.64rem" m="0 0 0.6rem">Expanded</BodyText>
             <div className={styles.expanded}>
               <NavbarLink
                 icon={<Home aria-hidden="true" />}
@@ -97,7 +98,7 @@ export function NavbarLinkPage() {
             </div>
           </div>
           <div className={styles.example}>
-            <span className={styles.caption}>Collapsed</span>
+            <BodyText component="span" className={styles.caption} tone="secondary" ff="var(--bb-font-data)" fz="0.64rem" m="0 0 0.6rem">Collapsed</BodyText>
             <div className={styles.collapsed}>
               <NavbarLink icon={<Home aria-hidden="true" />} label="Overview" />
               <NavbarLink
@@ -120,8 +121,8 @@ export function NavbarLinkPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>Component props, defaults, and forwarded button attributes.</p>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">Component props, defaults, and forwarded button attributes.</BodyText>
           </div>
           <a
             aria-label="Link to NavbarLink API reference"

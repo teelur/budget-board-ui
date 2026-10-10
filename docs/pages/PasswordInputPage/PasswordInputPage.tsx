@@ -4,6 +4,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./PasswordInputPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
@@ -14,17 +15,17 @@ export function PasswordInputPage() {
     <section className={pageStyles.componentSection} id="password-input">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Inputs</p>
-          <h2>PasswordInput</h2>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>PasswordInput</HeadingText>
         </div>
         <code>
           import {"{ PasswordInput }"} from '@teelur/budget-board-ui';
         </code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Mantine password input behavior and visibility toggle with BBUI field
         styling.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="The visibility control preserves Mantine's reveal/hide behavior and can be made keyboard-focusable."
@@ -63,11 +64,11 @@ export function PasswordInputPage() {
       >
         <div className={styles.surfaceSamples}>
           <div className={`${styles.surfaceSample} ${styles.pageSurface}`}>
-            <span>Page surface</span>
+            <BodyText component="span">Page surface</BodyText>
             <PasswordInput aria-label="Page password" />
           </div>
           <Card className={styles.surfaceSample} display="grid" p="lg">
-            <span>Card surface</span>
+            <BodyText component="span">Card surface</BodyText>
             <PasswordInput aria-label="Card surface password" />
           </Card>
         </div>
@@ -133,8 +134,8 @@ const [visible, setVisible] = useState(false);
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>BBUI styling and Mantine PasswordInput props.</p>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">BBUI styling and Mantine PasswordInput props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

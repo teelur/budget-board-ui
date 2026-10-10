@@ -4,6 +4,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./MonthPickerInputPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
@@ -19,17 +20,17 @@ export function MonthPickerInputPage() {
     <section className={pageStyles.componentSection} id="month-picker-input">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Inputs</p>
-          <h2>MonthPickerInput</h2>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>MonthPickerInput</HeadingText>
         </div>
         <code>
           import {"{ MonthPickerInput }"} from '@teelur/budget-board-ui';
         </code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Select one month, several months, or a month range with shared BBUI
         field and calendar styling.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="The selection type determines the value shape. Multiple selection stays open while you choose months."
@@ -143,8 +144,8 @@ const [range, setRange] = useState<[string | null, string | null]>([
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>BBUI field styling with Mantine MonthPickerInput props.</p>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">BBUI field styling with Mantine MonthPickerInput props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

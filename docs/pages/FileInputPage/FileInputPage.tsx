@@ -3,21 +3,22 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./FileInputPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 export function FileInputPage() {
   return (
     <section className={pageStyles.componentSection} id="file-input">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Inputs</p>
-          <h2>FileInput</h2>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>FileInput</HeadingText>
         </div>
         <code>import {"{ FileInput }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         Mantine file selection behavior with the same BBUI surface and focus
         styling as the other input components.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Choose a file, restrict accepted file types, and optionally show Mantine's clear control."
@@ -66,8 +67,8 @@ export function FileInputPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>BBUI styling with Mantine FileInput props.</p>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">BBUI styling with Mantine FileInput props.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"

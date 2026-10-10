@@ -112,6 +112,33 @@ export { TextInput, type TextInputProps } from "./TextInput/TextInput";
 export { Textarea, type TextareaProps } from "./Textarea/Textarea";
 
 export {
+  BodyText,
+  type BodyTextProps,
+} from "./BodyText/BodyText";
+
+export {
+  CaptionText,
+  type CaptionTextProps,
+} from "./CaptionText/CaptionText";
+
+export {
+  DataText,
+  type DataTextProps,
+} from "./DataText/DataText";
+
+export {
+  DisplayText,
+  type DisplayTextProps,
+} from "./DisplayText/DisplayText";
+
+export {
+  HeadingText,
+  type HeadingTextProps,
+} from "./HeadingText/HeadingText";
+
+export type { TextRoleProps, TextTone } from "./shared/TextRole";
+
+export {
   PasswordInput,
   type PasswordInputProps,
 } from "./PasswordInput/PasswordInput";

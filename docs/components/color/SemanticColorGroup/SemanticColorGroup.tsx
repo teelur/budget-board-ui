@@ -2,6 +2,7 @@ import type { ColorMode } from "../colorCardTypes";
 import { RoleCard } from "../RoleCard/RoleCard";
 import type { RoleCardData } from "../RoleCard/RoleCard";
 import styles from "./SemanticColorGroup.module.css";
+import { HeadingText } from "../../../../src";
 
 export interface SemanticColorGroupData {
   name: string;
@@ -17,7 +18,7 @@ export function SemanticColorGroup({
 }) {
   return (
     <div className={styles.semanticColorGroup}>
-      <h3>{group.name}</h3>
+      <HeadingText level={3} tone="heading" lh={1.5}>{group.name}</HeadingText>
       <div className={styles.semanticColorGrid}>
         {group.roles.map((role) => (
           <RoleCard

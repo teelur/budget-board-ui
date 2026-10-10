@@ -3,6 +3,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./CardPage.module.css";
+import { BodyText, DataText, HeadingText } from "../../../src";
 
 const plainCardExample = `<Card>
   <p>OCTOBER 2026</p>
@@ -37,16 +38,16 @@ export function CardPage() {
     <section className={pageStyles.componentSection} id="card">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Content</p>
-          <h2>Card</h2>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Content</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>Card</HeadingText>
         </div>
         <code>import {"{ Card }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         A token-based surface for standalone content and divided header and body
         sections. Header and body separators share the same subtle border.
         Mantine Card props and polymorphic roots are preserved.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Use Card directly for a conventional padded surface."
@@ -56,9 +57,18 @@ export function CardPage() {
       >
         <div className={styles.preview}>
           <Card className={styles.plainCard}>
-            <p className={styles.eyebrow}>October 2026</p>
-            <h3 className={styles.cardTitle}>Available balance</h3>
-            <strong className={styles.amount}>$8,420.50</strong>
+            <BodyText component="p" className={styles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.72rem" m="0 0 0.55rem">October 2026</BodyText>
+            <HeadingText level={3} className={styles.cardTitle} tone="heading" fz="1.05rem" fw={600} m={0} lh={1.5}>Available balance</HeadingText>
+            <DataText
+              component="strong"
+              className={styles.amount}
+              fz="1.5rem"
+              fw={700}
+              lh={1.5}
+              tone="heading" m="0.65rem 0 0"
+            >
+              $8,420.50
+            </DataText>
           </Card>
         </div>
       </ComponentDemoSection>
@@ -72,10 +82,10 @@ export function CardPage() {
         <div className={styles.preview}>
           <Card className={styles.authCard}>
             <Card.Section label="or">
-              <strong>Sign in with email</strong>
+              <BodyText component="strong" fw={700}>Sign in with email</BodyText>
             </Card.Section>
             <Card.Section>
-              <strong>Continue with identity provider</strong>
+              <BodyText component="strong" fw={700}>Continue with identity provider</BodyText>
             </Card.Section>
           </Card>
         </div>
@@ -91,21 +101,25 @@ export function CardPage() {
           <Card className={styles.splitCard}>
             <Card.Header className={styles.cardHeader}>
               <div>
-                <h3 className={styles.cardTitle}>Account balances</h3>
-                <p className={styles.cardSubtitle}>Updated just now</p>
+                <HeadingText level={3} className={styles.cardTitle} tone="heading" fz="1.05rem" fw={600} m={0} lh={1.5}>Account balances</HeadingText>
+                <BodyText component="p" className={styles.cardSubtitle} tone="muted" ff="var(--bb-font-data)" fz="0.72rem" m="0.3rem 0 0">Updated just now</BodyText>
               </div>
-              <span className={styles.accountCount}>3 accounts</span>
+              <BodyText component="span" className={styles.accountCount} tone="muted" ff="var(--bb-font-data)" fz="0.72rem">3 accounts</BodyText>
             </Card.Header>
             <Card.Section>
               <div className={styles.accountRow}>
-                <span>Everyday checking</span>
-                <strong>$4,218.32</strong>
+                <BodyText component="span">Everyday checking</BodyText>
+                <DataText component="strong" fz="0.85rem" fw={700} lh={1.5}>
+                  $4,218.32
+                </DataText>
               </div>
             </Card.Section>
             <Card.Section>
               <div className={styles.accountRow}>
-                <span>Rainy day savings</span>
-                <strong>$4,202.18</strong>
+                <BodyText component="span">Rainy day savings</BodyText>
+                <DataText component="strong" fz="0.85rem" fw={700} lh={1.5}>
+                  $4,202.18
+                </DataText>
               </div>
             </Card.Section>
           </Card>
@@ -125,8 +139,8 @@ export function CardPage() {
             href="#card-api"
             hoverable
           >
-            <span className={styles.cardSubtitle}>Transactions</span>
-            <strong>Review October activity</strong>
+            <BodyText component="span" className={styles.cardSubtitle} tone="muted" ff="var(--bb-font-data)" fz="0.72rem" m="0.3rem 0 0">Transactions</BodyText>
+            <BodyText component="strong" fw={600}>Review October activity</BodyText>
           </Card>
         </div>
       </ComponentDemoSection>
@@ -134,11 +148,11 @@ export function CardPage() {
       <section className={pageStyles.componentReferenceSection} id="card-api">
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">
               Mantine Card and Card.Section props are forwarded; BBUI adds
               semantic surface defaults and compound section styling.
-            </p>
+            </BodyText>
           </div>
           <a
             aria-label="Link to Card API reference"

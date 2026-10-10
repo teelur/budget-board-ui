@@ -4,11 +4,6 @@ import { MantineProvider } from "@mantine/core";
 import { Moon, Sun } from "lucide-react";
 import {
   Button,
-  FileInput,
-  NumberInput,
-  PasswordInput,
-  TextInput,
-  Textarea,
   budgetBoardColors,
   budgetBoardDarkTheme,
   budgetBoardTheme,
@@ -40,8 +35,10 @@ import { SelectPage } from "./pages/SelectPage/SelectPage";
 import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
 import { TextareaPage } from "./pages/TextareaPage/TextareaPage";
 import { TagsInputPage } from "./pages/TagsInputPage/TagsInputPage";
+import { TextComponentsPage } from "./pages/TextComponentsPage/TextComponentsPage";
 import { TypographyPage } from "./pages/TypographyPage/TypographyPage";
 import styles from "./App.module.css";
+import { BodyText, HeadingText } from "../src";
 
 function toCssName(name: string) {
   return name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
@@ -108,8 +105,12 @@ export function App() {
         <header className={styles.siteHeader} ref={headerRef}>
           <div className={styles.brandMark}>BB</div>
           <div>
-            <p className={styles.eyebrow}>Component library</p>
-            <h1>Budget Board UI</h1>
+            <BodyText component="p" size="xxs" tone="muted" tt="uppercase">
+              Component library
+            </BodyText>
+            <HeadingText level={1} tone="heading" lh="h1">
+              Budget Board UI
+            </HeadingText>
           </div>
           <div className={styles.headerActions}>
             <Button
@@ -140,15 +141,27 @@ export function App() {
             className={styles.sideNav}
             aria-label="Documentation navigation"
           >
-            <p className={styles.navHeading}>On this page</p>
+            <BodyText component="p" tone="heading" size="xs" tt="uppercase">
+              On this page
+            </BodyText>
             <a href="#overview">Overview</a>
             <div className={styles.navGroup}>
-              <p className={styles.navGroupHeading}>Design</p>
+              <BodyText
+                className={styles.navGroupHeading}
+                component="p"
+                tone="heading"
+                size="xxs"
+                tt="uppercase"
+              >
+                Design
+              </BodyText>
               <a href="#color-theme">Color theme</a>
               <a href="#typography">Typography</a>
             </div>
             <div className={styles.navGroup}>
-              <p className={styles.navGroupHeading}>Components</p>
+              <BodyText component="p" tone="heading" size="xxs" tt="uppercase">
+                Components
+              </BodyText>
               <a href="#action-icon">ActionIcon</a>
               <a href="#amount-text">AmountText</a>
               <a href="#app-shell">AppShell</a>
@@ -170,39 +183,72 @@ export function App() {
               <a href="#progress">Progress</a>
               <a href="#segmented-control">SegmentedControl</a>
               <a href="#select">Select</a>
+              <a href="#text-components">Text components</a>
               <a href="#text-input">TextInput</a>
               <a href="#tags-input">TagsInput</a>
               <a href="#textarea">Textarea</a>
             </div>
-            <p className={`${styles.navHeading} ${styles.navHeadingSpaced}`}>
+            <BodyText
+              className={styles.navHeadingSpaced}
+              component="p"
+              tone="muted"
+              size="xxs"
+            >
               Package
-            </p>
+            </BodyText>
             <code>@teelur/budget-board-ui</code>
           </aside>
 
           <main className={styles.mainContent}>
             <section className={styles.intro} id="overview">
-              <p className={styles.eyebrow}>Budget Board UI</p>
-              <h2>The building blocks behind Budget Board.</h2>
-              <p className={styles.introCopy}>
+              <BodyText
+                component="p"
+                ff="var(--bb-font-data)"
+                fz="0.68rem"
+                m={0}
+                tone="muted"
+                tt="uppercase"
+              >
+                Budget Board UI
+              </BodyText>
+              <HeadingText level={2} tone="heading" lh="h1">
+                The building blocks behind Budget Board.
+              </HeadingText>
+              <BodyText
+                component="p"
+                className={styles.introCopy}
+                tone="muted"
+                fz="1.05rem"
+                m="1em 0"
+              >
                 A reference for the components shipped by Budget Board UI.
                 Browse the examples and public API in one place.
-              </p>
+              </BodyText>
               <div className={styles.introMeta}>
-                <span>React 19</span>
-                <span>Mantine 9</span>
-                <span>TypeScript</span>
+                <BodyText component="span">React 19</BodyText>
+                <BodyText component="span">Mantine 9</BodyText>
+                <BodyText component="span">TypeScript</BodyText>
               </div>
             </section>
 
             <section className={styles.docsSection} id="design">
               <div className={styles.docsSectionHeading}>
-                <p className={styles.eyebrow}>Visual language</p>
-                <h2>Design</h2>
-                <p>
+                <BodyText
+                  component="p"
+                  className={styles.eyebrow}
+                  tone="muted"
+                  ff="var(--bb-font-data)"
+                  fz="0.68rem"
+                >
+                  Visual language
+                </BodyText>
+                <HeadingText level={2} tone="heading" lh={1.5}>
+                  Design
+                </HeadingText>
+                <BodyText component="p" tone="muted">
                   The shared color and type decisions that give Budget Board a
                   consistent visual rhythm.
-                </p>
+                </BodyText>
               </div>
               <ColorThemePage colorMode={colorMode} />
               <TypographyPage />
@@ -210,12 +256,22 @@ export function App() {
 
             <section className={styles.docsSection} id="components">
               <div className={styles.docsSectionHeading}>
-                <p className={styles.eyebrow}>Interface building blocks</p>
-                <h2>Components</h2>
-                <p>
+                <BodyText
+                  component="p"
+                  className={styles.eyebrow}
+                  tone="muted"
+                  ff="var(--bb-font-data)"
+                  fz="0.68rem"
+                >
+                  Interface building blocks
+                </BodyText>
+                <HeadingText level={2} tone="heading" lh={1.5}>
+                  Components
+                </HeadingText>
+                <BodyText component="p" tone="muted">
                   Interface primitives with live examples, states, and API
                   references.
-                </p>
+                </BodyText>
               </div>
               <ActionIconPage />
               <AmountTextPage />
@@ -232,6 +288,7 @@ export function App() {
               <MultiSelectPage />
               <NavbarLinkPage />
               <TagsInputPage />
+              <TextComponentsPage />
               <MonthPickerInputPage />
               <NumberInputPage />
               <PasswordInputPage />

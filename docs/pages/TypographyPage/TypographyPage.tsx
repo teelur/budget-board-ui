@@ -6,6 +6,7 @@ import {
 } from "../../../src";
 import pageStyles from "../Page.module.css";
 import styles from "./TypographyPage.module.css";
+import { BodyText, CaptionText, DataText, HeadingText } from "../../../src";
 
 const typographyRoles = [
   {
@@ -36,15 +37,17 @@ export function TypographyPage() {
     <section className={pageStyles.componentSection} id="typography">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Type foundations</p>
-          <h2>Typography</h2>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Type foundations</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>Typography</HeadingText>
         </div>
         <code>3 roles · 2 families</code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         A small type system keeps the interface warm and readable while giving
-        financial values a precise, aligned rhythm.
-      </p>
+        financial values a precise, aligned rhythm. See the{" "}
+        <a href="#text-components">text components and API</a> for reusable
+        hierarchy roles.
+      </BodyText>
 
       <div className={styles.typographyGrid}>
         {typographyRoles.map((role) => (
@@ -54,33 +57,39 @@ export function TypographyPage() {
             key={role.token}
             p="lg"
           >
-            <span className={`${pageStyles.demoLabel} ${styles.demoLabel}`}>
+            <BodyText component="span" className={`${pageStyles.demoLabel} ${styles.demoLabel}`} tone="muted" ff="var(--bb-font-data)" fz="0.68rem" m="0 0 0.5rem">
               {role.name}
-            </span>
-            <strong
+            </BodyText>
+            <BodyText component="strong"
               className={
                 styles[`typography${role.name}` as keyof typeof styles]
-              }
+              } fw={700} tone="heading" ff={role.name === "Display" ? "var(--bb-font-display)" : role.name === "Data" ? "var(--bb-font-data)" : "var(--bb-font-body)"} fz="1.6rem" lh={1.1}
             >
               {role.name === "Data" ? "$12,480.00" : "Budget Board"}
-            </strong>
+            </BodyText>
             <code>{role.token}</code>
-            <p>{role.family}</p>
-            <small>{role.description}</small>
+            <BodyText component="p" tone="muted" fz="0.8rem" m={0}>{role.family}</BodyText>
+            <CaptionText component="small" tone="muted" ff="var(--bb-font-data)" fz="0.68rem">{role.description}</CaptionText>
           </Card>
         ))}
       </div>
 
       <Card className={styles.typographyTransaction} display="flex" p="lg">
         <div>
-          <strong>Neighborhood Market and Household Supplies</strong>
-          <span>Sep 19, 2026 · Groceries</span>
+          <BodyText component="strong" fw={700}>Neighborhood Market and Household Supplies</BodyText>
+          <DataText component="span" tone="muted" fz="0.8rem" lh={1.5}>
+            Sep 19, 2026 · Groceries
+          </DataText>
         </div>
-        <strong
+        <DataText
+          component="strong"
           className={`${styles.typographyData} ${styles.typographyAmount}`}
+          fw={700}
+          lh={1.5}
+          tone="heading"
         >
           -$1,284.50
-        </strong>
+        </DataText>
       </Card>
 
       <Card className={styles.typographyControls} display="grid" p="lg">
@@ -96,11 +105,11 @@ export function TypographyPage() {
             aria-label="Period"
           />
         </div>
-        <p>
+        <BodyText component="p" tone="muted" fz="0.8rem" m={0}>
           Interactive control labels (buttons, segmented control items, and
           similar) render at <code>font-weight: 600</code> within the Body role,
           so they read as firmer and more tappable than surrounding copy.
-        </p>
+        </BodyText>
       </Card>
     </section>
   );

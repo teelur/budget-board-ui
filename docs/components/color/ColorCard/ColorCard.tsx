@@ -1,5 +1,6 @@
 import { Card } from "../../../../src";
 import styles from "./ColorCard.module.css";
+import { BodyText } from "../../../../src";
 
 export interface ColorCardData {
   name: string;
@@ -15,11 +16,11 @@ export function ColorCard({ color }: { color: ColorCardData }) {
       <div className={`${styles.colorSwatch} ${styles[color.className]}`} />
       <div className={styles.colorCardContent}>
         <div className={styles.colorCardHeading}>
-          <strong>{color.name}</strong>
+          <BodyText component="strong" fw={700}>{color.name}</BodyText>
           <code>{color.value}</code>
         </div>
         <code>{color.token}</code>
-        <p>{color.description}</p>
+        <BodyText component="p">{color.description}</BodyText>
       </div>
     </Card>
   );

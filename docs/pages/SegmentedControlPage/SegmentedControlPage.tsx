@@ -10,6 +10,7 @@ import { ComponentDemoSection } from "../../components/ComponentDemoSection/Comp
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
 import styles from "./SegmentedControlPage.module.css";
+import { BodyText, HeadingText } from "../../../src";
 
 function capitalize(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
@@ -61,17 +62,17 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
     <section className={pageStyles.componentSection} id="segmented-control">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <p className={pageStyles.eyebrow}>Inputs</p>
-          <h2>SegmentedControl</h2>
+          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Inputs</BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>SegmentedControl</HeadingText>
         </div>
         <code>
           import {"{ SegmentedControl }"} from '@teelur/budget-board-ui';
         </code>
       </div>
-      <p className={pageStyles.sectionCopy}>
+      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         A radiogroup for picking one option from a small, always-visible set,
         with an animated indicator that follows the active segment.
-      </p>
+      </BodyText>
 
       <ComponentDemoSection
         description="Pass a data array of value/label pairs plus a value and onChange to control the selection."
@@ -249,7 +250,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
         <div className={styles.playground}>
           <div className={styles.playgroundControls}>
             <label className={styles.field}>
-              <span>Color</span>
+              <BodyText component="span">Color</BodyText>
               <select
                 onChange={(event) =>
                   setSelectedColor(event.target.value as typeof selectedColor)
@@ -264,7 +265,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
               </select>
             </label>
             <label className={styles.field}>
-              <span>Variant</span>
+              <BodyText component="span">Variant</BodyText>
               <select
                 onChange={(event) =>
                   setSelectedVariant(
@@ -281,7 +282,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
               </select>
             </label>
             <label className={styles.field}>
-              <span>Size</span>
+              <BodyText component="span">Size</BodyText>
               <select
                 onChange={(event) =>
                   setSelectedSize(event.target.value as typeof selectedSize)
@@ -332,8 +333,8 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <h3>API reference</h3>
-            <p>Every public prop, its accepted values, and its default.</p>
+            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
+            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">Every public prop, its accepted values, and its default.</BodyText>
           </div>
           <a
             aria-label="Link to API reference section"
