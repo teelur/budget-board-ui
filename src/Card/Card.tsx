@@ -18,13 +18,13 @@ export type CardSeparatorThickness = "default" | "thick";
 export type CardProps = MantineCardProps & {
   hoverable?: boolean;
   selected?: boolean;
-  separatorThickness?: CardSeparatorThickness;
   surface?: CardSurface;
 };
 
 type CardPartProps = MantineCardSectionProps & {
   children?: ReactNode;
   "data-orientation"?: "horizontal" | "vertical";
+  separatorThickness?: CardSeparatorThickness;
 };
 
 export type CardSectionProps = CardPartProps &
@@ -39,6 +39,7 @@ function CardPart({
   className,
   inheritPadding = false,
   p,
+  separatorThickness = "default",
   withBorder = true,
   ...props
 }: CardPartProps) {
@@ -47,6 +48,7 @@ function CardPart({
       {...props}
       className={mergeClassName(classes.section, className)}
       data-orientation={orientation}
+      data-budget-board-separator-thickness={separatorThickness}
       inheritPadding={inheritPadding}
       {...(p === undefined ? {} : { p })}
       withBorder={withBorder}
@@ -96,7 +98,6 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
     p,
     padding,
     selected,
-    separatorThickness = "default",
     style,
     surface = "default",
     withBorder = true,
@@ -122,7 +123,6 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
       data-budget-board-selected={
         selected === undefined ? undefined : selected ? "true" : "false"
       }
-      data-budget-board-separator-thickness={separatorThickness}
       p={cardPadding}
       padding={sectionPadding}
       ref={ref}

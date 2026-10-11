@@ -15,8 +15,8 @@
   color: inherit;
 }
 
-.root[data-budget-board-separator-thickness="thick"]
-  .section[data-orientation="vertical"][data-with-border] {
+.root
+  .section[data-budget-board-separator-thickness="thick"][data-orientation="vertical"][data-with-border] {
   border-bottom-width: 2px;
 }
 
@@ -34,7 +34,7 @@
   color: var(--bbui-card-text-secondary);
 }
 
-.root[data-budget-board-separator-thickness="thick"] .divider {
+.root .section[data-budget-board-separator-thickness="thick"] .divider {
   --divider-size: 2px;
 }
 
