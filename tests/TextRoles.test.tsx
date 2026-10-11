@@ -466,6 +466,79 @@ describe("text role components", () => {
     });
   });
 
+  it("uses an explicit responsive size or font size as the growth limit", () => {
+    const originalGetComputedStyle = window.getComputedStyle.bind(window);
+
+    vi.stubGlobal("ResizeObserver", TestResizeObserver);
+    vi.spyOn(window, "getComputedStyle").mockImplementation(
+      (element, pseudoElement) => {
+        const styles = originalGetComputedStyle(element, pseudoElement);
+        if (
+          element instanceof HTMLElement &&
+          ["size-cap", "font-size-cap"].includes(element.dataset.testid ?? "")
+        ) {
+          Object.defineProperty(element, "scrollWidth", {
+            configurable: true,
+            value: 100,
+          });
+          Object.defineProperty(element, "getBoundingClientRect", {
+            configurable: true,
+            value: () => ({ height: 20 }),
+          });
+          Object.defineProperty(styles, "fontSize", {
+            configurable: true,
+            get: () => {
+              if (
+                element.style.fontSize === "var(--mantine-font-size-xs)"
+              ) {
+                return "12px";
+              }
+              if (element.style.fontSize === "2rem") {
+                return "32px";
+              }
+              return "20px";
+            },
+          });
+        }
+        return styles;
+      },
+    );
+
+    render(
+      <div
+        style={{ height: "100px" }}
+        ref={(container) => {
+          if (container) {
+            Object.defineProperty(container, "clientWidth", {
+              configurable: true,
+              value: 300,
+            });
+            Object.defineProperty(container, "clientHeight", {
+              configurable: true,
+              value: 100,
+            });
+          }
+        }}
+      >
+        <BodyText data-testid="size-cap" responsive size="xs">
+          Supporting copy
+        </BodyText>
+        <HeadingText data-testid="font-size-cap" fz="2rem" responsive>
+          Section heading
+        </HeadingText>
+      </div>,
+    );
+
+    act(triggerResizeObservers);
+
+    expect(screen.getByTestId("size-cap").style.fontSize).toBe(
+      "calc(0.75rem * var(--mantine-scale))",
+    );
+    expect(screen.getByTestId("font-size-cap").style.fontSize).toBe(
+      "calc(2rem * var(--mantine-scale))",
+    );
+  });
+
   it("keeps semantic tone independent from BodyText and CaptionText", () => {
     render(
       <>

@@ -161,7 +161,7 @@ export function TextComponentsPage() {
         code={`<div style={{ containerType: "inline-size" }}>
   <DisplayText responsive>Monthly overview</DisplayText>
   <HeadingText responsive>Monthly overview</HeadingText>
-  <BodyText responsive>Supporting copy</BodyText>
+  <BodyText responsive size="lg">Supporting copy</BodyText>
   <CaptionText responsive>Updated just now</CaptionText>
   <DataText responsive>$12,480.00</DataText>
 </div>`}
@@ -169,7 +169,7 @@ export function TextComponentsPage() {
         <div className={styles.responsivePreview}>
           <DisplayText responsive>Monthly overview</DisplayText>
           <HeadingText responsive>Monthly overview</HeadingText>
-          <BodyText responsive>
+          <BodyText responsive size="lg">
             Text size follows this container&apos;s width, not the viewport.
           </BodyText>
           <CaptionText responsive>Updated just now</CaptionText>
@@ -375,9 +375,9 @@ export function TextComponentsPage() {
                     largest size that fits their parent&apos;s available content
                     width and height. The role&apos;s clamp is a starting point;
                     fitting may shrink below its minimum or grow beyond its
-                    maximum. When enabled, responsive sizing takes precedence
-                    over
-                    <code>size</code> and <code>fz</code>.
+                    maximum. An explicit <code>fz</code> or <code>size</code>
+                    sets the maximum font size instead, while fitting can still
+                    shrink below it when needed.
                   </td>
                 </tr>
                 <tr>

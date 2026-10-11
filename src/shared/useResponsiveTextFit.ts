@@ -1,14 +1,28 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import type { ReactNode, RefObject } from "react";
+import { getFontSize } from "@mantine/core";
 
 interface UseResponsiveTextFitOptions {
   enabled: boolean | undefined;
   fontSize: string;
+  maxFontSize: unknown;
   children: ReactNode;
   className: string | undefined;
   fontFamily: unknown;
   fontWeight: unknown;
   style: unknown;
+}
+
+function getResponsiveMaxFontSize(value: unknown): string | undefined {
+  if (typeof value !== "string" && typeof value !== "number") {
+    return undefined;
+  }
+
+  if (typeof value === "string" && /^h[1-6]$/.test(value)) {
+    return `var(--mantine-${value}-font-size)`;
+  }
+
+  return getFontSize(value);
 }
 
 function getCssPixelValue(value: string): number {
@@ -19,6 +33,7 @@ function getCssPixelValue(value: string): number {
 export function useResponsiveTextFit<T extends HTMLElement>({
   enabled,
   fontSize,
+  maxFontSize,
   children,
   className,
   fontFamily,
@@ -30,6 +45,7 @@ export function useResponsiveTextFit<T extends HTMLElement>({
 } {
   const ref = useRef<T>(null);
   const [fittedFontSize, setFittedFontSize] = useState<string>();
+  const responsiveMaxFontSize = getResponsiveMaxFontSize(maxFontSize);
 
   useLayoutEffect(() => {
     if (!enabled) {
@@ -63,12 +79,20 @@ export function useResponsiveTextFit<T extends HTMLElement>({
       let textHeight = 0;
       let availableWidth = 0;
       let availableHeight = 0;
+      let maxFontSizePixels = Number.POSITIVE_INFINITY;
 
       try {
         element.style.fontSize = fontSize;
         baseFontSize = Number.parseFloat(
           window.getComputedStyle(element).fontSize,
         );
+        if (responsiveMaxFontSize !== undefined) {
+          element.style.fontSize = responsiveMaxFontSize;
+          maxFontSizePixels = Number.parseFloat(
+            window.getComputedStyle(element).fontSize,
+          );
+          element.style.fontSize = fontSize;
+        }
         const range = document.createRange();
         range.selectNodeContents(element);
         const rangeWidth =
@@ -117,7 +141,11 @@ export function useResponsiveTextFit<T extends HTMLElement>({
         hasVerticalSpace && availableHeight >= 0 && textHeight > 0
           ? Math.max(0, availableHeight - 1) / textHeight
           : Number.POSITIVE_INFINITY;
-      const fitScale = Math.min(widthScale, heightScale);
+      const maxScale =
+        Number.isFinite(maxFontSizePixels) && baseFontSize > 0
+          ? maxFontSizePixels / baseFontSize
+          : Number.POSITIVE_INFINITY;
+      const fitScale = Math.min(widthScale, heightScale, maxScale);
       const nextFittedFontSize =
         Number.isFinite(baseFontSize) &&
         Number.isFinite(textWidth) &&
@@ -155,7 +183,16 @@ export function useResponsiveTextFit<T extends HTMLElement>({
       window.removeEventListener("resize", updateFittedFontSize);
       fontSet?.removeEventListener("loadingdone", updateFittedFontSize);
     };
-  }, [children, className, enabled, fontFamily, fontSize, fontWeight, style]);
+  }, [
+    children,
+    className,
+    enabled,
+    fontFamily,
+    fontSize,
+    fontWeight,
+    responsiveMaxFontSize,
+    style,
+  ]);
 
   return { ref, fittedFontSize };
 }
