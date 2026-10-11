@@ -16,12 +16,27 @@ export function TextComponentsPage() {
     <section className={pageStyles.componentSection} id="text-components">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Typography</BodyText>
-          <HeadingText level={2} tone="heading" lh={1.5}>Text components</HeadingText>
+          <BodyText
+            component="p"
+            className={pageStyles.eyebrow}
+            tone="muted"
+            ff="var(--bb-font-data)"
+            fz="0.68rem"
+          >
+            Typography
+          </BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>
+            Text components
+          </HeadingText>
         </div>
         <code>5 roles · semantic tones</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
+      <BodyText
+        component="p"
+        className={pageStyles.sectionCopy}
+        tone="muted"
+        m="1em 0"
+      >
         Choose a role for the content and hierarchy, then use tone for its
         semantic color. Use HeadingText for document headings; DisplayText is
         visual display copy and does not create a heading.
@@ -65,22 +80,24 @@ export function TextComponentsPage() {
           const sharedProps = {
             fz: `${Number(values.fontSize) / 16}rem`,
             tone: values.tone as
-              | "heading"
-              | "primary"
-              | "secondary"
-              | "metadata"
-              | "muted",
+              "heading" | "primary" | "secondary" | "metadata" | "muted",
           };
 
           switch (values.role) {
             case "CaptionText":
-              return <CaptionText {...sharedProps}>Updated just now</CaptionText>;
+              return (
+                <CaptionText {...sharedProps}>Updated just now</CaptionText>
+              );
             case "DataText":
               return <DataText {...sharedProps}>-$1,284.50</DataText>;
             case "DisplayText":
               return <DisplayText {...sharedProps}>Budget Board</DisplayText>;
             case "HeadingText":
-              return <HeadingText {...sharedProps} level={3}>Monthly overview</HeadingText>;
+              return (
+                <HeadingText {...sharedProps} level={3}>
+                  Monthly overview
+                </HeadingText>
+              );
             default:
               return (
                 <BodyText {...sharedProps}>
@@ -138,18 +155,24 @@ export function TextComponentsPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Opt in to container-responsive sizing for dashboard content. Resize the container to see each role scale within its own readable range."
+        description="Opt in to container-responsive sizing for dashboard content. Every responsive text role stays on one line and shrinks when needed to fit its parent."
         id="text-component-responsive"
         title="Container-responsive sizing"
         code={`<div style={{ containerType: "inline-size" }}>
   <DisplayText responsive>Monthly overview</DisplayText>
+  <HeadingText responsive>Monthly overview</HeadingText>
+  <BodyText responsive>Supporting copy</BodyText>
+  <CaptionText responsive>Updated just now</CaptionText>
+  <DataText responsive>$12,480.00</DataText>
 </div>`}
       >
         <div className={styles.responsivePreview}>
           <DisplayText responsive>Monthly overview</DisplayText>
+          <HeadingText responsive>Monthly overview</HeadingText>
           <BodyText responsive>
             Text size follows this container&apos;s width, not the viewport.
           </BodyText>
+          <CaptionText responsive>Updated just now</CaptionText>
           <DataText responsive>$12,480.00</DataText>
         </div>
       </ComponentDemoSection>
@@ -160,8 +183,18 @@ export function TextComponentsPage() {
       >
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
-            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">Defaults and props for using each BBUI text component.</BodyText>
+            <HeadingText level={3} tone="heading" lh={1.5}>
+              API reference
+            </HeadingText>
+            <BodyText
+              component="p"
+              tone="secondary"
+              fz="0.82rem"
+              lh={1.55}
+              m="0.45rem 0 0"
+            >
+              Defaults and props for using each BBUI text component.
+            </BodyText>
           </div>
           <a
             aria-label="Link to text components API reference"
@@ -192,7 +225,9 @@ export function TextComponentsPage() {
                         span, display font, fz 1.6rem, lh 1.1, fw 700, primary
                       </code>
                     </td>
-                    <td>Brand/display copy; does not imply heading semantics</td>
+                    <td>
+                      Brand/display copy; does not imply heading semantics
+                    </td>
                   </tr>
                   <tr>
                     <th>HeadingText</th>
@@ -274,9 +309,8 @@ export function TextComponentsPage() {
                     <code>React.ElementType</code>
                   </td>
                   <td>
-                    Overrides the rendered root element. For HeadingText,
-                    level still determines visual size if the element is
-                    overridden.
+                    Overrides the rendered root element. For HeadingText, level
+                    still determines visual size if the element is overridden.
                   </td>
                 </tr>
                 <tr>
@@ -284,9 +318,7 @@ export function TextComponentsPage() {
                   <td>
                     <code>MantineColor</code>
                   </td>
-                  <td>
-                    Optional explicit color; takes precedence over tone.
-                  </td>
+                  <td>Optional explicit color; takes precedence over tone.</td>
                 </tr>
                 <tr>
                   <th>size</th>
@@ -319,9 +351,8 @@ export function TextComponentsPage() {
                     Scales font size with the nearest inline-size container
                     using container query units. Set
                     <code>container-type: inline-size</code> on the widget or
-                    another ancestor to make sizing follow that width. Each
-                    text role has its own clamped minimum, scaling rate, and
-                    maximum:
+                    another ancestor to make sizing follow that width. Each text
+                    role has its own clamped minimum, scaling rate, and maximum:
                     <ul>
                       <li>
                         DisplayText: <code>clamp(1.25rem, 6cqi, 4rem)</code>
@@ -333,13 +364,18 @@ export function TextComponentsPage() {
                         BodyText: <code>clamp(0.875rem, 3cqi, 1.75rem)</code>
                       </li>
                       <li>
-                        CaptionText: <code>clamp(0.75rem, 2.25cqi, 1.25rem)</code>
+                        CaptionText:{" "}
+                        <code>clamp(0.75rem, 2.25cqi, 1.25rem)</code>
                       </li>
                       <li>
                         DataText: <code>clamp(0.875rem, 5cqi, 3rem)</code>
                       </li>
                     </ul>
-                    When enabled, responsive sizing takes precedence over
+                    All responsive text roles stay on one line and reduce their
+                    font size further when their content exceeds the
+                    parent&apos;s content width. They grow again as space
+                    allows. When enabled, responsive sizing takes precedence
+                    over
                     <code>size</code> and <code>fz</code>.
                   </td>
                 </tr>
@@ -368,8 +404,8 @@ export function TextComponentsPage() {
                   <td>
                     Suppresses BBUI role defaults and Mantine styles while
                     preserving the semantic element. Explicit style props still
-                    apply; reserve it for content that intentionally uses
-                    custom styling instead of BBUI typography.
+                    apply; reserve it for content that intentionally uses custom
+                    styling instead of BBUI typography.
                   </td>
                 </tr>
               </tbody>

@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { MantineProvider } from "@mantine/core";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   BodyText,
   CaptionText,
@@ -9,6 +9,42 @@ import {
   HeadingText,
   budgetBoardTheme,
 } from "../src";
+
+let activeResizeObservers: TestResizeObserver[] = [];
+
+class TestResizeObserver implements ResizeObserver {
+  readonly root = null;
+  readonly rootMargin = "0px";
+  readonly thresholds: readonly number[] = [];
+
+  constructor(private readonly callback: ResizeObserverCallback) {
+    activeResizeObservers.push(this);
+  }
+
+  observe(): void {}
+
+  unobserve(): void {}
+
+  disconnect(): void {}
+
+  takeRecords(): ResizeObserverEntry[] {
+    return [];
+  }
+
+  trigger(): void {
+    this.callback([], this);
+  }
+}
+
+afterEach(() => {
+  vi.restoreAllMocks();
+  vi.unstubAllGlobals();
+  activeResizeObservers = [];
+});
+
+function triggerResizeObservers() {
+  activeResizeObservers.forEach((observer) => observer.trigger());
+}
 
 describe("text role components", () => {
   it("adds the xxs Mantine font size to the BBUI theme", () => {
@@ -110,10 +146,7 @@ describe("text role components", () => {
 
     const display = screen.getByTestId("display");
     expect(display.tagName).toBe("SPAN");
-    expect(display).toHaveAttribute(
-      "data-budget-board-text-role",
-      "display",
-    );
+    expect(display).toHaveAttribute("data-budget-board-text-role", "display");
     expect(display.style.fontSize).toBe("1.6rem");
     expect(display.style.lineHeight).toBe("1.1");
     expect(screen.getByTestId("custom-display").tagName).toBe("DIV");
@@ -134,12 +167,7 @@ describe("text role components", () => {
         <HeadingText data-testid="responsive-heading" responsive>
           Heading
         </HeadingText>
-        <BodyText
-          data-testid="responsive-body"
-          fz="3rem"
-          responsive
-          size="xs"
-        >
+        <BodyText data-testid="responsive-body" fz="3rem" responsive size="xs">
           Body
         </BodyText>
         <CaptionText data-testid="responsive-caption" responsive>
@@ -166,6 +194,178 @@ describe("text role components", () => {
     expect(screen.getByTestId("responsive-data").style.fontSize).toBe(
       "clamp(0.875rem, 5cqi, 3rem)",
     );
+  });
+
+  it("fits responsive headings to their parent and recalculates on resize and text changes", () => {
+    let availableWidth = 100;
+    let textWidth = 200;
+    let mantineScale = 1;
+    const originalGetComputedStyle = window.getComputedStyle.bind(window);
+
+    vi.stubGlobal("ResizeObserver", TestResizeObserver);
+    vi.spyOn(window, "getComputedStyle").mockImplementation(
+      (element, pseudoElement) => {
+        const styles = originalGetComputedStyle(element, pseudoElement);
+        if (
+          element instanceof HTMLElement &&
+          element.dataset.testid === "fit-heading"
+        ) {
+          Object.defineProperty(element, "scrollWidth", {
+            configurable: true,
+            get: () => textWidth,
+          });
+          Object.defineProperty(styles, "fontSize", {
+            configurable: true,
+            value: "20px",
+          });
+          const originalGetPropertyValue = styles.getPropertyValue.bind(styles);
+          Object.defineProperty(styles, "getPropertyValue", {
+            configurable: true,
+            value: (property: string) =>
+              property === "--mantine-scale"
+                ? String(mantineScale)
+                : originalGetPropertyValue(property),
+          });
+        }
+        return styles;
+      },
+    );
+
+    const { rerender } = render(
+      <div
+        data-testid="fit-container"
+        ref={(container) => {
+          if (container) {
+            Object.defineProperty(container, "clientWidth", {
+              configurable: true,
+              get: () => availableWidth,
+            });
+          }
+        }}
+      >
+        <HeadingText data-testid="fit-heading" responsive>
+          Long title
+        </HeadingText>
+      </div>,
+    );
+
+    act(triggerResizeObservers);
+
+    const heading = screen.getByTestId("fit-heading");
+    expect(heading.style.whiteSpace).toBe("nowrap");
+    expect(heading.style.fontSize).toBe(
+      "calc(0.61875rem * var(--mantine-scale))",
+    );
+
+    act(() => {
+      availableWidth = 150;
+      mantineScale = 2;
+      triggerResizeObservers();
+    });
+    expect(heading.style.fontSize).toBe(
+      "calc(0.465625rem * var(--mantine-scale))",
+    );
+
+    act(() => {
+      availableWidth = 250;
+      mantineScale = 1;
+      triggerResizeObservers();
+    });
+    expect(heading.style.fontSize).toBe("clamp(1.25rem, 5cqi, 3.5rem)");
+
+    availableWidth = 100;
+    textWidth = 400;
+    rerender(
+      <div
+        data-testid="fit-container"
+        ref={(container) => {
+          if (container) {
+            Object.defineProperty(container, "clientWidth", {
+              configurable: true,
+              get: () => availableWidth,
+            });
+          }
+        }}
+      >
+        <HeadingText data-testid="fit-heading" responsive>
+          A much longer title
+        </HeadingText>
+      </div>,
+    );
+    act(triggerResizeObservers);
+    expect(heading.style.fontSize).toBe(
+      "calc(0.309375rem * var(--mantine-scale))",
+    );
+  });
+
+  it("fits every responsive text role on one line", () => {
+    let availableWidth = 100;
+    const fontSizes: Record<string, string> = {
+      "fit-display": "30px",
+      "fit-heading": "20px",
+      "fit-body": "16px",
+      "fit-caption": "14px",
+      "fit-data": "18px",
+    };
+    const originalGetComputedStyle = window.getComputedStyle.bind(window);
+
+    vi.stubGlobal("ResizeObserver", TestResizeObserver);
+    vi.spyOn(window, "getComputedStyle").mockImplementation(
+      (element, pseudoElement) => {
+        const styles = originalGetComputedStyle(element, pseudoElement);
+        if (
+          element instanceof HTMLElement &&
+          element.dataset.testid in fontSizes
+        ) {
+          Object.defineProperty(element, "scrollWidth", {
+            configurable: true,
+            value: 300,
+          });
+          Object.defineProperty(styles, "fontSize", {
+            configurable: true,
+            value: fontSizes[element.dataset.testid],
+          });
+        }
+        return styles;
+      },
+    );
+
+    render(
+      <div
+        ref={(container) => {
+          if (container) {
+            Object.defineProperty(container, "clientWidth", {
+              configurable: true,
+              get: () => availableWidth,
+            });
+          }
+        }}
+      >
+        <DisplayText data-testid="fit-display" responsive>
+          Long display
+        </DisplayText>
+        <HeadingText data-testid="fit-heading" responsive>
+          Long heading
+        </HeadingText>
+        <BodyText data-testid="fit-body" responsive>
+          Long body
+        </BodyText>
+        <CaptionText data-testid="fit-caption" responsive>
+          Long caption
+        </CaptionText>
+        <DataText data-testid="fit-data" responsive>
+          Long data
+        </DataText>
+      </div>,
+    );
+
+    act(triggerResizeObservers);
+
+    Object.keys(fontSizes).forEach((testId) => {
+      const element = screen.getByTestId(testId);
+      expect(element.style.whiteSpace).toBe("nowrap");
+      expect(element.style.fontSize).toContain("var(--mantine-scale)");
+    });
   });
 
   it("keeps semantic tone independent from BodyText and CaptionText", () => {

@@ -4,18 +4,12 @@ import { Text } from "@mantine/core";
 import type { TextProps } from "@mantine/core";
 import type { BudgetBoardColorMode } from "../colors";
 import { budgetBoardTypography } from "../theme";
-import {
-  ensureBBUIMantineProvider,
-  useBBUITheme,
-} from "./themeStyles";
+import { useResponsiveTextFit } from "./useResponsiveTextFit";
+import { ensureBBUIMantineProvider, useBBUITheme } from "./themeStyles";
 import classes from "./textStyles.module.css";
 
 export type TextTone =
-  | "heading"
-  | "primary"
-  | "secondary"
-  | "metadata"
-  | "muted";
+  "heading" | "primary" | "secondary" | "metadata" | "muted";
 
 export type TextRoleProps = Omit<TextProps, "component"> & {
   children?: ReactNode;
@@ -106,14 +100,29 @@ export function TextRole({
   size,
   tone,
   unstyled,
+  style,
   ...textProps
 }: TextRoleProps & { textRole: TextRoleName }): ReactElement {
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
   const defaults: TextRoleDefaults = roleDefaults[textRole];
+  const responsiveBaseFz = getResponsiveTextFontSize(textRole);
+  const { ref: textRef, fittedFontSize } =
+    useResponsiveTextFit<HTMLParagraphElement>({
+      enabled: responsive,
+      fontSize: responsiveBaseFz,
+      children,
+      className,
+      fontFamily: ff ?? defaults.font,
+      fontWeight: fw ?? defaults.weight,
+      style,
+    });
   const responsiveFz = responsive
-    ? getResponsiveTextFontSize(textRole)
+    ? (fittedFontSize ?? responsiveBaseFz)
     : undefined;
   const resolvedFz = responsiveFz ?? fz;
+  const resolvedStyle = responsive
+    ? { ...style, whiteSpace: "nowrap" as const }
+    : style;
   const roleStyleProps = unstyled
     ? {
         ...(c === undefined ? {} : { c }),
@@ -145,6 +154,8 @@ export function TextRole({
       ]
         .filter(Boolean)
         .join(" ")}
+      ref={textRef}
+      style={resolvedStyle}
       data-budget-board-text-role={textRole}
       renderRoot={(props) =>
         createElement(component ?? defaults.component, props)
@@ -155,9 +166,5 @@ export function TextRole({
     </Text>
   );
 
-  return ensureBBUIMantineProvider(
-    element,
-    hasMantineContext,
-    colorScheme,
-  );
+  return ensureBBUIMantineProvider(element, hasMantineContext, colorScheme);
 }
