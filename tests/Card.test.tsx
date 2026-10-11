@@ -25,6 +25,7 @@ describe("Card", () => {
     expect(card).toHaveClass(classes.root);
     expect(card).toHaveAttribute("data-with-border");
     expect(card.style.padding).toBe("0.5rem");
+    expect(card.style.getPropertyValue("--card-padding")).toBe("0.5rem");
     expect(card.style.getPropertyValue("--bbui-card-surface")).toBe(
       "var(--bb-color-surface, #ffffff)",
     );
@@ -32,6 +33,32 @@ describe("Card", () => {
       "var(--bb-color-border-subtle, #d8d5ce)",
     );
     expect(screen.getByText("Available balance")).toBeInTheDocument();
+  });
+
+  it("keeps the section inset aligned with the card padding", () => {
+    render(
+      <>
+        <Card data-testid="custom-p" p="sm" />
+        <Card data-testid="mantine-padding" padding="lg" />
+      </>,
+    );
+
+    expect(
+      screen.getByTestId("custom-p").style.getPropertyValue("--card-padding"),
+    ).toBe("var(--mantine-spacing-sm)");
+    expect(
+      screen
+        .getByTestId("mantine-padding")
+        .style.getPropertyValue("--card-padding"),
+    ).toBe("var(--mantine-spacing-lg)"    );
+  });
+
+  it("allows the card to grow to fit its section content", () => {
+    const rootStyles = cardStyles.match(
+      /\.root:global\(\.mantine-Card-root\)\s*\{([^}]*)\}/,
+    )?.[1];
+
+    expect(rootStyles).toContain("min-height: max-content;");
   });
 
   it("uses the sunken semantic surface for nested cards in both color schemes", () => {
@@ -76,6 +103,32 @@ describe("Card", () => {
     expect(unselected).toHaveAttribute("data-budget-board-selected", "false");
     expect(defaultCard).not.toHaveClass(classes.selected);
     expect(defaultCard).not.toHaveAttribute("data-budget-board-selected");
+  });
+
+  it("supports default and thick section separators", () => {
+    render(
+      <>
+        <Card data-testid="default-card">
+          <Card.Section>Default separator</Card.Section>
+          <Card.Section>Following section</Card.Section>
+        </Card>
+        <Card data-testid="thick-card" separatorThickness="thick">
+          <Card.Section>Thick separator</Card.Section>
+          <Card.Section label="or">Labeled separator</Card.Section>
+        </Card>
+      </>,
+    );
+
+    expect(screen.getByTestId("default-card")).toHaveAttribute(
+      "data-budget-board-separator-thickness",
+      "default",
+    );
+    expect(screen.getByTestId("thick-card")).toHaveAttribute(
+      "data-budget-board-separator-thickness",
+      "thick",
+    );
+    expect(cardStyles).toContain("border-bottom-width: 2px;");
+    expect(cardStyles).toContain("--divider-size: 2px;");
   });
 
   it("applies independent padding and separators to card sections", () => {
@@ -265,6 +318,20 @@ describe("Card", () => {
     expect(selectedStyles).toContain(
       "border-color: var(--bbui-card-hover-border);",
     );
+  });
+
+  it("softens hover and active surfaces while preserving their borders", () => {
+    const hoverStyles = cardStyles.match(/\.hoverable:hover\s*\{([^}]*)\}/)?.[1];
+    const activeStyles = cardStyles.match(/\.hoverable:active\s*\{([^}]*)\}/)?.[1];
+    const softenedSurface =
+      /background-color:\s*color-mix\(\s*in srgb,\s*var\(--bbui-card-hover-surface\)\s+40%,\s*var\(--bbui-card-surface\)\s*\);/;
+
+    expect(hoverStyles).toMatch(softenedSurface);
+    expect(hoverStyles).toContain(
+      "border-color: var(--bbui-card-hover-border);",
+    );
+    expect(activeStyles).toMatch(softenedSurface);
+    expect(activeStyles).toContain("border-color: var(--bbui-card-focus-ring);");
   });
 
   it("uses half-rem default padding for card parts", () => {

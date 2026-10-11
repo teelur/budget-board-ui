@@ -125,6 +125,49 @@ describe("text role components", () => {
     expect(customDisplay.style.fontWeight).toBe("600");
   });
 
+  it("scales every text role from its container width when responsive", () => {
+    render(
+      <div style={{ containerType: "inline-size" }}>
+        <DisplayText data-testid="responsive-display" responsive>
+          Display
+        </DisplayText>
+        <HeadingText data-testid="responsive-heading" responsive>
+          Heading
+        </HeadingText>
+        <BodyText
+          data-testid="responsive-body"
+          fz="3rem"
+          responsive
+          size="xs"
+        >
+          Body
+        </BodyText>
+        <CaptionText data-testid="responsive-caption" responsive>
+          Caption
+        </CaptionText>
+        <DataText data-testid="responsive-data" responsive>
+          Data
+        </DataText>
+      </div>,
+    );
+
+    expect(screen.getByTestId("responsive-display").style.fontSize).toBe(
+      "clamp(1.25rem, 6cqi, 4rem)",
+    );
+    expect(screen.getByTestId("responsive-heading").style.fontSize).toBe(
+      "clamp(1.25rem, 5cqi, 3.5rem)",
+    );
+    expect(screen.getByTestId("responsive-body").style.fontSize).toBe(
+      "clamp(0.875rem, 3cqi, 1.75rem)",
+    );
+    expect(screen.getByTestId("responsive-caption").style.fontSize).toBe(
+      "clamp(0.75rem, 2.25cqi, 1.25rem)",
+    );
+    expect(screen.getByTestId("responsive-data").style.fontSize).toBe(
+      "clamp(0.875rem, 5cqi, 3rem)",
+    );
+  });
+
   it("keeps semantic tone independent from BodyText and CaptionText", () => {
     render(
       <>

@@ -20,10 +20,25 @@ export type TextTone =
 export type TextRoleProps = Omit<TextProps, "component"> & {
   children?: ReactNode;
   component?: ElementType;
+  responsive?: boolean;
   tone?: TextTone;
 };
 
 type TextRoleName = "display" | "body" | "caption" | "data";
+
+type ResponsiveTextRoleName = TextRoleName | "heading";
+
+const responsiveFontSizes: Record<ResponsiveTextRoleName, string> = {
+  display: "clamp(1.25rem, 6cqi, 4rem)",
+  body: "clamp(0.875rem, 3cqi, 1.75rem)",
+  caption: "clamp(0.75rem, 2.25cqi, 1.25rem)",
+  data: "clamp(0.875rem, 5cqi, 3rem)",
+  heading: "clamp(1.25rem, 5cqi, 3.5rem)",
+};
+
+export function getResponsiveTextFontSize(role: ResponsiveTextRoleName) {
+  return responsiveFontSizes[role];
+}
 
 const roleDefaults = {
   display: {
@@ -86,6 +101,7 @@ export function TextRole({
   fz,
   fw,
   lh,
+  responsive,
   textRole,
   size,
   tone,
@@ -94,11 +110,15 @@ export function TextRole({
 }: TextRoleProps & { textRole: TextRoleName }): ReactElement {
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
   const defaults: TextRoleDefaults = roleDefaults[textRole];
+  const responsiveFz = responsive
+    ? getResponsiveTextFontSize(textRole)
+    : undefined;
+  const resolvedFz = responsiveFz ?? fz;
   const roleStyleProps = unstyled
     ? {
         ...(c === undefined ? {} : { c }),
         ...(ff === undefined ? {} : { ff }),
-        ...(fz === undefined ? {} : { fz }),
+        ...(resolvedFz === undefined ? {} : { fz: resolvedFz }),
         ...(fw === undefined ? {} : { fw }),
         ...(lh === undefined ? {} : { lh }),
         ...(size === undefined ? {} : { size }),
@@ -109,9 +129,9 @@ export function TextRole({
         fw: fw ?? defaults.weight,
         size: size ?? defaults.size,
         ...(textRole === "display"
-          ? { fz: fz ?? "1.6rem", lh: lh ?? 1.1 }
+          ? { fz: resolvedFz ?? "1.6rem", lh: lh ?? 1.1 }
           : {
-              ...(fz === undefined ? {} : { fz }),
+              ...(resolvedFz === undefined ? {} : { fz: resolvedFz }),
               ...(lh === undefined ? {} : { lh }),
             }),
       };
