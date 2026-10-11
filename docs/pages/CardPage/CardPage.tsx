@@ -38,6 +38,12 @@ const splitCardExample = `<Card>
   <Card.Section>Rainy day savings <strong>$4,202.18</strong></Card.Section>
 </Card>`;
 
+const thickSeparatorsExample = `<Card separatorThickness="thick">
+  <Card.Section>Account balances</Card.Section>
+  <Card.Section>Everyday checking <strong>$4,218.32</strong></Card.Section>
+  <Card.Section>Rainy day savings <strong>$4,202.18</strong></Card.Section>
+</Card>`;
+
 const labeledSectionExample = `<Card>
   <Card.Section label="or">Sign in with email</Card.Section>
   <Card.Section>Continue with identity provider</Card.Section>
@@ -59,9 +65,10 @@ export function CardPage() {
         <code>import {"{ Card }"} from '@teelur/budget-board-ui';</code>
       </div>
       <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
-        A token-based surface for standalone content and divided header and body
-        sections. Header and body separators share the same subtle border.
-        Mantine Card props and polymorphic roots are preserved.
+        A Card is the bordered surface and padded container. Put ordinary
+        content directly inside it; use Card.Section for full-width rows that
+        need a separator. Each section has its own padding, while the card
+        controls how far sections extend to its edges.
       </BodyText>
 
       <ComponentDemoSection
@@ -103,6 +110,25 @@ export function CardPage() {
                 $640.00
               </DataText>
             </Card>
+          </Card>
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description='Set separatorThickness="thick" to make section separators 2px instead of 1px. This changes only the line thickness, not the card or section padding.'
+        id="card-thick-separators"
+        title="Thick section separators"
+        code={thickSeparatorsExample}
+      >
+        <div className={styles.preview}>
+          <Card className={styles.splitCard} separatorThickness="thick">
+            <Card.Section>Account balances</Card.Section>
+            <Card.Section>
+              Everyday checking <strong>$4,218.32</strong>
+            </Card.Section>
+            <Card.Section>
+              Rainy day savings <strong>$4,202.18</strong>
+            </Card.Section>
           </Card>
         </div>
       </ComponentDemoSection>
@@ -173,7 +199,7 @@ export function CardPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Each Card.Section owns its padding and gets an automatic separator. Override p, px, or py per section."
+        description="Card is the outer surface. Each Card.Section extends through the card's inset, then adds its own 0.5rem padding. The card grows to fit section content rather than clipping it at a smaller explicit height. Adjacent sections share one separator; the first and last sections keep the card's outer border clean. Use p, px, or py to change a section's content inset."
         id="card-sections"
         title="Card sections"
         code={splitCardExample}
@@ -256,7 +282,9 @@ export function CardPage() {
                     Mantine Card props and polymorphic roots. Defaults to a
                     <code>surface</code> background, <code>border-subtle</code>
                     border, and <code>0.5rem</code> padding. Consumer props
-                    override these defaults.
+                    override these defaults. The <code>padding</code> prop
+                    also controls the inset that sections extend through;
+                    scalar <code>p</code> values keep that inset aligned.
                   </td>
                 </tr>
                 <tr>
@@ -272,18 +300,32 @@ export function CardPage() {
                   </td>
                 </tr>
                 <tr>
+                  <th>separatorThickness</th>
+                  <td>
+                    <code>CardSeparatorThickness</code>
+                  </td>
+                  <td>
+                    Defaults to <code>default</code> (1px). Set to{" "}
+                    <code>thick</code> (2px) to thicken all bordered section
+                    separators and labeled dividers in the card.
+                  </td>
+                </tr>
+                <tr>
                   <th>Card.Section</th>
                   <td>
                     <code>CardSectionProps</code>
                   </td>
                   <td>
                     Use for each card content section. Defaults to <code>0.5rem</code>
-                    padding on all four sides; adjacent sections do not share or
-                    collapse padding. <code>withBorder</code> controls the
-                    separator and optional <code>label</code> and
-                    <code>labelPosition</code> place content on that border.
-                    Override padding with <code>p</code>, <code>px</code>, or
-                    <code>py</code>.
+                    padding on all four sides. Sections extend to the card's
+                    edges so their separators span the full width; each
+                    section's content remains inset by its own padding. The
+                    card's minimum height follows its content, so sections
+                    remain inside it even when a smaller height is specified.
+                    <code>withBorder</code> controls the separator, and
+                    optional <code>label</code> and <code>labelPosition</code>
+                    place content on that border. Override padding with
+                    <code>p</code>, <code>px</code>, or <code>py</code>.
                   </td>
                 </tr>
                 <tr>

@@ -2,6 +2,7 @@
   background-color: var(--bbui-card-surface);
   border-color: var(--bbui-card-border);
   color: var(--bbui-card-text);
+  min-height: max-content;
 }
 
 .root.selected {
@@ -12,6 +13,11 @@
 .root .section[data-with-border] {
   --border-color: var(--bbui-card-border);
   color: inherit;
+}
+
+.root[data-budget-board-separator-thickness="thick"]
+  .section[data-orientation="vertical"][data-with-border] {
+  border-bottom-width: 2px;
 }
 
 .root .section {
@@ -26,6 +32,10 @@
 .root .divider {
   --divider-color: var(--bbui-card-border);
   color: var(--bbui-card-text-secondary);
+}
+
+.root[data-budget-board-separator-thickness="thick"] .divider {
+  --divider-size: 2px;
 }
 
 .sectionDivider {

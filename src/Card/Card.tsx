@@ -13,10 +13,12 @@ import { ensureBBUIMantineProvider, useBBUITheme } from "../shared/themeStyles";
 import classes from "./Card.module.css";
 
 export type CardSurface = "default" | "sunken";
+export type CardSeparatorThickness = "default" | "thick";
 
 export type CardProps = MantineCardProps & {
   hoverable?: boolean;
   selected?: boolean;
+  separatorThickness?: CardSeparatorThickness;
   surface?: CardSurface;
 };
 
@@ -91,8 +93,10 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
   {
     className,
     hoverable = false,
-    p = "0.5rem",
+    p,
+    padding,
     selected,
+    separatorThickness = "default",
     style,
     surface = "default",
     withBorder = true,
@@ -101,6 +105,11 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
   ref,
 ) {
   const { colors, colorScheme, hasMantineContext } = useBBUITheme();
+  const sectionPadding =
+    typeof p === "string" || typeof p === "number"
+      ? p
+      : padding ?? "0.5rem";
+  const cardPadding = p ?? padding ?? "0.5rem";
   const card = (
     <MantineCard
       {...props}
@@ -113,7 +122,9 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
       data-budget-board-selected={
         selected === undefined ? undefined : selected ? "true" : "false"
       }
-      p={p}
+      data-budget-board-separator-thickness={separatorThickness}
+      p={cardPadding}
+      padding={sectionPadding}
       ref={ref}
       style={[
         {

@@ -69,6 +69,7 @@ export { Checkbox, type CheckboxProps } from "./Checkbox/Checkbox";
 
 export {
   Card,
+  type CardSeparatorThickness,
   type CardSurface,
   type CardProps,
   type CardSectionProps,
