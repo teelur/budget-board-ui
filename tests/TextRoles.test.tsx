@@ -214,6 +214,10 @@ describe("text role components", () => {
             configurable: true,
             get: () => textWidth,
           });
+          Object.defineProperty(element, "getBoundingClientRect", {
+            configurable: true,
+            value: () => new DOMRect(0, 0, textWidth, 20),
+          });
           Object.defineProperty(styles, "fontSize", {
             configurable: true,
             value: "20px",
@@ -239,6 +243,10 @@ describe("text role components", () => {
             Object.defineProperty(container, "clientWidth", {
               configurable: true,
               get: () => availableWidth,
+            });
+            Object.defineProperty(container, "clientHeight", {
+              configurable: true,
+              value: 20,
             });
           }
         }}
@@ -271,7 +279,9 @@ describe("text role components", () => {
       mantineScale = 1;
       triggerResizeObservers();
     });
-    expect(heading.style.fontSize).toBe("clamp(1.25rem, 5cqi, 3.5rem)");
+    expect(heading.style.fontSize).toBe(
+      "calc(1.55625rem * var(--mantine-scale))",
+    );
 
     availableWidth = 100;
     textWidth = 400;
@@ -365,6 +375,94 @@ describe("text role components", () => {
       const element = screen.getByTestId(testId);
       expect(element.style.whiteSpace).toBe("nowrap");
       expect(element.style.fontSize).toContain("var(--mantine-scale)");
+    });
+  });
+
+  it("grows every responsive text role to the largest size that fits both dimensions", () => {
+    let availableHeight = 50;
+    const fontSizes: Record<string, string> = {
+      "grow-display": "20px",
+      "grow-heading": "20px",
+      "grow-body": "20px",
+      "grow-caption": "20px",
+      "grow-data": "20px",
+    };
+    const originalGetComputedStyle = window.getComputedStyle.bind(window);
+
+    vi.stubGlobal("ResizeObserver", TestResizeObserver);
+    vi.spyOn(window, "getComputedStyle").mockImplementation(
+      (element, pseudoElement) => {
+        const styles = originalGetComputedStyle(element, pseudoElement);
+        if (
+          element instanceof HTMLElement &&
+          element.dataset.testid in fontSizes
+        ) {
+          Object.defineProperty(element, "scrollWidth", {
+            configurable: true,
+            value: 100,
+          });
+          Object.defineProperty(element, "getBoundingClientRect", {
+            configurable: true,
+            value: () => ({ height: 20 }),
+          });
+          Object.defineProperty(styles, "fontSize", {
+            configurable: true,
+            value: fontSizes[element.dataset.testid],
+          });
+        }
+        return styles;
+      },
+    );
+
+    render(
+      <div
+        style={{ height: "50px" }}
+        ref={(container) => {
+          if (container) {
+            Object.defineProperty(container, "clientWidth", {
+              configurable: true,
+              value: 300,
+            });
+            Object.defineProperty(container, "clientHeight", {
+              configurable: true,
+              get: () => availableHeight,
+            });
+          }
+        }}
+      >
+        <DisplayText data-testid="grow-display" responsive>
+          Display
+        </DisplayText>
+        <HeadingText data-testid="grow-heading" responsive>
+          Heading
+        </HeadingText>
+        <BodyText data-testid="grow-body" responsive>
+          Body
+        </BodyText>
+        <CaptionText data-testid="grow-caption" responsive>
+          Caption
+        </CaptionText>
+        <DataText data-testid="grow-data" responsive>
+          Data
+        </DataText>
+      </div>,
+    );
+
+    act(triggerResizeObservers);
+    Object.keys(fontSizes).forEach((testId) => {
+      expect(screen.getByTestId(testId).style.fontSize).toBe(
+        "calc(3.0625rem * var(--mantine-scale))",
+      );
+    });
+
+    act(() => {
+      availableHeight = 100;
+      triggerResizeObservers();
+    });
+    Object.keys(fontSizes).forEach((testId) => {
+      expect(screen.getByTestId(testId).style.fontSize).toBe(
+        "calc(3.7375rem * var(--mantine-scale))",
+      );
     });
   });
 

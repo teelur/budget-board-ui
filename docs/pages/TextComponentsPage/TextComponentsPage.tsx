@@ -155,7 +155,7 @@ export function TextComponentsPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Opt in to container-responsive sizing for dashboard content. Every responsive text role stays on one line and shrinks when needed to fit its parent."
+        description="Opt in to container-responsive sizing for dashboard content. Every responsive text role stays on one line and scales to fill the available width and height."
         id="text-component-responsive"
         title="Container-responsive sizing"
         code={`<div style={{ containerType: "inline-size" }}>
@@ -371,10 +371,11 @@ export function TextComponentsPage() {
                         DataText: <code>clamp(0.875rem, 5cqi, 3rem)</code>
                       </li>
                     </ul>
-                    All responsive text roles stay on one line and reduce their
-                    font size further when their content exceeds the
-                    parent&apos;s content width. They grow again as space
-                    allows. When enabled, responsive sizing takes precedence
+                    All responsive text roles stay on one line and scale to the
+                    largest size that fits their parent&apos;s available content
+                    width and height. The role&apos;s clamp is a starting point;
+                    fitting may shrink below its minimum or grow beyond its
+                    maximum. When enabled, responsive sizing takes precedence
                     over
                     <code>size</code> and <code>fz</code>.
                   </td>

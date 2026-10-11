@@ -57,20 +57,12 @@ export function useResponsiveTextFit<T extends HTMLElement>({
         Number.isFinite(mantineScaleValue) && mantineScaleValue > 0
           ? mantineScaleValue
           : 1;
-      const availableWidth =
-        container.clientWidth -
-        getCssPixelValue(containerStyles.paddingLeft) -
-        getCssPixelValue(containerStyles.paddingRight) -
-        getCssPixelValue(elementStyles.marginLeft) -
-        getCssPixelValue(elementStyles.marginRight);
-
-      if (availableWidth <= 0) {
-        return;
-      }
-
       const currentFontSize = element.style.fontSize;
       let baseFontSize = Number.NaN;
       let textWidth = 0;
+      let textHeight = 0;
+      let availableWidth = 0;
+      let availableHeight = 0;
 
       try {
         element.style.fontSize = fontSize;
@@ -84,15 +76,55 @@ export function useResponsiveTextFit<T extends HTMLElement>({
             ? range.getBoundingClientRect().width
             : 0;
         textWidth = Math.max(rangeWidth, element.scrollWidth);
+        textHeight = element.getBoundingClientRect().height;
+        availableWidth =
+          container.clientWidth -
+          getCssPixelValue(containerStyles.paddingLeft) -
+          getCssPixelValue(containerStyles.paddingRight) -
+          getCssPixelValue(elementStyles.marginLeft) -
+          getCssPixelValue(elementStyles.marginRight);
+        availableHeight =
+          container.clientHeight -
+          getCssPixelValue(containerStyles.paddingTop) -
+          getCssPixelValue(containerStyles.paddingBottom) -
+          getCssPixelValue(elementStyles.marginTop) -
+          getCssPixelValue(elementStyles.marginBottom);
       } finally {
         element.style.fontSize = currentFontSize;
       }
 
+      if (availableWidth <= 0) {
+        return;
+      }
+
+      const explicitHeightConstraint = [
+        container.style.height,
+        container.style.maxHeight,
+        container.style.minHeight,
+      ].some(
+        (value) =>
+          value !== "" &&
+          value !== "auto" &&
+          value !== "none" &&
+          getCssPixelValue(value) !== 0,
+      );
+      const hasVerticalSpace =
+        availableHeight > textHeight + 1 ||
+        availableHeight < textHeight - 1 ||
+        explicitHeightConstraint;
+      const widthScale = Math.max(0, availableWidth - 1) / textWidth;
+      const heightScale =
+        hasVerticalSpace && availableHeight >= 0 && textHeight > 0
+          ? Math.max(0, availableHeight - 1) / textHeight
+          : Number.POSITIVE_INFINITY;
+      const fitScale = Math.min(widthScale, heightScale);
       const nextFittedFontSize =
         Number.isFinite(baseFontSize) &&
         Number.isFinite(textWidth) &&
-        textWidth > availableWidth
-          ? `${((baseFontSize * Math.max(0, availableWidth - 1)) / (textWidth * mantineScale)).toFixed(2)}px`
+        textWidth > 0 &&
+        Number.isFinite(fitScale) &&
+        Math.abs(fitScale - 1) >= 0.01
+          ? `${((baseFontSize * fitScale) / mantineScale).toFixed(2)}px`
           : undefined;
 
       setFittedFontSize((currentFittedFontSize) =>
