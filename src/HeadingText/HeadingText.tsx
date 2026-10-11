@@ -43,6 +43,7 @@ export function HeadingText({
     useResponsiveTextFit<HTMLHeadingElement>({
       enabled: responsive,
       fontSize: responsiveFz,
+      maxFontSize: fz ?? titleProps.size,
       children,
       className,
       fontFamily: ff,

@@ -110,6 +110,7 @@ export function TextRole({
     useResponsiveTextFit<HTMLParagraphElement>({
       enabled: responsive,
       fontSize: responsiveBaseFz,
+      maxFontSize: fz ?? size,
       children,
       className,
       fontFamily: ff ?? defaults.font,
