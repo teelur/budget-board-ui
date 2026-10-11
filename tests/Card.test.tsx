@@ -105,27 +105,52 @@ describe("Card", () => {
     expect(defaultCard).not.toHaveAttribute("data-budget-board-selected");
   });
 
-  it("supports default and thick section separators", () => {
+  it("configures separator thickness independently for each section", () => {
     render(
-      <>
-        <Card data-testid="default-card">
-          <Card.Section>Default separator</Card.Section>
-          <Card.Section>Following section</Card.Section>
-        </Card>
-        <Card data-testid="thick-card" separatorThickness="thick">
-          <Card.Section>Thick separator</Card.Section>
-          <Card.Section label="or">Labeled separator</Card.Section>
-        </Card>
-      </>,
+      <Card data-testid="card">
+        <Card.Section data-testid="default-section">
+          Default separator
+        </Card.Section>
+        <Card.Section data-testid="thick-section" separatorThickness="thick">
+          Thick separator
+        </Card.Section>
+        <Card.Section
+          data-testid="thick-labeled-section"
+          label="or"
+          separatorThickness="thick"
+        >
+          Labeled separator
+        </Card.Section>
+        <Card.Section data-testid="following-section">
+          Following section
+        </Card.Section>
+      </Card>,
     );
 
-    expect(screen.getByTestId("default-card")).toHaveAttribute(
+    expect(screen.getByTestId("card")).not.toHaveAttribute(
+      "data-budget-board-separator-thickness",
+    );
+    expect(screen.getByTestId("default-section")).toHaveAttribute(
       "data-budget-board-separator-thickness",
       "default",
     );
-    expect(screen.getByTestId("thick-card")).toHaveAttribute(
+    expect(screen.getByTestId("thick-section")).toHaveAttribute(
       "data-budget-board-separator-thickness",
       "thick",
+    );
+    expect(screen.getByTestId("thick-labeled-section")).toHaveAttribute(
+      "data-budget-board-separator-thickness",
+      "thick",
+    );
+    expect(screen.getByTestId("following-section")).toHaveAttribute(
+      "data-budget-board-separator-thickness",
+      "default",
+    );
+    expect(cardStyles).toContain(
+      '.section[data-budget-board-separator-thickness="thick"][data-orientation="vertical"][data-with-border]',
+    );
+    expect(cardStyles).toContain(
+      '.section[data-budget-board-separator-thickness="thick"] .divider',
     );
     expect(cardStyles).toContain("border-bottom-width: 2px;");
     expect(cardStyles).toContain("--divider-size: 2px;");

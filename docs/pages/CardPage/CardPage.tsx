@@ -38,9 +38,11 @@ const splitCardExample = `<Card>
   <Card.Section>Rainy day savings <strong>$4,202.18</strong></Card.Section>
 </Card>`;
 
-const thickSeparatorsExample = `<Card separatorThickness="thick">
+const thickSeparatorsExample = `<Card>
   <Card.Section>Account balances</Card.Section>
-  <Card.Section>Everyday checking <strong>$4,218.32</strong></Card.Section>
+  <Card.Section separatorThickness="thick">
+    Everyday checking <strong>$4,218.32</strong>
+  </Card.Section>
   <Card.Section>Rainy day savings <strong>$4,202.18</strong></Card.Section>
 </Card>`;
 
@@ -115,15 +117,15 @@ export function CardPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description='Set separatorThickness="thick" to make section separators 2px instead of 1px. This changes only the line thickness, not the card or section padding.'
+        description='Set separatorThickness="thick" on an individual Card.Section to make its separator 2px instead of 1px. Other sections keep their own thickness.'
         id="card-thick-separators"
         title="Thick section separators"
         code={thickSeparatorsExample}
       >
         <div className={styles.preview}>
-          <Card className={styles.splitCard} separatorThickness="thick">
+          <Card className={styles.splitCard}>
             <Card.Section>Account balances</Card.Section>
-            <Card.Section>
+            <Card.Section separatorThickness="thick">
               Everyday checking <strong>$4,218.32</strong>
             </Card.Section>
             <Card.Section>
@@ -300,17 +302,6 @@ export function CardPage() {
                   </td>
                 </tr>
                 <tr>
-                  <th>separatorThickness</th>
-                  <td>
-                    <code>CardSeparatorThickness</code>
-                  </td>
-                  <td>
-                    Defaults to <code>default</code> (1px). Set to{" "}
-                    <code>thick</code> (2px) to thicken all bordered section
-                    separators and labeled dividers in the card.
-                  </td>
-                </tr>
-                <tr>
                   <th>Card.Section</th>
                   <td>
                     <code>CardSectionProps</code>
@@ -322,10 +313,22 @@ export function CardPage() {
                     section's content remains inset by its own padding. The
                     card's minimum height follows its content, so sections
                     remain inside it even when a smaller height is specified.
-                    <code>withBorder</code> controls the separator, and
-                    optional <code>label</code> and <code>labelPosition</code>
+                    <code>withBorder</code> controls the separator. Set
+                    <code>separatorThickness</code> on a section to configure
+                    only its own separator and labeled divider.                     Optional <code>label</code> and <code>labelPosition</code>
                     place content on that border. Override padding with
                     <code>p</code>, <code>px</code>, or <code>py</code>.
+                  </td>
+                </tr>
+                <tr>
+                  <th>separatorThickness</th>
+                  <td>
+                    <code>CardSeparatorThickness</code>
+                  </td>
+                  <td>
+                    A <code>Card.Section</code> prop. Defaults to{" "}
+                    <code>default</code> (1px); set to <code>thick</code> (2px)
+                    to change only that section's separator and labeled divider.
                   </td>
                 </tr>
                 <tr>
