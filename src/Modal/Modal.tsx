@@ -88,10 +88,10 @@ export function Modal({
   ...props
 }: ModalProps): ReactElement {
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
-  const surface = `var(--bb-color-surface, ${colors.surface})`;
+  const pageBackground = `var(--bb-color-page, ${colors.page})`;
   const modalStyles = mergeModalStyles(styles, {
     content: {
-      "--bbui-modal-surface": surface,
+      "--bbui-modal-background": pageBackground,
       "--bbui-modal-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
       "--bbui-modal-title": `var(--bb-color-text-heading, ${colors.textHeading})`,
       "--bbui-modal-body": `var(--bb-color-text-primary, ${colors.textPrimary})`,

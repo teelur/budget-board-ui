@@ -5,13 +5,13 @@
 }
 
 .content:global(.mantine-Modal-content) {
-  background-color: var(--bbui-modal-surface);
+  background-color: var(--bbui-modal-background);
   border: 1px solid var(--bbui-modal-border);
   color: var(--bbui-modal-body);
 }
 
 .header:global(.mantine-Modal-header) {
-  background-color: var(--bbui-modal-surface);
+  background-color: var(--bbui-modal-background);
   color: var(--bbui-modal-title);
 }
 
