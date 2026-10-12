@@ -1,0 +1,21 @@
+.inner:global(.mantine-Modal-inner) {
+  left: 0;
+  padding: 0 !important;
+  right: 0;
+}
+
+.content:global(.mantine-Modal-content) {
+  background-color: var(--bbui-modal-surface);
+  border: 1px solid var(--bbui-modal-border);
+  color: var(--bbui-modal-body);
+}
+
+.header:global(.mantine-Modal-header) {
+  background-color: var(--bbui-modal-surface);
+  color: var(--bbui-modal-title);
+}
+
+.body:global(.mantine-Modal-body) {
+  color: var(--bbui-modal-body);
+  font-family: var(--bbui-modal-body-font);
+}

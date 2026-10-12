@@ -67,6 +67,8 @@ export {
 
 export { Checkbox, type CheckboxProps } from "./Checkbox/Checkbox";
 
+export { Modal, type ModalProps } from "./Modal/Modal";
+
 export {
   Card,
   type CardSeparatorThickness,

@@ -24,6 +24,7 @@ import { DateInputPage } from "./pages/DateInputPage/DateInputPage";
 import { DatePickerInputPage } from "./pages/DatePickerInputPage/DatePickerInputPage";
 import { FileInputPage } from "./pages/FileInputPage/FileInputPage";
 import { MonthPickerInputPage } from "./pages/MonthPickerInputPage/MonthPickerInputPage";
+import { ModalPage } from "./pages/ModalPage/ModalPage";
 import { MultiSelectPage } from "./pages/MultiSelectPage/MultiSelectPage";
 import { NavbarLinkPage } from "./pages/NavbarLinkPage/NavbarLinkPage";
 import { NumberInputPage } from "./pages/NumberInputPage/NumberInputPage";
@@ -174,6 +175,7 @@ export function App() {
               <a href="#date-input">DateInput</a>
               <a href="#date-picker-input">DatePickerInput</a>
               <a href="#file-input">FileInput</a>
+              <a href="#modal">Modal</a>
               <a href="#multi-select">MultiSelect</a>
               <a href="#month-picker-input">MonthPickerInput</a>
               <a href="#navbar-link">NavbarLink</a>
@@ -285,6 +287,7 @@ export function App() {
               <DateInputPage />
               <DatePickerInputPage />
               <FileInputPage />
+              <ModalPage />
               <MultiSelectPage />
               <NavbarLinkPage />
               <TagsInputPage />
