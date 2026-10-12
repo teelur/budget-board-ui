@@ -41,8 +41,8 @@ describe("Modal", () => {
 
     expect(dialog).toHaveClass(classes.content);
     expect(modalRoot).toHaveStyle({ padding: "8px" });
-    expect(dialog.style.getPropertyValue("--bbui-modal-surface")).toBe(
-      "var(--bb-color-surface, #ffffff)",
+    expect(dialog.style.getPropertyValue("--bbui-modal-background")).toBe(
+      "var(--bb-color-page, #f7f6f2)",
     );
     expect(dialog.style.getPropertyValue("--bbui-modal-border")).toBe(
       "var(--bb-color-border-subtle, #d8d5ce)",
@@ -78,8 +78,8 @@ describe("Modal", () => {
 
     const dialog = screen.getByRole("dialog", { name: "Dark modal" });
 
-    expect(dialog.style.getPropertyValue("--bbui-modal-surface")).toBe(
-      "var(--bb-color-surface, #191b1f)",
+    expect(dialog.style.getPropertyValue("--bbui-modal-background")).toBe(
+      "var(--bb-color-page, #111214)",
     );
     expect(dialog.style.getPropertyValue("--bbui-modal-title")).toBe(
       "var(--bb-color-text-heading, #f2f0eb)",
@@ -137,8 +137,8 @@ describe("Modal", () => {
     expect(
       screen
         .getByRole("dialog", { name: "Callback styles" })
-        .style.getPropertyValue("--bbui-modal-surface"),
-    ).toBe("var(--bb-color-surface, #ffffff)");
+        .style.getPropertyValue("--bbui-modal-background"),
+    ).toBe("var(--bb-color-page, #f7f6f2)");
   });
 
   it("forwards Mantine close behavior", async () => {

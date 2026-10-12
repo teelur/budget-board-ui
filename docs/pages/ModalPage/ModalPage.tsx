@@ -158,11 +158,11 @@ export function ModalPage() {
                   <th>title / body / background</th>
                   <td>BBUI semantic styles</td>
                   <td>
-                    The title is rendered with BBUI <code>HeadingText</code>
-                    at level <code>2</code> and tone <code>heading</code>;
-                    <code>textPrimary</code> for body content, and
-                    <code>surface</code> for the content and header
-                    background in light and dark color schemes.
+                    Use BBUI <code>HeadingText</code> at level <code>5</code>{" "}
+                    with heading tone; body text uses <code>textPrimary</code>,
+                    and the content/header background uses <code>page</code>{" "}
+                    to match the AppShell main background in both color
+                    schemes.
                   </td>
                 </tr>
                 <tr>
