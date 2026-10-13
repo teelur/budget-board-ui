@@ -1,0 +1,10 @@
+.examples {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+.responsive {
+  max-width: 24rem;
+  width: 100%;
+}

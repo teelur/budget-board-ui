@@ -152,6 +152,11 @@ export {
 export { PinInput, type PinInputProps } from "./PinInput/PinInput";
 
 export {
+  Pagination,
+  type PaginationProps,
+} from "./Pagination/Pagination";
+
+export {
   SegmentedControl,
   segmentedControlColors,
   segmentedControlSizes,
