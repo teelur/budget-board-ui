@@ -263,7 +263,7 @@ describe("ActionIcon", () => {
         .getByRole("button", { name: "Primary" })
         .style.getPropertyValue("--bbui-button-bg"),
     ).toBe(
-      "var(--budget-board-button-primary-background, var(--bb-color-primary, var(--mantine-primary-color-filled, #91a7ff)))",
+      "var(--budget-board-button-primary-background, var(--bb-color-primary, #91a7ff))",
     );
   });
 
@@ -292,7 +292,7 @@ describe("ActionIcon", () => {
           .getByRole("button", { name: "System dark" })
           .style.getPropertyValue("--bbui-button-bg"),
       ).toBe(
-        "var(--budget-board-button-primary-background, var(--bb-color-primary, var(--mantine-primary-color-filled, #91a7ff)))",
+        "var(--budget-board-button-primary-background, var(--bb-color-primary, #91a7ff))",
       );
     } finally {
       window.matchMedia = originalMatchMedia;
