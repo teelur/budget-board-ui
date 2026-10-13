@@ -5,6 +5,8 @@ import type {
   PaginationRootProps,
 } from "@mantine/core";
 import { BodyText } from "../BodyText/BodyText";
+import { Button } from "../Button/Button";
+import type { ButtonProps } from "../Button/Button";
 import {
   ensureBBUIMantineProvider,
   useBBUITheme,
@@ -23,6 +25,24 @@ function getRootClassName(className: string | undefined, colorScheme: string) {
     .join(" ");
 }
 
+function PaginationButton({ selected, ...props }: ButtonProps) {
+  return (
+    <Button
+      {...props}
+      selected={selected ?? props["aria-current"] === "page"}
+    />
+  );
+}
+
+function withBBUIControlProps(
+  getControlProps: PaginationProps["getControlProps"],
+): NonNullable<PaginationProps["getControlProps"]> {
+  return (control) => ({
+    component: PaginationButton,
+    ...getControlProps?.(control),
+  });
+}
+
 function withBodyTextItemLabels(
   getItemProps: PaginationRootProps["getItemProps"],
 ): NonNullable<PaginationRootProps["getItemProps"]> {
@@ -30,9 +50,19 @@ function withBodyTextItemLabels(
     const itemProps = getItemProps?.(page);
 
     return {
+      component: PaginationButton,
       ...itemProps,
       children: itemProps?.children ?? (
-        <BodyText component="span">{page}</BodyText>
+        <BodyText
+          c="inherit"
+          component="span"
+          ff="inherit"
+          fw="inherit"
+          fz="inherit"
+          lh="inherit"
+        >
+          {page}
+        </BodyText>
       ),
     };
   };
@@ -61,7 +91,7 @@ const StyledPaginationRoot = forwardRef<HTMLDivElement, PaginationRootProps>(
 
 const StyledPagination = forwardRef<HTMLDivElement, PaginationProps>(
   function StyledPagination(
-    { className, color, getItemProps, ...props },
+    { className, color, getControlProps, getItemProps, ...props },
     ref,
   ) {
     const { colorScheme, hasMantineContext } = useBBUITheme();
@@ -71,6 +101,7 @@ const StyledPagination = forwardRef<HTMLDivElement, PaginationProps>(
         className={getRootClassName(className, colorScheme)}
         {...(color === undefined ? {} : { color })}
         data-bbui-pagination-color={color === undefined ? "default" : undefined}
+        getControlProps={withBBUIControlProps(getControlProps)}
         getItemProps={withBodyTextItemLabels(getItemProps)}
         ref={ref}
       />
