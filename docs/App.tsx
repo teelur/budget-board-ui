@@ -29,6 +29,7 @@ import { MultiSelectPage } from "./pages/MultiSelectPage/MultiSelectPage";
 import { NavbarLinkPage } from "./pages/NavbarLinkPage/NavbarLinkPage";
 import { NumberInputPage } from "./pages/NumberInputPage/NumberInputPage";
 import { PasswordInputPage } from "./pages/PasswordInputPage/PasswordInputPage";
+import { PaginationPage } from "./pages/PaginationPage/PaginationPage";
 import { PinInputPage } from "./pages/PinInputPage/PinInputPage";
 import { ProgressPage } from "./pages/ProgressPage/ProgressPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
@@ -181,6 +182,7 @@ export function App() {
               <a href="#navbar-link">NavbarLink</a>
               <a href="#number-input">NumberInput</a>
               <a href="#password-input">PasswordInput</a>
+              <a href="#pagination">Pagination</a>
               <a href="#pin-input">PinInput</a>
               <a href="#progress">Progress</a>
               <a href="#segmented-control">SegmentedControl</a>
@@ -299,6 +301,7 @@ export function App() {
               <TextInputPage />
               <TextareaPage />
               <ProgressPage />
+              <PaginationPage />
               <SegmentedControlPage />
               <SelectPage />
             </section>

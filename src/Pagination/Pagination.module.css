@@ -1,0 +1,60 @@
+.root {
+  color: var(--bbui-pagination-text);
+  --bbui-pagination-text: var(--bb-color-text-primary, #3a3834);
+  --bbui-pagination-border: var(--bb-color-border-subtle, #d8d5ce);
+  --bbui-pagination-hover: var(--bb-color-surface-hover, #e7e3da);
+  --bbui-pagination-hover-border: var(--bb-color-border-strong, #aaa69e);
+  --bbui-pagination-active: var(--bb-color-primary, #4c6ef5);
+  --bbui-pagination-active-text: var(--bb-color-primary-content, #fffaf2);
+  --bbui-pagination-focus: var(--bb-color-focus-ring, #4c6ef5);
+}
+
+.dark {
+  --bbui-pagination-text: var(--bb-color-text-primary, #d8d5ce);
+  --bbui-pagination-border: var(--bb-color-border-subtle, #3a3d42);
+  --bbui-pagination-hover: var(--bb-color-surface-hover, #34373a);
+  --bbui-pagination-hover-border: var(--bb-color-border-strong, #686b70);
+  --bbui-pagination-active: var(--bb-color-primary, #91a7ff);
+  --bbui-pagination-active-text: var(--bb-color-primary-content, #1e2450);
+  --bbui-pagination-focus: var(--bb-color-focus-ring, #91a7ff);
+}
+
+.root :global(button) {
+  background-color: transparent;
+  border-color: var(--bbui-pagination-border);
+  color: var(--bbui-pagination-text);
+  font-family: inherit;
+  font-weight: 600;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+}
+
+.root :global(button:hover:not(:disabled):not([data-disabled]):not([data-active])) {
+  background-color: var(--bbui-pagination-hover);
+  border-color: var(--bbui-pagination-hover-border);
+}
+
+.root :global(button[data-active]) {
+  background-color: var(--pagination-active-bg);
+  border-color: var(--pagination-active-bg);
+  color: var(--pagination-active-color, var(--mantine-color-white));
+}
+
+.root[data-bbui-pagination-color="default"] :global(button[data-active]) {
+  background-color: var(--bbui-pagination-active);
+  border-color: var(--bbui-pagination-active);
+  color: var(--bbui-pagination-active-text);
+}
+
+.root :global(button:focus-visible) {
+  outline: 2px solid var(--bbui-pagination-focus);
+  outline-offset: 2px;
+}
+
+.root :global(button:disabled),
+.root :global(button[data-disabled]) {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
