@@ -15,6 +15,7 @@ describe("Pagination", () => {
       <Pagination
         aria-label="Transaction pages"
         defaultValue={2}
+        getControlProps={(control) => ({ "data-control": control })}
         getItemProps={(page) => ({ "data-page": page })}
         id="transaction-pagination"
         onChange={onChange}
@@ -26,6 +27,26 @@ describe("Pagination", () => {
     const currentPage = screen.getByRole("button", { name: "2" });
     expect(currentPage).toHaveAttribute("aria-current", "page");
     expect(currentPage).toHaveAttribute("data-page", "2");
+    expect(currentPage).toHaveAttribute("data-budget-board-color", "primary");
+    expect(currentPage).toHaveAttribute("data-budget-board-selected", "true");
+    const navigationControls = screen
+      .getAllByRole("button")
+      .filter((control) => control.querySelector("svg"));
+    expect(navigationControls).toHaveLength(4);
+    for (const [index, control] of navigationControls.entries()) {
+      expect(control).toHaveAttribute("data-budget-board-color", "primary");
+      expect(control).toHaveAttribute(
+        "data-control",
+        ["first", "previous", "next", "last"][index],
+      );
+    }
+    expect(currentPage.style.getPropertyValue("--bbui-button-bg")).toBe(
+      "var(--budget-board-button-primary-background, var(--bb-color-primary, var(--mantine-primary-color-filled, #4c6ef5)))",
+    );
+    expect(screen.getByRole("button", { name: "1" })).toHaveAttribute(
+      "data-budget-board-selected",
+      "false",
+    );
     expect(
       screen.getByText("2", {
         selector: '[data-budget-board-text-role="body"]',
@@ -42,6 +63,10 @@ describe("Pagination", () => {
     expect(screen.getByRole("button", { name: "3" })).toHaveAttribute(
       "aria-current",
       "page",
+    );
+    expect(screen.getByRole("button", { name: "3" })).toHaveAttribute(
+      "data-budget-board-selected",
+      "true",
     );
   });
 

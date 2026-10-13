@@ -40,8 +40,11 @@ export function getButtonVariantStyles(
   color: ButtonColor,
   variant: ButtonVariant,
 ): ButtonStyle {
-  const background = `var(--bb-color-${color}, ${colors[color]})`;
-  const content = `var(--bb-color-${color}-content, ${colors[`${color}Content` as BudgetBoardContentColorKey]})`;
+  const primaryBackground = `var(--mantine-primary-color-filled, ${colors.primary})`;
+  const primaryContent = `var(--mantine-primary-color-contrast, ${colors.primaryContent})`;
+  const background = `var(--bb-color-${color}, ${color === "primary" ? primaryBackground : colors[color]})`;
+  const contentColor = colors[`${color}Content` as BudgetBoardContentColorKey];
+  const content = `var(--bb-color-${color}-content, ${color === "primary" ? primaryContent : contentColor})`;
   const hoverSurface = `var(--bb-color-surface-hover, ${colors.surfaceHover})`;
   const selectedSurface = `var(--bb-color-selection, ${colors.selection})`;
   const selectedColor = `var(--bb-color-text-primary, ${colors.textPrimary})`;
