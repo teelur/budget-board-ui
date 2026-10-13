@@ -486,7 +486,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   <td>
                     <code>{buttonColors.join(" | ")}</code>
                   </td>
-                  <td>primary</td>
+                  <td>primary from the BBUI semantic palette</td>
                 </tr>
                 <tr>
                   <th>disabled</th>

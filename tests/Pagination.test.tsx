@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { createRef } from "react";
 import { MantineProvider } from "@mantine/core";
 import { render, screen } from "@testing-library/react";
@@ -6,7 +8,22 @@ import { describe, expect, it, vi } from "vitest";
 import { Pagination } from "../src/Pagination/Pagination";
 import classes from "../src/Pagination/Pagination.module.css";
 
+const paginationStyles = readFileSync(
+  resolve(process.cwd(), "src/Pagination/Pagination.module.css"),
+  "utf8",
+);
+
 describe("Pagination", () => {
+  it("uses BBUI primary tokens instead of Mantine primary colors", () => {
+    expect(paginationStyles).toContain(
+      "--bbui-pagination-active: var(--bb-color-primary, #4c6ef5);",
+    );
+    expect(paginationStyles).toContain(
+      "--bbui-pagination-active: var(--bb-color-primary, #91a7ff);",
+    );
+    expect(paginationStyles).not.toContain("--mantine-primary-color");
+  });
+
   it("supports uncontrolled pagination and forwards Mantine props", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
@@ -41,7 +58,7 @@ describe("Pagination", () => {
       );
     }
     expect(currentPage.style.getPropertyValue("--bbui-button-bg")).toBe(
-      "var(--budget-board-button-primary-background, var(--bb-color-primary, var(--mantine-primary-color-filled, #4c6ef5)))",
+      "var(--budget-board-button-primary-background, var(--bb-color-primary, #4c6ef5))",
     );
     expect(screen.getByRole("button", { name: "1" })).toHaveAttribute(
       "data-budget-board-selected",

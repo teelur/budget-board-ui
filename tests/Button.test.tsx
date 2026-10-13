@@ -179,7 +179,7 @@ describe("Button", () => {
         .getByRole("button", { name: "Primary" })
         .style.getPropertyValue("--bbui-button-bg"),
     ).toBe(
-      "var(--budget-board-button-primary-background, var(--bb-color-primary, var(--mantine-primary-color-filled, #4c6ef5)))",
+      "var(--budget-board-button-primary-background, var(--bb-color-primary, #4c6ef5))",
     );
     expect(
       screen
@@ -230,7 +230,7 @@ describe("Button", () => {
         .getByRole("button", { name: "Primary" })
         .style.getPropertyValue("--bbui-button-bg"),
     ).toBe(
-      "var(--budget-board-button-primary-background, var(--bb-color-primary, var(--mantine-primary-color-filled, #91a7ff)))",
+      "var(--budget-board-button-primary-background, var(--bb-color-primary, #91a7ff))",
     );
     expect(
       screen
@@ -290,7 +290,7 @@ describe("Button", () => {
           .getByRole("button", { name: "System dark" })
           .style.getPropertyValue("--bbui-button-bg"),
       ).toBe(
-        "var(--budget-board-button-primary-background, var(--bb-color-primary, var(--mantine-primary-color-filled, #91a7ff)))",
+        "var(--budget-board-button-primary-background, var(--bb-color-primary, #91a7ff))",
       );
     } finally {
       window.matchMedia = originalMatchMedia;
@@ -328,7 +328,7 @@ describe("Button", () => {
     }
   });
 
-  it("uses the Mantine primary color when no Budget Board palette is provided", () => {
+  it("uses the BBUI primary palette when no consumer palette is provided", () => {
     renderButton(<Button>Fallback</Button>);
 
     expect(
@@ -336,7 +336,7 @@ describe("Button", () => {
         .getByRole("button", { name: "Fallback" })
         .style.getPropertyValue("--bbui-button-bg"),
     ).toBe(
-      "var(--budget-board-button-primary-background, var(--bb-color-primary, var(--mantine-primary-color-filled, #4c6ef5)))",
+      "var(--budget-board-button-primary-background, var(--bb-color-primary, #4c6ef5))",
     );
   });
 
