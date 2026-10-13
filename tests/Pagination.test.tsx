@@ -21,6 +21,15 @@ describe("Pagination", () => {
     expect(paginationStyles).toContain(
       "--bbui-pagination-active: var(--bb-color-primary, #91a7ff);",
     );
+    expect(paginationStyles).toContain(
+      "--bbui-pagination-neutral-content: var(--bb-color-neutral-content, #3a3834);",
+    );
+    expect(paginationStyles).toContain(
+      'button[data-budget-board-color="neutral"][data-budget-board-selected="false"][data-budget-board-variant="filled"]',
+    );
+    expect(paginationStyles).toContain(
+      'button[data-budget-board-color][data-budget-board-variant="outline"]',
+    );
     expect(paginationStyles).not.toContain("--mantine-primary-color");
   });
 
@@ -45,6 +54,7 @@ describe("Pagination", () => {
     expect(currentPage).toHaveAttribute("aria-current", "page");
     expect(currentPage).toHaveAttribute("data-page", "2");
     expect(currentPage).toHaveAttribute("data-budget-board-color", "primary");
+    expect(currentPage).toHaveAttribute("data-budget-board-variant", "filled");
     expect(currentPage).toHaveAttribute("data-budget-board-selected", "true");
     const navigationControls = screen
       .getAllByRole("button")
@@ -52,6 +62,7 @@ describe("Pagination", () => {
     expect(navigationControls).toHaveLength(4);
     for (const [index, control] of navigationControls.entries()) {
       expect(control).toHaveAttribute("data-budget-board-color", "primary");
+      expect(control).toHaveAttribute("data-budget-board-variant", "outline");
       expect(control).toHaveAttribute(
         "data-control",
         ["first", "previous", "next", "last"][index],
@@ -60,10 +71,10 @@ describe("Pagination", () => {
     expect(currentPage.style.getPropertyValue("--bbui-button-bg")).toBe(
       "var(--budget-board-button-primary-background, var(--bb-color-primary, #4c6ef5))",
     );
-    expect(screen.getByRole("button", { name: "1" })).toHaveAttribute(
-      "data-budget-board-selected",
-      "false",
-    );
+    const otherPage = screen.getByRole("button", { name: "1" });
+    expect(otherPage).toHaveAttribute("data-budget-board-selected", "false");
+    expect(otherPage).toHaveAttribute("data-budget-board-color", "neutral");
+    expect(otherPage).toHaveAttribute("data-budget-board-variant", "filled");
     expect(
       screen.getByText("2", {
         selector: '[data-budget-board-text-role="body"]',
@@ -82,8 +93,16 @@ describe("Pagination", () => {
       "page",
     );
     expect(screen.getByRole("button", { name: "3" })).toHaveAttribute(
+      "data-budget-board-color",
+      "primary",
+    );
+    expect(screen.getByRole("button", { name: "3" })).toHaveAttribute(
       "data-budget-board-selected",
       "true",
+    );
+    expect(screen.getByRole("button", { name: "2" })).toHaveAttribute(
+      "data-budget-board-color",
+      "neutral",
     );
   });
 

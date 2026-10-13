@@ -1,6 +1,7 @@
 .root {
   color: var(--bbui-pagination-text);
   --bbui-pagination-text: var(--bb-color-text-primary, #3a3834);
+  --bbui-pagination-neutral-content: var(--bb-color-neutral-content, #3a3834);
   --bbui-pagination-border: var(--bb-color-border-subtle, #d8d5ce);
   --bbui-pagination-hover: var(--bb-color-surface-hover, #e7e3da);
   --bbui-pagination-hover-border: var(--bb-color-border-strong, #aaa69e);
@@ -11,6 +12,7 @@
 
 .dark {
   --bbui-pagination-text: var(--bb-color-text-primary, #d8d5ce);
+  --bbui-pagination-neutral-content: var(--bb-color-neutral-content, #f2f0eb);
   --bbui-pagination-border: var(--bb-color-border-subtle, #3a3d42);
   --bbui-pagination-hover: var(--bb-color-surface-hover, #34373a);
   --bbui-pagination-hover-border: var(--bb-color-border-strong, #686b70);
@@ -29,6 +31,18 @@
     background-color 120ms ease,
     border-color 120ms ease,
     color 120ms ease;
+}
+
+.root :global(button[data-budget-board-color][data-budget-board-variant="outline"]) {
+  background: var(--bbui-button-bg);
+  border-color: var(--bbui-button-border);
+  color: var(--bbui-button-color);
+}
+
+.root :global(
+    button[data-budget-board-color="neutral"][data-budget-board-selected="false"][data-budget-board-variant="filled"]
+  ) {
+  color: var(--bbui-pagination-neutral-content);
 }
 
 .root :global(button:not([data-budget-board-color]):hover:not(:disabled):not([data-disabled]):not([data-active])) {
