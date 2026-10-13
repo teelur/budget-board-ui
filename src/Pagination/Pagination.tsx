@@ -25,11 +25,36 @@ function getRootClassName(className: string | undefined, colorScheme: string) {
     .join(" ");
 }
 
-function PaginationButton({ selected, ...props }: ButtonProps) {
+function PaginationButton({
+  color,
+  selected,
+  variant,
+  ...props
+}: ButtonProps) {
+  const isSelected = selected ?? props["aria-current"] === "page";
+
   return (
     <Button
       {...props}
+      color={color ?? (isSelected ? "primary" : "neutral")}
+      selected={isSelected}
+      variant={variant ?? "filled"}
+    />
+  );
+}
+
+function PaginationControlButton({
+  color,
+  selected,
+  variant,
+  ...props
+}: ButtonProps) {
+  return (
+    <Button
+      {...props}
+      color={color ?? "primary"}
       selected={selected ?? props["aria-current"] === "page"}
+      variant={variant ?? "outline"}
     />
   );
 }
@@ -38,7 +63,7 @@ function withBBUIControlProps(
   getControlProps: PaginationProps["getControlProps"],
 ): NonNullable<PaginationProps["getControlProps"]> {
   return (control) => ({
-    component: PaginationButton,
+    component: PaginationControlButton,
     ...getControlProps?.(control),
   });
 }
