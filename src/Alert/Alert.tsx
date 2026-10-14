@@ -40,7 +40,6 @@ function getSemanticVariables(
   const background = `var(--bb-color-${color}, ${colors[color]})`;
   const content = `var(--bb-color-${color}-content, ${colors[`${color}Content` as keyof typeof colors]})`;
   const surface = `var(--bb-color-surface, ${colors.surface})`;
-  const elevatedSurface = `var(--bb-color-surface-elevated, ${colors.surfaceElevated})`;
   const text = `var(--bb-color-text-primary, ${colors.textPrimary})`;
   const whiteSurfaceText =
     colorScheme === "dark"
@@ -110,7 +109,11 @@ const AlertRoot = forwardRef<HTMLDivElement, AlertProps>(function AlertRoot(
   const semanticColor =
     color === undefined ? "info" : isSemanticColor(color) ? color : undefined;
 
-  const mergedVars: NonNullable<AlertProps["vars"]> = (theme, alertProps, ctx) => {
+  const mergedVars: NonNullable<AlertProps["vars"]> = (
+    theme,
+    alertProps,
+    ctx,
+  ) => {
     const consumerVars = vars?.(theme, alertProps, ctx);
     if (!semanticColor) {
       return {

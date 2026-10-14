@@ -21,6 +21,11 @@ const nestedCardExample = `<Card>
   </Card>
 </Card>`;
 
+const outlineCardExample = `<Card surface="outline">
+  <strong>Account overview</strong>
+  <p>Checking account balance: $4,218.32</p>
+</Card>`;
+
 const selectedCardExample = `<Card selected>
   <strong>Primary checking</strong>
   <span>Selected account</span>
@@ -117,6 +122,24 @@ export function CardPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
+        description={'Use surface="outline" for a card that blends into the app page background while retaining its border.'}
+        id="card-outline"
+        title="Outline surface"
+        code={outlineCardExample}
+      >
+        <div className={styles.preview}>
+          <Card surface="outline">
+            <BodyText component="strong" fw={600}>
+              Account overview
+            </BodyText>
+            <BodyText component="p" tone="muted" m="0.5rem 0 0">
+              Checking account balance: $4,218.32
+            </BodyText>
+          </Card>
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
         description='Set separatorThickness="thick" on an individual Card.Section to make its separator 2px instead of 1px. Other sections keep their own thickness.'
         id="card-thick-separators"
         title="Thick section separators"
@@ -142,7 +165,7 @@ export function CardPage() {
             key: "surface",
             label: "Surface",
             type: "select",
-            options: ["default", "sunken"],
+            options: ["default", "sunken", "outline"],
           },
           { key: "selected", label: "Selected", type: "toggle" },
           { key: "hoverable", label: "Hoverable", type: "toggle" },
@@ -152,7 +175,7 @@ export function CardPage() {
           selected: false,
           hoverable: false,
         }}
-        description="Try the default and sunken surfaces and compare selected and hoverable styling."
+        description="Try the default, sunken, and outline surfaces and compare selected and hoverable styling."
         id="card-playground"
         childrenCode="Account overview"
         render={(values) => (
@@ -298,7 +321,8 @@ export function CardPage() {
                     Defaults to <code>default</code>, which uses the standard
                     surface. Use <code>sunken</code> for nested cards; it uses
                     the <code>surface-sunken</code> token in light and dark
-                    modes.
+                    modes. Use <code>outline</code> to match the app page
+                    background while retaining the subtle border.
                   </td>
                 </tr>
                 <tr>

@@ -84,6 +84,38 @@ describe("Card", () => {
     expect(screen.getByTestId("light-card")).not.toHaveAttribute("surface");
   });
 
+  it("uses the app page surface for outline cards in both color schemes", () => {
+    render(
+      <>
+        <Card data-testid="light-card" surface="outline" />
+        <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
+          <Card data-testid="dark-card" surface="outline" />
+        </MantineProvider>
+      </>,
+    );
+
+    expect(
+      screen.getByTestId("light-card").style.getPropertyValue(
+        "--bbui-card-surface",
+      ),
+    ).toBe("var(--bb-color-page, #f7f6f2)");
+    expect(
+      screen.getByTestId("dark-card").style.getPropertyValue(
+        "--bbui-card-surface",
+      ),
+    ).toBe("var(--bb-color-page, #111214)");
+    expect(
+      screen.getByTestId("light-card").style.getPropertyValue(
+        "--bbui-card-border",
+      ),
+    ).toBe("var(--bb-color-border-subtle, #d8d5ce)");
+    expect(
+      screen.getByTestId("dark-card").style.getPropertyValue(
+        "--bbui-card-border",
+      ),
+    ).toBe("var(--bb-color-border-subtle, #3a3d42)");
+  });
+
   it("applies selected styling only when selected", () => {
     render(
       <>
