@@ -52,6 +52,7 @@ Do not weaken an assertion just to make a test pass. Update the implementation o
 Update `docs/App.tsx` when a component is added or its public behavior changes:
 
 - Add or update a live example that uses the public export.
+- Give every component documentation page an interactive API playground with controls for representative public props, a live preview, and JSX that reflects the current control values. Cover meaningful states and variants; a representative subset is sufficient when Mantine exposes a broader API.
 - Document all public API in the component's API reference section, including public props, accepted values, and defaults.
 - Demonstrate meaningful states and variants without duplicating implementation details.
 - Use the package's exported Budget Board UI components wherever an equivalent exists. Use native HTML controls only for documentation-specific controls that are not part of the package API, such as example configuration selectors.

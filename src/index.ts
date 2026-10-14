@@ -9,6 +9,15 @@ export {
 } from "./ActionIcon/ActionIcon";
 
 export {
+  Alert,
+  alertColors,
+  alertVariants,
+  type AlertColor,
+  type AlertProps,
+  type AlertVariant,
+} from "./Alert/Alert";
+
+export {
   AppShell,
   AppShellAside,
   AppShellFooter,
