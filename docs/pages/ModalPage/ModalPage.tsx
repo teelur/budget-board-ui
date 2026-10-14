@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Modal } from "../../../src";
+import { Button, Checkbox, Modal } from "../../../src";
 import { BodyText, HeadingText } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
@@ -22,6 +22,30 @@ const basicModalExample = `const [opened, setOpened] = useState(false);
 
 export function ModalPage() {
   const [opened, setOpened] = useState(false);
+  const [playgroundOpened, setPlaygroundOpened] = useState(false);
+  const [playgroundTitle, setPlaygroundTitle] = useState("Account settings");
+  const [playgroundSize, setPlaygroundSize] = useState<"sm" | "md" | "lg">(
+    "md",
+  );
+  const [playgroundCentered, setPlaygroundCentered] = useState(true);
+  const [playgroundWithCloseButton, setPlaygroundWithCloseButton] =
+    useState(true);
+  const renderedPlaygroundTitle = playgroundTitle || "Modal title";
+  const playgroundCode = `const [opened, setOpened] = useState(false);
+
+<>
+  <Button onClick={() => setOpened(true)}>Open preview</Button>
+  <Modal
+    centered={${playgroundCentered}}
+    opened={opened}
+    onClose={() => setOpened(false)}
+    size="${playgroundSize}"
+    title={${JSON.stringify(renderedPlaygroundTitle)}}
+    withCloseButton={${playgroundWithCloseButton}}
+  >
+    Manage your account preferences.
+  </Modal>
+</>`;
 
   return (
     <section className={pageStyles.componentSection} id="modal">
@@ -71,6 +95,89 @@ export function ModalPage() {
               Manage your account preferences.
             </BodyText>
           </Modal>
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description="Configure representative Modal props, open the live result, and view the matching JSX."
+        id="modal-playground"
+        title="API playground"
+        code={playgroundCode}
+      >
+        <div className={styles.playground}>
+          <div className={styles.playgroundControls}>
+            <div className={styles.controlGrid}>
+              <label className={styles.field}>
+                <BodyText component="span">Title</BodyText>
+                <input
+                  onChange={(event) => setPlaygroundTitle(event.target.value)}
+                  type="text"
+                  value={playgroundTitle}
+                />
+              </label>
+              <label className={styles.field}>
+                <BodyText component="span">Size</BodyText>
+                <select
+                  onChange={(event) =>
+                    setPlaygroundSize(
+                      event.target.value as typeof playgroundSize,
+                    )
+                  }
+                  value={playgroundSize}
+                >
+                  <option value="sm">Small</option>
+                  <option value="md">Medium</option>
+                  <option value="lg">Large</option>
+                </select>
+              </label>
+            </div>
+            <Checkbox
+              checked={playgroundCentered}
+              className={styles.toggle}
+              label="Center modal"
+              onChange={(event) =>
+                setPlaygroundCentered(event.target.checked)
+              }
+              size="xs"
+            />
+            <Checkbox
+              checked={playgroundWithCloseButton}
+              className={styles.toggle}
+              label="Show close button"
+              onChange={(event) =>
+                setPlaygroundWithCloseButton(event.target.checked)
+              }
+              size="xs"
+            />
+          </div>
+          <div className={styles.playgroundPreview}>
+            <BodyText
+              component="span"
+              className={styles.previewLabel}
+              tone="muted"
+              ff="var(--bb-font-data)"
+              fz="0.68rem"
+            >
+              Rendered result
+            </BodyText>
+            <div className={styles.previewStage}>
+              <Button onClick={() => setPlaygroundOpened(true)}>
+                Open preview
+              </Button>
+              <Modal
+                centered={playgroundCentered}
+                onClose={() => setPlaygroundOpened(false)}
+                opened={playgroundOpened}
+                size={playgroundSize}
+                title={renderedPlaygroundTitle}
+                withCloseButton={playgroundWithCloseButton}
+              >
+                <BodyText component="p" m={0}>
+                  Manage your account preferences.
+                </BodyText>
+              </Modal>
+            </div>
+          </div>
         </div>
       </ComponentDemoSection>
 

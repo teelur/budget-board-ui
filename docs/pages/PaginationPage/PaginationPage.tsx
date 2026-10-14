@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pagination } from "../../../src";
+import { Checkbox, Pagination } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -9,6 +9,22 @@ import { BodyText, HeadingText } from "../../../src";
 export function PaginationPage() {
   const [page, setPage] = useState(3);
   const [responsivePage, setResponsivePage] = useState(2);
+  const [playgroundPage, setPlaygroundPage] = useState(3);
+  const [playgroundTotal, setPlaygroundTotal] = useState(12);
+  const [playgroundLayout, setPlaygroundLayout] = useState<
+    "default" | "responsive"
+  >("default");
+  const [playgroundWithEdges, setPlaygroundWithEdges] = useState(false);
+  const playgroundCode = `const [page, setPage] = useState(${playgroundPage});
+
+<Pagination
+  aria-label="Pagination playground"
+  layout="${playgroundLayout}"
+  total={${playgroundTotal}}
+  value={page}
+  onChange={setPage}
+  withEdges={${playgroundWithEdges}}
+/>`;
 
   return (
     <section className={pageStyles.componentSection} id="pagination">
@@ -84,6 +100,95 @@ export function PaginationPage() {
             total={20}
             value={responsivePage}
           />
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description="Adjust the page count and layout, then navigate the live pagination control."
+        id="pagination-playground"
+        title="API playground"
+        code={playgroundCode}
+      >
+        <div className={styles.playground}>
+          <div className={styles.playgroundControls}>
+            <div className={styles.controlGrid}>
+              <label className={styles.field}>
+                <BodyText component="span">Total pages</BodyText>
+                <input
+                  max={100}
+                  min={1}
+                  onChange={(event) => {
+                    const total = Number(event.target.value);
+                    if (!Number.isInteger(total) || total < 1) {
+                      return;
+                    }
+
+                    setPlaygroundTotal(total);
+                    setPlaygroundPage((currentPage) =>
+                      Math.min(currentPage, total),
+                    );
+                  }}
+                  type="number"
+                  value={playgroundTotal}
+                />
+              </label>
+              <label className={styles.field}>
+                <BodyText component="span">Layout</BodyText>
+                <select
+                  onChange={(event) =>
+                    setPlaygroundLayout(
+                      event.target.value as typeof playgroundLayout,
+                    )
+                  }
+                  value={playgroundLayout}
+                >
+                  <option value="default">Default</option>
+                  <option value="responsive">Responsive</option>
+                </select>
+              </label>
+            </div>
+            <Checkbox
+              checked={playgroundWithEdges}
+              className={styles.toggle}
+              label="Show first and last controls"
+              onChange={(event) =>
+                setPlaygroundWithEdges(event.target.checked)
+              }
+              size="xs"
+            />
+          </div>
+          <div className={styles.playgroundPreview}>
+            <BodyText
+              component="span"
+              className={styles.previewLabel}
+              tone="muted"
+              ff="var(--bb-font-data)"
+              fz="0.68rem"
+            >
+              Rendered result
+            </BodyText>
+            <div className={styles.previewStage}>
+              <div
+                className={
+                  playgroundLayout === "responsive"
+                    ? styles.responsive
+                    : undefined
+                }
+              >
+                <Pagination
+                  aria-label="Pagination playground"
+                  layout={playgroundLayout}
+                  onChange={setPlaygroundPage}
+                  total={playgroundTotal}
+                  value={playgroundPage}
+                  withEdges={playgroundWithEdges}
+                />
+              </div>
+              <BodyText component="p" tone="secondary">
+                Page {playgroundPage} of {playgroundTotal}
+              </BodyText>
+            </div>
+          </div>
         </div>
       </ComponentDemoSection>
 
