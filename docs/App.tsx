@@ -10,6 +10,7 @@ import {
   budgetBoardTypography,
 } from "../src";
 import type { ColorMode } from "./components/color/colorCardTypes";
+import { AlertPage } from "./pages/AlertPage/AlertPage";
 import { ActionIconPage } from "./pages/ActionIconPage/ActionIconPage";
 import { AmountTextPage } from "./pages/AmountTextPage/AmountTextPage";
 import { AppShellPage } from "./pages/AppShellPage/AppShellPage";
@@ -165,6 +166,7 @@ export function App() {
                 Components
               </BodyText>
               <a href="#action-icon">ActionIcon</a>
+              <a href="#alert">Alert</a>
               <a href="#amount-text">AmountText</a>
               <a href="#app-shell">AppShell</a>
               <a href="#autocomplete">Autocomplete</a>
@@ -278,6 +280,7 @@ export function App() {
                 </BodyText>
               </div>
               <ActionIconPage />
+              <AlertPage />
               <AmountTextPage />
               <AppShellPage />
               <AutocompletePage />

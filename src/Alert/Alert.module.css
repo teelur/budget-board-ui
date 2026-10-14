@@ -1,0 +1,12 @@
+.root {
+  font-family: var(--bb-font-body, "IBM Plex Sans Variable", sans-serif);
+}
+
+.root :global(.mantine-Alert-title) {
+  font-family: var(--bb-font-display, "Plus Jakarta Sans Variable", sans-serif);
+  font-weight: 600;
+}
+
+.root :global(.mantine-Alert-message) {
+  font-family: var(--bb-font-body, "IBM Plex Sans Variable", sans-serif);
+}
