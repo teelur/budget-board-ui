@@ -1,9 +1,36 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MantineProvider } from "@mantine/core";
 import { describe, expect, it, vi } from "vitest";
-import { SegmentedControl } from "../src/SegmentedControl/SegmentedControl";
+import { buttonSizes } from "../src/Button/Button";
+import {
+  SegmentedControl,
+  segmentedControlSizes,
+} from "../src/SegmentedControl/SegmentedControl";
 import { budgetBoardDarkTheme } from "../src/theme";
+
+const buttonStyles = readFileSync(
+  resolve(process.cwd(), "src/Button/Button.module.css"),
+  "utf8",
+);
+const segmentedControlStyles = readFileSync(
+  resolve(process.cwd(), "src/SegmentedControl/SegmentedControl.module.css"),
+  "utf8",
+);
+
+function getSizeDeclarations(
+  styles: string,
+  size: string,
+): Record<string, string> {
+  const block = styles.match(new RegExp(`\\.${size}\\s*\\{([^}]*)\\}`))?.[1];
+  return Object.fromEntries(
+    [...(block ?? "").matchAll(/^\s*([\w-]+)\s*:\s*([^;]+);/gm)].map(
+      ([, property, value]) => [property, value.trim()],
+    ),
+  );
+}
 
 const data = [
   { value: "day", label: "Day" },
@@ -147,22 +174,9 @@ describe("SegmentedControl", () => {
   });
 
   it("supports every public size", () => {
-    const sizes = [
-      "compact-xs",
-      "compact-sm",
-      "compact-md",
-      "compact-lg",
-      "compact-xl",
-      "xs",
-      "sm",
-      "md",
-      "lg",
-      "xl",
-    ] as const;
-
     render(
       <>
-        {sizes.map((size) => (
+        {segmentedControlSizes.map((size) => (
           <SegmentedControl
             aria-label="Period"
             data={data}
@@ -174,11 +188,37 @@ describe("SegmentedControl", () => {
     );
 
     const groups = screen.getAllByRole("radiogroup");
-    expect(groups).toHaveLength(sizes.length);
+    expect(segmentedControlSizes).toEqual(buttonSizes);
+    expect(groups).toHaveLength(buttonSizes.length);
 
     groups.forEach((group, index) => {
-      expect(group).toHaveAttribute("data-budget-board-size", sizes[index]);
+      expect(group).toHaveAttribute("data-budget-board-size", buttonSizes[index]);
     });
+  });
+
+  it("matches Button sizing tokens for every size", () => {
+    expect(segmentedControlStyles).toContain(
+      "height: var(--bbui-button-height);",
+    );
+    expect(segmentedControlStyles).toContain(
+      "gap: var(--bbui-button-gap);",
+    );
+
+    for (const size of buttonSizes) {
+      const button = getSizeDeclarations(buttonStyles, size);
+      const segmentedControl = getSizeDeclarations(segmentedControlStyles, size);
+
+      expect(segmentedControl["--bbui-button-gap"]).toBe(
+        button["--bbui-button-gap"],
+      );
+      expect(segmentedControl["--bbui-button-height"]).toBe(
+        button["--bbui-button-height"],
+      );
+      expect(segmentedControl["font-size"]).toBe(button["font-size"]);
+      expect(segmentedControl["--bbui-segmented-item-padding-x"]).toBe(
+        button.padding?.split(/\s+/).at(-1),
+      );
+    }
   });
 
   it("applies fullWidth styling", () => {
