@@ -102,7 +102,7 @@ function getSemanticVariables(
 }
 
 const AlertRoot = forwardRef<HTMLDivElement, AlertProps>(function AlertRoot(
-  { className, color, vars, ...props },
+  { className, color, p, vars, ...props },
   ref,
 ) {
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
@@ -151,6 +151,7 @@ const AlertRoot = forwardRef<HTMLDivElement, AlertProps>(function AlertRoot(
       {...props}
       className={[classes.root, className].filter(Boolean).join(" ")}
       data-budget-board-alert-color={semanticColor}
+      p={p ?? "0.5rem"}
       ref={ref}
       vars={mergedVars}
       {...(color === undefined ? {} : { color })}

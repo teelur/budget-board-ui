@@ -271,6 +271,13 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
                   <td>Optional; rendered beside the title and message</td>
                 </tr>
                 <tr>
+                  <th>p</th>
+                  <td>
+                    <code>MantineSpacing</code>
+                  </td>
+                  <td>0.5rem</td>
+                </tr>
+                <tr>
                   <th>Mantine Alert props</th>
                   <td>
                     <code>AlertProps</code>
