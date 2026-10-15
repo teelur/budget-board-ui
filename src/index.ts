@@ -87,6 +87,11 @@ export {
 } from "./Card/Card";
 
 export {
+  CollapsibleCard,
+  type CollapsibleCardProps,
+} from "./CollapsibleCard/CollapsibleCard";
+
+export {
   CategorySelect,
   type CategorySelectCategory,
   type CategorySelectOption,

@@ -1,0 +1,82 @@
+.root {
+  overflow: hidden;
+}
+
+.root[data-budget-board-expanded="true"] .header {
+  border-bottom: 1px solid var(--bbui-card-border);
+}
+
+.header {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--bbui-card-text);
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  gap: 0.5rem;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  width: 100%;
+}
+
+.header:hover {
+  background-color: var(--bbui-card-hover-surface);
+}
+
+.header:focus-visible {
+  outline: 2px solid var(--bbui-card-focus-ring);
+  outline-offset: -3px;
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  flex: 1;
+}
+
+.chevron {
+  color: var(--bbui-card-text-secondary);
+  flex: 0 0 auto;
+  transition: transform 250ms ease;
+}
+
+.chevronExpanded {
+  transform: rotate(180deg);
+}
+
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 250ms ease;
+}
+
+.panelExpanded {
+  grid-template-rows: 1fr;
+}
+
+.panelInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.content {
+  padding: 0 1rem;
+  transition:
+    padding-top 250ms ease,
+    padding-bottom 250ms ease;
+}
+
+.panelExpanded .content {
+  padding-bottom: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron,
+  .panel,
+  .content {
+    transition: none;
+  }
+}

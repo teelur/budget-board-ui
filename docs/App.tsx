@@ -20,6 +20,7 @@ import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
 import { CardPage } from "./pages/CardPage/CardPage";
 import { CheckboxPage } from "./pages/CheckboxPage/CheckboxPage";
 import { CategorySelectPage } from "./pages/CategorySelectPage/CategorySelectPage";
+import { CollapsibleCardPage } from "./pages/CollapsibleCardPage/CollapsibleCardPage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
 import { DateInputPage } from "./pages/DateInputPage/DateInputPage";
 import { DatePickerInputPage } from "./pages/DatePickerInputPage/DatePickerInputPage";
@@ -175,6 +176,7 @@ export function App() {
               <a href="#card">Card</a>
               <a href="#checkbox">Checkbox</a>
               <a href="#category-select">CategorySelect</a>
+              <a href="#collapsible-card">CollapsibleCard</a>
               <a href="#date-input">DateInput</a>
               <a href="#date-picker-input">DatePickerInput</a>
               <a href="#file-input">FileInput</a>
@@ -289,6 +291,7 @@ export function App() {
               <CardPage />
               <CheckboxPage />
               <CategorySelectPage />
+              <CollapsibleCardPage />
               <DateInputPage />
               <DatePickerInputPage />
               <FileInputPage />

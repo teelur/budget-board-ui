@@ -26,7 +26,14 @@ describe("Alert", () => {
     expect(alert.style.getPropertyValue("--alert-color")).toBe(
       "var(--bb-color-info, #1971c2)",
     );
+    expect(alert.style.padding).toBe("0.5rem");
     expect(screen.getByText("Your transactions are ready.")).toBeInTheDocument();
+  });
+
+  it("allows custom padding", () => {
+    render(<Alert data-testid="custom-padding" p="1rem" />);
+
+    expect(screen.getByTestId("custom-padding").style.padding).toBe("1rem");
   });
 
   it("supports the full BBUI semantic palette", () => {

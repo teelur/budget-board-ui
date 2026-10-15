@@ -40,7 +40,6 @@ function getSemanticVariables(
   const background = `var(--bb-color-${color}, ${colors[color]})`;
   const content = `var(--bb-color-${color}-content, ${colors[`${color}Content` as keyof typeof colors]})`;
   const surface = `var(--bb-color-surface, ${colors.surface})`;
-  const elevatedSurface = `var(--bb-color-surface-elevated, ${colors.surfaceElevated})`;
   const text = `var(--bb-color-text-primary, ${colors.textPrimary})`;
   const whiteSurfaceText =
     colorScheme === "dark"
@@ -103,14 +102,18 @@ function getSemanticVariables(
 }
 
 const AlertRoot = forwardRef<HTMLDivElement, AlertProps>(function AlertRoot(
-  { className, color, vars, ...props },
+  { className, color, p, vars, ...props },
   ref,
 ) {
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
   const semanticColor =
     color === undefined ? "info" : isSemanticColor(color) ? color : undefined;
 
-  const mergedVars: NonNullable<AlertProps["vars"]> = (theme, alertProps, ctx) => {
+  const mergedVars: NonNullable<AlertProps["vars"]> = (
+    theme,
+    alertProps,
+    ctx,
+  ) => {
     const consumerVars = vars?.(theme, alertProps, ctx);
     if (!semanticColor) {
       return {
@@ -148,6 +151,7 @@ const AlertRoot = forwardRef<HTMLDivElement, AlertProps>(function AlertRoot(
       {...props}
       className={[classes.root, className].filter(Boolean).join(" ")}
       data-budget-board-alert-color={semanticColor}
+      p={p ?? "0.5rem"}
       ref={ref}
       vars={mergedVars}
       {...(color === undefined ? {} : { color })}
