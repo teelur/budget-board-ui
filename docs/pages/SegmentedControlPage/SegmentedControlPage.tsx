@@ -144,7 +144,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Scale the control to match the density of its surrounding layout."
+        description="These sizes match Button heights, type scales, and icon spacing."
         id="segmented-control-sizes"
         title="Sizes"
         code={standardSizes
@@ -168,7 +168,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Use compact sizes when the surrounding layout calls for a tighter control."
+        description="Compact sizes match Button sizing while keeping the control tight."
         id="segmented-control-compact-sizes"
         title="Compact sizes"
         code={compactSizes
