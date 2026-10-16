@@ -78,6 +78,8 @@ export { Checkbox, type CheckboxProps } from "./Checkbox/Checkbox";
 
 export { Modal, type ModalProps } from "./Modal/Modal";
 
+export { Drawer, type DrawerProps } from "./Drawer/Drawer";
+
 export {
   Card,
   type CardSeparatorThickness,
