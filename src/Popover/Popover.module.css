@@ -1,0 +1,11 @@
+.dropdown:global(.mantine-Popover-dropdown) {
+  background-color: var(--bbui-popover-background);
+  border-color: var(--bbui-popover-border);
+  color: var(--bbui-popover-text);
+  font-family: var(--bbui-popover-font);
+}
+
+.dropdown :global(.mantine-Popover-arrow) {
+  background-color: var(--bbui-popover-background);
+  border-color: var(--bbui-popover-border);
+}
