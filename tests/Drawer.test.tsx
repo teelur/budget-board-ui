@@ -35,7 +35,7 @@ describe("Drawer", () => {
       dialog.closest(".mantine-Drawer-root")?.style.padding,
     ).toBe("");
     expect(dialog.style.getPropertyValue("--bbui-drawer-background")).toBe(
-      "var(--bb-color-surface, #ffffff)",
+      "var(--bb-color-page, #f7f6f2)",
     );
     expect(dialog.style.getPropertyValue("--bbui-drawer-border")).toBe(
       "var(--bb-color-border-subtle, #d8d5ce)",
@@ -70,7 +70,7 @@ describe("Drawer", () => {
     const dialog = screen.getByRole("dialog", { name: "Dark drawer" });
 
     expect(dialog.style.getPropertyValue("--bbui-drawer-background")).toBe(
-      "var(--bb-color-surface, #191b1f)",
+      "var(--bb-color-page, #111214)",
     );
     expect(dialog.style.getPropertyValue("--bbui-drawer-title")).toBe(
       "var(--bb-color-text-heading, #f2f0eb)",
@@ -135,7 +135,7 @@ describe("Drawer", () => {
       screen
         .getByRole("dialog", { name: "Callback drawer" })
         .style.getPropertyValue("--bbui-drawer-background"),
-    ).toBe("var(--bb-color-surface, #ffffff)");
+    ).toBe("var(--bb-color-page, #f7f6f2)");
   });
 
   it("forwards Mantine close behavior", async () => {

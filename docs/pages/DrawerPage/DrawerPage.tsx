@@ -314,8 +314,9 @@ export function DrawerPage() {
                   <td>
                     The title uses BBUI <code>HeadingText</code> at level{" "}
                     <code>5</code>; body text uses <code>textPrimary</code>, and
-                    the panel uses <code>surface</code> with a 1px{" "}
-                    <code>borderSubtle</code> border in both color schemes.
+                    the panel uses <code>page</code> to match the AppShell main
+                    and Modal backgrounds, with a 1px <code>borderSubtle</code>{" "}
+                    border in both color schemes.
                   </td>
                 </tr>
                 <tr>

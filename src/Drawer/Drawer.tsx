@@ -20,7 +20,7 @@ export function Drawer({
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
   const drawerStyles = mergeStyles(styles, {
     content: {
-      "--bbui-drawer-background": `var(--bb-color-surface, ${colors.surface})`,
+      "--bbui-drawer-background": `var(--bb-color-page, ${colors.page})`,
       "--bbui-drawer-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
       "--bbui-drawer-title": `var(--bb-color-text-heading, ${colors.textHeading})`,
       "--bbui-drawer-body": `var(--bb-color-text-primary, ${colors.textPrimary})`,
