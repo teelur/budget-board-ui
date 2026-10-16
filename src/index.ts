@@ -1,3 +1,4 @@
+import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource-variable/ibm-plex-sans/index.css";
 import "@fontsource-variable/plus-jakarta-sans/index.css";
 
@@ -132,6 +133,8 @@ export {
 export { TextInput, type TextInputProps } from "./TextInput/TextInput";
 
 export { Textarea, type TextareaProps } from "./Textarea/Textarea";
+
+export { Code, type CodeProps } from "./Code/Code";
 
 export {
   BodyText,

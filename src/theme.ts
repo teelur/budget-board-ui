@@ -23,6 +23,7 @@ export type {
 
 export const budgetBoardTypography = {
   body: '"IBM Plex Sans Variable", sans-serif',
+  code: '"IBM Plex Mono", monospace',
   data: '"IBM Plex Sans Variable", sans-serif',
   display: '"Plus Jakarta Sans Variable", sans-serif',
 } as const;

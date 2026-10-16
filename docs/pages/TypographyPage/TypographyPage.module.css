@@ -1,7 +1,7 @@
 .typographyGrid {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-top: 2rem;
 }
 
@@ -48,6 +48,10 @@
 .typographyData {
   font-family: var(--bb-font-data);
   font-variant-numeric: tabular-nums;
+}
+
+.typographyCode {
+  font-family: var(--bb-font-code);
 }
 
 .typographyTransaction {
