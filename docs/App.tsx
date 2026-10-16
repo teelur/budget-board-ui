@@ -34,6 +34,7 @@ import { NumberInputPage } from "./pages/NumberInputPage/NumberInputPage";
 import { PasswordInputPage } from "./pages/PasswordInputPage/PasswordInputPage";
 import { PaginationPage } from "./pages/PaginationPage/PaginationPage";
 import { PinInputPage } from "./pages/PinInputPage/PinInputPage";
+import { PopoverPage } from "./pages/PopoverPage/PopoverPage";
 import { ProgressPage } from "./pages/ProgressPage/ProgressPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
 import { SelectPage } from "./pages/SelectPage/SelectPage";
@@ -190,6 +191,7 @@ export function App() {
               <a href="#password-input">PasswordInput</a>
               <a href="#pagination">Pagination</a>
               <a href="#pin-input">PinInput</a>
+              <a href="#popover">Popover</a>
               <a href="#progress">Progress</a>
               <a href="#segmented-control">SegmentedControl</a>
               <a href="#select">Select</a>
@@ -307,6 +309,7 @@ export function App() {
               <NumberInputPage />
               <PasswordInputPage />
               <PinInputPage />
+              <PopoverPage />
               <TextInputPage />
               <TextareaPage />
               <ProgressPage />
