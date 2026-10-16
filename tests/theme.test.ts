@@ -57,6 +57,7 @@ const semanticColorKeys = [
 
 const fontKeys = [
   "body",
+  "code",
   "data",
   "display",
 ] as const satisfies readonly BudgetBoardFontKey[];
@@ -84,6 +85,7 @@ describe("budgetBoardColors", () => {
   it("uses the bundled variable font families", () => {
     expect(budgetBoardTypography).toEqual({
       body: '"IBM Plex Sans Variable", sans-serif',
+      code: '"IBM Plex Mono", monospace',
       data: '"IBM Plex Sans Variable", sans-serif',
       display: '"Plus Jakarta Sans Variable", sans-serif',
     });

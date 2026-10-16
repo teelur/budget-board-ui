@@ -31,6 +31,13 @@ const typographyRoles = [
     description: "Balances, amounts, dates, and compact financial metadata.",
     className: "typography-data",
   },
+  {
+    name: "Code",
+    token: "--bb-font-code",
+    family: budgetBoardTypography.code,
+    description: "Source snippets, identifiers, and code examples.",
+    className: "typography-code",
+  },
 ] as const;
 
 export function TypographyPage() {
@@ -41,7 +48,7 @@ export function TypographyPage() {
           <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Type foundations</BodyText>
           <HeadingText level={2} tone="heading" lh={1.5}>Typography</HeadingText>
         </div>
-        <code>3 roles · 2 families</code>
+        <code>4 roles · 3 families</code>
       </div>
       <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         A small type system keeps the interface warm and readable while giving
@@ -63,7 +70,7 @@ export function TypographyPage() {
             key: "font",
             label: "Font role",
             type: "select",
-            options: ["body", "display", "data"],
+            options: ["body", "display", "data", "code"],
             formatCode: (value) =>
               `ff=${JSON.stringify(`var(--bb-font-${value})`)}`,
           },
@@ -98,7 +105,9 @@ export function TypographyPage() {
             fz={`${Number(values.fontSize) / 16}rem`}
             tone={values.tone as TextTone}
           >
-            Budget Board · $12,480.00
+            {values.font === "code"
+              ? "const balance = 12480;"
+              : "Budget Board · $12,480.00"}
           </BodyText>
         )}
       />
@@ -117,9 +126,13 @@ export function TypographyPage() {
             <BodyText component="strong"
               className={
                 styles[`typography${role.name}` as keyof typeof styles]
-              } fw={700} tone="heading" ff={role.name === "Display" ? "var(--bb-font-display)" : role.name === "Data" ? "var(--bb-font-data)" : "var(--bb-font-body)"} fz="1.6rem" lh={1.1}
+              } fw={700} tone="heading" ff={role.name === "Display" ? "var(--bb-font-display)" : role.name === "Data" ? "var(--bb-font-data)" : role.name === "Code" ? "var(--bb-font-code)" : "var(--bb-font-body)"} fz="1.6rem" lh={1.1}
             >
-              {role.name === "Data" ? "$12,480.00" : "Budget Board"}
+              {role.name === "Data"
+                ? "$12,480.00"
+                : role.name === "Code"
+                  ? "const budget = 1250;"
+                  : "Budget Board"}
             </BodyText>
             <code>{role.token}</code>
             <BodyText component="p" tone="muted" fz="0.8rem" m={0}>{role.family}</BodyText>
