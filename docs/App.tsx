@@ -24,6 +24,7 @@ import { CollapsibleCardPage } from "./pages/CollapsibleCardPage/CollapsibleCard
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
 import { DateInputPage } from "./pages/DateInputPage/DateInputPage";
 import { DatePickerInputPage } from "./pages/DatePickerInputPage/DatePickerInputPage";
+import { DrawerPage } from "./pages/DrawerPage/DrawerPage";
 import { FileInputPage } from "./pages/FileInputPage/FileInputPage";
 import { MonthPickerInputPage } from "./pages/MonthPickerInputPage/MonthPickerInputPage";
 import { ModalPage } from "./pages/ModalPage/ModalPage";
@@ -179,6 +180,7 @@ export function App() {
               <a href="#collapsible-card">CollapsibleCard</a>
               <a href="#date-input">DateInput</a>
               <a href="#date-picker-input">DatePickerInput</a>
+              <a href="#drawer">Drawer</a>
               <a href="#file-input">FileInput</a>
               <a href="#modal">Modal</a>
               <a href="#multi-select">MultiSelect</a>
@@ -294,6 +296,7 @@ export function App() {
               <CollapsibleCardPage />
               <DateInputPage />
               <DatePickerInputPage />
+              <DrawerPage />
               <FileInputPage />
               <ModalPage />
               <MultiSelectPage />

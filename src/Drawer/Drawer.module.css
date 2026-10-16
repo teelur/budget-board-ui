@@ -1,0 +1,15 @@
+.content:global(.mantine-Drawer-content) {
+  background-color: var(--bbui-drawer-background);
+  border: 1px solid var(--bbui-drawer-border);
+  color: var(--bbui-drawer-body);
+}
+
+.header:global(.mantine-Drawer-header) {
+  background-color: var(--bbui-drawer-background);
+  color: var(--bbui-drawer-title);
+}
+
+.body:global(.mantine-Drawer-body) {
+  color: var(--bbui-drawer-body);
+  font-family: var(--bbui-drawer-body-font);
+}
