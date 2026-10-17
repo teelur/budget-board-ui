@@ -1,4 +1,9 @@
-import { forwardRef, type CSSProperties, type ReactNode } from "react";
+import {
+  forwardRef,
+  type CSSProperties,
+  type MouseEventHandler,
+  type ReactNode,
+} from "react";
 import {
   Card as MantineCard,
   createPolymorphicComponent,
@@ -24,6 +29,8 @@ export type CardProps = MantineCardProps & {
 type CardPartProps = MantineCardSectionProps & {
   children?: ReactNode;
   "data-orientation"?: "horizontal" | "vertical";
+  hoverable?: boolean;
+  onClick?: MouseEventHandler<HTMLDivElement>;
   separatorThickness?: CardSeparatorThickness;
 };
 
@@ -34,62 +41,80 @@ function mergeClassName(...classNames: Array<string | undefined>) {
   return classNames.filter(Boolean).join(" ");
 }
 
-function CardPart({
-  "data-orientation": orientation = "vertical",
-  className,
-  inheritPadding = false,
-  p,
-  separatorThickness = "default",
-  withBorder = true,
-  ...props
-}: CardPartProps) {
+const CardPart = forwardRef<HTMLDivElement, CardPartProps>(function CardPart(
+  {
+    "data-orientation": orientation = "vertical",
+    className,
+    hoverable = false,
+    inheritPadding = false,
+    p,
+    separatorThickness = "default",
+    withBorder = true,
+    ...props
+  },
+  ref,
+) {
   return (
     <MantineCard.Section
       {...props}
-      className={mergeClassName(classes.section, className)}
+      className={mergeClassName(
+        classes.section,
+        hoverable ? classes.hoverable : undefined,
+        className,
+      )}
       data-orientation={orientation}
       data-budget-board-separator-thickness={separatorThickness}
       inheritPadding={inheritPadding}
       {...(p === undefined ? {} : { p })}
+      ref={ref}
       withBorder={withBorder}
     />
   );
-}
+});
 
 CardPart.displayName = "@mantine/core/CardSection";
 
-function CardSection({
-  children,
-  className,
-  label,
-  labelPosition = "center",
-  withBorder = true,
-  ...props
-}: CardSectionProps) {
-  const hasLabel = label !== undefined && label !== null && withBorder;
+const CardSectionRoot = forwardRef<HTMLDivElement, CardSectionProps>(
+  function CardSectionRoot(
+    {
+      children,
+      className,
+      label,
+      labelPosition = "center",
+      withBorder = true,
+      ...props
+    },
+    ref,
+  ) {
+    const hasLabel = label !== undefined && label !== null && withBorder;
 
-  return (
-    <CardPart
-      {...props}
-      className={mergeClassName(
-        className,
-        hasLabel ? classes.labeledSection : undefined,
-      )}
-      withBorder={withBorder}
-    >
-      {children}
-      {hasLabel ? (
-        <MantineDivider
-          className={mergeClassName(classes.divider, classes.sectionDivider)}
-          label={label}
-          labelPosition={labelPosition}
-        />
-      ) : null}
-    </CardPart>
-  );
-}
+    return (
+      <CardPart
+        {...props}
+        className={mergeClassName(
+          className,
+          hasLabel ? classes.labeledSection : undefined,
+        )}
+        ref={ref}
+        withBorder={withBorder}
+      >
+        {children}
+        {hasLabel ? (
+          <MantineDivider
+            className={mergeClassName(classes.divider, classes.sectionDivider)}
+            label={label}
+            labelPosition={labelPosition}
+          />
+        ) : null}
+      </CardPart>
+    );
+  },
+);
 
-CardSection.displayName = "@mantine/core/CardSection";
+CardSectionRoot.displayName = "@mantine/core/CardSection";
+const CardSection = createPolymorphicComponent<"div", CardSectionProps>(
+  CardSectionRoot,
+);
 
 const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
   {
