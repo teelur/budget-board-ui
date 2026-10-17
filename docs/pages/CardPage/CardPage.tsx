@@ -61,17 +61,41 @@ const hoverableCardExample = `<Card component="a" href="#card-api" hoverable>
   <strong>Review October activity</strong>
 </Card>`;
 
+const hoverableSectionExample = `<Card>
+  <Card.Section component="a" href="#card-api" hoverable>Account balances</Card.Section>
+  <Card.Section component="a" href="#card-api" hoverable>
+    <span>Everyday checking</span>
+    <strong>$4,218.32</strong>
+  </Card.Section>
+  <Card.Section>Rainy day savings</Card.Section>
+</Card>`;
+
 export function CardPage() {
   return (
     <section className={pageStyles.componentSection} id="card">
       <div className={pageStyles.sectionHeading}>
         <div>
-          <BodyText component="p" className={pageStyles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.68rem">Content</BodyText>
-          <HeadingText level={2} tone="heading" lh={1.5}>Card</HeadingText>
+          <BodyText
+            component="p"
+            className={pageStyles.eyebrow}
+            tone="muted"
+            ff="var(--bb-font-data)"
+            fz="0.68rem"
+          >
+            Content
+          </BodyText>
+          <HeadingText level={2} tone="heading" lh={1.5}>
+            Card
+          </HeadingText>
         </div>
         <code>import {"{ Card }"} from '@teelur/budget-board-ui';</code>
       </div>
-      <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
+      <BodyText
+        component="p"
+        className={pageStyles.sectionCopy}
+        tone="muted"
+        m="1em 0"
+      >
         A Card is the bordered surface and padded container. Put ordinary
         content directly inside it; use Card.Section for full-width rows that
         need a separator. Each section has its own padding, while the card
@@ -86,15 +110,35 @@ export function CardPage() {
       >
         <div className={styles.preview}>
           <Card className={styles.plainCard}>
-            <BodyText component="p" className={styles.eyebrow} tone="muted" ff="var(--bb-font-data)" fz="0.72rem" m="0 0 0.55rem">October 2026</BodyText>
-            <HeadingText level={3} className={styles.cardTitle} tone="heading" fz="1.05rem" fw={600} m={0} lh={1.5}>Available balance</HeadingText>
+            <BodyText
+              component="p"
+              className={styles.eyebrow}
+              tone="muted"
+              ff="var(--bb-font-data)"
+              fz="0.72rem"
+              m="0 0 0.55rem"
+            >
+              October 2026
+            </BodyText>
+            <HeadingText
+              level={3}
+              className={styles.cardTitle}
+              tone="heading"
+              fz="1.05rem"
+              fw={600}
+              m={0}
+              lh={1.5}
+            >
+              Available balance
+            </HeadingText>
             <DataText
               component="strong"
               className={styles.amount}
               fz="1.5rem"
               fw={700}
               lh={1.5}
-              tone="heading" m="0.65rem 0 0"
+              tone="heading"
+              m="0.65rem 0 0"
             >
               $8,420.50
             </DataText>
@@ -103,16 +147,22 @@ export function CardPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description={'Use surface="sunken" to distinguish a card nested inside another card.'}
+        description={
+          'Use surface="sunken" to distinguish a card nested inside another card.'
+        }
         id="card-nested"
         title="Nested card surface"
         code={nestedCardExample}
       >
         <div className={styles.preview}>
           <Card p="sm">
-            <BodyText component="strong" fw={600}>Monthly budget</BodyText>
+            <BodyText component="strong" fw={600}>
+              Monthly budget
+            </BodyText>
             <Card surface="sunken" mt="sm">
-              <BodyText component="span" tone="muted">Remaining</BodyText>
+              <BodyText component="span" tone="muted">
+                Remaining
+              </BodyText>
               <DataText component="strong" fz="1.1rem" fw={700} lh={1.5}>
                 $640.00
               </DataText>
@@ -122,7 +172,9 @@ export function CardPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description={'Use surface="outline" for a card that blends into the app page background while retaining its border.'}
+        description={
+          'Use surface="outline" for a card that blends into the app page background while retaining its border.'
+        }
         id="card-outline"
         title="Outline surface"
         code={outlineCardExample}
@@ -199,8 +251,12 @@ export function CardPage() {
       >
         <div className={styles.preview}>
           <Card className={styles.plainCard} selected>
-            <BodyText component="strong" fw={600}>Primary checking</BodyText>
-            <BodyText component="span" tone="muted">Selected account</BodyText>
+            <BodyText component="strong" fw={600}>
+              Primary checking
+            </BodyText>
+            <BodyText component="span" tone="muted">
+              Selected account
+            </BodyText>
           </Card>
         </div>
       </ComponentDemoSection>
@@ -214,10 +270,14 @@ export function CardPage() {
         <div className={styles.preview}>
           <Card className={styles.authCard}>
             <Card.Section label="or">
-              <BodyText component="strong" fw={700}>Sign in with email</BodyText>
+              <BodyText component="strong" fw={700}>
+                Sign in with email
+              </BodyText>
             </Card.Section>
             <Card.Section>
-              <BodyText component="strong" fw={700}>Continue with identity provider</BodyText>
+              <BodyText component="strong" fw={700}>
+                Continue with identity provider
+              </BodyText>
             </Card.Section>
           </Card>
         </div>
@@ -233,10 +293,37 @@ export function CardPage() {
           <Card className={styles.splitCard}>
             <Card.Section className={styles.cardHeader}>
               <div>
-                <HeadingText level={3} className={styles.cardTitle} tone="heading" fz="1.05rem" fw={600} m={0} lh={1.5}>Account balances</HeadingText>
-                <BodyText component="p" className={styles.cardSubtitle} tone="muted" ff="var(--bb-font-data)" fz="0.72rem" m="0.3rem 0 0">Updated just now</BodyText>
+                <HeadingText
+                  level={3}
+                  className={styles.cardTitle}
+                  tone="heading"
+                  fz="1.05rem"
+                  fw={600}
+                  m={0}
+                  lh={1.5}
+                >
+                  Account balances
+                </HeadingText>
+                <BodyText
+                  component="p"
+                  className={styles.cardSubtitle}
+                  tone="muted"
+                  ff="var(--bb-font-data)"
+                  fz="0.72rem"
+                  m="0.3rem 0 0"
+                >
+                  Updated just now
+                </BodyText>
               </div>
-              <BodyText component="span" className={styles.accountCount} tone="muted" ff="var(--bb-font-data)" fz="0.72rem">3 accounts</BodyText>
+              <BodyText
+                component="span"
+                className={styles.accountCount}
+                tone="muted"
+                ff="var(--bb-font-data)"
+                fz="0.72rem"
+              >
+                3 accounts
+              </BodyText>
             </Card.Section>
             <Card.Section>
               <div className={styles.accountRow}>
@@ -259,6 +346,30 @@ export function CardPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
+        description="Make a section a native link with component and href. Hover, press, and keyboard focus use subtle surface-color feedback."
+        id="card-hoverable-section"
+        title="Hoverable section"
+        code={hoverableSectionExample}
+      >
+        <div className={styles.preview}>
+          <Card className={styles.splitCard}>
+            <Card.Section component="a" href="#card-api" hoverable>
+              Account balances
+            </Card.Section>
+            <Card.Section component="a" href="#card-api" hoverable>
+              <div className={styles.accountRow}>
+                <BodyText component="span">Everyday checking</BodyText>
+                <DataText component="strong" fz="0.85rem" fw={700} lh={1.5}>
+                  $4,218.32
+                </DataText>
+              </div>
+            </Card.Section>
+            <Card.Section>Rainy day savings</Card.Section>
+          </Card>
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
         description="hoverable adds visual hover and focus feedback with a pointer cursor. Select a native button or link root when the card is interactive."
         id="card-hoverable"
         title="Hoverable link"
@@ -271,8 +382,19 @@ export function CardPage() {
             href="#card-api"
             hoverable
           >
-            <BodyText component="span" className={styles.cardSubtitle} tone="muted" ff="var(--bb-font-data)" fz="0.72rem" m="0.3rem 0 0">Transactions</BodyText>
-            <BodyText component="strong" fw={600}>Review October activity</BodyText>
+            <BodyText
+              component="span"
+              className={styles.cardSubtitle}
+              tone="muted"
+              ff="var(--bb-font-data)"
+              fz="0.72rem"
+              m="0.3rem 0 0"
+            >
+              Transactions
+            </BodyText>
+            <BodyText component="strong" fw={600}>
+              Review October activity
+            </BodyText>
           </Card>
         </div>
       </ComponentDemoSection>
@@ -280,8 +402,16 @@ export function CardPage() {
       <section className={pageStyles.componentReferenceSection} id="card-api">
         <div className={demoStyles.componentDemoHeading}>
           <div>
-            <HeadingText level={3} tone="heading" lh={1.5}>API reference</HeadingText>
-            <BodyText component="p" tone="secondary" fz="0.82rem" lh={1.55} m="0.45rem 0 0">
+            <HeadingText level={3} tone="heading" lh={1.5}>
+              API reference
+            </HeadingText>
+            <BodyText
+              component="p"
+              tone="secondary"
+              fz="0.82rem"
+              lh={1.55}
+              m="0.45rem 0 0"
+            >
               Mantine Card and Card.Section props are forwarded; BBUI adds
               semantic surface defaults and compound section styling.
             </BodyText>
@@ -307,9 +437,9 @@ export function CardPage() {
                     Mantine Card props and polymorphic roots. Defaults to a
                     <code>surface</code> background, <code>border-subtle</code>
                     border, and <code>0.5rem</code> padding. Consumer props
-                    override these defaults. The <code>padding</code> prop
-                    also controls the inset that sections extend through;
-                    scalar <code>p</code> values keep that inset aligned.
+                    override these defaults. The <code>padding</code> prop also
+                    controls the inset that sections extend through; scalar{" "}
+                    <code>p</code> values keep that inset aligned.
                   </td>
                 </tr>
                 <tr>
@@ -331,7 +461,8 @@ export function CardPage() {
                     <code>CardSectionProps</code>
                   </td>
                   <td>
-                    Use for each card content section. Defaults to <code>0.5rem</code>
+                    Use for each card content section. Defaults to{" "}
+                    <code>0.5rem</code>
                     padding on all four sides. Sections extend to the card's
                     edges so their separators span the full width; each
                     section's content remains inset by its own padding. The
@@ -339,9 +470,15 @@ export function CardPage() {
                     remain inside it even when a smaller height is specified.
                     <code>withBorder</code> controls the separator. Set
                     <code>separatorThickness</code> on a section to configure
-                    only its own separator and labeled divider.                     Optional <code>label</code> and <code>labelPosition</code>
+                    only its own separator and labeled divider. Optional{" "}
+                    <code>label</code> and <code>labelPosition</code>
                     place content on that border. Override padding with
-                    <code>p</code>, <code>px</code>, or <code>py</code>.
+                    <code>p</code>, <code>px</code>, or <code>py</code>. Set
+                    <code>hoverable</code> for a pointer cursor and subtle
+                    surface-color feedback on hover, press, and keyboard focus;
+                    <code>onClick</code> is forwarded for click handling. Set
+                    <code>component="a"</code> and <code>href</code> to make a
+                    hoverable section a native link.
                   </td>
                 </tr>
                 <tr>
@@ -359,10 +496,9 @@ export function CardPage() {
                   <th>selected</th>
                   <td>boolean</td>
                   <td>
-                    Defaults to <code>false</code>. Applies token-based
-                    selected surface and border styling when true; this is a
-                    visual state only and does not add interaction or ARIA
-                    semantics.
+                    Defaults to <code>false</code>. Applies token-based selected
+                    surface and border styling when true; this is a visual state
+                    only and does not add interaction or ARIA semantics.
                   </td>
                 </tr>
                 <tr>
@@ -371,8 +507,8 @@ export function CardPage() {
                   <td>
                     Defaults to <code>false</code>. Adds token-based hover,
                     focus-visible, and pointer-cursor styling without adding
-                    click behavior, roles, or keyboard handling. Choose a
-                    native button or link root for interactive cards.
+                    click behavior, roles, or keyboard handling. Choose a native
+                    button or link root for interactive cards.
                   </td>
                 </tr>
                 <tr>

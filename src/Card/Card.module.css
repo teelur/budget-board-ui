@@ -24,6 +24,11 @@
   padding: 0.5rem;
 }
 
+.root .section.hoverable {
+  color: inherit;
+  text-decoration: none;
+}
+
 .root .labeledSection[data-with-border] {
   border-bottom-color: transparent;
   position: relative;
@@ -60,21 +65,29 @@
     border-color 120ms ease;
 }
 
-.hoverable:hover {
+.hoverable:hover,
+.root .section.hoverable:hover {
   background-color: color-mix(
     in srgb,
     var(--bbui-card-hover-surface) 40%,
     var(--bbui-card-surface)
   );
+}
+
+.root.hoverable:hover {
   border-color: var(--bbui-card-hover-border);
 }
 
-.hoverable:active {
+.hoverable:active,
+.root .section.hoverable:active {
   background-color: color-mix(
     in srgb,
     var(--bbui-card-hover-surface) 40%,
     var(--bbui-card-surface)
   );
+}
+
+.root.hoverable:active {
   border-color: var(--bbui-card-focus-ring);
 }
 
@@ -84,9 +97,17 @@ button.root {
   cursor: pointer;
 }
 
-.hoverable:focus-visible {
+.root.hoverable:focus-visible {
   outline: 2px solid var(--bbui-card-focus-ring);
   outline-offset: -3px;
+}
+
+.root .section.hoverable:focus-visible {
+  background-color: color-mix(
+    in srgb,
+    var(--bbui-card-hover-surface) 40%,
+    var(--bbui-card-surface)
+  );
 }
 
 @media (prefers-reduced-motion: reduce) {

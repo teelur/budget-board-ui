@@ -287,6 +287,53 @@ describe("Card", () => {
     expect(screen.queryByText("Hidden label")).not.toBeInTheDocument();
   });
 
+  it("supports hoverable card sections with click handlers", () => {
+    const onClick = vi.fn();
+
+    render(
+      <Card>
+        <Card.Section
+          data-testid="interactive-section"
+          hoverable
+          onClick={onClick}
+        >
+          Open account
+        </Card.Section>
+        <Card.Section data-testid="plain-section">Account details</Card.Section>
+      </Card>,
+    );
+
+    const interactiveSection = screen.getByTestId("interactive-section");
+
+    expect(interactiveSection).toHaveClass(classes.section, classes.hoverable);
+    expect(screen.getByTestId("plain-section")).not.toHaveClass(
+      classes.hoverable,
+    );
+
+    fireEvent.click(interactiveSection);
+    expect(onClick).toHaveBeenCalledOnce();
+  });
+
+  it("supports card sections rendered as native links", () => {
+    render(
+      <Card>
+        <Card.Section
+          component="a"
+          data-testid="account-link"
+          href="#account"
+          hoverable
+        >
+          View account
+        </Card.Section>
+      </Card>,
+    );
+
+    const accountLink = screen.getByRole("link", { name: "View account" });
+
+    expect(accountLink).toHaveAttribute("href", "#account");
+    expect(accountLink).toHaveClass(classes.section, classes.hoverable);
+  });
+
   it("allows consumer styling and Mantine border overrides", () => {
     render(
       <Card
@@ -361,7 +408,9 @@ describe("Card", () => {
   });
 
   it("uses a pointer cursor for hoverable cards", () => {
-    const hoverableStyles = cardStyles.match(/\.hoverable\s*\{([^}]*)\}/)?.[1];
+    const hoverableStyles = cardStyles.match(
+      /(?:^|\n)\.hoverable\s*\{([^}]*)\}/,
+    )?.[1];
 
     expect(hoverableStyles).toContain("cursor: pointer;");
   });
@@ -377,18 +426,54 @@ describe("Card", () => {
     );
   });
 
-  it("softens hover and active surfaces while preserving their borders", () => {
-    const hoverStyles = cardStyles.match(/\.hoverable:hover\s*\{([^}]*)\}/)?.[1];
-    const activeStyles = cardStyles.match(/\.hoverable:active\s*\{([^}]*)\}/)?.[1];
+  it("uses surface-only hover and focus feedback for card sections", () => {
+    const hoverStyles = cardStyles.match(
+      /\.hoverable:hover(?:,\s*\.root \.section\.hoverable:hover)?\s*\{([^}]*)\}/,
+    )?.[1];
+    const activeStyles = cardStyles.match(
+      /(?:^|\n)\.hoverable:active(?:,\s*\.root \.section\.hoverable:active)?\s*\{([^}]*)\}/,
+    )?.[1];
+    const cardHoverBorderStyles = cardStyles.match(
+      /\.root\.hoverable:hover\s*\{([^}]*)\}/,
+    )?.[1];
+    const cardActiveBorderStyles = cardStyles.match(
+      /\.root\.hoverable:active\s*\{([^}]*)\}/,
+    )?.[1];
+    const sectionHoverStyles = cardStyles.match(
+      /\.root \.section\.hoverable:hover\s*\{([^}]*)\}/,
+    )?.[1];
+    const sectionActiveStyles = cardStyles.match(
+      /\.root \.section\.hoverable:active\s*\{([^}]*)\}/,
+    )?.[1];
+    const cardFocusStyles = cardStyles.match(
+      /\.root\.hoverable:focus-visible\s*\{([^}]*)\}/,
+    )?.[1];
+    const sectionFocusStyles = cardStyles.match(
+      /\.root \.section\.hoverable:focus-visible\s*\{([^}]*)\}/,
+    )?.[1];
     const softenedSurface =
       /background-color:\s*color-mix\(\s*in srgb,\s*var\(--bbui-card-hover-surface\)\s+40%,\s*var\(--bbui-card-surface\)\s*\);/;
 
     expect(hoverStyles).toMatch(softenedSurface);
-    expect(hoverStyles).toContain(
+    expect(cardHoverBorderStyles).toContain(
       "border-color: var(--bbui-card-hover-border);",
     );
     expect(activeStyles).toMatch(softenedSurface);
-    expect(activeStyles).toContain("border-color: var(--bbui-card-focus-ring);");
+    expect(cardActiveBorderStyles).toContain(
+      "border-color: var(--bbui-card-focus-ring);",
+    );
+    expect(sectionHoverStyles).toMatch(softenedSurface);
+    expect(sectionActiveStyles).toMatch(softenedSurface);
+    expect(sectionHoverStyles).not.toContain("border-color:");
+    expect(sectionActiveStyles).not.toContain("border-color:");
+    expect(sectionFocusStyles).toMatch(softenedSurface);
+    expect(sectionFocusStyles).not.toContain("outline:");
+    expect(cardFocusStyles).toContain(
+      "outline: 2px solid var(--bbui-card-focus-ring);",
+    );
+    expect(cardStyles).not.toContain(".root .section.hoverable::after");
+    expect(cardStyles).not.toContain(":has(");
+    expect(cardStyles).not.toContain("box-shadow:");
   });
 
   it("uses half-rem default padding for card parts", () => {
