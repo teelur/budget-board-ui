@@ -1,0 +1,9 @@
+.root {
+  --divider-color: var(--bbui-divider-border);
+  color: var(--bbui-divider-text);
+}
+
+.root :global(.mantine-Divider-label) {
+  background-color: var(--bbui-divider-surface);
+  color: var(--bbui-divider-text);
+}
