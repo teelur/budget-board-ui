@@ -54,6 +54,15 @@ export {
 } from "./Autocomplete/Autocomplete";
 
 export {
+  Combobox,
+  useCombobox,
+  type ComboboxProps,
+  type ComboboxStore,
+  type ComboboxStylesNames,
+  type UseComboboxOptions,
+} from "./Combobox/Combobox";
+
+export {
   Badge,
   badgeColors,
   badgeSizes,
