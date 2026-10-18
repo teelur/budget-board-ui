@@ -1,10 +1,17 @@
 import { MantineProvider } from "@mantine/core";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { createRef, type CSSProperties } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { Divider } from "../src/Divider/Divider";
 import classes from "../src/Divider/Divider.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
+
+const dividerStyles = readFileSync(
+  resolve(process.cwd(), "src/Divider/Divider.module.css"),
+  "utf8",
+);
 
 describe("Divider", () => {
   it("renders a separator with BBUI semantic styling", () => {
@@ -26,12 +33,10 @@ describe("Divider", () => {
     expect(divider.style.getPropertyValue("--bbui-divider-border")).toBe(
       "var(--bb-color-border-subtle, #d8d5ce)",
     );
-    expect(divider.style.getPropertyValue("--bbui-divider-surface")).toBe(
-      "var(--bb-color-surface, #ffffff)",
-    );
     expect(divider.style.getPropertyValue("--bbui-divider-text")).toBe(
       "var(--bb-color-text-secondary, #68645d)",
     );
+    expect(dividerStyles).toContain("background-color: transparent;");
   });
 
   it("uses dark BBUI semantic styling inside a dark Mantine provider", () => {
@@ -45,9 +50,6 @@ describe("Divider", () => {
 
     expect(divider.style.getPropertyValue("--bbui-divider-border")).toBe(
       "var(--bb-color-border-subtle, #3a3d42)",
-    );
-    expect(divider.style.getPropertyValue("--bbui-divider-surface")).toBe(
-      "var(--bb-color-surface, #191b1f)",
     );
     expect(divider.style.getPropertyValue("--bbui-divider-text")).toBe(
       "var(--bb-color-text-secondary, #aaa69e)",

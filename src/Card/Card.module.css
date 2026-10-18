@@ -53,7 +53,7 @@
   z-index: 1;
 }
 
-.divider :global(.mantine-Divider-label) {
+.root .divider :global(.mantine-Divider-label) {
   background-color: var(--bbui-card-surface);
   color: var(--bbui-card-text-secondary);
 }

@@ -15,7 +15,6 @@ const DividerRoot = forwardRef<HTMLDivElement, DividerProps>(
     const { colorScheme, colors, hasMantineContext } = useBBUITheme();
     const themeStyle = {
       "--bbui-divider-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
-      "--bbui-divider-surface": `var(--bb-color-surface, ${colors.surface})`,
       "--bbui-divider-text": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
     } as CSSProperties;
     const divider = (

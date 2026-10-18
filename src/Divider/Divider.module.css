@@ -4,6 +4,6 @@
 }
 
 .root :global(.mantine-Divider-label) {
-  background-color: var(--bbui-divider-surface);
+  background-color: transparent;
   color: var(--bbui-divider-text);
 }

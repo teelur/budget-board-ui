@@ -50,7 +50,7 @@ export function DividerPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        description="Use a label to divide related choices; its text and background use BBUI secondary-text and surface tokens."
+        description="Use a label to divide related choices; its text uses the BBUI secondary-text token and its background remains transparent."
         id="divider-label"
         title="Labeled divider"
         code='<Divider label="or" labelPosition="center" />'
@@ -185,8 +185,8 @@ export function DividerPage() {
                   <td>
                     The default line uses the BBUI <code>border-subtle</code>{" "}
                     token. Set <code>color</code> to override the line color.
-                    Labeled dividers use the BBUI <code>surface</code> and{" "}
-                    <code>text-secondary</code> tokens.
+                    Labels use the BBUI <code>text-secondary</code> token and
+                    have a transparent background.
                   </td>
                 </tr>
                 <tr>
