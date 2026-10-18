@@ -42,6 +42,7 @@ import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedCont
 import { SelectPage } from "./pages/SelectPage/SelectPage";
 import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
 import { TextareaPage } from "./pages/TextareaPage/TextareaPage";
+import { TooltipPage } from "./pages/TooltipPage/TooltipPage";
 import { TagsInputPage } from "./pages/TagsInputPage/TagsInputPage";
 import { TextComponentsPage } from "./pages/TextComponentsPage/TextComponentsPage";
 import { TypographyPage } from "./pages/TypographyPage/TypographyPage";
@@ -201,8 +202,9 @@ export function App() {
               <a href="#select">Select</a>
               <a href="#text-components">Text components</a>
               <a href="#text-input">TextInput</a>
-              <a href="#tags-input">TagsInput</a>
               <a href="#textarea">Textarea</a>
+              <a href="#tooltip">Tooltip</a>
+              <a href="#tags-input">TagsInput</a>
             </div>
             <BodyText
               className={styles.navHeadingSpaced}
@@ -318,6 +320,7 @@ export function App() {
               <PopoverPage />
               <TextInputPage />
               <TextareaPage />
+              <TooltipPage />
               <ProgressPage />
               <PaginationPage />
               <SegmentedControlPage />

@@ -178,6 +178,8 @@ export { PinInput, type PinInputProps } from "./PinInput/PinInput";
 
 export { Popover, type PopoverProps } from "./Popover/Popover";
 
+export { Tooltip, type TooltipProps } from "./Tooltip/Tooltip";
+
 export {
   Pagination,
   type PaginationProps,
