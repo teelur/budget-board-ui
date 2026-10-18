@@ -1,0 +1,11 @@
+.tooltip:global(.mantine-Tooltip-tooltip) {
+  background-color: var(--bbui-tooltip-background);
+  border: 1px solid var(--bbui-tooltip-border);
+  color: var(--bbui-tooltip-text);
+  font-family: var(--bbui-tooltip-font);
+}
+
+.arrow:global(.mantine-Tooltip-arrow) {
+  background-color: var(--bbui-tooltip-background);
+  border-color: var(--bbui-tooltip-border);
+}
