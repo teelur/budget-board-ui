@@ -25,6 +25,7 @@ import { CodePage } from "./pages/CodePage/CodePage";
 import { ColorThemePage } from "./pages/ColorThemePage/ColorThemePage";
 import { DateInputPage } from "./pages/DateInputPage/DateInputPage";
 import { DatePickerInputPage } from "./pages/DatePickerInputPage/DatePickerInputPage";
+import { DividerPage } from "./pages/DividerPage/DividerPage";
 import { DrawerPage } from "./pages/DrawerPage/DrawerPage";
 import { FileInputPage } from "./pages/FileInputPage/FileInputPage";
 import { MonthPickerInputPage } from "./pages/MonthPickerInputPage/MonthPickerInputPage";
@@ -183,6 +184,7 @@ export function App() {
               <a href="#code">Code</a>
               <a href="#date-input">DateInput</a>
               <a href="#date-picker-input">DatePickerInput</a>
+              <a href="#divider">Divider</a>
               <a href="#drawer">Drawer</a>
               <a href="#file-input">FileInput</a>
               <a href="#modal">Modal</a>
@@ -301,6 +303,7 @@ export function App() {
               <CodePage />
               <DateInputPage />
               <DatePickerInputPage />
+              <DividerPage />
               <DrawerPage />
               <FileInputPage />
               <ModalPage />

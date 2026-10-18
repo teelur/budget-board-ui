@@ -137,6 +137,12 @@ export { Textarea, type TextareaProps } from "./Textarea/Textarea";
 export { Code, type CodeProps } from "./Code/Code";
 
 export {
+  Divider,
+  type DividerProps,
+  type DividerVariant,
+} from "./Divider/Divider";
+
+export {
   BodyText,
   type BodyTextProps,
 } from "./BodyText/BodyText";

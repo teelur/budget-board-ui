@@ -7,7 +7,6 @@ import {
 import {
   Card as MantineCard,
   createPolymorphicComponent,
-  Divider as MantineDivider,
 } from "@mantine/core";
 import type {
   CardProps as MantineCardProps,
@@ -15,6 +14,7 @@ import type {
   DividerProps as MantineDividerProps,
 } from "@mantine/core";
 import { ensureBBUIMantineProvider, useBBUITheme } from "../shared/themeStyles";
+import { Divider } from "../Divider/Divider";
 import classes from "./Card.module.css";
 
 export type CardSurface = "default" | "sunken" | "outline";
@@ -100,7 +100,7 @@ const CardSectionRoot = forwardRef<HTMLDivElement, CardSectionProps>(
       >
         {children}
         {hasLabel ? (
-          <MantineDivider
+          <Divider
             className={mergeClassName(classes.divider, classes.sectionDivider)}
             label={label}
             labelPosition={labelPosition}
