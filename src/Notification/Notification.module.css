@@ -1,0 +1,32 @@
+.root {
+  font-family: var(--bb-font-body, "IBM Plex Sans Variable", sans-serif);
+}
+
+.icon,
+.loader {
+  width: 24px;
+  height: 24px;
+  margin-inline-end: var(--mantine-spacing-sm);
+}
+
+.body {
+  margin-inline-end: var(--mantine-spacing-xs);
+}
+
+.title {
+  color: var(--bb-color-text-heading, #242321);
+  font-family: var(--bb-font-display, "Plus Jakarta Sans Variable", sans-serif);
+  font-size: var(--mantine-font-size-xs);
+  font-weight: 600;
+}
+
+.description {
+  color: var(--bb-color-text-secondary, #68645d);
+  font-family: var(--bb-font-body, "IBM Plex Sans Variable", sans-serif);
+  overflow-wrap: anywhere;
+}
+
+.closeButton {
+  color: var(--bb-color-text-muted, #969087);
+  flex-shrink: 0;
+}

@@ -42,6 +42,13 @@ export {
 } from "./NavbarLink/NavbarLink";
 
 export {
+  Notification,
+  notificationColors,
+  type NotificationColor,
+  type NotificationProps,
+} from "./Notification/Notification";
+
+export {
   AmountText,
   getStatusColor,
   StatusColorType,
