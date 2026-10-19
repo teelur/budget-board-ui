@@ -1,0 +1,7 @@
+.root:global([data-visible])::before {
+  background-color: var(--bbui-skeleton-surface);
+}
+
+.root:global([data-visible])::after {
+  background-color: var(--bbui-skeleton-highlight);
+}
