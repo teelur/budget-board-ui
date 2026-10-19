@@ -1,0 +1,15 @@
+.table {
+  color: var(--bbui-table-text);
+  font-family: var(--bbui-table-body-font);
+}
+
+.table th {
+  color: var(--bbui-table-heading);
+  font-family: var(--bbui-table-heading-font);
+  font-weight: 600;
+}
+
+.table caption {
+  color: var(--bbui-table-caption);
+  font-family: var(--bbui-table-body-font);
+}

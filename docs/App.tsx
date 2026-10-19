@@ -41,9 +41,12 @@ import { PaginationPage } from "./pages/PaginationPage/PaginationPage";
 import { PinInputPage } from "./pages/PinInputPage/PinInputPage";
 import { PopoverPage } from "./pages/PopoverPage/PopoverPage";
 import { ProgressPage } from "./pages/ProgressPage/ProgressPage";
+import { LoadingOverlayPage } from "./pages/LoadingOverlayPage/LoadingOverlayPage";
+import { SkeletonPage } from "./pages/SkeletonPage/SkeletonPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
 import { SelectPage } from "./pages/SelectPage/SelectPage";
 import { StepperPage } from "./pages/StepperPage/StepperPage";
+import { TablePage } from "./pages/TablePage/TablePage";
 import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
 import { TextareaPage } from "./pages/TextareaPage/TextareaPage";
 import { TooltipPage } from "./pages/TooltipPage/TooltipPage";
@@ -193,6 +196,7 @@ export function App() {
               <a href="#divider">Divider</a>
               <a href="#drawer">Drawer</a>
               <a href="#file-input">FileInput</a>
+              <a href="#loading-overlay">LoadingOverlay</a>
               <a href="#modal">Modal</a>
               <a href="#multi-select">MultiSelect</a>
               <a href="#month-picker-input">MonthPickerInput</a>
@@ -207,7 +211,9 @@ export function App() {
               <a href="#progress">Progress</a>
               <a href="#segmented-control">SegmentedControl</a>
               <a href="#select">Select</a>
+              <a href="#skeleton">Skeleton</a>
               <a href="#stepper">Stepper</a>
+              <a href="#table">Table</a>
               <a href="#text-components">Text components</a>
               <a href="#text-input">TextInput</a>
               <a href="#textarea">Textarea</a>
@@ -317,6 +323,7 @@ export function App() {
               <DividerPage />
               <DrawerPage />
               <FileInputPage />
+              <LoadingOverlayPage />
               <ModalPage />
               <NotificationPage />
               <MultiSelectPage />
@@ -335,8 +342,10 @@ export function App() {
               <ProgressPage />
               <PaginationPage />
               <SegmentedControlPage />
+              <SkeletonPage />
               <SelectPage />
               <StepperPage />
+              <TablePage />
             </section>
 
             <footer className={styles.siteFooter}>

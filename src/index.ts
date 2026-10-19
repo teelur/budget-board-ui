@@ -93,6 +93,11 @@ export {
 
 export { Checkbox, type CheckboxProps } from "./Checkbox/Checkbox";
 
+export {
+  LoadingOverlay,
+  type LoadingOverlayProps,
+} from "./LoadingOverlay/LoadingOverlay";
+
 export { Modal, type ModalProps } from "./Modal/Modal";
 
 export { Drawer, type DrawerProps } from "./Drawer/Drawer";
@@ -118,6 +123,14 @@ export {
 } from "./CategorySelect/CategorySelect";
 
 export { Select, type SelectProps } from "./Select/Select";
+
+export { Skeleton, type SkeletonProps } from "./Skeleton/Skeleton";
+
+export {
+  Table,
+  type TableData,
+  type TableProps,
+} from "./Table/Table";
 
 export { MultiSelect, type MultiSelectProps } from "./MultiSelect/MultiSelect";
 

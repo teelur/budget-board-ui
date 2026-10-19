@@ -1,0 +1,9 @@
+.surface {
+  border: 1px solid var(--bb-color-border-subtle, #d8d5ce);
+  border-radius: var(--mantine-radius-sm);
+  background: var(--bb-color-surface, #ffffff);
+  min-height: 8rem;
+  overflow: hidden;
+  padding: 1.25rem;
+  position: relative;
+}
