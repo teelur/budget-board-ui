@@ -1,0 +1,95 @@
+.stepperStack {
+  display: grid;
+  gap: 1.1rem;
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.orientationGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.orientationCard {
+  background: var(--bb-color-surface-elevated);
+  border: 1px solid var(--line);
+  min-width: 0;
+  padding: 1rem;
+}
+
+.orientationLabel {
+  font-family: var(--data);
+  font-size: 0.72rem;
+  margin: 0 0 1rem;
+}
+
+.playground {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(12rem, 0.7fr) minmax(0, 1.3fr);
+}
+
+.controls,
+.preview {
+  background: var(--bb-color-surface-elevated);
+  border: 1px solid var(--line);
+  min-width: 0;
+  padding: 1.1rem;
+}
+
+.controls {
+  align-content: start;
+  display: grid;
+  gap: 1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.field > span {
+  font-family: var(--data);
+  font-size: 0.68rem;
+}
+
+.field select {
+  background: var(--bb-color-surface);
+  border: 1px solid var(--line);
+  border-radius: 0.15rem;
+  color: var(--ink);
+  padding: 0.65rem 0.7rem;
+}
+
+.field select:focus-visible {
+  outline: 2px solid var(--bb-color-focus-ring);
+  outline-offset: 2px;
+}
+
+.preview {
+  align-items: center;
+  display: flex;
+  min-height: 12rem;
+}
+
+.preview > * {
+  min-width: 0;
+  width: 100%;
+}
+
+@media (max-width: 800px) {
+  .playground {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .orientationGrid {
+    grid-template-columns: 1fr;
+  }
+}
