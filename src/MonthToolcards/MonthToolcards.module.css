@@ -1,0 +1,39 @@
+.root {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  min-width: 0;
+  width: 100%;
+}
+
+.navButton {
+  flex: 0 0 auto;
+}
+
+.months {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  min-width: 0;
+}
+
+.card {
+  flex: 0 0 auto;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  user-select: none;
+}
+
+.statusStrip {
+  border-radius: 0.25rem;
+  flex: 0 0 auto;
+  height: 20px;
+  width: 100%;
+}
