@@ -33,6 +33,7 @@ import { MonthPickerInputPage } from "./pages/MonthPickerInputPage/MonthPickerIn
 import { ModalPage } from "./pages/ModalPage/ModalPage";
 import { MultiSelectPage } from "./pages/MultiSelectPage/MultiSelectPage";
 import { NavbarLinkPage } from "./pages/NavbarLinkPage/NavbarLinkPage";
+import { NotificationPage } from "./pages/NotificationPage/NotificationPage";
 import { NumberInputPage } from "./pages/NumberInputPage/NumberInputPage";
 import { PasswordInputPage } from "./pages/PasswordInputPage/PasswordInputPage";
 import { PaginationPage } from "./pages/PaginationPage/PaginationPage";
@@ -195,6 +196,7 @@ export function App() {
               <a href="#multi-select">MultiSelect</a>
               <a href="#month-picker-input">MonthPickerInput</a>
               <a href="#navbar-link">NavbarLink</a>
+              <a href="#notification">Notification</a>
               <a href="#number-input">NumberInput</a>
               <a href="#password-input">PasswordInput</a>
               <a href="#pagination">Pagination</a>
@@ -314,6 +316,7 @@ export function App() {
               <DrawerPage />
               <FileInputPage />
               <ModalPage />
+              <NotificationPage />
               <MultiSelectPage />
               <NavbarLinkPage />
               <TagsInputPage />
