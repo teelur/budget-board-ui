@@ -30,6 +30,7 @@ import { DividerPage } from "./pages/DividerPage/DividerPage";
 import { DrawerPage } from "./pages/DrawerPage/DrawerPage";
 import { FileInputPage } from "./pages/FileInputPage/FileInputPage";
 import { MonthPickerInputPage } from "./pages/MonthPickerInputPage/MonthPickerInputPage";
+import { MonthToolcardsPage } from "./pages/MonthToolcardsPage/MonthToolcardsPage";
 import { ModalPage } from "./pages/ModalPage/ModalPage";
 import { MultiSelectPage } from "./pages/MultiSelectPage/MultiSelectPage";
 import { NavbarLinkPage } from "./pages/NavbarLinkPage/NavbarLinkPage";
@@ -195,6 +196,7 @@ export function App() {
               <a href="#modal">Modal</a>
               <a href="#multi-select">MultiSelect</a>
               <a href="#month-picker-input">MonthPickerInput</a>
+              <a href="#month-toolcards">MonthToolcards</a>
               <a href="#navbar-link">NavbarLink</a>
               <a href="#notification">Notification</a>
               <a href="#number-input">NumberInput</a>
@@ -322,6 +324,7 @@ export function App() {
               <TagsInputPage />
               <TextComponentsPage />
               <MonthPickerInputPage />
+              <MonthToolcardsPage />
               <NumberInputPage />
               <PasswordInputPage />
               <PinInputPage />
