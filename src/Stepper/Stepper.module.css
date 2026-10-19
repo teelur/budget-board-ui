@@ -1,0 +1,57 @@
+.root {
+  color: var(--bbui-stepper-text);
+  font-family: var(--bbui-stepper-font);
+}
+
+.step {
+  color: inherit;
+}
+
+.step:focus-visible {
+  border-radius: var(--stepper-radius);
+  outline: 2px solid var(--bbui-stepper-focus);
+  outline-offset: 3px;
+}
+
+.stepIcon {
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.stepLabel {
+  color: var(--bbui-stepper-text);
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.stepDescription {
+  color: var(--bbui-stepper-text-secondary);
+  font-family: inherit;
+  line-height: 1.4;
+}
+
+.separator {
+  background-color: var(--bbui-stepper-border);
+  border-radius: 999px;
+  transition: background-color 150ms ease;
+}
+
+.separator[data-active] {
+  background-color: var(--stepper-color);
+}
+
+.verticalSeparator {
+  border-inline-start-color: var(--bbui-stepper-border);
+}
+
+.verticalSeparator[data-active] {
+  border-inline-start-color: var(--stepper-color);
+}
+
+.content {
+  color: var(--bbui-stepper-text);
+  font-family: inherit;
+}

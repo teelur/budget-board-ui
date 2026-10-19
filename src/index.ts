@@ -214,6 +214,13 @@ export {
 export { progressTypes, type ProgressType } from "./Progress/progressTypes";
 
 export {
+  Stepper,
+  type StepperProps,
+  type StepperStepProps,
+  type StepperStylesNames,
+} from "./Stepper/Stepper";
+
+export {
   budgetBoardColors,
   budgetBoardDarkTheme,
   budgetBoardTheme,

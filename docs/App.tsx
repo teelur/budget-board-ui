@@ -41,6 +41,7 @@ import { PopoverPage } from "./pages/PopoverPage/PopoverPage";
 import { ProgressPage } from "./pages/ProgressPage/ProgressPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
 import { SelectPage } from "./pages/SelectPage/SelectPage";
+import { StepperPage } from "./pages/StepperPage/StepperPage";
 import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
 import { TextareaPage } from "./pages/TextareaPage/TextareaPage";
 import { TooltipPage } from "./pages/TooltipPage/TooltipPage";
@@ -202,6 +203,7 @@ export function App() {
               <a href="#progress">Progress</a>
               <a href="#segmented-control">SegmentedControl</a>
               <a href="#select">Select</a>
+              <a href="#stepper">Stepper</a>
               <a href="#text-components">Text components</a>
               <a href="#text-input">TextInput</a>
               <a href="#textarea">Textarea</a>
@@ -328,6 +330,7 @@ export function App() {
               <PaginationPage />
               <SegmentedControlPage />
               <SelectPage />
+              <StepperPage />
             </section>
 
             <footer className={styles.siteFooter}>
