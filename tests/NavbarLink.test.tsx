@@ -64,7 +64,7 @@ describe("NavbarLink", () => {
         .parentElement?.style.getPropertyValue("--group-gap"),
     ).toBe("var(--mantine-spacing-md)");
     expect(link.style.getPropertyValue("--bbui-navbar-link-hover")).toBe(
-      "var(--bb-color-surface-hover, #e7e3da)",
+      "var(--bb-color-surface-hover, #d8d5ce)",
     );
     expect(navbarLinkStyles).toContain(
       '&:hover:not(:disabled):not([data-active="true"]) {',

@@ -5,7 +5,7 @@ const lightColors = {
   navigation: "#f1efe9",
   surfaceSunken: "#ebe8df",
   surfaceInput: "#e9eae8",
-  surfaceHover: "#e7e3da",
+  surfaceHover: "#d8d5ce",
   surfaceOverlay: "#fffaf2",
   textHeading: "#242321",
   textPrimary: "#3a3834",

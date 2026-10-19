@@ -126,6 +126,12 @@ export { Select, type SelectProps } from "./Select/Select";
 
 export { Skeleton, type SkeletonProps } from "./Skeleton/Skeleton";
 
+export {
+  Table,
+  type TableData,
+  type TableProps,
+} from "./Table/Table";
+
 export { MultiSelect, type MultiSelectProps } from "./MultiSelect/MultiSelect";
 
 export { TagsInput, type TagsInputProps } from "./TagsInput/TagsInput";

@@ -31,7 +31,7 @@ describe("NumberInput", () => {
       "var(--bb-color-surface-input, #e9eae8)",
     );
     expect(root?.style.getPropertyValue("--bbui-input-control-hover")).toBe(
-      "var(--bb-color-surface-hover, #e7e3da)",
+      "var(--bb-color-surface-hover, #d8d5ce)",
     );
     expect(
       root?.style.getPropertyValue("--bbui-input-control-hover-border"),

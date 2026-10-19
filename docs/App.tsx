@@ -46,6 +46,7 @@ import { SkeletonPage } from "./pages/SkeletonPage/SkeletonPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
 import { SelectPage } from "./pages/SelectPage/SelectPage";
 import { StepperPage } from "./pages/StepperPage/StepperPage";
+import { TablePage } from "./pages/TablePage/TablePage";
 import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
 import { TextareaPage } from "./pages/TextareaPage/TextareaPage";
 import { TooltipPage } from "./pages/TooltipPage/TooltipPage";
@@ -212,6 +213,7 @@ export function App() {
               <a href="#select">Select</a>
               <a href="#skeleton">Skeleton</a>
               <a href="#stepper">Stepper</a>
+              <a href="#table">Table</a>
               <a href="#text-components">Text components</a>
               <a href="#text-input">TextInput</a>
               <a href="#textarea">Textarea</a>
@@ -343,6 +345,7 @@ export function App() {
               <SkeletonPage />
               <SelectPage />
               <StepperPage />
+              <TablePage />
             </section>
 
             <footer className={styles.siteFooter}>

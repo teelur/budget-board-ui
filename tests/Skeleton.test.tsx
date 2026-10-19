@@ -26,7 +26,7 @@ describe("Skeleton", () => {
       "var(--bb-color-surface, #ffffff)",
     );
     expect(skeleton.style.getPropertyValue("--bbui-skeleton-highlight")).toBe(
-      "var(--bb-color-surface-hover, #e7e3da)",
+      "var(--bb-color-surface-hover, #d8d5ce)",
     );
     expect(skeletonStyles).toContain(
       "background-color: var(--bbui-skeleton-surface);",

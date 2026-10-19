@@ -1,0 +1,8 @@
+.tableSurface {
+  background: var(--bb-color-surface, #ffffff);
+  border: 1px solid var(--bb-color-border-subtle, #d8d5ce);
+  border-radius: var(--mantine-radius-sm);
+  min-width: 0;
+  padding: 0.75rem;
+  width: 100%;
+}
