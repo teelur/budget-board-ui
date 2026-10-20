@@ -1,17 +1,15 @@
 import { useElementSize } from "@mantine/hooks";
 import type {
   CSSProperties,
-  FocusEvent,
   HTMLAttributes,
-  PointerEvent,
   ReactNode,
 } from "react";
-import { useId, useMemo, useRef, useState } from "react";
+import { useId, useMemo } from "react";
 import { BodyText } from "../BodyText/BodyText";
 import { Skeleton } from "../Skeleton/Skeleton";
 import { getBudgetBoardDataColor } from "../colors";
 import { ensureBBUIMantineProvider, useBBUITheme } from "../shared/themeStyles";
-import { Cell, Pie, PieChart, Sector } from "recharts";
+import { Cell, Pie, PieChart, Sector, Tooltip } from "recharts";
 import type { PieLabelRenderProps, PieSectorShapeProps } from "recharts";
 import classes from "./SpendingCategoriesChart.module.css";
 
@@ -66,12 +64,6 @@ interface LabelPosition {
   isRight: boolean;
   color: string;
   text: string;
-}
-
-interface TooltipState {
-  segment: ChartSegment;
-  x: number;
-  y: number;
 }
 
 const compactBreakpoint = 720;
@@ -340,29 +332,6 @@ function getTooltipText(
   return `${segment.parentName ? `${segment.parentName}, ` : ""}${segment.name}: ${formatValue(segment.value)} (${percent}%)`;
 }
 
-function getTooltipCoordinates(
-  root: HTMLDivElement | null,
-  clientX: number,
-  clientY: number,
-) {
-  const rect = root?.getBoundingClientRect();
-
-  if (!rect) {
-    return { x: 0, y: 0 };
-  }
-
-  return {
-    x: Math.min(
-      Math.max(clientX - rect.left, 16),
-      Math.max(16, rect.width - 16),
-    ),
-    y: Math.min(
-      Math.max(clientY - rect.top, 56),
-      Math.max(56, rect.height - 12),
-    ),
-  };
-}
-
 export function SpendingCategoriesChart({
   ariaLabel,
   className,
@@ -377,9 +346,7 @@ export function SpendingCategoriesChart({
 }: SpendingCategoriesChartProps) {
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
   const { ref: sizeRef, width } = useElementSize<HTMLDivElement>();
-  const chartRootRef = useRef<HTMLDivElement>(null);
   const tooltipId = useId();
-  const [tooltip, setTooltip] = useState<TooltipState | null>(null);
   const isCompact = width < compactBreakpoint;
   const chartWidth = isCompact ? Math.max(width, compactViewWidth) : width;
   const outerRadius = isCompact ? compactRadius : wideRadius;
@@ -424,49 +391,6 @@ export function SpendingCategoriesChart({
   const centerX = chartWidth / 2;
   const centerY = chartHeight / 2;
 
-  const createTooltip = (
-    segment: ChartSegment,
-    clientX: number,
-    clientY: number,
-  ) => {
-    setTooltip({
-      segment,
-      ...getTooltipCoordinates(chartRootRef.current, clientX, clientY),
-    });
-  };
-
-  const handlePointer = (
-    event: PointerEvent<SVGPathElement>,
-    segment: ChartSegment,
-  ) => createTooltip(segment, event.clientX, event.clientY);
-
-  const handleFocus = (
-    event: FocusEvent<SVGPathElement>,
-    segment: ChartSegment,
-    innerRadius: number,
-    segmentOuterRadius: number,
-  ) => {
-    const svg = event.currentTarget.ownerSVGElement;
-    const svgRect = svg?.getBoundingClientRect();
-    const rootRect = chartRootRef.current?.getBoundingClientRect();
-
-    if (!svgRect || !rootRect) {
-      return;
-    }
-
-    const angle =
-      ((segment.startAngle + segment.endAngle) / 2) * (Math.PI / 180);
-    const segmentRadius = (innerRadius + segmentOuterRadius) / 2;
-    const scaleX = svgRect.width / chartWidth;
-    const scaleY = svgRect.height / chartHeight;
-    const x =
-      svgRect.left + (centerX + segmentRadius * Math.cos(angle)) * scaleX;
-    const y =
-      svgRect.top + (centerY + segmentRadius * Math.sin(angle)) * scaleY;
-
-    createTooltip(segment, x, y);
-  };
-
   const renderSegment = (props: PieSectorShapeProps) => {
     const sectorGeometry = {
       cornerRadius: props.cornerRadius ?? 0,
@@ -487,27 +411,18 @@ export function SpendingCategoriesChart({
     return (
       <Sector
         {...sectorGeometry}
-        aria-describedby={
-          tooltip?.segment.key === segment.key ? tooltipId : undefined
-        }
+        aria-describedby={props.isActive ? tooltipId : undefined}
         aria-label={getTooltipText(segment, formatValue)}
         className={classes.segment ?? ""}
         data-budget-board-chart-ring={
           segment.key.startsWith("subcategory-") ? "subcategory" : "category"
         }
         fill={segment.fill}
-        fillOpacity={0.4}
-        onBlur={() => setTooltip(null)}
-        onFocus={(event) =>
-          handleFocus(event, segment, props.innerRadius, props.outerRadius)
-        }
-        onPointerEnter={(event) => handlePointer(event, segment)}
-        onPointerLeave={() => setTooltip(null)}
-        onPointerMove={(event) => handlePointer(event, segment)}
+        fillOpacity={props.isActive ? 0.58 : 0.4}
         role="img"
         stroke={segment.color}
         strokeOpacity={1}
-        strokeWidth={2}
+        strokeWidth={props.isActive ? 2.5 : 2}
         tabIndex={0}
       />
     );
@@ -573,7 +488,6 @@ export function SpendingCategoriesChart({
         <>
           <div
             className={classes.chartViewport}
-            ref={chartRootRef}
             style={{ height: chartHeight }}
           >
             <PieChart
@@ -629,37 +543,54 @@ export function SpendingCategoriesChart({
                   ))}
                 </Pie>
               )}
+              <Tooltip
+                content={({ active, payload }) => {
+                  const segment = payload[0]?.payload;
+
+                  if (!active || !isChartSegment(segment)) {
+                    return null;
+                  }
+
+                  return (
+                    <div
+                      className={[
+                        classes.tooltip,
+                        !isCompact ? classes.tooltipTop : "",
+                      ]
+                        .filter(Boolean)
+                        .join(" ")}
+                      id={tooltipId}
+                      role="tooltip"
+                      style={
+                        {
+                          "--bbui-chart-tooltip-color": segment.color,
+                        } as CSSProperties
+                      }
+                    >
+                      {segment.parentName && (
+                        <BodyText size="xs" tone="secondary">
+                          {segment.parentName}
+                        </BodyText>
+                      )}
+                      <BodyText size="sm" tone="primary">
+                        {segment.name}
+                      </BodyText>
+                      <BodyText size="sm" tone="primary" fw={600}>
+                        {`${formatValue(segment.value)} (${(segment.percent * 100).toFixed(1)}%)`}
+                      </BodyText>
+                    </div>
+                  );
+                }}
+                cursor={false}
+                isAnimationActive={false}
+                {...(!isCompact ? { position: { x: centerX, y: 8 } } : {})}
+                wrapperStyle={{ pointerEvents: "none", zIndex: 1 }}
+              />
             </PieChart>
             <div aria-hidden="true" className={classes.centerText}>
               <span className={classes.totalLabel}>{totalLabel}</span>
               <span className={classes.totalValue}>{formatValue(total)}</span>
             </div>
-            {tooltip && (
-              <div
-                className={classes.tooltip}
-                id={tooltipId}
-                role="tooltip"
-                style={
-                  {
-                    "--bbui-chart-tooltip-x": `${tooltip.x}px`,
-                    "--bbui-chart-tooltip-y": `${tooltip.y}px`,
-                    "--bbui-chart-tooltip-color": tooltip.segment.color,
-                  } as CSSProperties
-                }
-              >
-                {tooltip.segment.parentName && (
-                  <BodyText size="xs" tone="secondary">
-                    {tooltip.segment.parentName}
-                  </BodyText>
-                )}
-                <BodyText size="sm" tone="primary">
-                  {tooltip.segment.name}
-                </BodyText>
-                <BodyText size="sm" tone="primary" fw={600}>
-                  {`${formatValue(tooltip.segment.value)} (${(tooltip.segment.percent * 100).toFixed(1)}%)`}
-                </BodyText>
-              </div>
-            )}
           </div>
           {isCompact && (
             <ul

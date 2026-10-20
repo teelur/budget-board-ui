@@ -220,7 +220,7 @@ describe("SpendingCategoriesChart", () => {
     expect(screen.queryByText("Rent")).not.toBeInTheDocument();
   });
 
-  it("animates on load and when the data changes", async () => {
+  it("animates on load and data changes without restarting on hover", async () => {
     setReducedMotionPreference(false);
     const { rerender } = renderChart();
     const chart = screen.getByTestId("spending-chart");
@@ -243,6 +243,18 @@ describe("SpendingCategoriesChart", () => {
     await waitFor(() => {
       expect(getHousingPath()).not.toBe(initialHousingPath);
     }, { timeout: 500, interval: 20 });
+    await waitFor(
+      () => expect(chart.querySelectorAll("svg text")).toHaveLength(4),
+      { timeout: 1500 },
+    );
+    const rent = screen.getByRole("img", {
+      name: "Housing, Rent: $650.00 (65.0%)",
+    });
+
+    fireEvent.mouseEnter(rent);
+    await new Promise<void>((resolve) => window.setTimeout(resolve, 200));
+    expect(chart.querySelectorAll("svg text")).toHaveLength(4);
+    fireEvent.mouseLeave(rent);
 
     rerender(
       <SpendingCategoriesChart
@@ -311,22 +323,30 @@ describe("SpendingCategoriesChart", () => {
     expect(screen.getByText("Rent")).toBeInTheDocument();
   });
 
-  it("shows an accessible tooltip on pointer hover and keyboard focus", () => {
+  it("uses Recharts hover and keyboard interactions for the accessible tooltip", () => {
     renderChart();
 
+    const chart = screen.getByTestId("spending-chart");
     const rent = screen.getByRole("img", {
       name: "Housing, Rent: $650.00 (65.0%)",
     });
 
-    fireEvent.pointerEnter(rent, { clientX: 220, clientY: 130 });
+    expect(chart.querySelectorAll("svg text")).toHaveLength(4);
+
+    fireEvent.mouseEnter(rent);
     expect(screen.getByRole("tooltip")).toHaveTextContent("Housing");
     expect(screen.getByRole("tooltip")).toHaveTextContent(
       "$650.00 (65.0%)",
     );
 
-    fireEvent.pointerLeave(rent);
+    const tooltip = screen.getByRole("tooltip");
+    expect(rent).toHaveAttribute("aria-describedby", tooltip.id);
+    expect(rent).toHaveAttribute("fill-opacity", "0.58");
+    expect(chart.querySelectorAll("svg text")).toHaveLength(4);
+
+    fireEvent.mouseLeave(rent);
     fireEvent.focus(rent);
-    expect(screen.getByRole("tooltip")).toHaveTextContent("Rent");
+    expect(screen.getByRole("tooltip")).toBeInTheDocument();
   });
 
   it("uses the BBUI dark data palette and caller-provided category colors", () => {
