@@ -382,6 +382,47 @@ describe("SpendingCategoriesChart", () => {
     ).toHaveAttribute("fill", "#123456");
   });
 
+  it("keeps labels visible while transitioning theme colors", async () => {
+    setReducedMotionPreference(false);
+    const renderWithColorScheme = (colorScheme: "light" | "dark") => (
+      <MantineProvider forceColorScheme={colorScheme}>
+        <SpendingCategoriesChart
+          ariaLabel="Spending by category"
+          data={categories}
+          data-testid="spending-chart"
+          formatValue={formatValue}
+        />
+      </MantineProvider>
+    );
+    const { rerender } = render(renderWithColorScheme("light"));
+    const chart = screen.getByTestId("spending-chart");
+
+    expect(chart.querySelectorAll("svg text")).toHaveLength(4);
+    await waitFor(
+      () =>
+        expect(
+          chart.querySelectorAll("[data-budget-board-chart-ring]"),
+        ).toHaveLength(6),
+      { timeout: 1500 },
+    );
+    const categoryRing = chart.querySelector<SVGPathElement>(
+      '[data-budget-board-chart-ring="category"]',
+    );
+    const lightPath = categoryRing?.getAttribute("d");
+
+    rerender(renderWithColorScheme("dark"));
+    const darkCategoryRing = chart.querySelector<SVGPathElement>(
+      '[data-budget-board-chart-ring="category"]',
+    );
+
+    expect(darkCategoryRing).toHaveAttribute(
+      "fill",
+      budgetBoardDataColors.dark[0],
+    );
+    expect(chart.querySelectorAll("svg text")).toHaveLength(4);
+    expect(darkCategoryRing).toHaveAttribute("d", lightPath);
+  });
+
   it("uses translucent fills with full-strength category-colored outlines", () => {
     document.documentElement.dataset.chartWidth = "500";
     const { container } = renderChart({

@@ -20,7 +20,11 @@
 .segment {
   cursor: default;
   outline: none;
-  transition: fill-opacity 140ms ease, stroke-width 140ms ease;
+  transition:
+    fill 250ms ease,
+    stroke 250ms ease,
+    fill-opacity 140ms ease,
+    stroke-width 140ms ease;
 }
 
 .segment:focus-visible {
@@ -28,11 +32,16 @@
   stroke-width: 3;
 }
 
+.chartLeader {
+  transition: stroke 250ms ease;
+}
+
 .chartLabel {
   fill: var(--bb-color-text-primary, #3a3834);
   font-family: var(--bb-font-body, sans-serif);
   font-size: var(--mantine-font-size-md, 1rem);
   font-weight: 400;
+  transition: fill 250ms ease;
 }
 
 .centerText {
@@ -117,7 +126,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .segment {
+  .segment,
+  .chartLeader,
+  .chartLabel {
     transition: none;
   }
 }

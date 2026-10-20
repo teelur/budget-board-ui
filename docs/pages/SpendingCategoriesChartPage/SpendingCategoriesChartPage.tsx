@@ -88,10 +88,12 @@ export function SpendingCategoriesChartPage() {
         beside each slice with a single angled leader and a short horizontal
         tail on wide layouts. Colored slices use translucent fills and
         full-strength outlines, with the same treatment on compact-layout
-        legend swatches. The rings animate on initial render and when the data
-        changes, unless the user prefers reduced motion. The component only
-        renders the supplied data; callers own transaction aggregation,
-        currency formatting, translations, and the subcategory control.
+      legend swatches. Slice and label colors transition with the theme, and
+      labels stay visible while the rings animate. The rings animate on
+      initial render and when the data changes; transitions respect reduced
+      motion preferences. The component only renders the supplied data;
+      callers own transaction aggregation, currency formatting, translations,
+      and the subcategory control.
       </BodyText>
 
       <ComponentDemoSection

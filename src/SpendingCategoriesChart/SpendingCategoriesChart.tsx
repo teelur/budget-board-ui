@@ -10,7 +10,7 @@ import { Skeleton } from "../Skeleton/Skeleton";
 import { getBudgetBoardDataColor } from "../colors";
 import { ensureBBUIMantineProvider, useBBUITheme } from "../shared/themeStyles";
 import { Pie, PieChart, Sector, Tooltip } from "recharts";
-import type { PieLabelRenderProps, PieSectorShapeProps } from "recharts";
+import type { PieSectorShapeProps } from "recharts";
 import classes from "./SpendingCategoriesChart.module.css";
 
 export interface SpendingSubcategoryChartData {
@@ -407,57 +407,47 @@ export function SpendingCategoriesChart({
     }
 
     const segment = props.payload;
-
-    return (
-      <Sector
-        {...sectorGeometry}
-        aria-describedby={props.isActive ? tooltipId : undefined}
-        aria-label={getTooltipText(segment, formatValue)}
-        className={classes.segment ?? ""}
-        data-budget-board-chart-ring={
-          segment.key.startsWith("subcategory-") ? "subcategory" : "category"
-        }
-        fill={segment.fill}
-        fillOpacity={props.isActive ? 0.58 : 0.4}
-        role="img"
-        stroke={segment.color}
-        strokeOpacity={1}
-        strokeWidth={props.isActive ? 2.5 : 2}
-        tabIndex={0}
-      />
-    );
-  };
-
-  const renderLabel = (props: PieLabelRenderProps) => {
-    if (!isChartSegment(props.payload)) {
-      return null;
-    }
-
-    const segment = props.payload;
     const label = labelsBySegmentKey.get(segment.key);
 
-    if (!label) {
-      return null;
-    }
-
     return (
-      <g aria-hidden="true">
-        <path
-          d={`M ${label.startX} ${label.startY} L ${label.leaderX} ${label.endY} L ${label.endX} ${label.endY}`}
-          data-budget-board-chart-leader={segment.key}
-          fill="none"
-          stroke={label.color}
-          strokeWidth={1.5}
+      <g>
+        <Sector
+          {...sectorGeometry}
+          aria-describedby={props.isActive ? tooltipId : undefined}
+          aria-label={getTooltipText(segment, formatValue)}
+          className={classes.segment ?? ""}
+          data-budget-board-chart-ring={
+            segment.key.startsWith("subcategory-") ? "subcategory" : "category"
+          }
+          fill={segment.fill}
+          fillOpacity={props.isActive ? 0.58 : 0.4}
+          role="img"
+          stroke={segment.color}
+          strokeOpacity={1}
+          strokeWidth={props.isActive ? 2.5 : 2}
+          tabIndex={0}
         />
-        <text
-          className={classes.chartLabel}
-          dominantBaseline="central"
-          textAnchor={label.isRight ? "start" : "end"}
-          x={label.textX}
-          y={label.endY}
-        >
-          {label.text}
-        </text>
+        {label && (
+          <g aria-hidden="true">
+            <path
+              className={classes.chartLeader}
+              d={`M ${label.startX} ${label.startY} L ${label.leaderX} ${label.endY} L ${label.endX} ${label.endY}`}
+              data-budget-board-chart-leader={segment.key}
+              fill="none"
+              stroke={label.color}
+              strokeWidth={1.5}
+            />
+            <text
+              className={classes.chartLabel}
+              dominantBaseline="central"
+              textAnchor={label.isRight ? "start" : "end"}
+              x={label.textX}
+              y={label.endY}
+            >
+              {label.text}
+            </text>
+          </g>
+        )}
       </g>
     );
   };
@@ -508,8 +498,6 @@ export function SpendingCategoriesChart({
                 animationDuration={700}
                 animationEasing="ease-out"
                 isAnimationActive="auto"
-                label={!isCompact && !showSubcategories ? renderLabel : false}
-                labelLine={false}
                 nameKey="name"
                 outerRadius={showSubcategories ? 94 : outerRadius}
                 shape={renderSegment}
@@ -527,8 +515,6 @@ export function SpendingCategoriesChart({
                   animationDuration={700}
                   animationEasing="ease-out"
                   isAnimationActive="auto"
-                  label={!isCompact ? renderLabel : false}
-                  labelLine={false}
                   nameKey="name"
                   outerRadius={outerRadius}
                   shape={renderSegment}
