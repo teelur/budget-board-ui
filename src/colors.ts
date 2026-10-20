@@ -98,4 +98,45 @@ export const budgetBoardColors = {
 } as const satisfies Record<"light" | "dark", BudgetBoardColorMode>;
 
 export type BudgetBoardColors = typeof budgetBoardColors;
+
+export const budgetBoardDataColors = {
+  light: [
+    "#4c6ef5",
+    "#0b7285",
+    "#2f9e44",
+    "#5c940d",
+    "#b08900",
+    "#d9480f",
+    "#b26a50",
+    "#c92a2a",
+    "#c2255c",
+    "#7950f2",
+  ],
+  dark: [
+    "#91a7ff",
+    "#66d9e8",
+    "#69db7c",
+    "#a9e34b",
+    "#ffe066",
+    "#ffa94d",
+    "#d58e72",
+    "#ff6b6b",
+    "#faa2c1",
+    "#b197fc",
+  ],
+} as const;
+
+export type BudgetBoardDataColors = typeof budgetBoardDataColors;
+
+export function getBudgetBoardDataColor(
+  index: number,
+  colorScheme: "light" | "dark",
+): string {
+  if (!Number.isSafeInteger(index) || index < 0) {
+    throw new RangeError("Graph color index must be a non-negative integer.");
+  }
+
+  const palette = budgetBoardDataColors[colorScheme];
+  return palette[index % palette.length]!;
+}
 export type BudgetBoardColorMode = Record<BudgetBoardColorKey, string>;

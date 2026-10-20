@@ -1,0 +1,35 @@
+.chartPreview {
+  background: var(--bb-color-surface);
+  border: 1px solid var(--line);
+  min-width: 0;
+  padding: 1rem;
+  width: 100%;
+}
+
+.stateGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.playground {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(12rem, 0.35fr) minmax(0, 1fr);
+}
+
+.playgroundControls {
+  align-items: flex-start;
+  background: var(--bb-color-surface-elevated);
+  border: 1px solid var(--line);
+  display: flex;
+  min-width: 0;
+  padding: 1rem;
+}
+
+@media (max-width: 800px) {
+  .stateGrid,
+  .playground {
+    grid-template-columns: 1fr;
+  }
+}

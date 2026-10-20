@@ -45,6 +45,7 @@ import { LoadingOverlayPage } from "./pages/LoadingOverlayPage/LoadingOverlayPag
 import { SkeletonPage } from "./pages/SkeletonPage/SkeletonPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
 import { SelectPage } from "./pages/SelectPage/SelectPage";
+import { SpendingCategoriesChartPage } from "./pages/SpendingCategoriesChartPage/SpendingCategoriesChartPage";
 import { StepperPage } from "./pages/StepperPage/StepperPage";
 import { TablePage } from "./pages/TablePage/TablePage";
 import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
@@ -209,7 +210,8 @@ export function App() {
               <a href="#pin-input">PinInput</a>
               <a href="#popover">Popover</a>
               <a href="#progress">Progress</a>
-              <a href="#segmented-control">SegmentedControl</a>
+              <a href="#spending-categories-chart">Spending categories chart</a>
+              <a href="#segmented-control">Segmented control</a>
               <a href="#select">Select</a>
               <a href="#skeleton">Skeleton</a>
               <a href="#stepper">Stepper</a>
@@ -340,6 +342,7 @@ export function App() {
               <TextareaPage />
               <TooltipPage />
               <ProgressPage />
+              <SpendingCategoriesChartPage />
               <PaginationPage />
               <SegmentedControlPage />
               <SkeletonPage />
