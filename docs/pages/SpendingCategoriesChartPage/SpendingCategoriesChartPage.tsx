@@ -86,10 +86,12 @@ export function SpendingCategoriesChartPage() {
         A responsive, theme-aware spending donut with nested category rings,
         a centered total, hover and keyboard details, and persistent labels
         beside each slice with a single angled leader and a short horizontal
-        tail on wide layouts. Narrow layouts use a compact legend. The
-        component only renders the supplied data; callers own transaction
-        aggregation, currency formatting, translations, and the subcategory
-        control.
+        tail on wide layouts. Colored slices use translucent fills and
+        full-strength outlines, with the same treatment on compact-layout
+        legend swatches. The rings animate on initial render and when the data
+        changes, unless the user prefers reduced motion. The component only
+        renders the supplied data; callers own transaction aggregation,
+        currency formatting, translations, and the subcategory control.
       </BodyText>
 
       <ComponentDemoSection
@@ -98,7 +100,7 @@ export function SpendingCategoriesChartPage() {
   data={sampleCategories}
   formatValue={formatCurrency}
 />`}
-        description="Subcategory values should add up to their parent category. Parent categories use the shared 10-color BBUI graph palette; child segments use up to five tones of the parent color before cycling. Caller colors override these defaults."
+        description="Subcategory values should add up to their parent category. Category and subcategory slices use a 40%-opaque fill with a full-strength colored outline. Parent categories use the shared 10-color BBUI graph palette; child segments use up to five tones of the parent color before cycling. Caller colors override these defaults."
         id="spending-categories-chart-basic"
         title="Basic usage"
       >

@@ -64,7 +64,7 @@ interface LabelPosition {
   endY: number;
   textX: number;
   isRight: boolean;
-  fill: string;
+  color: string;
   text: string;
 }
 
@@ -313,7 +313,7 @@ function getLabelPositions(
         endY,
         textX: endX + (isRight ? 4 : -4),
         isRight,
-        fill: segment.fill,
+        color: segment.color,
         text: segment.name,
       },
     ];
@@ -496,6 +496,7 @@ export function SpendingCategoriesChart({
           segment.key.startsWith("subcategory-") ? "subcategory" : "category"
         }
         fill={segment.fill}
+        fillOpacity={0.4}
         onBlur={() => setTooltip(null)}
         onFocus={(event) =>
           handleFocus(event, segment, props.innerRadius, props.outerRadius)
@@ -504,7 +505,8 @@ export function SpendingCategoriesChart({
         onPointerLeave={() => setTooltip(null)}
         onPointerMove={(event) => handlePointer(event, segment)}
         role="img"
-        stroke={colors.surface}
+        stroke={segment.color}
+        strokeOpacity={1}
         strokeWidth={2}
         tabIndex={0}
       />
@@ -529,7 +531,7 @@ export function SpendingCategoriesChart({
           d={`M ${label.startX} ${label.startY} L ${label.leaderX} ${label.endY} L ${label.endX} ${label.endY}`}
           data-budget-board-chart-leader={segment.key}
           fill="none"
-          stroke={label.fill}
+          stroke={label.color}
           strokeWidth={1.5}
         />
         <text
@@ -588,7 +590,10 @@ export function SpendingCategoriesChart({
                 dataKey="value"
                 endAngle={270}
                 innerRadius={showSubcategories ? 57 : 72}
-                isAnimationActive={false}
+                animationBegin={0}
+                animationDuration={700}
+                animationEasing="ease-out"
+                isAnimationActive="auto"
                 label={!isCompact && !showSubcategories ? renderLabel : false}
                 labelLine={false}
                 nameKey="name"
@@ -608,7 +613,10 @@ export function SpendingCategoriesChart({
                   dataKey="value"
                   endAngle={270}
                   innerRadius={99}
-                  isAnimationActive={false}
+                  animationBegin={0}
+                  animationDuration={700}
+                  animationEasing="ease-out"
+                  isAnimationActive="auto"
                   label={!isCompact ? renderLabel : false}
                   labelLine={false}
                   nameKey="name"
@@ -663,7 +671,10 @@ export function SpendingCategoriesChart({
                   <span
                     aria-hidden="true"
                     className={classes.legendSwatch}
-                    style={{ backgroundColor: segment.fill }}
+                    style={{
+                      backgroundColor: `color-mix(in srgb, ${segment.fill} 40%, transparent)`,
+                      border: `1px solid ${segment.color}`,
+                    }}
                   />
                   <BodyText size="xs" tone="secondary" fw={500}>
                     {segment.name}

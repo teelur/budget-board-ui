@@ -1,5 +1,5 @@
 import { MantineProvider } from "@mantine/core";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   budgetBoardDataColors,
@@ -19,6 +19,16 @@ vi.mock("@mantine/hooks", async (importOriginal) => {
     }),
   };
 });
+
+const originalMatchMedia = window.matchMedia.bind(window);
+
+function setReducedMotionPreference(prefersReducedMotion: boolean) {
+  window.matchMedia = (query) => ({
+    ...originalMatchMedia(query),
+    matches:
+      query === "(prefers-reduced-motion: reduce)" && prefersReducedMotion,
+  });
+}
 
 const categories: SpendingCategoryChartData[] = [
   {
@@ -58,6 +68,7 @@ function renderChart(
 describe("SpendingCategoriesChart", () => {
   beforeEach(() => {
     document.documentElement.dataset.chartWidth = "880";
+    setReducedMotionPreference(true);
   });
 
   it("renders category and subcategory rings with a centered total and adjacent wide labels", () => {
@@ -209,6 +220,82 @@ describe("SpendingCategoriesChart", () => {
     expect(screen.queryByText("Rent")).not.toBeInTheDocument();
   });
 
+  it("animates on load and when the data changes", async () => {
+    setReducedMotionPreference(false);
+    const { rerender } = renderChart();
+    const chart = screen.getByTestId("spending-chart");
+
+    await waitFor(
+      () =>
+        expect(
+          chart.querySelectorAll("[data-budget-board-chart-ring]"),
+        ).toHaveLength(6),
+      { timeout: 1500 },
+    );
+    const getHousingPath = () =>
+      chart
+        .querySelector<SVGPathElement>(
+          '[data-budget-board-chart-ring="category"]',
+        )
+        ?.getAttribute("d");
+    const initialHousingPath = getHousingPath();
+
+    await waitFor(() => {
+      expect(getHousingPath()).not.toBe(initialHousingPath);
+    }, { timeout: 500, interval: 20 });
+
+    rerender(
+      <SpendingCategoriesChart
+        ariaLabel="Spending by category"
+        data={[
+          {
+            name: "Housing",
+            value: 800,
+            subcategories: [
+              { name: "Rent", value: 750 },
+              { name: "Utilities", value: 50 },
+            ],
+          },
+          {
+            name: "Food",
+            value: 450,
+            subcategories: [
+              { name: "Groceries", value: 300 },
+              { name: "Dining", value: 150 },
+            ],
+          },
+        ]}
+        data-testid="spending-chart"
+        formatValue={formatValue}
+      />,
+    );
+
+    expect(screen.getByText("$1250.00")).toBeInTheDocument();
+    const pathAtDataChange = getHousingPath();
+
+    await waitFor(
+      () => {
+        expect(getHousingPath()).not.toBe(pathAtDataChange);
+      },
+      { timeout: 1500, interval: 20 },
+    );
+    await waitFor(
+      () => {
+        expect(
+          screen.getByRole("img", {
+            name: "Housing: $800.00 (64.0%)",
+          }),
+        ).toBeInTheDocument();
+        expect(
+          screen.getByRole("img", {
+            name: "Housing, Rent: $750.00 (60.0%)",
+          }),
+        ).toBeInTheDocument();
+      },
+      { timeout: 1500 },
+    );
+  });
+
   it("uses a compact legend instead of slice labels on narrow layouts", () => {
     document.documentElement.dataset.chartWidth = "500";
     renderChart();
@@ -273,6 +360,36 @@ describe("SpendingCategoriesChart", () => {
     expect(
       screen.getByRole("img", { name: "Home: $100.00 (100.0%)" }),
     ).toHaveAttribute("fill", "#123456");
+  });
+
+  it("uses translucent fills with full-strength category-colored outlines", () => {
+    document.documentElement.dataset.chartWidth = "500";
+    const { container } = renderChart({
+      data: [{ color: "#123456", name: "Home", value: 100 }],
+    });
+
+    const segments = Array.from(
+      container.querySelectorAll<SVGPathElement>(
+        "[data-budget-board-chart-ring]",
+      ),
+    );
+
+    expect(segments).toHaveLength(2);
+    segments.forEach((segment) => {
+      expect(segment).toHaveAttribute("fill-opacity", "0.4");
+      expect(segment).toHaveAttribute("stroke", "#123456");
+      expect(segment).toHaveAttribute("stroke-opacity", "1");
+    });
+
+    const legendSwatch = screen.getByRole("list").querySelector("span");
+    expect(legendSwatch).toHaveAttribute(
+      "style",
+      expect.stringContaining("border: 1px solid rgb(18, 52, 86)"),
+    );
+    expect(legendSwatch).toHaveAttribute(
+      "style",
+      expect.stringContaining("40%"),
+    );
   });
 
   it("uses five tonal shades for subcategories and wraps after five", () => {
