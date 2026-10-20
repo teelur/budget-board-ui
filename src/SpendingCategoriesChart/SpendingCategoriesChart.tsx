@@ -9,7 +9,7 @@ import { BodyText } from "../BodyText/BodyText";
 import { Skeleton } from "../Skeleton/Skeleton";
 import { getBudgetBoardDataColor } from "../colors";
 import { ensureBBUIMantineProvider, useBBUITheme } from "../shared/themeStyles";
-import { Cell, Pie, PieChart, Sector, Tooltip } from "recharts";
+import { Pie, PieChart, Sector, Tooltip } from "recharts";
 import type { PieLabelRenderProps, PieSectorShapeProps } from "recharts";
 import classes from "./SpendingCategoriesChart.module.css";
 
@@ -514,11 +514,7 @@ export function SpendingCategoriesChart({
                 outerRadius={showSubcategories ? 94 : outerRadius}
                 shape={renderSegment}
                 startAngle={-90}
-              >
-                {segments.categories.map((segment) => (
-                  <Cell fill={segment.fill} key={segment.key} />
-                ))}
-              </Pie>
+              />
               {showSubcategories && (
                 <Pie
                   cx="50%"
@@ -537,11 +533,7 @@ export function SpendingCategoriesChart({
                   outerRadius={outerRadius}
                   shape={renderSegment}
                   startAngle={-90}
-                >
-                  {segments.subcategories.map((segment) => (
-                    <Cell fill={segment.fill} key={segment.key} />
-                  ))}
-                </Pie>
+                />
               )}
               <Tooltip
                 content={({ active, payload }) => {
