@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import { BodyText } from "../BodyText/BodyText";
 import { Skeleton } from "../Skeleton/Skeleton";
+import { budgetBoardTypography } from "../theme";
 import { useBBUITheme, ensureBBUIMantineProvider } from "../shared/themeStyles";
 import classes from "./NetCashFlowChart.module.css";
 
@@ -91,6 +92,7 @@ export function NetCashFlowChart({
 
   const chartStyle = {
     ...style,
+    "--bbui-net-cash-flow-font-body": `var(--bb-font-body, ${budgetBoardTypography.body})`,
     "--bbui-net-cash-flow-axis": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
     "--bbui-net-cash-flow-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
     "--bbui-net-cash-flow-focus": `var(--bb-color-focus-ring, ${colors.focusRing})`,
@@ -171,8 +173,8 @@ export function NetCashFlowChart({
                 dataKey="month"
                 tick={{
                   fill: "var(--bbui-net-cash-flow-axis)",
-                  fontFamily: "var(--bb-font-body, sans-serif)",
-                  fontSize: 12,
+                  fontFamily: "var(--bbui-net-cash-flow-font-body)",
+                  fontSize: "var(--mantine-font-size-xs, 0.75rem)",
                 }}
                 tickLine={false}
                 tickMargin={8}
@@ -181,8 +183,8 @@ export function NetCashFlowChart({
                 axisLine={false}
                 tick={{
                   fill: "var(--bbui-net-cash-flow-axis)",
-                  fontFamily: "var(--bb-font-body, sans-serif)",
-                  fontSize: 12,
+                  fontFamily: "var(--bbui-net-cash-flow-font-body)",
+                  fontSize: "var(--mantine-font-size-xs, 0.75rem)",
                 }}
                 tickFormatter={formatValue}
                 tickLine={false}

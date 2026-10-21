@@ -6,8 +6,11 @@ import type {
 } from "react";
 import { useId, useMemo } from "react";
 import { BodyText } from "../BodyText/BodyText";
+import { CaptionText } from "../CaptionText/CaptionText";
+import { DataText } from "../DataText/DataText";
 import { Skeleton } from "../Skeleton/Skeleton";
 import { getBudgetBoardDataColor } from "../colors";
+import { budgetBoardTypography } from "../theme";
 import { ensureBBUIMantineProvider, useBBUITheme } from "../shared/themeStyles";
 import { Pie, PieChart, Sector, Tooltip } from "recharts";
 import type { PieSectorShapeProps } from "recharts";
@@ -392,6 +395,7 @@ export function SpendingCategoriesChart({
   const chartHeight = chartLayout.height;
   const chartStyle = {
     ...style,
+    "--bbui-chart-font-body": `var(--bb-font-body, ${budgetBoardTypography.body})`,
     "--bbui-chart-border-subtle": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
     "--bbui-chart-focus-ring": `var(--bb-color-focus-ring, ${colors.focusRing})`,
     "--bbui-chart-surface-overlay": `var(--bb-color-surface-overlay, ${colors.surfaceOverlay})`,
@@ -574,8 +578,12 @@ export function SpendingCategoriesChart({
               />
             </PieChart>
             <div aria-hidden="true" className={classes.centerText}>
-              <span className={classes.totalLabel}>{totalLabel}</span>
-              <span className={classes.totalValue}>{formatValue(total)}</span>
+              <CaptionText fz="0.8rem" tone="secondary">
+                {totalLabel}
+              </CaptionText>
+              <DataText fw={600} fz="1.1rem" tone="heading">
+                {formatValue(total)}
+              </DataText>
             </div>
           </div>
           {isCompact && (

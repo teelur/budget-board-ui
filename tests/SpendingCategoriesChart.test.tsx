@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   budgetBoardColors,
   budgetBoardDataColors,
+  budgetBoardTypography,
   SpendingCategoriesChart,
   type SpendingCategoryChartData,
 } from "../src";
@@ -167,6 +168,24 @@ describe("SpendingCategoriesChart", () => {
       Number(screen.getByText("Dining").getAttribute("x")),
     ).toBeGreaterThan(Number(screen.getByText("Groceries").getAttribute("x")));
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  });
+
+  it("uses BBUI text roles and body typography for chart labels and totals", () => {
+    renderChart();
+
+    const chart = screen.getByTestId("spending-chart");
+
+    expect(chart.style.getPropertyValue("--bbui-chart-font-body")).toBe(
+      `var(--bb-font-body, ${budgetBoardTypography.body})`,
+    );
+    expect(screen.getByText("Total spending")).toHaveAttribute(
+      "data-budget-board-text-role",
+      "caption",
+    );
+    expect(screen.getByText("$1000.00")).toHaveAttribute(
+      "data-budget-board-text-role",
+      "data",
+    );
   });
 
   it("omits wide labels for slices below one percent", () => {

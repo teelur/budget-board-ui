@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   budgetBoardColors,
+  budgetBoardTypography,
   NetCashFlowChart,
   type NetCashFlowChartData,
   type NetCashFlowChartSeriesLabels,
@@ -94,6 +95,26 @@ describe("NetCashFlowChart", () => {
     expect(
       screen.getByTestId("net-cash-flow-chart").querySelector("svg"),
     ).toHaveAttribute("viewBox", "0 0 480 400");
+  });
+
+  it("uses BBUI body typography for chart axis labels", () => {
+    renderChart();
+
+    const chart = screen.getByTestId("net-cash-flow-chart");
+    const axisLabels = chart.querySelectorAll(
+      "text.recharts-cartesian-axis-tick-value",
+    );
+
+    expect(
+      chart.style.getPropertyValue("--bbui-net-cash-flow-font-body"),
+    ).toBe(`var(--bb-font-body, ${budgetBoardTypography.body})`);
+    expect(axisLabels.length).toBeGreaterThan(0);
+    axisLabels.forEach((label) => {
+      expect(label).toHaveAttribute(
+        "font-family",
+        "var(--bbui-net-cash-flow-font-body)",
+      );
+    });
   });
 
   it("uses BBUI semantic series and surface colors in both themes", () => {
