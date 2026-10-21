@@ -1,6 +1,6 @@
 import { MantineProvider } from "@mantine/core";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   budgetBoardDataColors,
   SpendingCategoriesChart,
@@ -65,10 +65,20 @@ function renderChart(
   );
 }
 
+async function advanceAnimation(milliseconds: number) {
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(milliseconds);
+  });
+}
+
 describe("SpendingCategoriesChart", () => {
   beforeEach(() => {
     document.documentElement.dataset.chartWidth = "880";
     setReducedMotionPreference(true);
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   it("renders category and subcategory rings with a centered total and adjacent wide labels", () => {
@@ -222,16 +232,9 @@ describe("SpendingCategoriesChart", () => {
 
   it("animates on load and data changes without restarting on hover", async () => {
     setReducedMotionPreference(false);
+    vi.useFakeTimers();
     const { rerender } = renderChart();
     const chart = screen.getByTestId("spending-chart");
-
-    await waitFor(
-      () =>
-        expect(
-          chart.querySelectorAll("[data-budget-board-chart-ring]"),
-        ).toHaveLength(6),
-      { timeout: 1500 },
-    );
     const getHousingPath = () =>
       chart
         .querySelector<SVGPathElement>(
@@ -240,19 +243,22 @@ describe("SpendingCategoriesChart", () => {
         ?.getAttribute("d");
     const initialHousingPath = getHousingPath();
 
-    await waitFor(() => {
-      expect(getHousingPath()).not.toBe(initialHousingPath);
-    }, { timeout: 500, interval: 20 });
-    await waitFor(
-      () => expect(chart.querySelectorAll("svg text")).toHaveLength(4),
-      { timeout: 1500 },
-    );
+    await advanceAnimation(150);
+    expect(
+      chart.querySelectorAll("[data-budget-board-chart-ring]"),
+    ).toHaveLength(6);
+    const firstHousingPath = getHousingPath();
+    expect(firstHousingPath).not.toBe(initialHousingPath);
+    await advanceAnimation(150);
+    expect(getHousingPath()).not.toBe(firstHousingPath);
+    await advanceAnimation(500);
+    expect(chart.querySelectorAll("svg text")).toHaveLength(4);
     const rent = screen.getByRole("img", {
       name: "Housing, Rent: $650.00 (65.0%)",
     });
 
     fireEvent.mouseEnter(rent);
-    await new Promise<void>((resolve) => window.setTimeout(resolve, 200));
+    await advanceAnimation(200);
     expect(chart.querySelectorAll("svg text")).toHaveLength(4);
     fireEvent.mouseLeave(rent);
 
@@ -285,27 +291,19 @@ describe("SpendingCategoriesChart", () => {
     expect(screen.getByText("$1250.00")).toBeInTheDocument();
     const pathAtDataChange = getHousingPath();
 
-    await waitFor(
-      () => {
-        expect(getHousingPath()).not.toBe(pathAtDataChange);
-      },
-      { timeout: 1500, interval: 20 },
-    );
-    await waitFor(
-      () => {
-        expect(
-          screen.getByRole("img", {
-            name: "Housing: $800.00 (64.0%)",
-          }),
-        ).toBeInTheDocument();
-        expect(
-          screen.getByRole("img", {
-            name: "Housing, Rent: $750.00 (60.0%)",
-          }),
-        ).toBeInTheDocument();
-      },
-      { timeout: 1500 },
-    );
+    await advanceAnimation(150);
+    expect(getHousingPath()).not.toBe(pathAtDataChange);
+    await advanceAnimation(650);
+    expect(
+      screen.getByRole("img", {
+        name: "Housing: $800.00 (64.0%)",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", {
+        name: "Housing, Rent: $750.00 (60.0%)",
+      }),
+    ).toBeInTheDocument();
   });
 
   it("uses a compact legend instead of slice labels on narrow layouts", () => {
@@ -387,6 +385,7 @@ describe("SpendingCategoriesChart", () => {
 
   it("keeps labels visible while transitioning theme colors", async () => {
     setReducedMotionPreference(false);
+    vi.useFakeTimers();
     const renderWithColorScheme = (colorScheme: "light" | "dark") => (
       <MantineProvider forceColorScheme={colorScheme}>
         <SpendingCategoriesChart
@@ -401,13 +400,10 @@ describe("SpendingCategoriesChart", () => {
     const chart = screen.getByTestId("spending-chart");
 
     expect(chart.querySelectorAll("svg text")).toHaveLength(4);
-    await waitFor(
-      () =>
-        expect(
-          chart.querySelectorAll("[data-budget-board-chart-ring]"),
-        ).toHaveLength(6),
-      { timeout: 1500 },
-    );
+    await advanceAnimation(800);
+    expect(
+      chart.querySelectorAll("[data-budget-board-chart-ring]"),
+    ).toHaveLength(6);
     const categoryRing = chart.querySelector<SVGPathElement>(
       '[data-budget-board-chart-ring="category"]',
     );
