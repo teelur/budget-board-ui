@@ -390,8 +390,6 @@ export function SpendingCategoriesChart({
     [chartLayout.labels],
   );
   const chartHeight = chartLayout.height;
-  const centerX = chartWidth / 2;
-  const centerY = chartHeight / 2;
   const chartStyle = {
     ...style,
     "--bbui-chart-border-subtle": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
@@ -572,7 +570,6 @@ export function SpendingCategoriesChart({
                 }}
                 cursor={false}
                 isAnimationActive={false}
-                {...(!isCompact ? { position: { x: centerX, y: 8 } } : {})}
                 wrapperStyle={{ pointerEvents: "none", zIndex: 1 }}
               />
             </PieChart>
