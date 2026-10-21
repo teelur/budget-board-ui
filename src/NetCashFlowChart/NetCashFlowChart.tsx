@@ -1,0 +1,304 @@
+import { useElementSize } from "@mantine/hooks";
+import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
+import { useMemo } from "react";
+import {
+  Bar,
+  CartesianGrid,
+  ComposedChart,
+  Line,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { BodyText } from "../BodyText/BodyText";
+import { Skeleton } from "../Skeleton/Skeleton";
+import { useBBUITheme, ensureBBUIMantineProvider } from "../shared/themeStyles";
+import classes from "./NetCashFlowChart.module.css";
+
+export interface NetCashFlowChartData {
+  month: string;
+  income: number;
+  spending: number;
+  net: number;
+}
+
+export interface NetCashFlowChartSeriesLabels {
+  income: string;
+  spending: string;
+  net: string;
+}
+
+export interface NetCashFlowChartProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "children"
+> {
+  ariaLabel: string;
+  data: NetCashFlowChartData[];
+  emptyMessage?: ReactNode;
+  formatValue: (value: number) => string;
+  height?: number;
+  isLoading?: boolean;
+  seriesLabels: NetCashFlowChartSeriesLabels;
+}
+
+type SeriesKey = keyof NetCashFlowChartSeriesLabels;
+
+interface ChartSeries {
+  key: SeriesKey;
+  label: string;
+  color: string;
+  legendClassName: string;
+}
+
+function validateData(data: NetCashFlowChartData[]) {
+  data.forEach((datum, index) => {
+    if (
+      !Number.isFinite(datum.income) ||
+      !Number.isFinite(datum.spending) ||
+      !Number.isFinite(datum.net)
+    ) {
+      throw new RangeError(
+        `Net cash flow datum at index ${index} must contain finite values.`,
+      );
+    }
+  });
+}
+
+export function NetCashFlowChart({
+  ariaLabel,
+  className,
+  data,
+  emptyMessage = "No cash flow data available.",
+  formatValue,
+  height = 400,
+  isLoading = false,
+  seriesLabels,
+  style,
+  ...rootProps
+}: NetCashFlowChartProps) {
+  const { colorScheme, colors, hasMantineContext } = useBBUITheme();
+  const { ref: sizeRef, width } = useElementSize<HTMLDivElement>();
+  const chartData = useMemo(() => {
+    validateData(data);
+    return data;
+  }, [data]);
+
+  if (!Number.isFinite(height) || height <= 0) {
+    throw new RangeError(
+      "Net cash flow chart height must be a positive number.",
+    );
+  }
+
+  const chartStyle = {
+    ...style,
+    "--bbui-net-cash-flow-axis": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
+    "--bbui-net-cash-flow-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
+    "--bbui-net-cash-flow-focus": `var(--bb-color-focus-ring, ${colors.focusRing})`,
+    "--bbui-net-cash-flow-hover": `var(--bb-color-surface-hover, ${colors.surfaceHover})`,
+    "--bbui-net-cash-flow-income": `var(--bb-color-success, ${colors.success})`,
+    "--bbui-net-cash-flow-net": `var(--bb-color-text-primary, ${colors.textPrimary})`,
+    "--bbui-net-cash-flow-spending": `var(--bb-color-error, ${colors.error})`,
+    "--bbui-net-cash-flow-tooltip-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
+    "--bbui-net-cash-flow-tooltip-surface": `var(--bb-color-surface-overlay, ${colors.surfaceOverlay})`,
+  } as CSSProperties;
+
+  const seriesColors: Record<SeriesKey, string> = {
+    income: "var(--bbui-net-cash-flow-income)",
+    spending: "var(--bbui-net-cash-flow-spending)",
+    net: "var(--bbui-net-cash-flow-net)",
+  };
+  const chartSeries: ChartSeries[] = [
+    {
+      key: "income",
+      label: seriesLabels.income,
+      color: seriesColors.income,
+      legendClassName: classes.legendIncome ?? "",
+    },
+    {
+      key: "spending",
+      label: seriesLabels.spending,
+      color: seriesColors.spending,
+      legendClassName: classes.legendSpending ?? "",
+    },
+    {
+      key: "net",
+      label: seriesLabels.net,
+      color: seriesColors.net,
+      legendClassName: classes.legendNet ?? "",
+    },
+  ];
+  const seriesByKey = new Map<string, ChartSeries>(
+    chartSeries.map((series) => [series.key, series]),
+  );
+
+  const content = (
+    <div
+      {...rootProps}
+      aria-busy={isLoading}
+      aria-label={ariaLabel}
+      className={[classes.root, className].filter(Boolean).join(" ")}
+      ref={sizeRef}
+      role="group"
+      style={chartStyle}
+    >
+      {isLoading ? (
+        <div aria-label={ariaLabel} role="status">
+          <Skeleton aria-hidden="true" height={height + 25} />
+        </div>
+      ) : chartData.length === 0 ? (
+        <BodyText className={classes.emptyMessage} component="p" tone="muted">
+          {emptyMessage}
+        </BodyText>
+      ) : (
+        <>
+          <div className={classes.chartViewport} style={{ height }}>
+            <ComposedChart
+              accessibilityLayer
+              className={classes.chart ?? ""}
+              data={chartData}
+              height={height}
+              margin={{ top: 12, right: 12, bottom: 8, left: 12 }}
+              stackOffset="sign"
+              width={Math.max(width, 1)}
+            >
+              <CartesianGrid
+                stroke="var(--bbui-net-cash-flow-border)"
+                strokeDasharray="3 3"
+                vertical={false}
+              />
+              <XAxis
+                axisLine={{ stroke: "var(--bbui-net-cash-flow-border)" }}
+                dataKey="month"
+                tick={{
+                  fill: "var(--bbui-net-cash-flow-axis)",
+                  fontFamily: "var(--bb-font-body, sans-serif)",
+                  fontSize: 12,
+                }}
+                tickLine={false}
+                tickMargin={8}
+              />
+              <YAxis
+                axisLine={false}
+                tick={{
+                  fill: "var(--bbui-net-cash-flow-axis)",
+                  fontFamily: "var(--bb-font-body, sans-serif)",
+                  fontSize: 12,
+                }}
+                tickFormatter={formatValue}
+                tickLine={false}
+                width={72}
+              />
+              <Tooltip
+                content={({ active, label, payload }) => {
+                  if (!active || !payload?.length) {
+                    return null;
+                  }
+
+                  const entries = payload.flatMap((item) => {
+                    const itemSeries =
+                      typeof item.dataKey === "string"
+                        ? seriesByKey.get(item.dataKey)
+                        : undefined;
+                    const value =
+                      typeof item.value === "number" ? item.value : undefined;
+
+                    return itemSeries && value !== undefined
+                      ? [{ ...itemSeries, value }]
+                      : [];
+                  });
+
+                  if (entries.length === 0) {
+                    return null;
+                  }
+
+                  return (
+                    <div className={classes.tooltip} role="tooltip">
+                      <BodyText size="xs" tone="secondary">
+                        {label}
+                      </BodyText>
+                      <ul className={classes.tooltipRows}>
+                        {entries.map((entry) => (
+                          <li className={classes.tooltipRow} key={entry.key}>
+                            <span
+                              aria-hidden="true"
+                              className={[
+                                classes.tooltipMarker,
+                                entry.key === "net"
+                                  ? classes.tooltipMarkerNet
+                                  : "",
+                              ]
+                                .filter(Boolean)
+                                .join(" ")}
+                              style={
+                                {
+                                  "--bbui-net-cash-flow-marker": entry.color,
+                                } as CSSProperties
+                              }
+                            />
+                            <BodyText size="sm" tone="secondary">
+                              {entry.label}
+                            </BodyText>
+                            <BodyText fw={600} size="sm" tone="primary">
+                              {formatValue(entry.value)}
+                            </BodyText>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                }}
+                cursor={{ fill: "var(--bbui-net-cash-flow-hover)" }}
+                wrapperStyle={{ outline: "none" }}
+              />
+              <Bar
+                dataKey="income"
+                fill={seriesColors.income}
+                fillOpacity={0.4}
+                name={seriesLabels.income}
+                stackId="cash-flow"
+                stroke={seriesColors.income}
+                strokeOpacity={1}
+              />
+              <Bar
+                dataKey="spending"
+                fill={seriesColors.spending}
+                fillOpacity={0.4}
+                name={seriesLabels.spending}
+                stackId="cash-flow"
+                stroke={seriesColors.spending}
+                strokeOpacity={1}
+              />
+              <Line
+                activeDot={{ r: 4 }}
+                dataKey="net"
+                dot={false}
+                name={seriesLabels.net}
+                stroke={seriesColors.net}
+                strokeWidth={2}
+                type="linear"
+              />
+            </ComposedChart>
+          </div>
+          <ul className={classes.legend}>
+            {chartSeries.map((series) => (
+              <li className={classes.legendItem} key={series.key}>
+                <span
+                  aria-hidden="true"
+                  className={[
+                    classes.legendSwatch,
+                    series.legendClassName,
+                  ].join(" ")}
+                />
+                <BodyText fw={500} size="xs" tone="secondary">
+                  {series.label}
+                </BodyText>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
+  );
+
+  return ensureBBUIMantineProvider(content, hasMantineContext, colorScheme);
+}

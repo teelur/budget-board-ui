@@ -34,6 +34,7 @@ import { MonthToolcardsPage } from "./pages/MonthToolcardsPage/MonthToolcardsPag
 import { ModalPage } from "./pages/ModalPage/ModalPage";
 import { MultiSelectPage } from "./pages/MultiSelectPage/MultiSelectPage";
 import { NavbarLinkPage } from "./pages/NavbarLinkPage/NavbarLinkPage";
+import { NetCashFlowChartPage } from "./pages/NetCashFlowChartPage/NetCashFlowChartPage";
 import { NotificationPage } from "./pages/NotificationPage/NotificationPage";
 import { NumberInputPage } from "./pages/NumberInputPage/NumberInputPage";
 import { PasswordInputPage } from "./pages/PasswordInputPage/PasswordInputPage";
@@ -180,7 +181,10 @@ export function App() {
                 Components
               </BodyText>
               <div className={styles.navCategory}>
-                <a className={styles.navCategoryHeading} href="#actions-navigation">
+                <a
+                  className={styles.navCategoryHeading}
+                  href="#actions-navigation"
+                >
                   Actions &amp; navigation
                 </a>
                 <a href="#action-icon">ActionIcon</a>
@@ -211,7 +215,10 @@ export function App() {
                 <a href="#textarea">Textarea</a>
               </div>
               <div className={styles.navCategory}>
-                <a className={styles.navCategoryHeading} href="#layout-overlays">
+                <a
+                  className={styles.navCategoryHeading}
+                  href="#layout-overlays"
+                >
                   Layout &amp; overlays
                 </a>
                 <a href="#app-shell">AppShell</a>
@@ -223,7 +230,10 @@ export function App() {
                 <a href="#popover">Popover</a>
               </div>
               <div className={styles.navCategory}>
-                <a className={styles.navCategoryHeading} href="#feedback-status">
+                <a
+                  className={styles.navCategoryHeading}
+                  href="#feedback-status"
+                >
                   Feedback &amp; status
                 </a>
                 <a href="#alert">Alert</a>
@@ -246,12 +256,16 @@ export function App() {
                 </a>
               </div>
               <div className={styles.navCategory}>
-                <a className={styles.navCategoryHeading} href="#budget-board-components">
+                <a
+                  className={styles.navCategoryHeading}
+                  href="#budget-board-components"
+                >
                   Budget Board components
                 </a>
                 <a href="#category-select">CategorySelect</a>
                 <a href="#month-toolcards">MonthToolcards</a>
                 <a href="#spending-categories-chart">SpendingCategoriesChart</a>
+                <a href="#net-cash-flow-chart">NetCashFlowChart</a>
               </div>
             </div>
             <BodyText
@@ -451,6 +465,7 @@ export function App() {
                 <CategorySelectPage />
                 <MonthToolcardsPage />
                 <SpendingCategoriesChartPage />
+                <NetCashFlowChartPage />
               </section>
             </section>
 

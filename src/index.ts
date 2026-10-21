@@ -126,11 +126,7 @@ export { Select, type SelectProps } from "./Select/Select";
 
 export { Skeleton, type SkeletonProps } from "./Skeleton/Skeleton";
 
-export {
-  Table,
-  type TableData,
-  type TableProps,
-} from "./Table/Table";
+export { Table, type TableData, type TableProps } from "./Table/Table";
 
 export { MultiSelect, type MultiSelectProps } from "./MultiSelect/MultiSelect";
 
@@ -177,30 +173,15 @@ export {
   type DividerVariant,
 } from "./Divider/Divider";
 
-export {
-  BodyText,
-  type BodyTextProps,
-} from "./BodyText/BodyText";
+export { BodyText, type BodyTextProps } from "./BodyText/BodyText";
 
-export {
-  CaptionText,
-  type CaptionTextProps,
-} from "./CaptionText/CaptionText";
+export { CaptionText, type CaptionTextProps } from "./CaptionText/CaptionText";
 
-export {
-  DataText,
-  type DataTextProps,
-} from "./DataText/DataText";
+export { DataText, type DataTextProps } from "./DataText/DataText";
 
-export {
-  DisplayText,
-  type DisplayTextProps,
-} from "./DisplayText/DisplayText";
+export { DisplayText, type DisplayTextProps } from "./DisplayText/DisplayText";
 
-export {
-  HeadingText,
-  type HeadingTextProps,
-} from "./HeadingText/HeadingText";
+export { HeadingText, type HeadingTextProps } from "./HeadingText/HeadingText";
 
 export type { TextRoleProps, TextTone } from "./shared/TextRole";
 
@@ -215,10 +196,7 @@ export { Popover, type PopoverProps } from "./Popover/Popover";
 
 export { Tooltip, type TooltipProps } from "./Tooltip/Tooltip";
 
-export {
-  Pagination,
-  type PaginationProps,
-} from "./Pagination/Pagination";
+export { Pagination, type PaginationProps } from "./Pagination/Pagination";
 
 export {
   SegmentedControl,
@@ -238,6 +216,13 @@ export {
 } from "./Progress/Progress";
 
 export { progressTypes, type ProgressType } from "./Progress/progressTypes";
+
+export {
+  NetCashFlowChart,
+  type NetCashFlowChartData,
+  type NetCashFlowChartProps,
+  type NetCashFlowChartSeriesLabels,
+} from "./NetCashFlowChart/NetCashFlowChart";
 
 export {
   SpendingCategoriesChart,
