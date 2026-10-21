@@ -2,6 +2,7 @@ import { MantineProvider } from "@mantine/core";
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
+  budgetBoardColors,
   budgetBoardDataColors,
   SpendingCategoriesChart,
   type SpendingCategoryChartData,
@@ -381,6 +382,49 @@ describe("SpendingCategoriesChart", () => {
     expect(
       screen.getByRole("img", { name: "Home: $100.00 (100.0%)" }),
     ).toHaveAttribute("fill", "#123456");
+  });
+
+  it("uses active semantic colors for chart labels and tooltip", () => {
+    const renderWithColorScheme = (colorScheme: "light" | "dark") => (
+      <MantineProvider forceColorScheme={colorScheme}>
+        <SpendingCategoriesChart
+          ariaLabel="Spending by category"
+          data={categories}
+          data-testid="spending-chart"
+          formatValue={formatValue}
+        />
+      </MantineProvider>
+    );
+    const { rerender } = render(renderWithColorScheme("light"));
+    const chart = screen.getByTestId("spending-chart");
+
+    expect(
+      chart.style.getPropertyValue("--bbui-chart-text-primary"),
+    ).toContain(budgetBoardColors.light.textPrimary);
+    expect(
+      chart.style.getPropertyValue("--bbui-chart-surface-overlay"),
+    ).toContain(budgetBoardColors.light.surfaceOverlay);
+
+    rerender(renderWithColorScheme("dark"));
+
+    expect(
+      chart.style.getPropertyValue("--bbui-chart-focus-ring"),
+    ).toContain(budgetBoardColors.dark.focusRing);
+    expect(
+      chart.style.getPropertyValue("--bbui-chart-border-subtle"),
+    ).toContain(budgetBoardColors.dark.borderSubtle);
+    expect(
+      chart.style.getPropertyValue("--bbui-chart-surface-overlay"),
+    ).toContain(budgetBoardColors.dark.surfaceOverlay);
+    expect(
+      chart.style.getPropertyValue("--bbui-chart-text-heading"),
+    ).toContain(budgetBoardColors.dark.textHeading);
+    expect(
+      chart.style.getPropertyValue("--bbui-chart-text-primary"),
+    ).toContain(budgetBoardColors.dark.textPrimary);
+    expect(
+      chart.style.getPropertyValue("--bbui-chart-text-secondary"),
+    ).toContain(budgetBoardColors.dark.textSecondary);
   });
 
   it("keeps labels visible while transitioning theme colors", async () => {
