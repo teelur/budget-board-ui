@@ -321,6 +321,9 @@ describe("SpendingCategoriesChart", () => {
     );
     expect(screen.getByRole("list").children).toHaveLength(4);
     expect(screen.getByText("Rent")).toBeInTheDocument();
+    expect(
+      chart.querySelector("ul span"),
+    ).toHaveAttribute("style", expect.stringContaining("40%"));
   });
 
   it("uses Recharts hover and keyboard interactions for the accessible tooltip", () => {
@@ -474,11 +477,56 @@ describe("SpendingCategoriesChart", () => {
       ),
       (segment) => segment.getAttribute("fill"),
     );
+    const tones = fills
+      .slice(0, 5)
+      .map((fill) => fill?.match(/#c92a2a (\d+)%/)?.[1]);
 
     expect(new Set(fills.slice(0, 5)).size).toBe(5);
+    expect(tones).toEqual(["100", "85", "70", "55", "40"]);
     expect(fills[5]).toBe(fills[0]);
-    expect(fills[0]).toContain(
-      "color-mix(in srgb, #c92a2a 90%, #242321)",
+    expect(
+      Array.from(
+        container.querySelectorAll<SVGPathElement>(
+          '[data-budget-board-chart-ring="subcategory"]',
+        ),
+        (segment) => segment.getAttribute("fill-opacity"),
+      ),
+    ).toEqual(Array(6).fill("0.4"));
+  });
+
+  it("uses a contrasting tone target for dark-mode subcategories", () => {
+    render(
+      <MantineProvider forceColorScheme="dark">
+        <SpendingCategoriesChart
+          ariaLabel="Dark spending chart"
+          data={[
+            {
+              color: "#ffe066",
+              name: "Home",
+              subcategories: [
+                { name: "Electricity", value: 50 },
+                { name: "Heating", value: 50 },
+              ],
+              value: 100,
+            },
+          ]}
+          formatValue={formatValue}
+        />
+      </MantineProvider>,
+    );
+
+    const fills = Array.from(
+      document.querySelectorAll<SVGPathElement>(
+        '[data-budget-board-chart-ring="subcategory"]',
+      ),
+      (segment) => segment.getAttribute("fill"),
+    );
+
+    expect(fills[0]).toBe(
+      "color-mix(in srgb, #ffe066 100%, #8e8a83)",
+    );
+    expect(fills[1]).toBe(
+      "color-mix(in srgb, #ffe066 85%, #8e8a83)",
     );
   });
 

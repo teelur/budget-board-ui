@@ -77,7 +77,7 @@ const labelSpacing = 20;
 const labelSpreadPasses = 8;
 const labelLeaderRadialOffset = 50;
 const labelLeaderHorizontalLength = 40;
-const subcategoryTonePercentages = [90, 80, 70, 60, 50] as const;
+const subcategoryTonePercentages = [100, 85, 70, 55, 40] as const;
 
 function validateData(data: SpendingCategoryChartData[]) {
   data.forEach((category, categoryIndex) => {
@@ -111,8 +111,8 @@ function validateData(data: SpendingCategoryChartData[]) {
   });
 }
 
-function mixWithSurface(color: string, surface: string, colorPercent: number) {
-  return `color-mix(in srgb, ${color} ${colorPercent}%, ${surface})`;
+function mixWithTarget(color: string, target: string, colorPercent: number) {
+  return `color-mix(in srgb, ${color} ${colorPercent}%, ${target})`;
 }
 
 function isChartSegment(value: unknown): value is ChartSegment {
@@ -207,9 +207,9 @@ function createSegments(
           fill: subcategory.color
             ? subcategory.color
             : category.subcategories?.length
-              ? mixWithSurface(color, toneTarget, shadePercent)
-              : color,
-          percent: subcategory.value / total,
+                ? mixWithTarget(color, toneTarget, shadePercent)
+                : color,
+            percent: subcategory.value / total,
           startAngle: childAngle,
           endAngle: childAngle + childSweep,
           innerRadius: 99,
@@ -348,6 +348,8 @@ export function SpendingCategoriesChart({
   const { ref: sizeRef, width } = useElementSize<HTMLDivElement>();
   const tooltipId = useId();
   const isCompact = width < compactBreakpoint;
+  const subcategoryToneTarget =
+    colorScheme === "dark" ? colors.textMetadata : colors.textHeading;
   const chartWidth = isCompact ? Math.max(width, compactViewWidth) : width;
   const outerRadius = isCompact ? compactRadius : wideRadius;
   const total = useMemo(() => {
@@ -361,15 +363,15 @@ export function SpendingCategoriesChart({
         total,
         showSubcategories,
         colorScheme,
-        colors.textHeading,
+        subcategoryToneTarget,
         outerRadius,
       ),
     [
       colorScheme,
-      colors.textHeading,
       data,
       outerRadius,
       showSubcategories,
+      subcategoryToneTarget,
       total,
     ],
   );

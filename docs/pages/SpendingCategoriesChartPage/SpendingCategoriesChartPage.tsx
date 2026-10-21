@@ -86,14 +86,15 @@ export function SpendingCategoriesChartPage() {
         A responsive, theme-aware spending donut with nested category rings,
         a centered total, hover and keyboard details, and persistent labels
         beside each slice with a single angled leader and a short horizontal
-        tail on wide layouts. Colored slices use translucent fills and
-        full-strength outlines, with the same treatment on compact-layout
-      legend swatches. Slice and label colors transition with the theme, and
-      labels stay visible while the rings animate. The rings animate on
-      initial render and when the data changes; transitions respect reduced
-      motion preferences. The component only renders the supplied data;
-      callers own transaction aggregation, currency formatting, translations,
-      and the subcategory control.
+        tail on wide layouts. Category and subcategory slices use translucent
+        fills with full-strength outlines; subcategory tones are widely spaced
+        to make them easier to distinguish. Compact-layout swatches preserve
+        the same opacity treatment. Slice and label colors transition with the
+        theme, and labels stay visible while the rings animate. The rings
+        animate on initial render and when the data changes; transitions
+        respect reduced motion preferences. The component only renders the
+        supplied data; callers own transaction aggregation, currency
+        formatting, translations, and the subcategory control.
       </BodyText>
 
       <ComponentDemoSection
@@ -102,7 +103,7 @@ export function SpendingCategoriesChartPage() {
   data={sampleCategories}
   formatValue={formatCurrency}
 />`}
-        description="Subcategory values should add up to their parent category. Category and subcategory slices use a 40%-opaque fill with a full-strength colored outline. Parent categories use the shared 10-color BBUI graph palette; child segments use up to five tones of the parent color before cycling. Caller colors override these defaults."
+        description="Subcategory values should add up to their parent category. Category and subcategory fills remain 40% opaque with full-strength parent-colored outlines. Child segments use up to five widely spaced tones of their parent color before cycling, and compact legend swatches preserve the same opacity treatment. Parent categories use the shared 10-color BBUI graph palette. Caller colors override the default tones."
         id="spending-categories-chart-basic"
         title="Basic usage"
       >
