@@ -120,6 +120,7 @@ describe("SpendingCategoriesChart", () => {
       expect(Math.hypot(x - centerX, y - centerY)).toBeGreaterThan(142);
     });
     leaders.forEach((leader) => {
+      expect(leader).toHaveAttribute("stroke-width", "1");
       const points = Array.from(
         leader
           .getAttribute("d")!
@@ -325,30 +326,51 @@ describe("SpendingCategoriesChart", () => {
     ).toHaveAttribute("style", expect.stringContaining("40%"));
   });
 
-  it("uses Recharts hover and keyboard interactions for the accessible tooltip", () => {
-    renderChart();
+  it("uses Recharts hover and keyboard interactions for the accessible tooltip", async () => {
+    const measureTooltip = vi
+      .spyOn(HTMLElement.prototype, "getBoundingClientRect")
+      .mockImplementation(function (this: HTMLElement) {
+        return this.classList.contains("recharts-tooltip-wrapper")
+          ? new DOMRect(0, 0, 120, 80)
+          : new DOMRect();
+      });
 
-    const chart = screen.getByTestId("spending-chart");
-    const rent = screen.getByRole("img", {
-      name: "Housing, Rent: $650.00 (65.0%)",
-    });
+    try {
+      renderChart();
 
-    expect(chart.querySelectorAll("svg text")).toHaveLength(4);
+      const chart = screen.getByTestId("spending-chart");
+      const rent = screen.getByRole("img", {
+        name: "Housing, Rent: $650.00 (65.0%)",
+      });
 
-    fireEvent.mouseEnter(rent);
-    expect(screen.getByRole("tooltip")).toHaveTextContent("Housing");
-    expect(screen.getByRole("tooltip")).toHaveTextContent(
-      "$650.00 (65.0%)",
-    );
+      expect(chart.querySelectorAll("svg text")).toHaveLength(4);
 
-    const tooltip = screen.getByRole("tooltip");
-    expect(rent).toHaveAttribute("aria-describedby", tooltip.id);
-    expect(rent).toHaveAttribute("fill-opacity", "0.58");
-    expect(chart.querySelectorAll("svg text")).toHaveLength(4);
+      fireEvent.mouseEnter(rent, { clientX: 200, clientY: 140 });
+      expect(screen.getByRole("tooltip")).toHaveTextContent("Housing");
+      expect(screen.getByRole("tooltip")).toHaveTextContent(
+        "$650.00 (65.0%)",
+      );
 
-    fireEvent.mouseLeave(rent);
-    fireEvent.focus(rent);
-    expect(screen.getByRole("tooltip")).toBeInTheDocument();
+      const tooltip = screen.getByRole("tooltip");
+      const tooltipWrapper = tooltip.closest(".recharts-tooltip-wrapper");
+      await waitFor(() =>
+        expect(tooltipWrapper?.style.transform).toMatch(/^translate\(/),
+      );
+      const chartWidth = Number(chart.querySelector("svg")?.getAttribute("width"));
+      expect(tooltipWrapper?.style.transform).not.toBe(
+        `translate(${chartWidth / 2}px, 8px)`,
+      );
+      expect(rent).toHaveAttribute("stroke-width", "1.5");
+      expect(rent).toHaveAttribute("aria-describedby", tooltip.id);
+      expect(rent).toHaveAttribute("fill-opacity", "0.58");
+      expect(chart.querySelectorAll("svg text")).toHaveLength(4);
+
+      fireEvent.mouseLeave(rent);
+      fireEvent.focus(rent);
+      expect(screen.getByRole("tooltip")).toBeInTheDocument();
+    } finally {
+      measureTooltip.mockRestore();
+    }
   });
 
   it("uses the BBUI dark data palette and caller-provided category colors", () => {
@@ -483,6 +505,7 @@ describe("SpendingCategoriesChart", () => {
       expect(segment).toHaveAttribute("fill-opacity", "0.4");
       expect(segment).toHaveAttribute("stroke", "#123456");
       expect(segment).toHaveAttribute("stroke-opacity", "1");
+      expect(segment).toHaveAttribute("stroke-width", "1");
     });
 
     const legendSwatch = screen.getByRole("list").querySelector("span");

@@ -390,8 +390,6 @@ export function SpendingCategoriesChart({
     [chartLayout.labels],
   );
   const chartHeight = chartLayout.height;
-  const centerX = chartWidth / 2;
-  const centerY = chartHeight / 2;
   const chartStyle = {
     ...style,
     "--bbui-chart-border-subtle": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
@@ -435,7 +433,7 @@ export function SpendingCategoriesChart({
           role="img"
           stroke={segment.color}
           strokeOpacity={1}
-          strokeWidth={props.isActive ? 2.5 : 2}
+          strokeWidth={props.isActive ? 1.5 : 1}
           tabIndex={0}
         />
         {label && (
@@ -446,7 +444,7 @@ export function SpendingCategoriesChart({
               data-budget-board-chart-leader={segment.key}
               fill="none"
               stroke={label.color}
-              strokeWidth={1.5}
+              strokeWidth={1}
             />
             <text
               className={classes.chartLabel}
@@ -572,7 +570,6 @@ export function SpendingCategoriesChart({
                 }}
                 cursor={false}
                 isAnimationActive={false}
-                {...(!isCompact ? { position: { x: centerX, y: 8 } } : {})}
                 wrapperStyle={{ pointerEvents: "none", zIndex: 1 }}
               />
             </PieChart>
