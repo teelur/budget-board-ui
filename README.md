@@ -29,6 +29,8 @@ import "@teelur/budget-board-ui/styles.css";
 
 The stylesheet includes BBUI's IBM Plex Sans and Plus Jakarta Sans variable fonts.
 
+`SpendingCategoriesChart` uses Recharts and requires the `recharts` and `react-is` peer dependencies.
+
 When using `DateInput` or `DatePickerInput`, also import the Mantine Dates stylesheet:
 
 ```ts

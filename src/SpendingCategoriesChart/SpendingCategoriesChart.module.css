@@ -1,0 +1,134 @@
+.root {
+  min-width: 0;
+  position: relative;
+  width: 100%;
+}
+
+.chartViewport {
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+}
+
+.chart {
+  display: block;
+  height: 100%;
+  overflow: visible;
+  width: 100%;
+}
+
+.segment {
+  cursor: default;
+  outline: none;
+  transition:
+    fill 250ms ease,
+    stroke 250ms ease,
+    fill-opacity 140ms ease,
+    stroke-width 140ms ease;
+}
+
+.segment:focus-visible {
+  stroke: var(--bb-color-focus-ring, #4c6ef5);
+  stroke-width: 3;
+}
+
+.chartLeader {
+  transition: stroke 250ms ease;
+}
+
+.chartLabel {
+  fill: var(--bb-color-text-primary, #3a3834);
+  font-family: var(--bb-font-body, sans-serif);
+  font-size: var(--mantine-font-size-md, 1rem);
+  font-weight: 400;
+  transition: fill 250ms ease;
+}
+
+.centerText {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--bb-font-body, sans-serif);
+  inset-inline-start: 50%;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.totalLabel {
+  color: var(--bb-color-text-secondary, #68645d);
+  font-size: 0.8rem;
+}
+
+.totalValue {
+  color: var(--bb-color-text-heading, #242321);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.tooltip {
+  background: var(--bb-color-surface-overlay, #fffaf2);
+  border: 1px solid var(--bb-color-border-subtle, #d8d5ce);
+  border-inline-start: 3px solid var(--bbui-chart-tooltip-color);
+  border-radius: var(--mantine-radius-sm, 0.25rem);
+  box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 14%);
+  display: grid;
+  gap: 0.125rem;
+  max-width: min(18rem, calc(100% - 2rem));
+  padding: 0.5rem 0.75rem;
+  pointer-events: none;
+}
+
+.tooltipTop {
+  transform: translate(-50%, 0);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  justify-content: center;
+  list-style: none;
+  margin: 0 auto;
+  max-width: 36rem;
+  padding: 0.25rem 0 0;
+}
+
+.legendItem {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.4rem;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.legendSwatch {
+  border-radius: 50%;
+  flex: 0 0 0.65rem;
+  height: 0.65rem;
+}
+
+.emptyMessage {
+  margin: 0;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.visuallyHidden {
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .segment,
+  .chartLeader,
+  .chartLabel {
+    transition: none;
+  }
+}

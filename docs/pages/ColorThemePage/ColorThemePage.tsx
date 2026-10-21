@@ -1,4 +1,8 @@
-import { budgetBoardColors } from "../../../src";
+import {
+  budgetBoardColors,
+  budgetBoardDataColors,
+  getBudgetBoardDataColor,
+} from "../../../src";
 import { ColorCard } from "../../components/color/ColorCard/ColorCard";
 import type { ColorMode } from "../../components/color/colorCardTypes";
 import { RoleCard } from "../../components/color/RoleCard/RoleCard";
@@ -77,6 +81,19 @@ const darkColors = [
       "The distinct shell surface used by navigation and app-level chrome.",
     className: "color-dark-navigation",
   },
+] as const;
+
+const graphColorNames = [
+  "Blue",
+  "Teal",
+  "Green",
+  "Olive",
+  "Gold",
+  "Orange",
+  "Terracotta",
+  "Red",
+  "Rose",
+  "Violet",
 ] as const;
 
 const surfaceRoles = [
@@ -370,6 +387,10 @@ const semanticColorGroups = [
 
 export function ColorThemePage({ colorMode }: { colorMode: ColorMode }) {
   const colors = colorMode === "light" ? lightColors : darkColors;
+  const graphColors = Array.from(
+    { length: budgetBoardDataColors[colorMode].length },
+    (_, index) => getBudgetBoardDataColor(index, colorMode),
+  );
 
   return (
     <section className={pageStyles.componentSection} id="color-theme">
@@ -440,6 +461,32 @@ export function ColorThemePage({ colorMode }: { colorMode: ColorMode }) {
               role={role}
               swatchClassName="theme-role-swatch"
             />
+          ))}
+        </div>
+
+        <BodyText component="p" className={styles.themeSubheading} ff="var(--bb-font-data)" fz="0.72rem" m="2.5rem 0 1rem">Graph data colors</BodyText>
+        <BodyText component="p" className={styles.themeSubheadingCopy} tone="secondary" fz="0.82rem" lh={1.55} m="-0.3rem 0 1rem">
+          All BBUI graphs share these ten categorical colors. Use{" "}
+          <code>{`getBudgetBoardDataColor(index, "${colorMode}")`}</code> for
+          stable indexed selection; hue identity is preserved across themes and
+          indexes cycle after ten. Spending category subcategories use five
+          tonal variations of their parent color and cycle after five siblings.
+        </BodyText>
+        <div className={styles.graphColorGrid}>
+          {graphColors.map((color, index) => (
+            <div className={styles.graphColorCard} key={color}>
+              <span
+                aria-hidden="true"
+                className={styles.graphColorSwatch}
+                style={{ backgroundColor: color }}
+              />
+              <div className={styles.graphColorInfo}>
+                <BodyText className={styles.graphColorName} size="sm">
+                  {`${index + 1}. ${graphColorNames[index]}`}
+                </BodyText>
+                <code>{color.toUpperCase()}</code>
+              </div>
+            </div>
           ))}
         </div>
 

@@ -14,11 +14,14 @@ declare module "@mantine/core" {
 }
 
 export { budgetBoardColors } from "./colors";
+export { budgetBoardDataColors } from "./colors";
+export { getBudgetBoardDataColor } from "./colors";
 export type {
   BudgetBoardColorKey,
   BudgetBoardColorMode,
   BudgetBoardColors,
   BudgetBoardContentColorKey,
+  BudgetBoardDataColors,
 } from "./colors";
 
 export const budgetBoardTypography = {

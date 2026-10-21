@@ -45,6 +45,7 @@ import { LoadingOverlayPage } from "./pages/LoadingOverlayPage/LoadingOverlayPag
 import { SkeletonPage } from "./pages/SkeletonPage/SkeletonPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
 import { SelectPage } from "./pages/SelectPage/SelectPage";
+import { SpendingCategoriesChartPage } from "./pages/SpendingCategoriesChartPage/SpendingCategoriesChartPage";
 import { StepperPage } from "./pages/StepperPage/StepperPage";
 import { TablePage } from "./pages/TablePage/TablePage";
 import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
@@ -178,47 +179,80 @@ export function App() {
               <BodyText component="p" tone="heading" size="xxs" tt="uppercase">
                 Components
               </BodyText>
-              <a href="#action-icon">ActionIcon</a>
-              <a href="#alert">Alert</a>
-              <a href="#amount-text">AmountText</a>
-              <a href="#app-shell">AppShell</a>
-              <a href="#autocomplete">Autocomplete</a>
-              <a href="#badge">Badge</a>
-              <a href="#button">Button</a>
-              <a href="#card">Card</a>
-              <a href="#checkbox">Checkbox</a>
-              <a href="#category-select">CategorySelect</a>
-              <a href="#combobox">Combobox</a>
-              <a href="#collapsible-card">CollapsibleCard</a>
-              <a href="#code">Code</a>
-              <a href="#date-input">DateInput</a>
-              <a href="#date-picker-input">DatePickerInput</a>
-              <a href="#divider">Divider</a>
-              <a href="#drawer">Drawer</a>
-              <a href="#file-input">FileInput</a>
-              <a href="#loading-overlay">LoadingOverlay</a>
-              <a href="#modal">Modal</a>
-              <a href="#multi-select">MultiSelect</a>
-              <a href="#month-picker-input">MonthPickerInput</a>
-              <a href="#month-toolcards">MonthToolcards</a>
-              <a href="#navbar-link">NavbarLink</a>
-              <a href="#notification">Notification</a>
-              <a href="#number-input">NumberInput</a>
-              <a href="#password-input">PasswordInput</a>
-              <a href="#pagination">Pagination</a>
-              <a href="#pin-input">PinInput</a>
-              <a href="#popover">Popover</a>
-              <a href="#progress">Progress</a>
-              <a href="#segmented-control">SegmentedControl</a>
-              <a href="#select">Select</a>
-              <a href="#skeleton">Skeleton</a>
-              <a href="#stepper">Stepper</a>
-              <a href="#table">Table</a>
-              <a href="#text-components">Text components</a>
-              <a href="#text-input">TextInput</a>
-              <a href="#textarea">Textarea</a>
-              <a href="#tooltip">Tooltip</a>
-              <a href="#tags-input">TagsInput</a>
+              <div className={styles.navCategory}>
+                <a className={styles.navCategoryHeading} href="#actions-navigation">
+                  Actions &amp; navigation
+                </a>
+                <a href="#action-icon">ActionIcon</a>
+                <a href="#button">Button</a>
+                <a href="#navbar-link">NavbarLink</a>
+                <a href="#pagination">Pagination</a>
+                <a href="#segmented-control">SegmentedControl</a>
+                <a href="#stepper">Stepper</a>
+              </div>
+              <div className={styles.navCategory}>
+                <a className={styles.navCategoryHeading} href="#forms-inputs">
+                  Forms &amp; inputs
+                </a>
+                <a href="#autocomplete">Autocomplete</a>
+                <a href="#checkbox">Checkbox</a>
+                <a href="#combobox">Combobox</a>
+                <a href="#date-input">DateInput</a>
+                <a href="#date-picker-input">DatePickerInput</a>
+                <a href="#file-input">FileInput</a>
+                <a href="#multi-select">MultiSelect</a>
+                <a href="#month-picker-input">MonthPickerInput</a>
+                <a href="#number-input">NumberInput</a>
+                <a href="#password-input">PasswordInput</a>
+                <a href="#pin-input">PinInput</a>
+                <a href="#select">Select</a>
+                <a href="#tags-input">TagsInput</a>
+                <a href="#text-input">TextInput</a>
+                <a href="#textarea">Textarea</a>
+              </div>
+              <div className={styles.navCategory}>
+                <a className={styles.navCategoryHeading} href="#layout-overlays">
+                  Layout &amp; overlays
+                </a>
+                <a href="#app-shell">AppShell</a>
+                <a href="#card">Card</a>
+                <a href="#collapsible-card">CollapsibleCard</a>
+                <a href="#divider">Divider</a>
+                <a href="#drawer">Drawer</a>
+                <a href="#modal">Modal</a>
+                <a href="#popover">Popover</a>
+              </div>
+              <div className={styles.navCategory}>
+                <a className={styles.navCategoryHeading} href="#feedback-status">
+                  Feedback &amp; status
+                </a>
+                <a href="#alert">Alert</a>
+                <a href="#loading-overlay">LoadingOverlay</a>
+                <a href="#notification">Notification</a>
+                <a href="#progress">Progress</a>
+                <a href="#skeleton">Skeleton</a>
+                <a href="#tooltip">Tooltip</a>
+              </div>
+              <div className={styles.navCategory}>
+                <a className={styles.navCategoryHeading} href="#data-display">
+                  Data display
+                </a>
+                <a href="#amount-text">AmountText</a>
+                <a href="#badge">Badge</a>
+                <a href="#code">Code</a>
+                <a href="#table">Table</a>
+                <a href="#text-components">
+                  BodyText, CaptionText, DataText, DisplayText, HeadingText
+                </a>
+              </div>
+              <div className={styles.navCategory}>
+                <a className={styles.navCategoryHeading} href="#budget-board-components">
+                  Budget Board components
+                </a>
+                <a href="#category-select">CategorySelect</a>
+                <a href="#month-toolcards">MonthToolcards</a>
+                <a href="#spending-categories-chart">SpendingCategoriesChart</a>
+              </div>
             </div>
             <BodyText
               className={styles.navHeadingSpaced}
@@ -305,47 +339,119 @@ export function App() {
                   references.
                 </BodyText>
               </div>
-              <ActionIconPage />
-              <AlertPage />
-              <AmountTextPage />
-              <AppShellPage />
-              <AutocompletePage />
-              <BadgePage />
-              <ButtonPage />
-              <CardPage />
-              <CheckboxPage />
-              <CategorySelectPage />
-              <ComboboxPage />
-              <CollapsibleCardPage />
-              <CodePage />
-              <DateInputPage />
-              <DatePickerInputPage />
-              <DividerPage />
-              <DrawerPage />
-              <FileInputPage />
-              <LoadingOverlayPage />
-              <ModalPage />
-              <NotificationPage />
-              <MultiSelectPage />
-              <NavbarLinkPage />
-              <TagsInputPage />
-              <TextComponentsPage />
-              <MonthPickerInputPage />
-              <MonthToolcardsPage />
-              <NumberInputPage />
-              <PasswordInputPage />
-              <PinInputPage />
-              <PopoverPage />
-              <TextInputPage />
-              <TextareaPage />
-              <TooltipPage />
-              <ProgressPage />
-              <PaginationPage />
-              <SegmentedControlPage />
-              <SkeletonPage />
-              <SelectPage />
-              <StepperPage />
-              <TablePage />
+              <section
+                aria-label="Actions and navigation"
+                className={styles.componentGroup}
+                id="actions-navigation"
+              >
+                <div className={styles.componentGroupHeading}>
+                  <HeadingText level={3} tone="heading" lh={1.5}>
+                    Actions &amp; navigation
+                  </HeadingText>
+                </div>
+                <ActionIconPage />
+                <ButtonPage />
+                <NavbarLinkPage />
+                <PaginationPage />
+                <SegmentedControlPage />
+                <StepperPage />
+              </section>
+
+              <section
+                aria-label="Forms and inputs"
+                className={styles.componentGroup}
+                id="forms-inputs"
+              >
+                <div className={styles.componentGroupHeading}>
+                  <HeadingText level={3} tone="heading" lh={1.5}>
+                    Forms &amp; inputs
+                  </HeadingText>
+                </div>
+                <AutocompletePage />
+                <CheckboxPage />
+                <ComboboxPage />
+                <DateInputPage />
+                <DatePickerInputPage />
+                <FileInputPage />
+                <MultiSelectPage />
+                <MonthPickerInputPage />
+                <NumberInputPage />
+                <PasswordInputPage />
+                <PinInputPage />
+                <SelectPage />
+                <TagsInputPage />
+                <TextInputPage />
+                <TextareaPage />
+              </section>
+
+              <section
+                aria-label="Layout and overlays"
+                className={styles.componentGroup}
+                id="layout-overlays"
+              >
+                <div className={styles.componentGroupHeading}>
+                  <HeadingText level={3} tone="heading" lh={1.5}>
+                    Layout &amp; overlays
+                  </HeadingText>
+                </div>
+                <AppShellPage />
+                <CardPage />
+                <CollapsibleCardPage />
+                <DividerPage />
+                <DrawerPage />
+                <ModalPage />
+                <PopoverPage />
+              </section>
+
+              <section
+                aria-label="Feedback and status"
+                className={styles.componentGroup}
+                id="feedback-status"
+              >
+                <div className={styles.componentGroupHeading}>
+                  <HeadingText level={3} tone="heading" lh={1.5}>
+                    Feedback &amp; status
+                  </HeadingText>
+                </div>
+                <AlertPage />
+                <LoadingOverlayPage />
+                <NotificationPage />
+                <ProgressPage />
+                <SkeletonPage />
+                <TooltipPage />
+              </section>
+
+              <section
+                aria-label="Data display"
+                className={styles.componentGroup}
+                id="data-display"
+              >
+                <div className={styles.componentGroupHeading}>
+                  <HeadingText level={3} tone="heading" lh={1.5}>
+                    Data display
+                  </HeadingText>
+                </div>
+                <AmountTextPage />
+                <BadgePage />
+                <CodePage />
+                <TablePage />
+                <TextComponentsPage />
+              </section>
+
+              <section
+                aria-label="Budget Board components"
+                className={styles.componentGroup}
+                id="budget-board-components"
+              >
+                <div className={styles.componentGroupHeading}>
+                  <HeadingText level={3} tone="heading" lh={1.5}>
+                    Budget Board components
+                  </HeadingText>
+                </div>
+                <CategorySelectPage />
+                <MonthToolcardsPage />
+                <SpendingCategoriesChartPage />
+              </section>
             </section>
 
             <footer className={styles.siteFooter}>

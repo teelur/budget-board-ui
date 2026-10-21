@@ -240,6 +240,13 @@ export {
 export { progressTypes, type ProgressType } from "./Progress/progressTypes";
 
 export {
+  SpendingCategoriesChart,
+  type SpendingCategoriesChartProps,
+  type SpendingCategoryChartData,
+  type SpendingSubcategoryChartData,
+} from "./SpendingCategoriesChart/SpendingCategoriesChart";
+
+export {
   Stepper,
   type StepperProps,
   type StepperStepProps,
@@ -248,7 +255,9 @@ export {
 
 export {
   budgetBoardColors,
+  budgetBoardDataColors,
   budgetBoardDarkTheme,
+  getBudgetBoardDataColor,
   budgetBoardTheme,
   budgetBoardTypography,
 } from "./theme";
@@ -258,6 +267,7 @@ export type {
   BudgetBoardColorMode,
   BudgetBoardColors,
   BudgetBoardContentColorKey,
+  BudgetBoardDataColors,
   BudgetBoardFontKey,
   BudgetBoardTypography,
 } from "./theme";
