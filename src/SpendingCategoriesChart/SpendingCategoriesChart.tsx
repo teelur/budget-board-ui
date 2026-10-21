@@ -392,6 +392,15 @@ export function SpendingCategoriesChart({
   const chartHeight = chartLayout.height;
   const centerX = chartWidth / 2;
   const centerY = chartHeight / 2;
+  const chartStyle = {
+    ...style,
+    "--bbui-chart-border-subtle": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
+    "--bbui-chart-focus-ring": `var(--bb-color-focus-ring, ${colors.focusRing})`,
+    "--bbui-chart-surface-overlay": `var(--bb-color-surface-overlay, ${colors.surfaceOverlay})`,
+    "--bbui-chart-text-heading": `var(--bb-color-text-heading, ${colors.textHeading})`,
+    "--bbui-chart-text-primary": `var(--bb-color-text-primary, ${colors.textPrimary})`,
+    "--bbui-chart-text-secondary": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
+  } as CSSProperties;
 
   const renderSegment = (props: PieSectorShapeProps) => {
     const sectorGeometry = {
@@ -463,7 +472,7 @@ export function SpendingCategoriesChart({
       data-budget-board-chart-layout={isCompact ? "compact" : "wide"}
       ref={sizeRef}
       role="group"
-      style={style}
+      style={chartStyle}
     >
       {isLoading ? (
         <div aria-label={ariaLabel} role="status">
