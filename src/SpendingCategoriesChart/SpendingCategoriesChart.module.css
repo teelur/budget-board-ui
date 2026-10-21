@@ -24,6 +24,7 @@
     fill 250ms ease,
     stroke 250ms ease,
     fill-opacity 140ms ease,
+    stroke-opacity 140ms ease,
     stroke-width 140ms ease;
 }
 
@@ -38,7 +39,7 @@
 
 .chartLabel {
   fill: var(--bbui-chart-text-primary);
-  font-family: var(--bb-font-body, sans-serif);
+  font-family: var(--bbui-chart-font-body);
   font-size: var(--mantine-font-size-md, 1rem);
   font-weight: 400;
   transition: fill 250ms ease;
@@ -48,24 +49,12 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  font-family: var(--bb-font-body, sans-serif);
   inset-inline-start: 50%;
   pointer-events: none;
   position: absolute;
   text-align: center;
   top: 50%;
   transform: translate(-50%, -50%);
-}
-
-.totalLabel {
-  color: var(--bbui-chart-text-secondary);
-  font-size: 0.8rem;
-}
-
-.totalValue {
-  color: var(--bbui-chart-text-heading);
-  font-size: 1.1rem;
-  font-weight: 600;
 }
 
 .tooltip {
@@ -102,6 +91,11 @@
   gap: 0.4rem;
   max-width: 100%;
   min-width: 0;
+}
+
+.legendItem:focus-visible {
+  outline: 2px solid var(--bbui-chart-focus-ring);
+  outline-offset: 2px;
 }
 
 .legendSwatch {

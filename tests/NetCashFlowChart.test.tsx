@@ -1,12 +1,14 @@
 import { MantineProvider } from "@mantine/core";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   budgetBoardColors,
+  budgetBoardTypography,
   NetCashFlowChart,
   type NetCashFlowChartData,
   type NetCashFlowChartSeriesLabels,
 } from "../src";
+import chartClasses from "../src/NetCashFlowChart/NetCashFlowChart.module.css";
 
 vi.mock("@mantine/hooks", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@mantine/hooks")>();
@@ -87,6 +89,45 @@ describe("NetCashFlowChart", () => {
     expect(screen.getByText("Net")).toBeInTheDocument();
   });
 
+  it("highlights the series corresponding to a hovered or focused legend item", async () => {
+    renderChart();
+
+    const chart = screen.getByTestId("net-cash-flow-chart");
+    const getBarGroups = () => chart.querySelectorAll(".recharts-bar");
+    const getNetLine = () => chart.querySelector(".recharts-line-curve");
+    const incomeLegend = screen.getByText("Income").closest("li");
+    const netLegend = screen.getByText("Net").closest("li");
+
+    expect(getBarGroups()).toHaveLength(2);
+    expect(getNetLine()).not.toBeNull();
+    expect(incomeLegend).not.toBeNull();
+    expect(netLegend).not.toBeNull();
+
+    fireEvent.mouseEnter(incomeLegend!);
+
+    await waitFor(() =>
+      expect(getBarGroups()[1]).toHaveClass(chartClasses.seriesDimmed),
+    );
+    const barsAfterIncomeHover = getBarGroups();
+    const lineAfterIncomeHover = getNetLine();
+    expect(barsAfterIncomeHover[0]).not.toHaveClass(chartClasses.seriesDimmed);
+    expect(lineAfterIncomeHover).toHaveAttribute("stroke-opacity", "0.25");
+
+    fireEvent.mouseLeave(incomeLegend!);
+    await waitFor(() =>
+      expect(getBarGroups()[1]).not.toHaveClass(chartClasses.seriesDimmed),
+    );
+
+    fireEvent.focus(netLegend!);
+
+    expect(getNetLine()).toHaveAttribute("stroke-width", "3.5");
+    expect(getBarGroups()[0]).toHaveClass(chartClasses.seriesDimmed);
+    expect(getBarGroups()[1]).toHaveClass(chartClasses.seriesDimmed);
+
+    fireEvent.blur(netLegend!);
+    expect(getNetLine()).toHaveAttribute("stroke-width", "2");
+  });
+
   it("sizes the chart to a narrow container", () => {
     document.documentElement.dataset.chartWidth = "480";
     renderChart();
@@ -94,6 +135,26 @@ describe("NetCashFlowChart", () => {
     expect(
       screen.getByTestId("net-cash-flow-chart").querySelector("svg"),
     ).toHaveAttribute("viewBox", "0 0 480 400");
+  });
+
+  it("uses BBUI body typography for chart axis labels", () => {
+    renderChart();
+
+    const chart = screen.getByTestId("net-cash-flow-chart");
+    const axisLabels = chart.querySelectorAll(
+      "text.recharts-cartesian-axis-tick-value",
+    );
+
+    expect(
+      chart.style.getPropertyValue("--bbui-net-cash-flow-font-body"),
+    ).toBe(`var(--bb-font-body, ${budgetBoardTypography.body})`);
+    expect(axisLabels.length).toBeGreaterThan(0);
+    axisLabels.forEach((label) => {
+      expect(label).toHaveAttribute(
+        "font-family",
+        "var(--bbui-net-cash-flow-font-body)",
+      );
+    });
   });
 
   it("uses BBUI semantic series and surface colors in both themes", () => {

@@ -4,10 +4,13 @@ import type {
   HTMLAttributes,
   ReactNode,
 } from "react";
-import { useId, useMemo } from "react";
+import { useId, useMemo, useState } from "react";
 import { BodyText } from "../BodyText/BodyText";
+import { CaptionText } from "../CaptionText/CaptionText";
+import { DataText } from "../DataText/DataText";
 import { Skeleton } from "../Skeleton/Skeleton";
 import { getBudgetBoardDataColor } from "../colors";
+import { budgetBoardTypography } from "../theme";
 import { ensureBBUIMantineProvider, useBBUITheme } from "../shared/themeStyles";
 import { Pie, PieChart, Sector, Tooltip } from "recharts";
 import type { PieSectorShapeProps } from "recharts";
@@ -43,6 +46,7 @@ interface ChartSegment {
   key: string;
   name: string;
   parentName?: string;
+  parentKey?: string;
   value: number;
   color: string;
   fill: string;
@@ -198,6 +202,7 @@ function createSegments(
 
         subcategories.push({
           key: `subcategory-${categoryIndex}-${subcategoryIndex}`,
+          parentKey: `category-${categoryIndex}`,
           name: subcategory.name,
           ...(subcategory.name === category.name
             ? {}
@@ -347,6 +352,8 @@ export function SpendingCategoriesChart({
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
   const { ref: sizeRef, width } = useElementSize<HTMLDivElement>();
   const tooltipId = useId();
+  const [hoveredLegendKey, setHoveredLegendKey] = useState<string | null>(null);
+  const [focusedLegendKey, setFocusedLegendKey] = useState<string | null>(null);
   const isCompact = width < compactBreakpoint;
   const subcategoryToneTarget =
     colorScheme === "dark" ? colors.textMetadata : colors.textHeading;
@@ -378,6 +385,10 @@ export function SpendingCategoriesChart({
   const legendSegments = showSubcategories
     ? segments.subcategories
     : segments.categories;
+  const activeLegendKey = hoveredLegendKey ?? focusedLegendKey;
+  const activeLegendSegment = legendSegments.find(
+    (segment) => segment.key === activeLegendKey,
+  );
   const chartLayout = useMemo(() => {
     if (isCompact || legendSegments.length === 0) {
       return { labels: [] as LabelPosition[], height: compactViewHeight };
@@ -392,6 +403,7 @@ export function SpendingCategoriesChart({
   const chartHeight = chartLayout.height;
   const chartStyle = {
     ...style,
+    "--bbui-chart-font-body": `var(--bb-font-body, ${budgetBoardTypography.body})`,
     "--bbui-chart-border-subtle": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
     "--bbui-chart-focus-ring": `var(--bb-color-focus-ring, ${colors.focusRing})`,
     "--bbui-chart-surface-overlay": `var(--bb-color-surface-overlay, ${colors.surfaceOverlay})`,
@@ -416,6 +428,13 @@ export function SpendingCategoriesChart({
     }
 
     const segment = props.payload;
+    const isHighlightedByLegend =
+      activeLegendSegment !== undefined &&
+      (segment.key === activeLegendSegment.key ||
+        segment.key === activeLegendSegment.parentKey ||
+        segment.parentKey === activeLegendSegment.key);
+    const isDimmedByLegend =
+      activeLegendSegment !== undefined && !isHighlightedByLegend;
     const label = labelsBySegmentKey.get(segment.key);
 
     return (
@@ -429,15 +448,31 @@ export function SpendingCategoriesChart({
             segment.key.startsWith("subcategory-") ? "subcategory" : "category"
           }
           fill={segment.fill}
-          fillOpacity={props.isActive ? 0.58 : 0.4}
+          fillOpacity={
+            isDimmedByLegend
+              ? 0.12
+              : activeLegendSegment
+                ? 0.75
+                : props.isActive
+                  ? 0.58
+                  : 0.4
+          }
           role="img"
           stroke={segment.color}
-          strokeOpacity={1}
-          strokeWidth={props.isActive ? 1.5 : 1}
+          strokeOpacity={isDimmedByLegend ? 0.25 : 1}
+          strokeWidth={
+            isDimmedByLegend
+              ? 1
+              : activeLegendSegment
+                ? 2
+                : props.isActive
+                  ? 1.5
+                  : 1
+          }
           tabIndex={0}
         />
         {label && (
-          <g aria-hidden="true">
+          <g aria-hidden="true" pointerEvents="none">
             <path
               className={classes.chartLeader}
               d={`M ${label.startX} ${label.startY} L ${label.leaderX} ${label.endY} L ${label.endX} ${label.endY}`}
@@ -574,8 +609,12 @@ export function SpendingCategoriesChart({
               />
             </PieChart>
             <div aria-hidden="true" className={classes.centerText}>
-              <span className={classes.totalLabel}>{totalLabel}</span>
-              <span className={classes.totalValue}>{formatValue(total)}</span>
+              <CaptionText fz="0.8rem" tone="secondary">
+                {totalLabel}
+              </CaptionText>
+              <DataText fw={600} fz="1.1rem" tone="heading">
+                {formatValue(total)}
+              </DataText>
             </div>
           </div>
           {isCompact && (
@@ -584,7 +623,15 @@ export function SpendingCategoriesChart({
               className={classes.legend}
             >
               {legendSegments.map((segment) => (
-                <li className={classes.legendItem} key={segment.key}>
+                <li
+                  className={classes.legendItem}
+                  key={segment.key}
+                  onBlur={() => setFocusedLegendKey(null)}
+                  onFocus={() => setFocusedLegendKey(segment.key)}
+                  onMouseEnter={() => setHoveredLegendKey(segment.key)}
+                  onMouseLeave={() => setHoveredLegendKey(null)}
+                  tabIndex={0}
+                >
                   <span
                     aria-hidden="true"
                     className={classes.legendSwatch}

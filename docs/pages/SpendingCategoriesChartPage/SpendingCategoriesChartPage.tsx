@@ -92,9 +92,12 @@ export function SpendingCategoriesChartPage() {
         the same opacity treatment. Slice and label colors transition with the
         theme, and labels stay visible while the rings animate. The rings
         animate on initial render and when the data changes; transitions
-        respect reduced motion preferences. The component only renders the
-        supplied data; callers own transaction aggregation, currency
-        formatting, translations, and the subcategory control.
+        respect reduced motion preferences. On compact layouts, hovering or
+        keyboard-focusing a legend item emphasizes its matching slice and
+        parent category. Outside labels and leader lines do not trigger slice
+        hover. The component only renders the supplied data; callers own
+        transaction aggregation, currency formatting, translations, and the
+        subcategory control.
       </BodyText>
 
       <ComponentDemoSection
