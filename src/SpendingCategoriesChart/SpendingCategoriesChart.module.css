@@ -24,6 +24,7 @@
     fill 250ms ease,
     stroke 250ms ease,
     fill-opacity 140ms ease,
+    stroke-opacity 140ms ease,
     stroke-width 140ms ease;
 }
 
@@ -90,6 +91,11 @@
   gap: 0.4rem;
   max-width: 100%;
   min-width: 0;
+}
+
+.legendItem:focus-visible {
+  outline: 2px solid var(--bbui-chart-focus-ring);
+  outline-offset: 2px;
 }
 
 .legendSwatch {

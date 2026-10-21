@@ -21,6 +21,10 @@
   outline-offset: 2px;
 }
 
+.seriesDimmed {
+  opacity: 0.28;
+}
+
 .legend {
   display: flex;
   flex-wrap: wrap;
@@ -38,6 +42,11 @@
   gap: 0.4rem;
   max-width: 100%;
   min-width: 0;
+}
+
+.legendItem:focus-visible {
+  outline: 2px solid var(--bbui-net-cash-flow-focus);
+  outline-offset: 2px;
 }
 
 .legendSwatch {

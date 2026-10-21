@@ -1,6 +1,6 @@
 import { useElementSize } from "@mantine/hooks";
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   Bar,
   CartesianGrid,
@@ -79,10 +79,23 @@ export function NetCashFlowChart({
 }: NetCashFlowChartProps) {
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
   const { ref: sizeRef, width } = useElementSize<HTMLDivElement>();
+  const [hoveredSeriesKey, setHoveredSeriesKey] =
+    useState<SeriesKey | null>(null);
+  const [focusedSeriesKey, setFocusedSeriesKey] =
+    useState<SeriesKey | null>(null);
+  const activeSeriesKey = hoveredSeriesKey ?? focusedSeriesKey;
   const chartData = useMemo(() => {
     validateData(data);
     return data;
   }, [data]);
+  const getFillOpacity = (seriesKey: SeriesKey, defaultOpacity: number) =>
+    activeSeriesKey === null
+      ? defaultOpacity
+      : activeSeriesKey === seriesKey
+        ? 0.8
+        : defaultOpacity;
+  const getStrokeOpacity = (seriesKey: SeriesKey) =>
+    activeSeriesKey === null || activeSeriesKey === seriesKey ? 1 : 0.25;
 
   if (!Number.isFinite(height) || height <= 0) {
     throw new RangeError(
@@ -253,22 +266,32 @@ export function NetCashFlowChart({
                 wrapperStyle={{ outline: "none" }}
               />
               <Bar
+                {...(activeSeriesKey !== null && activeSeriesKey !== "income"
+                  ? { className: classes.seriesDimmed }
+                  : {})}
                 dataKey="income"
                 fill={seriesColors.income}
-                fillOpacity={0.4}
+                fillOpacity={getFillOpacity("income", 0.4)}
                 name={seriesLabels.income}
                 stackId="cash-flow"
                 stroke={seriesColors.income}
                 strokeOpacity={1}
+                {...(activeSeriesKey === "income" ? { strokeWidth: 2 } : {})}
               />
               <Bar
+                {...(activeSeriesKey !== null && activeSeriesKey !== "spending"
+                  ? { className: classes.seriesDimmed }
+                  : {})}
                 dataKey="spending"
                 fill={seriesColors.spending}
-                fillOpacity={0.4}
+                fillOpacity={getFillOpacity("spending", 0.4)}
                 name={seriesLabels.spending}
                 stackId="cash-flow"
                 stroke={seriesColors.spending}
                 strokeOpacity={1}
+                {...(activeSeriesKey === "spending"
+                  ? { strokeWidth: 2 }
+                  : {})}
               />
               <Line
                 activeDot={{ r: 4 }}
@@ -276,14 +299,23 @@ export function NetCashFlowChart({
                 dot={false}
                 name={seriesLabels.net}
                 stroke={seriesColors.net}
-                strokeWidth={2}
+                strokeOpacity={getStrokeOpacity("net")}
+                strokeWidth={activeSeriesKey === "net" ? 3.5 : 2}
                 type="linear"
               />
             </ComposedChart>
           </div>
           <ul className={classes.legend}>
             {chartSeries.map((series) => (
-              <li className={classes.legendItem} key={series.key}>
+              <li
+                className={classes.legendItem}
+                key={series.key}
+                onBlur={() => setFocusedSeriesKey(null)}
+                onFocus={() => setFocusedSeriesKey(series.key)}
+                onMouseEnter={() => setHoveredSeriesKey(series.key)}
+                onMouseLeave={() => setHoveredSeriesKey(null)}
+                tabIndex={0}
+              >
                 <span
                   aria-hidden="true"
                   className={[

@@ -121,6 +121,7 @@ describe("SpendingCategoriesChart", () => {
       expect(Math.hypot(x - centerX, y - centerY)).toBeGreaterThan(142);
     });
     leaders.forEach((leader) => {
+      expect(leader.parentElement).toHaveAttribute("pointer-events", "none");
       expect(leader).toHaveAttribute("stroke-width", "1");
       const points = Array.from(
         leader
@@ -343,6 +344,43 @@ describe("SpendingCategoriesChart", () => {
     expect(
       chart.querySelector("ul span"),
     ).toHaveAttribute("style", expect.stringContaining("40%"));
+  });
+
+  it("highlights a compact legend slice and its parent category on hover or focus", () => {
+    document.documentElement.dataset.chartWidth = "500";
+    renderChart();
+
+    const chart = screen.getByTestId("spending-chart");
+    const getCategorySlices = () =>
+      chart.querySelectorAll('[data-budget-board-chart-ring="category"]');
+    const getSubcategorySlices = () =>
+      chart.querySelectorAll('[data-budget-board-chart-ring="subcategory"]');
+    const rentLegend = screen.getByText("Rent").closest("li");
+
+    expect(rentLegend).not.toBeNull();
+
+    fireEvent.mouseEnter(rentLegend!);
+
+    const categorySlicesAfterHover = getCategorySlices();
+    const subcategorySlicesAfterHover = getSubcategorySlices();
+    const housing = categorySlicesAfterHover[0];
+    const food = categorySlicesAfterHover[1];
+    const rent = subcategorySlicesAfterHover[0];
+    const utilities = subcategorySlicesAfterHover[1];
+
+    expect(housing).toHaveAttribute("fill-opacity", "0.75");
+    expect(rent).toHaveAttribute("fill-opacity", "0.75");
+    expect(food).toHaveAttribute("fill-opacity", "0.12");
+    expect(utilities).toHaveAttribute("fill-opacity", "0.12");
+
+    fireEvent.mouseLeave(rentLegend!);
+    expect(getSubcategorySlices()[0]).toHaveAttribute("fill-opacity", "0.4");
+
+    fireEvent.focus(rentLegend!);
+    expect(getSubcategorySlices()[0]).toHaveAttribute("fill-opacity", "0.75");
+
+    fireEvent.blur(rentLegend!);
+    expect(getSubcategorySlices()[0]).toHaveAttribute("fill-opacity", "0.4");
   });
 
   it("uses Recharts hover and keyboard interactions for the accessible tooltip", async () => {

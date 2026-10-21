@@ -1,5 +1,5 @@
 import { MantineProvider } from "@mantine/core";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   budgetBoardColors,
@@ -8,6 +8,7 @@ import {
   type NetCashFlowChartData,
   type NetCashFlowChartSeriesLabels,
 } from "../src";
+import chartClasses from "../src/NetCashFlowChart/NetCashFlowChart.module.css";
 
 vi.mock("@mantine/hooks", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@mantine/hooks")>();
@@ -86,6 +87,45 @@ describe("NetCashFlowChart", () => {
     expect(screen.getByText("Income")).toBeInTheDocument();
     expect(screen.getByText("Spending")).toBeInTheDocument();
     expect(screen.getByText("Net")).toBeInTheDocument();
+  });
+
+  it("highlights the series corresponding to a hovered or focused legend item", async () => {
+    renderChart();
+
+    const chart = screen.getByTestId("net-cash-flow-chart");
+    const getBarGroups = () => chart.querySelectorAll(".recharts-bar");
+    const getNetLine = () => chart.querySelector(".recharts-line-curve");
+    const incomeLegend = screen.getByText("Income").closest("li");
+    const netLegend = screen.getByText("Net").closest("li");
+
+    expect(getBarGroups()).toHaveLength(2);
+    expect(getNetLine()).not.toBeNull();
+    expect(incomeLegend).not.toBeNull();
+    expect(netLegend).not.toBeNull();
+
+    fireEvent.mouseEnter(incomeLegend!);
+
+    await waitFor(() =>
+      expect(getBarGroups()[1]).toHaveClass(chartClasses.seriesDimmed),
+    );
+    const barsAfterIncomeHover = getBarGroups();
+    const lineAfterIncomeHover = getNetLine();
+    expect(barsAfterIncomeHover[0]).not.toHaveClass(chartClasses.seriesDimmed);
+    expect(lineAfterIncomeHover).toHaveAttribute("stroke-opacity", "0.25");
+
+    fireEvent.mouseLeave(incomeLegend!);
+    await waitFor(() =>
+      expect(getBarGroups()[1]).not.toHaveClass(chartClasses.seriesDimmed),
+    );
+
+    fireEvent.focus(netLegend!);
+
+    expect(getNetLine()).toHaveAttribute("stroke-width", "3.5");
+    expect(getBarGroups()[0]).toHaveClass(chartClasses.seriesDimmed);
+    expect(getBarGroups()[1]).toHaveClass(chartClasses.seriesDimmed);
+
+    fireEvent.blur(netLegend!);
+    expect(getNetLine()).toHaveAttribute("stroke-width", "2");
   });
 
   it("sizes the chart to a narrow container", () => {
