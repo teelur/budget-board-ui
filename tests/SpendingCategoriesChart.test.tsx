@@ -120,6 +120,7 @@ describe("SpendingCategoriesChart", () => {
       expect(Math.hypot(x - centerX, y - centerY)).toBeGreaterThan(142);
     });
     leaders.forEach((leader) => {
+      expect(leader).toHaveAttribute("stroke-width", "1");
       const points = Array.from(
         leader
           .getAttribute("d")!
@@ -342,6 +343,7 @@ describe("SpendingCategoriesChart", () => {
     );
 
     const tooltip = screen.getByRole("tooltip");
+    expect(rent).toHaveAttribute("stroke-width", "1.5");
     expect(rent).toHaveAttribute("aria-describedby", tooltip.id);
     expect(rent).toHaveAttribute("fill-opacity", "0.58");
     expect(chart.querySelectorAll("svg text")).toHaveLength(4);
@@ -483,6 +485,7 @@ describe("SpendingCategoriesChart", () => {
       expect(segment).toHaveAttribute("fill-opacity", "0.4");
       expect(segment).toHaveAttribute("stroke", "#123456");
       expect(segment).toHaveAttribute("stroke-opacity", "1");
+      expect(segment).toHaveAttribute("stroke-width", "1");
     });
 
     const legendSwatch = screen.getByRole("list").querySelector("span");
