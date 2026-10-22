@@ -1,0 +1,28 @@
+.chartPreview {
+  min-width: 0;
+  width: 100%;
+}
+
+.stateGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.playground {
+  display: grid;
+  gap: 1rem;
+}
+
+.playgroundControls {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(12rem, 1fr));
+}
+
+@media (max-width: 48rem) {
+  .stateGrid,
+  .playgroundControls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

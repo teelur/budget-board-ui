@@ -252,6 +252,13 @@ export {
 } from "./SpendingChart/SpendingChart";
 
 export {
+  ValueChart,
+  type ValueChartData,
+  type ValueChartProps,
+  type ValueChartSeries,
+} from "./ValueChart/ValueChart";
+
+export {
   Stepper,
   type StepperProps,
   type StepperStepProps,

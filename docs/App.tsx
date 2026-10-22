@@ -37,6 +37,7 @@ import { MultiSelectPage } from "./pages/MultiSelectPage/MultiSelectPage";
 import { NavbarLinkPage } from "./pages/NavbarLinkPage/NavbarLinkPage";
 import { NetCashFlowChartPage } from "./pages/NetCashFlowChartPage/NetCashFlowChartPage";
 import { NetWorthChartPage } from "./pages/NetWorthChartPage/NetWorthChartPage";
+import { ValueChartPage } from "./pages/ValueChartPage/ValueChartPage";
 import { NotificationPage } from "./pages/NotificationPage/NotificationPage";
 import { NumberInputPage } from "./pages/NumberInputPage/NumberInputPage";
 import { PasswordInputPage } from "./pages/PasswordInputPage/PasswordInputPage";
@@ -278,6 +279,7 @@ export function App() {
               <a href="#monthly-spending-chart">MonthlySpendingChart</a>
               <a href="#net-cash-flow-chart">NetCashFlowChart</a>
               <a href="#net-worth-chart">NetWorthChart</a>
+              <a href="#value-chart">ValueChart</a>
             </div>
             <BodyText
               className={styles.navHeadingSpaced}
@@ -480,6 +482,7 @@ export function App() {
                 <MonthlySpendingChartPage />
                 <NetCashFlowChartPage />
                 <NetWorthChartPage />
+                <ValueChartPage />
               </section>
             </section>
 
