@@ -47,6 +47,7 @@ import { SkeletonPage } from "./pages/SkeletonPage/SkeletonPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
 import { SelectPage } from "./pages/SelectPage/SelectPage";
 import { SpendingCategoriesChartPage } from "./pages/SpendingCategoriesChartPage/SpendingCategoriesChartPage";
+import { SpendingChartPage } from "./pages/SpendingChartPage/SpendingChartPage";
 import { StepperPage } from "./pages/StepperPage/StepperPage";
 import { TablePage } from "./pages/TablePage/TablePage";
 import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
@@ -264,9 +265,15 @@ export function App() {
                 </a>
                 <a href="#category-select">CategorySelect</a>
                 <a href="#month-toolcards">MonthToolcards</a>
-                <a href="#spending-categories-chart">SpendingCategoriesChart</a>
-                <a href="#net-cash-flow-chart">NetCashFlowChart</a>
               </div>
+            </div>
+            <div className={styles.navGroup}>
+              <BodyText component="p" tone="heading" size="xxs" tt="uppercase">
+                Charts
+              </BodyText>
+              <a href="#spending-categories-chart">SpendingCategoriesChart</a>
+              <a href="#spending-chart">SpendingChart</a>
+              <a href="#net-cash-flow-chart">NetCashFlowChart</a>
             </div>
             <BodyText
               className={styles.navHeadingSpaced}
@@ -465,6 +472,7 @@ export function App() {
                 <CategorySelectPage />
                 <MonthToolcardsPage />
                 <SpendingCategoriesChartPage />
+                <SpendingChartPage />
                 <NetCashFlowChartPage />
               </section>
             </section>

@@ -232,6 +232,13 @@ export {
 } from "./SpendingCategoriesChart/SpendingCategoriesChart";
 
 export {
+  SpendingChart,
+  type SpendingChartData,
+  type SpendingChartProps,
+  type SpendingChartSeries,
+} from "./SpendingChart/SpendingChart";
+
+export {
   Stepper,
   type StepperProps,
   type StepperStepProps,

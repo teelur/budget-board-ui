@@ -296,7 +296,7 @@ export function NetCashFlowChart({
               <Line
                 activeDot={{ r: 4 }}
                 dataKey="net"
-                dot={false}
+                dot={{ r: 3 }}
                 name={seriesLabels.net}
                 stroke={seriesColors.net}
                 strokeOpacity={getStrokeOpacity("net")}
