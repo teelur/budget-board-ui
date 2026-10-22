@@ -225,6 +225,12 @@ export {
 } from "./NetCashFlowChart/NetCashFlowChart";
 
 export {
+  MonthlySpendingChart,
+  type MonthlySpendingChartData,
+  type MonthlySpendingChartProps,
+} from "./MonthlySpendingChart/MonthlySpendingChart";
+
+export {
   SpendingCategoriesChart,
   type SpendingCategoriesChartProps,
   type SpendingCategoryChartData,

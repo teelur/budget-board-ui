@@ -32,6 +32,7 @@ import { FileInputPage } from "./pages/FileInputPage/FileInputPage";
 import { MonthPickerInputPage } from "./pages/MonthPickerInputPage/MonthPickerInputPage";
 import { MonthToolcardsPage } from "./pages/MonthToolcardsPage/MonthToolcardsPage";
 import { ModalPage } from "./pages/ModalPage/ModalPage";
+import { MonthlySpendingChartPage } from "./pages/MonthlySpendingChartPage/MonthlySpendingChartPage";
 import { MultiSelectPage } from "./pages/MultiSelectPage/MultiSelectPage";
 import { NavbarLinkPage } from "./pages/NavbarLinkPage/NavbarLinkPage";
 import { NetCashFlowChartPage } from "./pages/NetCashFlowChartPage/NetCashFlowChartPage";
@@ -273,6 +274,7 @@ export function App() {
               </BodyText>
               <a href="#spending-categories-chart">SpendingCategoriesChart</a>
               <a href="#spending-chart">SpendingChart</a>
+              <a href="#monthly-spending-chart">MonthlySpendingChart</a>
               <a href="#net-cash-flow-chart">NetCashFlowChart</a>
             </div>
             <BodyText
@@ -473,6 +475,7 @@ export function App() {
                 <MonthToolcardsPage />
                 <SpendingCategoriesChartPage />
                 <SpendingChartPage />
+                <MonthlySpendingChartPage />
                 <NetCashFlowChartPage />
               </section>
             </section>
