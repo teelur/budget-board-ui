@@ -218,6 +218,16 @@ export {
 export { progressTypes, type ProgressType } from "./Progress/progressTypes";
 
 export {
+  FlowsChart,
+  type FlowType,
+  type FlowsChartData,
+  type FlowsChartLabels,
+  type FlowsChartLink,
+  type FlowsChartNode,
+  type FlowsChartProps,
+} from "./FlowsChart/FlowsChart";
+
+export {
   NetCashFlowChart,
   type NetCashFlowChartData,
   type NetCashFlowChartProps,

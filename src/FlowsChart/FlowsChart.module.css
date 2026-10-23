@@ -1,0 +1,140 @@
+.root {
+  min-width: 0;
+  position: relative;
+  width: 100%;
+}
+
+.chartViewport {
+  min-width: 0;
+  width: 100%;
+}
+
+.chart {
+  display: block;
+  height: 100%;
+  overflow: visible;
+  width: 100%;
+}
+
+.chart :global(svg:focus-visible) {
+  outline: 2px solid var(--bbui-flows-chart-focus);
+  outline-offset: 2px;
+}
+
+.link {
+  transition:
+    fill-opacity 160ms ease,
+    opacity 160ms ease,
+    stroke-opacity 160ms ease,
+    stroke-width 160ms ease;
+}
+
+.linkDimmed {
+  opacity: 0.3;
+}
+
+.nodeRect {
+  transition:
+    fill-opacity 140ms ease,
+    stroke-width 140ms ease;
+}
+
+.nodeName,
+.nodeValue {
+  font-family: var(--bbui-flows-chart-font-body);
+  pointer-events: none;
+}
+
+.nodeName {
+  fill: var(--bbui-flows-chart-axis);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.nodeValue {
+  fill: var(--bbui-flows-chart-tooltip-muted);
+  font-size: 0.75rem;
+}
+
+.tooltip {
+  background: var(--bbui-flows-chart-tooltip-surface);
+  border: 1px solid var(--bbui-flows-chart-tooltip-border);
+  border-radius: var(--mantine-radius-sm, 0.25rem);
+  box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 14%);
+  display: grid;
+  gap: 0.5rem;
+  max-width: min(18rem, calc(100vw - 2rem));
+  padding: 0.625rem;
+}
+
+.tooltipHeading,
+.tooltipAmount,
+.tooltipMetrics {
+  border-top: 1px solid var(--bbui-flows-chart-tooltip-border);
+  padding-top: 0.5rem;
+}
+
+.tooltipHeading {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.tooltipRoute {
+  border-left: 2px solid var(--bbui-flows-chart-focus);
+  display: grid;
+  gap: 0.25rem;
+  padding-left: 0.625rem;
+}
+
+.routeLabel,
+.metricLabel {
+  font-size: 0.6875rem;
+  line-height: 1.15;
+}
+
+.routeValue,
+.tooltipNodeName {
+  font-size: 0.875rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.amount {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.tooltipMetrics {
+  display: grid;
+  gap: 0.625rem;
+  grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+}
+
+.metric {
+  display: grid;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.metricLabel {
+  overflow-wrap: anywhere;
+}
+
+.metricValue {
+  font-size: 0.875rem;
+  line-height: 1.2;
+}
+
+.emptyMessage {
+  margin: 0;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  .nodeRect {
+    transition: none;
+  }
+}
