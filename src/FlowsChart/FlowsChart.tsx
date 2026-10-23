@@ -8,7 +8,6 @@ import type {
   SankeyProps,
 } from "recharts";
 import { BodyText } from "../BodyText/BodyText";
-import { HeadingText } from "../HeadingText/HeadingText";
 import { Progress } from "../Progress/Progress";
 import { Skeleton } from "../Skeleton/Skeleton";
 import { budgetBoardTypography } from "../theme";
@@ -325,36 +324,56 @@ function FlowsChartTooltip({
     metadata?.transactionCount !== undefined && metadata.transactionCount > 0;
 
   return (
-    <div className={classes.tooltip} role="tooltip">
-      {flowLabel && (
-        <HeadingText
-          className={classes.tooltipHeading}
-          level={6}
-          tone="heading"
-        >
-          {flowLabel}
-        </HeadingText>
-      )}
-      {isLink ? (
+    <div className={classes.tooltip} data-flow-type={flowType} role="tooltip">
+      <div className={classes.tooltipHeader}>
+        {flowLabel && (
+          <BodyText
+            className={classes.flowType}
+            component="span"
+            fz="0.6875rem"
+            lh={1.15}
+            tone="secondary"
+          >
+            {flowLabel}
+          </BodyText>
+        )}
         <div className={classes.tooltipRoute}>
-          <BodyText className={classes.routeLabel} size="xs" tone="secondary">
-            {labels.from}
-          </BodyText>
-          <BodyText className={classes.routeValue} fw={500} tone="primary">
-            {sourceName}
-          </BodyText>
-          <BodyText className={classes.routeLabel} size="xs" tone="secondary">
-            {labels.to}
-          </BodyText>
-          <BodyText className={classes.routeValue} fw={500} tone="primary">
-            {targetName}
-          </BodyText>
+          {isLink ? (
+            <>
+              <span className={classes.visuallyHidden}>{labels.from}: </span>
+              <BodyText
+                className={classes.routeValue}
+                component="span"
+                fw={600}
+                tone="primary"
+              >
+                {sourceName}
+              </BodyText>
+              <span aria-hidden="true" className={classes.routeArrow}>
+                →
+              </span>
+              <span className={classes.visuallyHidden}>{labels.to}: </span>
+              <BodyText
+                className={classes.routeValue}
+                component="span"
+                fw={600}
+                tone="primary"
+              >
+                {targetName}
+              </BodyText>
+            </>
+          ) : (
+            <BodyText
+              className={classes.routeValue}
+              component="span"
+              fw={600}
+              tone="primary"
+            >
+              {name}
+            </BodyText>
+          )}
         </div>
-      ) : (
-        <BodyText className={classes.tooltipNodeName} fw={500} tone="primary">
-          {name}
-        </BodyText>
-      )}
+      </div>
       <div className={classes.tooltipAmount}>
         <BodyText className={classes.metricLabel} size="xs" tone="secondary">
           {labels.amount}
@@ -440,7 +459,9 @@ export function FlowsChart({
     "--bbui-flows-chart-neutral": `var(--bb-color-muted, ${colors.muted})`,
     "--bbui-flows-chart-ribbon": `var(--bb-color-border-strong, ${colors.borderStrong})`,
     "--bbui-flows-chart-tooltip-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
+    "--bbui-flows-chart-tooltip-negative": `var(--bb-color-error, ${colors.error})`,
     "--bbui-flows-chart-tooltip-muted": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
+    "--bbui-flows-chart-tooltip-positive": `var(--bb-color-success, ${colors.success})`,
     "--bbui-flows-chart-tooltip-surface": `var(--bb-color-surface-overlay, ${colors.surfaceOverlay})`,
   } as CSSProperties;
 

@@ -117,10 +117,10 @@ export function FlowsChartPage() {
         A responsive, theme-aware Sankey chart for income, spending, and
         available cash. Distinct, consistent category colors identify nodes and
         labels, while quiet neutral ribbons keep the flow legible. The tooltip
-        summarizes amounts, branch percentages, and transaction counts. Outcome
-        nodes stay at their natural depth so direct links do not cross deeper
-        category branches. Hover a node to highlight its route to available
-        cash.
+        pairs an inline route with its amount and groups percentage bars and
+        transaction counts in a compact, flow-type-accented popup. Outcome nodes
+        stay at their natural depth so direct links do not cross deeper category
+        branches. Hover a node to highlight its route to available cash.
       </BodyText>
 
       <ComponentDemoSection
@@ -130,7 +130,7 @@ export function FlowsChartPage() {
   formatValue={formatCurrency}
   labels={labels}
 />`}
-        description="Pass prepared nodes and links, localized labels, and an amount formatter. The chart assigns stable colors to category nodes and labels, keeps ribbons neutral, and keeps direct outcome links clear of deeper category branches. Tooltips and surfaces adapt to the active theme."
+        description="Pass prepared nodes and links, localized labels, and an amount formatter. The chart assigns stable colors to category nodes and labels, keeps ribbons neutral, and keeps direct outcome links clear of deeper category branches. Compact tooltips retain amounts, percentages, transaction counts, and progress bars."
         id="flows-chart-basic"
         title="Basic usage"
       >

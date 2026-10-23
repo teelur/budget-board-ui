@@ -399,6 +399,63 @@ describe("FlowsChart", () => {
     expect(screen.getByRole("tooltip")).toHaveTextContent("Transactions");
   });
 
+  it("shows a compact route and branch details for a hovered link", () => {
+    renderChart();
+
+    const chart = screen.getByTestId("flows-chart");
+    const expenseLink = chart.querySelector('[data-link-index="2"]');
+
+    expect(expenseLink).not.toBeNull();
+    fireEvent.mouseEnter(expenseLink!);
+
+    const tooltip = screen.getByRole("tooltip");
+    expect(tooltip).toHaveAttribute("data-flow-type", "expense");
+    expect(tooltip.firstElementChild).toHaveClass(chartClasses.tooltipHeader);
+    expect(tooltip.firstElementChild?.firstElementChild).toHaveClass(
+      chartClasses.flowType,
+    );
+    expect(tooltip.firstElementChild?.children.item(1)).toHaveClass(
+      chartClasses.tooltipRoute,
+    );
+    expect(tooltip.children.item(1)).toHaveClass(chartClasses.tooltipAmount);
+    expect(tooltip).toHaveTextContent("From: Cash available");
+    expect(tooltip).toHaveTextContent("To: Living");
+    expect(
+      tooltip.querySelector(`.${chartClasses.routeArrow}`),
+    ).toHaveTextContent("→");
+    expect(tooltip).toHaveTextContent("Expense");
+    expect(
+      tooltip.querySelector(`.${chartClasses.flowType} [aria-hidden="true"]`),
+    ).toBeNull();
+    expect(tooltip).toHaveTextContent("$3,300");
+    expect(tooltip).toHaveTextContent("Percent of spending");
+    expect(tooltip).toHaveTextContent("100.0%");
+    expect(tooltip.querySelectorAll('[role="progressbar"]')).toHaveLength(1);
+
+    const transactionMetric = Array.from(
+      tooltip.querySelectorAll(`.${chartClasses.metric}`),
+    ).find((metric) => metric.textContent?.includes("Transactions"));
+    expect(transactionMetric).toHaveTextContent("Transactions");
+    expect(transactionMetric).toHaveTextContent("2");
+  });
+
+  it("keeps branch percentages for nested category tooltips", () => {
+    renderChart();
+
+    const chart = screen.getByTestId("flows-chart");
+    const foodNode = chart.querySelector('[data-node-index="5"]');
+
+    expect(foodNode).not.toBeNull();
+    fireEvent.mouseEnter(foodNode!);
+
+    const tooltip = screen.getByRole("tooltip");
+    expect(tooltip).toHaveTextContent("Food");
+    expect(tooltip).toHaveTextContent("Percent of spending");
+    expect(tooltip).toHaveTextContent("Percent of branch");
+    expect(tooltip).toHaveTextContent("33.3%");
+    expect(tooltip.querySelectorAll('[role="progressbar"]')).toHaveLength(2);
+  });
+
   it("renders the loading and empty states", () => {
     const emptyData: FlowsChartData = {
       nodes: [],
