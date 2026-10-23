@@ -445,6 +445,9 @@ export function FlowsChart({
     () => getNodeColors(chartData.nodes, colorScheme, labels.cashAvailable),
     [chartData.nodes, colorScheme, labels.cashAvailable],
   );
+  const hasSubcategoryGroups = chartData.nodes.some(
+    (node) => node.parentName !== undefined,
+  );
 
   if (!Number.isFinite(height) || height <= 0) {
     throw new RangeError("Flows chart height must be a positive number.");
@@ -700,7 +703,7 @@ export function FlowsChart({
               nodeWidth={12}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              sort
+              sort={!hasSubcategoryGroups}
             >
               <Tooltip
                 animationDuration={0}
