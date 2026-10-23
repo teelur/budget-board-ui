@@ -174,7 +174,7 @@ export function SpendingChart({
               accessibilityLayer
               className={classes.chart ?? ""}
               data={chartData}
-              height={height}
+              height="100%"
               margin={{ top: 12, right: 12, bottom: 8, left: 12 }}
               width={Math.max(width, 1)}
             >
