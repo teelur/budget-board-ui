@@ -7,7 +7,8 @@ import styles from "./FlowsChartPage.module.css";
 const sampleData: FlowsChartData = {
   nodes: [
     { name: "Salary", flowType: "income", transactionCount: 1 },
-    { name: "Income", flowType: "income", transactionCount: 1 },
+    { name: "Freelance", flowType: "income", transactionCount: 1 },
+    { name: "Income", flowType: "income", transactionCount: 2 },
     { name: "Cash available" },
     { name: "Living", flowType: "expense", transactionCount: 2 },
     {
@@ -22,48 +23,127 @@ const sampleData: FlowsChartData = {
       flowType: "expense",
       transactionCount: 1,
     },
+    {
+      name: "Travel",
+      flowType: "expense",
+      transactionCount: 2,
+    },
+    {
+      name: "Transit",
+      parentName: "Travel",
+      flowType: "expense",
+      transactionCount: 1,
+    },
+    {
+      name: "Fuel",
+      parentName: "Transportation",
+      flowType: "expense",
+      transactionCount: 1,
+    },
+    { name: "Health", flowType: "expense", transactionCount: 2 },
+    {
+      name: "Medical",
+      parentName: "Health",
+      flowType: "expense",
+      transactionCount: 1,
+    },
+    {
+      name: "Personal",
+      parentName: "Health",
+      flowType: "expense",
+      transactionCount: 1,
+    },
     { name: "Surplus", flowType: "surplus" },
   ],
   links: [
     {
       source: 0,
-      target: 1,
-      value: 4800,
+      target: 2,
+      value: 4200,
       transactionCount: 1,
       flowType: "income",
     },
     {
       source: 1,
       target: 2,
-      value: 4800,
+      value: 600,
       transactionCount: 1,
       flowType: "income",
     },
     {
       source: 2,
       target: 3,
-      value: 3300,
+      value: 4800,
       transactionCount: 2,
-      flowType: "expense",
+      flowType: "income",
     },
     {
       source: 3,
       target: 4,
-      value: 2200,
+      value: 2000,
+      transactionCount: 2,
+      flowType: "expense",
+    },
+    {
+      source: 4,
+      target: 5,
+      value: 1500,
+      transactionCount: 1,
+      flowType: "expense",
+    },
+    {
+      source: 4,
+      target: 6,
+      value: 500,
       transactionCount: 1,
       flowType: "expense",
     },
     {
       source: 3,
-      target: 5,
-      value: 1100,
+      target: 7,
+      value: 700,
+      transactionCount: 2,
+      flowType: "expense",
+    },
+    {
+      source: 7,
+      target: 8,
+      value: 400,
       transactionCount: 1,
       flowType: "expense",
     },
-    { source: 2, target: 6, value: 1500, flowType: "surplus" },
+    {
+      source: 7,
+      target: 9,
+      value: 300,
+      transactionCount: 1,
+      flowType: "expense",
+    },
+    {
+      source: 3,
+      target: 10,
+      value: 400,
+      transactionCount: 2,
+      flowType: "expense",
+    },
+    {
+      source: 10,
+      target: 11,
+      value: 250,
+      transactionCount: 1,
+      flowType: "expense",
+    },
+    {
+      source: 10,
+      target: 12,
+      value: 150,
+      transactionCount: 1,
+      flowType: "expense",
+    },
+    { source: 3, target: 13, value: 1700, flowType: "surplus" },
   ],
   totalIncome: 4800,
-  totalSpending: 3300,
+  totalSpending: 3100,
 };
 
 const labels: FlowsChartLabels = {
@@ -120,7 +200,10 @@ export function FlowsChartPage() {
         pairs an inline route with its amount and groups percentage bars and
         transaction counts in a compact, flow-type-accented popup. Outcome nodes
         stay at their natural depth so direct links do not cross deeper category
-        branches. Hover a node to highlight its route to available cash.
+        branches. Nodes with a <code>parentName</code> keep their supplied order
+        so subcategories remain grouped; charts without parented nodes retain
+        automatic ribbon-crossing reduction. Hover a node to highlight its
+        route to available cash.
       </BodyText>
 
       <ComponentDemoSection
@@ -271,7 +354,9 @@ export function FlowsChartPage() {
               <code>links</code>, <code>totalIncome</code>, and{" "}
               <code>totalSpending</code>. Each link connects two different node
               indexes with a positive finite value. Node and link transaction
-              counts are optional non-negative integers.{" "}
+              counts are optional non-negative integers. Nodes may include{" "}
+              <code>parentName</code>; when present, their supplied order is
+              preserved to keep related subcategories together.{" "}
               <code>FlowsChartLabels</code> contains localized text for the
               amount, route, income, expense, surplus, deficit, and percentage
               metrics.

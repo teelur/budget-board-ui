@@ -314,6 +314,58 @@ describe("FlowsChart", () => {
     expect(getNodeCenter(2)).toBeLessThan(getNodeCenter(3));
   });
 
+  it("keeps subcategories grouped by parent category", () => {
+    const groupedData: FlowsChartData = {
+      nodes: [
+        { name: "Cash" },
+        { name: "Living" },
+        { name: "Transport" },
+        { name: "Housing", parentName: "Living" },
+        { name: "Food", parentName: "Living" },
+        { name: "Vehicle", parentName: "Transport" },
+        { name: "Fuel", parentName: "Transport" },
+      ],
+      links: [
+        { source: 0, target: 1, value: 100 },
+        { source: 0, target: 2, value: 100 },
+        { source: 1, target: 3, value: 60 },
+        { source: 1, target: 4, value: 40 },
+        { source: 2, target: 5, value: 40 },
+        { source: 2, target: 6, value: 60 },
+      ],
+      totalIncome: 0,
+      totalSpending: 200,
+    };
+    renderChart({ data: groupedData });
+
+    const chart = screen.getByTestId("flows-chart");
+    const subcategoriesByY = Array.from(
+      chart.querySelectorAll<SVGGElement>("[data-node-index]"),
+      (node) => {
+        const index = Number(node.getAttribute("data-node-index"));
+        const chartNode = groupedData.nodes[index];
+        return chartNode?.parentName
+          ? {
+              name: chartNode.name,
+              y: Number(node.querySelector("rect")?.getAttribute("y")),
+            }
+          : null;
+      },
+    )
+      .filter(
+        (node): node is { name: string; y: number } => node !== null,
+      )
+      .sort((left, right) => left.y - right.y)
+      .map((node) => node.name);
+
+    expect(subcategoriesByY).toEqual([
+      "Housing",
+      "Food",
+      "Vehicle",
+      "Fuel",
+    ]);
+  });
+
   it("keeps direct outcomes before deeper expense categories", () => {
     renderChart();
 
