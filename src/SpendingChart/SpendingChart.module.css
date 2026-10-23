@@ -1,0 +1,117 @@
+.root {
+  min-width: 0;
+  position: relative;
+  width: 100%;
+}
+
+.chartViewport {
+  min-width: 0;
+  width: 100%;
+}
+
+.chart {
+  display: block;
+  height: 100%;
+  overflow: visible;
+  width: 100%;
+}
+
+.chart :global(svg:focus-visible) {
+  outline: 2px solid var(--bbui-spending-chart-focus);
+  outline-offset: 2px;
+}
+
+.seriesDimmed {
+  opacity: 0.28;
+  transition: opacity 160ms ease;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  justify-content: center;
+  list-style: none;
+  margin: 0 auto;
+  max-width: 36rem;
+  padding: 0.25rem 0 0;
+}
+
+.legendItem {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.4rem;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.legendItem:focus-visible {
+  outline: 2px solid var(--bbui-spending-chart-focus);
+  outline-offset: 2px;
+}
+
+.legendSwatch {
+  background-color: color-mix(
+    in srgb,
+    var(--bbui-spending-chart-series-color) 30%,
+    transparent
+  );
+  border: 1px solid var(--bbui-spending-chart-series-color);
+  border-radius: 50%;
+  flex: 0 0 0.65rem;
+  height: 0.65rem;
+}
+
+.tooltip {
+  background: var(--bbui-spending-chart-tooltip-surface);
+  border: 1px solid var(--bbui-spending-chart-tooltip-border);
+  border-radius: var(--mantine-radius-sm, 0.25rem);
+  box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 14%);
+  display: grid;
+  gap: 0.125rem;
+  max-width: min(22rem, calc(100vw - 2rem));
+  padding: 0.5rem 0.75rem;
+}
+
+.tooltipRows {
+  display: grid;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tooltipRow {
+  align-items: center;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 0.65rem minmax(0, 1fr) auto;
+}
+
+.tooltipRow > :nth-child(2) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.tooltipRow > :last-child {
+  white-space: nowrap;
+}
+
+.tooltipMarker {
+  background: var(--bbui-spending-chart-marker);
+  border-radius: 50%;
+  height: 0.65rem;
+  width: 0.65rem;
+}
+
+.emptyMessage {
+  margin: 0;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seriesDimmed {
+    transition: none;
+  }
+}

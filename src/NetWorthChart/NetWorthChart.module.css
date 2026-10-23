@@ -1,0 +1,138 @@
+.root {
+  min-width: 0;
+  position: relative;
+  width: 100%;
+}
+
+.chartViewport {
+  min-width: 0;
+  width: 100%;
+}
+
+.chart {
+  display: block;
+  height: 100%;
+  overflow: visible;
+  width: 100%;
+}
+
+.chart :global(svg:focus-visible) {
+  outline: 2px solid var(--bbui-net-worth-chart-focus);
+  outline-offset: 2px;
+}
+
+.seriesDimmed {
+  opacity: 0.28;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  justify-content: center;
+  list-style: none;
+  margin: 0 auto;
+  max-width: 36rem;
+  padding: 0.25rem 0 0;
+}
+
+.legendItem {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.4rem;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.legendItem:focus-visible {
+  outline: 2px solid var(--bbui-net-worth-chart-focus);
+  outline-offset: 2px;
+}
+
+.legendSwatch {
+  border-radius: 50%;
+  flex: 0 0 0.65rem;
+  height: 0.65rem;
+}
+
+.legendAssets {
+  background-color: color-mix(
+    in srgb,
+    var(--bbui-net-worth-chart-assets) 40%,
+    transparent
+  );
+  border: 1px solid var(--bbui-net-worth-chart-assets);
+}
+
+.legendLiabilities {
+  background-color: color-mix(
+    in srgb,
+    var(--bbui-net-worth-chart-liabilities) 40%,
+    transparent
+  );
+  border: 1px solid var(--bbui-net-worth-chart-liabilities);
+}
+
+.legendNet {
+  background: none;
+  border-radius: 0;
+  border-top: 2px solid var(--bbui-net-worth-chart-net);
+  flex-basis: 0.8rem;
+  height: 0;
+}
+
+.tooltip {
+  background: var(--bbui-net-worth-chart-tooltip-surface);
+  border: 1px solid var(--bbui-net-worth-chart-tooltip-border);
+  border-radius: var(--mantine-radius-sm, 0.25rem);
+  box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 14%);
+  display: grid;
+  gap: 0.125rem;
+  max-width: min(22rem, calc(100vw - 2rem));
+  padding: 0.5rem 0.75rem;
+}
+
+.tooltipRows {
+  display: grid;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tooltipRow {
+  align-items: center;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 0.65rem minmax(0, 1fr) auto;
+}
+
+.tooltipRow > :nth-child(2) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.tooltipRow > :last-child {
+  white-space: nowrap;
+}
+
+.tooltipMarker {
+  background: var(--bbui-net-worth-chart-marker);
+  border-radius: 50%;
+  height: 0.65rem;
+  width: 0.65rem;
+}
+
+.tooltipMarkerNet {
+  background: none;
+  border-radius: 0;
+  border-top: 2px solid var(--bbui-net-worth-chart-marker);
+  height: 0;
+  width: 0.8rem;
+}
+
+.emptyMessage {
+  margin: 0;
+  padding: 2rem 1rem;
+  text-align: center;
+}

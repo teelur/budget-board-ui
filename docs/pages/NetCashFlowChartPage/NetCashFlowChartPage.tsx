@@ -74,10 +74,10 @@ export function NetCashFlowChartPage() {
       >
         A responsive, theme-aware composite chart for monthly income, signed
         spending, and net cash flow. Income and spending use BBUI semantic
-        colors, and the net line stays neutral. Callers provide prepared values,
-        localized labels, an amount formatter, and loading and empty-state
-        content. Hover or keyboard-focus a legend item to emphasize its
-        matching bars or line.
+        colors, and the net line stays neutral with a marker at each data point.
+        Callers provide prepared values, localized labels, an amount formatter,
+        and loading and empty-state content. Hover or keyboard-focus a legend
+        item to emphasize its matching bars or line.
       </BodyText>
 
       <ComponentDemoSection

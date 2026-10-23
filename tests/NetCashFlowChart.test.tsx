@@ -83,6 +83,12 @@ describe("NetCashFlowChart", () => {
 
     expect(chart.querySelector("svg")).toBeInTheDocument();
     expect(chart.querySelectorAll(".recharts-bar-rectangle").length).toBe(4);
+    expect(
+      chart.querySelectorAll(".recharts-line-dots .recharts-dot"),
+    ).toHaveLength(chartData.length);
+    expect(
+      chart.querySelector(".recharts-line-dots .recharts-dot"),
+    ).toHaveAttribute("r", "3");
     expect(screen.getByText("August 2026")).toBeInTheDocument();
     expect(screen.getByText("Income")).toBeInTheDocument();
     expect(screen.getByText("Spending")).toBeInTheDocument();

@@ -218,6 +218,16 @@ export {
 export { progressTypes, type ProgressType } from "./Progress/progressTypes";
 
 export {
+  FlowsChart,
+  type FlowType,
+  type FlowsChartData,
+  type FlowsChartLabels,
+  type FlowsChartLink,
+  type FlowsChartNode,
+  type FlowsChartProps,
+} from "./FlowsChart/FlowsChart";
+
+export {
   NetCashFlowChart,
   type NetCashFlowChartData,
   type NetCashFlowChartProps,
@@ -225,11 +235,38 @@ export {
 } from "./NetCashFlowChart/NetCashFlowChart";
 
 export {
+  NetWorthChart,
+  type NetWorthChartData,
+  type NetWorthChartProps,
+  type NetWorthChartSeriesLabels,
+} from "./NetWorthChart/NetWorthChart";
+
+export {
+  MonthlySpendingChart,
+  type MonthlySpendingChartData,
+  type MonthlySpendingChartProps,
+} from "./MonthlySpendingChart/MonthlySpendingChart";
+
+export {
   SpendingCategoriesChart,
   type SpendingCategoriesChartProps,
   type SpendingCategoryChartData,
   type SpendingSubcategoryChartData,
 } from "./SpendingCategoriesChart/SpendingCategoriesChart";
+
+export {
+  SpendingChart,
+  type SpendingChartData,
+  type SpendingChartProps,
+  type SpendingChartSeries,
+} from "./SpendingChart/SpendingChart";
+
+export {
+  ValueChart,
+  type ValueChartData,
+  type ValueChartProps,
+  type ValueChartSeries,
+} from "./ValueChart/ValueChart";
 
 export {
   Stepper,

@@ -29,12 +29,16 @@ import { DatePickerInputPage } from "./pages/DatePickerInputPage/DatePickerInput
 import { DividerPage } from "./pages/DividerPage/DividerPage";
 import { DrawerPage } from "./pages/DrawerPage/DrawerPage";
 import { FileInputPage } from "./pages/FileInputPage/FileInputPage";
+import { FlowsChartPage } from "./pages/FlowsChartPage/FlowsChartPage";
 import { MonthPickerInputPage } from "./pages/MonthPickerInputPage/MonthPickerInputPage";
 import { MonthToolcardsPage } from "./pages/MonthToolcardsPage/MonthToolcardsPage";
 import { ModalPage } from "./pages/ModalPage/ModalPage";
+import { MonthlySpendingChartPage } from "./pages/MonthlySpendingChartPage/MonthlySpendingChartPage";
 import { MultiSelectPage } from "./pages/MultiSelectPage/MultiSelectPage";
 import { NavbarLinkPage } from "./pages/NavbarLinkPage/NavbarLinkPage";
 import { NetCashFlowChartPage } from "./pages/NetCashFlowChartPage/NetCashFlowChartPage";
+import { NetWorthChartPage } from "./pages/NetWorthChartPage/NetWorthChartPage";
+import { ValueChartPage } from "./pages/ValueChartPage/ValueChartPage";
 import { NotificationPage } from "./pages/NotificationPage/NotificationPage";
 import { NumberInputPage } from "./pages/NumberInputPage/NumberInputPage";
 import { PasswordInputPage } from "./pages/PasswordInputPage/PasswordInputPage";
@@ -47,6 +51,7 @@ import { SkeletonPage } from "./pages/SkeletonPage/SkeletonPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
 import { SelectPage } from "./pages/SelectPage/SelectPage";
 import { SpendingCategoriesChartPage } from "./pages/SpendingCategoriesChartPage/SpendingCategoriesChartPage";
+import { SpendingChartPage } from "./pages/SpendingChartPage/SpendingChartPage";
 import { StepperPage } from "./pages/StepperPage/StepperPage";
 import { TablePage } from "./pages/TablePage/TablePage";
 import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
@@ -264,9 +269,19 @@ export function App() {
                 </a>
                 <a href="#category-select">CategorySelect</a>
                 <a href="#month-toolcards">MonthToolcards</a>
-                <a href="#spending-categories-chart">SpendingCategoriesChart</a>
-                <a href="#net-cash-flow-chart">NetCashFlowChart</a>
               </div>
+            </div>
+            <div className={styles.navGroup}>
+              <BodyText component="p" tone="heading" size="xxs" tt="uppercase">
+                Charts
+              </BodyText>
+              <a href="#spending-categories-chart">SpendingCategoriesChart</a>
+              <a href="#spending-chart">SpendingChart</a>
+              <a href="#monthly-spending-chart">MonthlySpendingChart</a>
+              <a href="#flows-chart">FlowsChart</a>
+              <a href="#net-cash-flow-chart">NetCashFlowChart</a>
+              <a href="#net-worth-chart">NetWorthChart</a>
+              <a href="#value-chart">ValueChart</a>
             </div>
             <BodyText
               className={styles.navHeadingSpaced}
@@ -465,7 +480,12 @@ export function App() {
                 <CategorySelectPage />
                 <MonthToolcardsPage />
                 <SpendingCategoriesChartPage />
+                <SpendingChartPage />
+                <MonthlySpendingChartPage />
+                <FlowsChartPage />
                 <NetCashFlowChartPage />
+                <NetWorthChartPage />
+                <ValueChartPage />
               </section>
             </section>
 
