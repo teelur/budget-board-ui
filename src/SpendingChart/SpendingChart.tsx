@@ -109,8 +109,13 @@ export function SpendingChart({
 }: SpendingChartProps) {
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
   const { ref: sizeRef, width } = useElementSize<HTMLDivElement>();
+  const { ref: viewportRef, height: viewportHeight } =
+    useElementSize<HTMLDivElement>();
   const [hoveredSeriesKey, setHoveredSeriesKey] = useState<string | null>(null);
   const [focusedSeriesKey, setFocusedSeriesKey] = useState<string | null>(null);
+  // The viewport can shrink in flex containers to leave room for the legend.
+  const chartHeight =
+    viewportHeight > 0 ? Math.min(height, Math.floor(viewportHeight)) : height;
   const activeSeriesKey = hoveredSeriesKey ?? focusedSeriesKey;
   const chartData = useMemo(() => {
     validateData(data, series);
@@ -169,12 +174,16 @@ export function SpendingChart({
         </BodyText>
       ) : (
         <>
-          <div className={classes.chartViewport} style={{ height }}>
+          <div
+            className={classes.chartViewport}
+            ref={viewportRef}
+            style={{ height }}
+          >
             <AreaChart
               accessibilityLayer
               className={classes.chart ?? ""}
               data={chartData}
-              height={height}
+              height={chartHeight}
               margin={{ top: 12, right: 12, bottom: 8, left: 12 }}
               width={Math.max(width, 1)}
             >
