@@ -27,7 +27,7 @@ describe("Stepper", () => {
     expect(Stepper.Completed).toBe(MantineStepper.Completed);
     expect(root).toHaveClass(classes.root);
     expect(root.style.getPropertyValue("--stepper-color")).toBe(
-      "var(--bb-color-primary, #4c6ef5)",
+      "var(--bb-color-primary, #4263eb)",
     );
     expect(root.style.getPropertyValue("--stepper-outline-color")).toBe(
       "var(--bbui-stepper-border)",
@@ -119,7 +119,7 @@ describe("Stepper", () => {
     expect(root).toHaveClass(classes.root, "consumer-root");
     expect(root).toHaveStyle({ opacity: "0.8" });
     expect(root.style.getPropertyValue("--stepper-color")).toBe(
-      "var(--bb-color-primary, #4c6ef5)",
+      "var(--bb-color-primary, #4263eb)",
     );
     expect(
       screen.getByRole("button", { name: /Account/ }),

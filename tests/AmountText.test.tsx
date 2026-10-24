@@ -10,7 +10,7 @@ import {
 
 const colors = {
   neutral: "var(--bb-color-info, #1971c2)",
-  good: "var(--bb-color-success, #2f9e44)",
+  good: "var(--bb-color-success, #27803d)",
   warning: "var(--bb-color-warning, #fcc419)",
   bad: "var(--bb-color-error, #c92a2a)",
 } as const;

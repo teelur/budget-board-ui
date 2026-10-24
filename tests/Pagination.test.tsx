@@ -63,7 +63,7 @@ describe("Pagination", () => {
       );
     }
     expect(currentPage.style.getPropertyValue("--bbui-button-bg")).toBe(
-      "var(--budget-board-button-primary-background, var(--bb-color-primary, #4c6ef5))",
+      "var(--budget-board-button-primary-background, var(--bb-color-primary, #4263eb))",
     );
     const otherPage = screen.getByRole("button", { name: "1" });
     expect(otherPage).toHaveAttribute("data-budget-board-selected", "false");
@@ -167,7 +167,7 @@ describe("Pagination", () => {
     expect(lightRoot).toHaveAttribute("data-bbui-pagination-color", "default");
     expect(lightRoot).toHaveClass(classes.root);
     expect(lightRoot.style.getPropertyValue("--bbui-pagination-active")).toBe(
-      "var(--bb-color-primary, #4c6ef5)",
+      "var(--bb-color-primary, #4263eb)",
     );
     expect(lightRoot.style.getPropertyValue("--bbui-pagination-hover")).toBe(
       "var(--bb-color-surface-hover, #d8d5ce)",
@@ -204,7 +204,7 @@ describe("Pagination", () => {
       screen
         .getByTestId("compound-pagination")
         .style.getPropertyValue("--bbui-pagination-active"),
-    ).toBe("var(--bb-color-primary, #4c6ef5)");
+    ).toBe("var(--bb-color-primary, #4263eb)");
     expect(screen.getByRole("button", { name: "1" })).toHaveAttribute(
       "aria-current",
       "page",

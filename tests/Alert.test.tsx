@@ -83,7 +83,7 @@ describe("Alert", () => {
       screen.getByRole("alert", { name: "outline" }).style.getPropertyValue(
         "--alert-bd",
       ),
-    ).toBe("1px solid var(--bb-color-success, #2f9e44)");
+    ).toBe("1px solid var(--bb-color-success, #27803d)");
     expect(
       screen
         .getByRole("alert", { name: "transparent" })

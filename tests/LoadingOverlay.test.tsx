@@ -22,7 +22,7 @@ describe("LoadingOverlay", () => {
 
     expect(root.style.getPropertyValue("--lo-z-index")).toBe("400");
     expect(loader.style.getPropertyValue("--loader-color")).toBe(
-      "var(--bb-color-primary, #4c6ef5)",
+      "var(--bb-color-primary, #4263eb)",
     );
     expect(overlays).toHaveLength(2);
     for (const overlay of overlays) {

@@ -16,7 +16,7 @@ describe("Checkbox", () => {
     expect(checkbox).toHaveAttribute("value", "accepted");
     expect(checkbox).toHaveClass(classes.input);
     expect(checkbox.closest(".mantine-Checkbox-root")).toHaveStyle({
-      "--checkbox-color": "var(--bb-color-primary, #4c6ef5)",
+      "--checkbox-color": "var(--bb-color-primary, #4263eb)",
       "--checkbox-icon-color": "var(--bb-color-primary-content, #fffaf2)",
       "--bbui-checkbox-surface-input":
         "var(--bb-color-surface-input, #f2f3f1)",

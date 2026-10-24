@@ -29,7 +29,7 @@
 }
 
 .field input[type="range"] {
-  accent-color: var(--bb-color-primary, #4c6ef5);
+  accent-color: var(--bb-color-primary, #4263eb);
   min-height: auto;
   padding: 0;
   width: 100%;

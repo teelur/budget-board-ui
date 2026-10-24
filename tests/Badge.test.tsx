@@ -85,15 +85,15 @@ describe("Badge", () => {
 
     expect(screen.getByText("Filled").parentElement).toHaveStyle({
       "--bbui-badge-bg":
-        "var(--budget-board-badge-primary-background, var(--bb-color-primary, #4c6ef5))",
+        "var(--budget-board-badge-primary-background, var(--bb-color-primary, #4263eb))",
       "--bbui-badge-color":
         "var(--budget-board-badge-primary-color, var(--bb-color-primary-content, #fffaf2))",
     });
     expect(screen.getByText("Light").parentElement).toHaveStyle({
       "--bbui-badge-bg":
-        "var(--budget-board-badge-success-light-background, color-mix(in srgb, var(--bb-color-success, #2f9e44) 14%, transparent))",
+        "var(--budget-board-badge-success-light-background, color-mix(in srgb, var(--bb-color-success, #27803d) 14%, transparent))",
       "--bbui-badge-color":
-        "var(--budget-board-badge-success-light-color, var(--bb-color-success, #2f9e44))",
+        "var(--budget-board-badge-success-light-color, var(--bb-color-success, #27803d))",
     });
     expect(screen.getByText("Outline").parentElement).toHaveStyle({
       "--bbui-badge-border":
