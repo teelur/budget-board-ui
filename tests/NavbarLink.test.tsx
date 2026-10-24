@@ -90,7 +90,7 @@ describe("NavbarLink", () => {
     const link = screen.getByTestId("chart-selection");
 
     expect(link.style.getPropertyValue("--bbui-navbar-link-text")).toBe(
-      "var(--bb-color-text-secondary, #68645d)",
+      "var(--bb-color-text-primary, #3a3834)",
     );
     expect(link.style.getPropertyValue("--bbui-navbar-link-primary")).toBe(
       "var(--bb-color-text-primary, #3a3834)",
@@ -329,7 +329,7 @@ describe("NavbarLink", () => {
     const link = screen.getByRole("button", { name: "Spending" });
 
     expect(link.style.getPropertyValue("--bbui-navbar-link-text")).toBe(
-      "var(--bb-color-text-secondary, #aaa69e)",
+      "var(--bb-color-text-primary, #d8d5ce)",
     );
     expect(link.style.getPropertyValue("--bbui-navbar-link-active")).toBe(
       "var(--bb-color-selection, #414b85)",
