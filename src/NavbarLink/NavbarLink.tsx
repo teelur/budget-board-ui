@@ -71,7 +71,7 @@ export function NavbarLink({
   const themeStyles = (
     mode === "navigation"
       ? {
-          "--bbui-navbar-link-secondary": `var(--bb-color-navigation-text-secondary, ${colors.navigationTextSecondary})`,
+          "--bbui-navbar-link-text": `var(--bb-color-navigation-text-primary, ${colors.navigationTextPrimary})`,
           "--bbui-navbar-link-primary": `var(--bb-color-navigation-text-primary, ${colors.navigationTextPrimary})`,
           "--bbui-navbar-link-hover": `var(--bb-color-navigation-surface-hover, ${colors.navigationSurfaceHover})`,
           "--bbui-navbar-link-active": `var(--bb-color-navigation-selection, ${colors.navigationSelection})`,
@@ -79,7 +79,7 @@ export function NavbarLink({
           "--bbui-navbar-link-border": `var(--bb-color-navigation-border, ${colors.navigationBorder})`,
         }
       : {
-          "--bbui-navbar-link-secondary": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
+          "--bbui-navbar-link-text": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
           "--bbui-navbar-link-primary": `var(--bb-color-text-primary, ${colors.textPrimary})`,
           "--bbui-navbar-link-hover": `var(--bb-color-surface-hover, ${colors.surfaceHover})`,
           "--bbui-navbar-link-active": `var(--bb-color-selection, ${colors.selection})`,

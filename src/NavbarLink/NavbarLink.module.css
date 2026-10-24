@@ -1,5 +1,5 @@
 .root {
-  --bbui-navbar-link-color: var(--bbui-navbar-link-secondary);
+  --bbui-navbar-link-color: var(--bbui-navbar-link-text);
   display: flex;
   width: 100%;
   min-height: 2rem;
@@ -71,7 +71,7 @@
   padding: 0;
   border: 0;
   border-radius: var(--mantine-radius-sm);
-  color: var(--bbui-navbar-link-secondary);
+  color: var(--bbui-navbar-link-text);
   background: transparent;
   cursor: pointer;
   transition:
@@ -114,7 +114,7 @@
   padding: 0.125rem 0.5rem;
   border: 0;
   border-radius: var(--mantine-radius-sm);
-  color: var(--bbui-navbar-link-secondary);
+  color: var(--bbui-navbar-link-text);
   background: transparent;
   text-align: left;
   cursor: pointer;
