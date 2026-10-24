@@ -238,7 +238,7 @@ describe("CategorySelect", () => {
     await screen.findByRole("option", { hidden: true, name: "Food" });
 
     expect(document.querySelector(`.${comboboxClasses.dropdown}`)).toHaveStyle({
-      "--bbui-combobox-background": "var(--bb-color-surface-elevated, #22252a)",
+      "--bbui-combobox-background": "var(--bb-color-surface-elevated, #2A2D33)",
       "--bbui-combobox-secondary-foreground":
         "var(--bb-color-text-secondary, #aaa69e)",
     });

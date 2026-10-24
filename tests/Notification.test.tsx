@@ -26,7 +26,7 @@ describe("Notification", () => {
       "var(--bb-color-info, #1971c2)",
     );
     expect(notification.style.backgroundColor).toBe(
-      "color-mix(in srgb, var(--notification-color) 15%, var(--bb-color-surface-elevated, #fffcf7))",
+      "color-mix(in srgb, var(--notification-color) 15%, var(--bb-color-surface-elevated, #F6F6F3))",
     );
     expect(notification.style.borderColor).toBe(
       "color-mix(in srgb, var(--notification-color) 35%, var(--bb-color-border-subtle, #d8d5ce))",
@@ -127,7 +127,7 @@ describe("Notification", () => {
       "var(--bb-color-info, #74c0fc)",
     );
     expect(notification.style.backgroundColor).toBe(
-      "color-mix(in srgb, var(--notification-color) 15%, var(--bb-color-surface-elevated, #22252a))",
+      "color-mix(in srgb, var(--notification-color) 15%, var(--bb-color-surface-elevated, #2A2D33))",
     );
   });
 

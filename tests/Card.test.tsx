@@ -15,21 +15,30 @@ const cardStyles = readFileSync(
 describe("Card", () => {
   it("renders conventional content with semantic surface defaults", () => {
     render(
-      <Card data-testid="card">
-        <span>Available balance</span>
-      </Card>,
+      <>
+        <Card data-testid="light-card">
+          <span>Available balance</span>
+        </Card>
+        <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
+          <Card data-testid="dark-card" />
+        </MantineProvider>
+      </>,
     );
 
-    const card = screen.getByTestId("card");
+    const lightCard = screen.getByTestId("light-card");
+    const darkCard = screen.getByTestId("dark-card");
 
-    expect(card).toHaveClass(classes.root);
-    expect(card).toHaveAttribute("data-with-border");
-    expect(card.style.padding).toBe("0.5rem");
-    expect(card.style.getPropertyValue("--card-padding")).toBe("0.5rem");
-    expect(card.style.getPropertyValue("--bbui-card-surface")).toBe(
+    expect(lightCard).toHaveClass(classes.root);
+    expect(lightCard).toHaveAttribute("data-with-border");
+    expect(lightCard.style.padding).toBe("0.5rem");
+    expect(lightCard.style.getPropertyValue("--card-padding")).toBe("0.5rem");
+    expect(lightCard.style.getPropertyValue("--bbui-card-surface")).toBe(
       "var(--bb-color-surface, #ffffff)",
     );
-    expect(card.style.getPropertyValue("--bbui-card-border")).toBe(
+    expect(darkCard.style.getPropertyValue("--bbui-card-surface")).toBe(
+      "var(--bb-color-surface, #191b1f)",
+    );
+    expect(lightCard.style.getPropertyValue("--bbui-card-border")).toBe(
       "var(--bb-color-border-subtle, #d8d5ce)",
     );
     expect(screen.getByText("Available balance")).toBeInTheDocument();
@@ -61,7 +70,29 @@ describe("Card", () => {
     expect(rootStyles).toContain("min-height: max-content;");
   });
 
-  it("uses the sunken semantic surface for nested cards in both color schemes", () => {
+  it("uses the elevated surface for nested cards in both color schemes", () => {
+    render(
+      <>
+        <Card data-testid="light-card" surface="elevated" />
+        <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
+          <Card data-testid="dark-card" surface="elevated" />
+        </MantineProvider>
+      </>,
+    );
+
+    expect(
+      screen.getByTestId("light-card").style.getPropertyValue(
+        "--bbui-card-surface",
+      ),
+    ).toBe("var(--bb-color-surface-elevated, #F6F6F3)");
+    expect(
+      screen.getByTestId("dark-card").style.getPropertyValue(
+        "--bbui-card-surface",
+      ),
+    ).toBe("var(--bb-color-surface-elevated, #2A2D33)");
+  });
+
+  it("uses the sunken semantic surface for recessed cards in both color schemes", () => {
     render(
       <>
         <Card data-testid="light-card" surface="sunken" />

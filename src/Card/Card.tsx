@@ -17,7 +17,7 @@ import { ensureBBUIMantineProvider, useBBUITheme } from "../shared/themeStyles";
 import { Divider } from "../Divider/Divider";
 import classes from "./Card.module.css";
 
-export type CardSurface = "default" | "sunken" | "outline";
+export type CardSurface = "default" | "elevated" | "sunken" | "outline";
 export type CardSeparatorThickness = "default" | "thick";
 
 export type CardProps = MantineCardProps & {
@@ -156,9 +156,11 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function CardRoot(
           "--bbui-card-surface":
             surface === "sunken"
               ? `var(--bb-color-surface-sunken, ${colors.surfaceSunken})`
-              : surface === "outline"
-                ? `var(--bb-color-page, ${colors.page})`
-                : `var(--bb-color-surface, ${colors.surface})`,
+              : surface === "elevated"
+                ? `var(--bb-color-surface-elevated, ${colors.surfaceElevated})`
+                : surface === "outline"
+                  ? `var(--bb-color-page, ${colors.page})`
+                  : `var(--bb-color-surface, ${colors.surface})`,
           "--bbui-card-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
           "--bbui-card-text": `var(--bb-color-text-primary, ${colors.textPrimary})`,
           "--bbui-card-text-secondary": `var(--bb-color-text-secondary, ${colors.textSecondary})`,

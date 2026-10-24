@@ -1,7 +1,7 @@
 const lightColors = {
   page: "#f7f6f2",
   surface: "#ffffff",
-  surfaceElevated: "#fffcf7",
+  surfaceElevated: "#F6F6F3",
   navigation: "#f1efe9",
   appShellNavigation: "#2f3a4d",
   appShellHeader: "#ffffff",
@@ -59,7 +59,7 @@ export type BudgetBoardContentColorKey = Extract<
 const darkColors = {
   page: "#111214",
   surface: "#191b1f",
-  surfaceElevated: "#22252a",
+  surfaceElevated: "#2A2D33",
   navigation: "#191b1f",
   appShellNavigation: "#191b1f",
   appShellHeader: "#0d0f12",

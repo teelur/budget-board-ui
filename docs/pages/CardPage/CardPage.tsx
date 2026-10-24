@@ -15,7 +15,7 @@ const plainCardExample = `<Card>
 
 const nestedCardExample = `<Card>
   <strong>Monthly budget</strong>
-  <Card surface="sunken">
+  <Card surface="elevated">
     <span>Remaining</span>
     <strong>$640.00</strong>
   </Card>
@@ -148,10 +148,10 @@ export function CardPage() {
 
       <ComponentDemoSection
         description={
-          'Use surface="sunken" to distinguish a card nested inside another card.'
+          'Use surface="elevated" for a card layered above another card.'
         }
         id="card-nested"
-        title="Nested card surface"
+        title="Elevated nested card"
         code={nestedCardExample}
       >
         <div className={styles.preview}>
@@ -159,7 +159,7 @@ export function CardPage() {
             <BodyText component="strong" fw={600}>
               Monthly budget
             </BodyText>
-            <Card surface="sunken" mt="sm">
+            <Card surface="elevated" mt="sm">
               <BodyText component="span" tone="muted">
                 Remaining
               </BodyText>
@@ -217,7 +217,7 @@ export function CardPage() {
             key: "surface",
             label: "Surface",
             type: "select",
-            options: ["default", "sunken", "outline"],
+            options: ["default", "elevated", "sunken", "outline"],
           },
           { key: "selected", label: "Selected", type: "toggle" },
           { key: "hoverable", label: "Hoverable", type: "toggle" },
@@ -227,7 +227,7 @@ export function CardPage() {
           selected: false,
           hoverable: false,
         }}
-        description="Try the default, sunken, and outline surfaces and compare selected and hoverable styling."
+        description="Try the default, elevated, sunken, and outline surfaces and compare selected and hoverable styling."
         id="card-playground"
         childrenCode="Account overview"
         render={(values) => (
@@ -449,9 +449,11 @@ export function CardPage() {
                   </td>
                   <td>
                     Defaults to <code>default</code>, which uses the standard
-                    surface. Use <code>sunken</code> for nested cards; it uses
-                    the <code>surface-sunken</code> token in light and dark
-                    modes. Use <code>outline</code> to match the app page
+                    surface. Use <code>elevated</code> for cards layered above
+                    other cards; it uses the <code>surface-elevated</code>{" "}
+                    token in light and dark modes. Use <code>sunken</code> for
+                    recessed surfaces; it uses the <code>surface-sunken</code>{" "}
+                    token. Use <code>outline</code> to match the app page
                     background while retaining the subtle border.
                   </td>
                 </tr>
