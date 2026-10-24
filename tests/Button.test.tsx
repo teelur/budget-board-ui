@@ -179,14 +179,14 @@ describe("Button", () => {
         .getByRole("button", { name: "Primary" })
         .style.getPropertyValue("--bbui-button-bg"),
     ).toBe(
-      "var(--budget-board-button-primary-background, var(--bb-color-primary, #4c6ef5))",
+      "var(--budget-board-button-primary-background, var(--bb-color-primary, #4263eb))",
     );
     expect(
       screen
         .getByRole("button", { name: "Secondary" })
         .style.getPropertyValue("--bbui-button-color"),
     ).toBe(
-      "var(--budget-board-button-secondary-color, var(--bb-color-secondary-content, #123b3a))",
+      "var(--budget-board-button-secondary-color, var(--bb-color-secondary-content, #fffaf2))",
     );
     expect(
       screen
@@ -219,6 +219,8 @@ describe("Button", () => {
       <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
         <Button>Primary</Button>
         <Button color="error">Error</Button>
+        <Button color="info">Info</Button>
+        <Button color="success">Success</Button>
         <Button selected variant="ghost">
           Selected
         </Button>
@@ -238,6 +240,20 @@ describe("Button", () => {
         .style.getPropertyValue("--bbui-button-color"),
     ).toBe(
       "var(--budget-board-button-error-color, var(--bb-color-error-content, #4a0c0c))",
+    );
+    expect(
+      screen
+        .getByRole("button", { name: "Info" })
+        .style.getPropertyValue("--bbui-button-color"),
+    ).toBe(
+      "var(--budget-board-button-info-color, var(--bb-color-info-content, #0b3d70))",
+    );
+    expect(
+      screen
+        .getByRole("button", { name: "Success" })
+        .style.getPropertyValue("--bbui-button-color"),
+    ).toBe(
+      "var(--budget-board-button-success-color, var(--bb-color-success-content, #174b24))",
     );
     expect(
       screen
@@ -336,7 +352,7 @@ describe("Button", () => {
         .getByRole("button", { name: "Fallback" })
         .style.getPropertyValue("--bbui-button-bg"),
     ).toBe(
-      "var(--budget-board-button-primary-background, var(--bb-color-primary, #4c6ef5))",
+      "var(--budget-board-button-primary-background, var(--bb-color-primary, #4263eb))",
     );
   });
 

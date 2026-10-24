@@ -75,7 +75,7 @@ describe("MonthToolcards", () => {
         "[data-month-status]",
       ),
     ).toHaveStyle({
-      backgroundColor: "var(--bb-color-success, #2f9e44)",
+      backgroundColor: "var(--bb-color-success, #27803d)",
     });
     expect(
       screen.getByRole("button", { name: "October 2026" }),

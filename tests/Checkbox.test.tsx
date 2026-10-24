@@ -16,8 +16,20 @@ describe("Checkbox", () => {
     expect(checkbox).toHaveAttribute("value", "accepted");
     expect(checkbox).toHaveClass(classes.input);
     expect(checkbox.closest(".mantine-Checkbox-root")).toHaveStyle({
-      "--checkbox-color": "var(--bb-color-primary, #4c6ef5)",
+      "--checkbox-color": "var(--bb-color-primary, #4263eb)",
       "--checkbox-icon-color": "var(--bb-color-primary-content, #fffaf2)",
+      "--bbui-checkbox-surface-input":
+        "var(--bb-color-surface-input, #f2f3f1)",
+      "--bbui-checkbox-border-subtle":
+        "var(--bb-color-border-subtle, #d8d5ce)",
+      "--bbui-checkbox-focus-ring": "var(--bb-color-focus-ring, #4c6ef5)",
+      "--bbui-checkbox-surface-sunken":
+        "var(--bb-color-surface-sunken, #ebe8df)",
+      "--bbui-checkbox-text-primary":
+        "var(--bb-color-text-primary, #3a3834)",
+      "--bbui-checkbox-text-secondary":
+        "var(--bb-color-text-secondary, #68645d)",
+      "--bbui-checkbox-error": "var(--bb-color-error, #c92a2a)",
     });
   });
 
@@ -97,6 +109,18 @@ describe("Checkbox", () => {
     expect(checkbox.closest(".mantine-Checkbox-root")).toHaveStyle({
       "--checkbox-color": "var(--bb-color-primary, #91a7ff)",
       "--checkbox-icon-color": "var(--bb-color-primary-content, #1e2450)",
+      "--bbui-checkbox-surface-input":
+        "var(--bb-color-surface-input, #1c1e21)",
+      "--bbui-checkbox-border-subtle":
+        "var(--bb-color-border-subtle, #3a3d42)",
+      "--bbui-checkbox-focus-ring": "var(--bb-color-focus-ring, #91a7ff)",
+      "--bbui-checkbox-surface-sunken":
+        "var(--bb-color-surface-sunken, #0d0f12)",
+      "--bbui-checkbox-text-primary":
+        "var(--bb-color-text-primary, #d8d5ce)",
+      "--bbui-checkbox-text-secondary":
+        "var(--bb-color-text-secondary, #aaa69e)",
+      "--bbui-checkbox-error": "var(--bb-color-error, #ff6b6b)",
     });
   });
 });

@@ -83,6 +83,43 @@ const contentColorKeys = [
   "errorContent",
 ] as const satisfies readonly BudgetBoardContentColorKey[];
 
+const buttonColorPairs = [
+  ["primary", "primaryContent"],
+  ["secondary", "secondaryContent"],
+  ["accent", "accentContent"],
+  ["muted", "mutedContent"],
+  ["neutral", "neutralContent"],
+  ["contrast", "contrastContent"],
+  ["info", "infoContent"],
+  ["success", "successContent"],
+  ["warning", "warningContent"],
+  ["error", "errorContent"],
+] as const satisfies readonly (readonly [
+  BudgetBoardColorKey,
+  BudgetBoardContentColorKey,
+])[];
+
+function contrastRatio(firstColor: string, secondColor: string) {
+  const luminance = (color: string) =>
+    [0.2126, 0.7152, 0.0722].reduce((total, weight, index) => {
+      const channel =
+        Number.parseInt(color.slice(1 + index * 2, 3 + index * 2), 16) / 255;
+      const linearChannel =
+        channel <= 0.04045
+          ? channel / 12.92
+          : ((channel + 0.055) / 1.055) ** 2.4;
+
+      return total + weight * linearChannel;
+    }, 0);
+  const firstLuminance = luminance(firstColor);
+  const secondLuminance = luminance(secondColor);
+
+  return (
+    (Math.max(firstLuminance, secondLuminance) + 0.05) /
+    (Math.min(firstLuminance, secondLuminance) + 0.05)
+  );
+}
+
 describe("budgetBoardColors", () => {
   it("includes every semantic color key in both modes", () => {
     expect(Object.keys(budgetBoardColors.light)).toEqual(semanticColorKeys);
@@ -117,7 +154,7 @@ describe("budgetBoardColors", () => {
     expect(budgetBoardColors.light.selection).toBe("#c7d4ff");
     expect(budgetBoardColors.light.info).toBe("#1971c2");
     expect(budgetBoardColors.light.infoContent).toBe("#e7f5ff");
-    expect(budgetBoardColors.light.success).toBe("#2f9e44");
+    expect(budgetBoardColors.light.success).toBe("#27803d");
     expect(budgetBoardColors.light.successContent).toBe("#ebfbee");
     expect(budgetBoardColors.light.warning).toBe("#fcc419");
     expect(budgetBoardColors.light.warningContent).toBe("#5f3b00");
@@ -135,9 +172,9 @@ describe("budgetBoardColors", () => {
     expect(budgetBoardColors.dark.surfaceHover).toBe("#34373a");
     expect(budgetBoardColors.dark.selection).toBe("#414b85");
     expect(budgetBoardColors.dark.info).toBe("#74c0fc");
-    expect(budgetBoardColors.dark.infoContent).toBe("#1864ab");
+    expect(budgetBoardColors.dark.infoContent).toBe("#0b3d70");
     expect(budgetBoardColors.dark.success).toBe("#69db7c");
-    expect(budgetBoardColors.dark.successContent).toBe("#2b8a3e");
+    expect(budgetBoardColors.dark.successContent).toBe("#174b24");
     expect(budgetBoardColors.dark.warning).toBe("#ffd43b");
     expect(budgetBoardColors.dark.warningContent).toBe("#5f3b00");
     expect(budgetBoardColors.dark.error).toBe("#ff6b6b");
@@ -145,17 +182,18 @@ describe("budgetBoardColors", () => {
   });
 
   it("keeps primary visually dominant over supporting theme roles", () => {
-    expect(budgetBoardColors.light.primary).toBe("#4c6ef5");
-    expect(budgetBoardColors.light.secondary).toBe("#6b8d86");
-    expect(budgetBoardColors.light.secondaryContent).toBe("#123b3a");
-    expect(budgetBoardColors.light.accent).toBe("#b26a50");
-    expect(budgetBoardColors.light.accentContent).toBe("#3b2115");
+    expect(budgetBoardColors.light.primary).toBe("#4263eb");
+    expect(budgetBoardColors.light.secondary).toBe("#6e5184");
+    expect(budgetBoardColors.light.secondaryContent).toBe("#fffaf2");
+    expect(budgetBoardColors.light.accent).toBe("#87543d");
+    expect(budgetBoardColors.light.accentContent).toBe("#fffaf2");
+    expect(budgetBoardColors.light.success).toBe("#27803d");
 
     expect(budgetBoardColors.dark.primary).toBe("#91a7ff");
-    expect(budgetBoardColors.dark.secondary).toBe("#82b9b2");
-    expect(budgetBoardColors.dark.secondaryContent).toBe("#123b3a");
-    expect(budgetBoardColors.dark.accent).toBe("#d58e72");
-    expect(budgetBoardColors.dark.accentContent).toBe("#3b2115");
+    expect(budgetBoardColors.dark.secondary).toBe("#b69bcb");
+    expect(budgetBoardColors.dark.secondaryContent).toBe("#30203f");
+    expect(budgetBoardColors.dark.accent).toBe("#d0a07f");
+    expect(budgetBoardColors.dark.accentContent).toBe("#38251a");
   });
 
   it("includes content color keys", () => {
@@ -164,12 +202,23 @@ describe("budgetBoardColors", () => {
     );
   });
 
+  it("meets WCAG AA contrast for button labels in both color modes", () => {
+    for (const colors of [budgetBoardColors.light, budgetBoardColors.dark]) {
+      for (const [backgroundKey, contentKey] of buttonColorPairs) {
+        expect(
+          contrastRatio(colors[backgroundKey], colors[contentKey]),
+        ).toBeGreaterThanOrEqual(4.5);
+      }
+    }
+  });
+
   it("preserves the finalized background and content values", () => {
     expect(budgetBoardColors.light.page).toBe("#f7f6f2");
     expect(budgetBoardColors.light.surface).toBe("#ffffff");
     expect(budgetBoardColors.light.appShellNavigation).toBe("#2f3a4d");
     expect(budgetBoardColors.light.appShellHeader).toBe("#ffffff");
     expect(budgetBoardColors.light.surfaceSunken).toBe("#ebe8df");
+    expect(budgetBoardColors.light.surfaceInput).toBe("#f2f3f1");
     expect(budgetBoardColors.light.surfaceOverlay).toBe("#fffaf2");
     expect(budgetBoardColors.light.textHeading).toBe("#242321");
     expect(budgetBoardColors.light.textPrimary).toBe("#3a3834");

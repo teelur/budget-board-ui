@@ -8,6 +8,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { NavbarLink } from "../../../src";
+import type { NavbarLinkMode } from "../../../src";
 import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
@@ -75,26 +76,44 @@ export function NavbarLinkPage() {
       <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         An accessible icon-and-label action for application navigation, with
         optional collapsible child links. The default navigation mode uses
-        app-shell colors; selection mode uses page-surface colors for in-page
-        selectors, such as Trends chart choices.
+        primary app-shell text and colors; selection mode uses page-surface
+        colors for in-page selectors, such as Trends chart choices.
       </BodyText>
 
       <ApiPlayground
         componentName="NavbarLink"
         controls={[
+          {
+            key: "mode",
+            label: "Mode",
+            type: "select",
+            options: ["navigation", "selection"],
+          },
           { key: "showLabel", label: "Show label", type: "toggle" },
           { key: "active", label: "Active", type: "toggle" },
           { key: "disabled", label: "Disabled", type: "toggle" },
         ]}
-        defaultValues={{ showLabel: true, active: true, disabled: false }}
-        description="Compare expanded and collapsed selection styling, active feedback, and disabled state on a page surface."
+        defaultValues={{
+          mode: "selection",
+          showLabel: true,
+          active: true,
+          disabled: false,
+        }}
+        description="Navigation mode previews on the app-shell navbar background; selection mode keeps the page surface. Compare expanded and collapsed styling, active feedback, and disabled state."
         id="navbar-link-playground"
         staticCodeProps={[
           'icon={<ArrowLeftRight aria-hidden="true" />}',
-          'mode="selection"',
           'label="Transactions"',
           "onClick={() => {}}",
         ]}
+        previewStyle={(values) =>
+          values.mode === "navigation"
+            ? {
+                background:
+                  "var(--bb-color-app-shell-navigation, var(--bb-color-navigation, #2f3a4d))",
+              }
+            : undefined
+        }
         render={(values) => (
           <div className={styles.expanded}>
             <NavbarLink
@@ -102,7 +121,7 @@ export function NavbarLinkPage() {
               disabled={values.disabled as boolean}
               icon={<ArrowLeftRight aria-hidden="true" />}
               label="Transactions"
-              mode="selection"
+              mode={values.mode as NavbarLinkMode}
               onClick={() => {}}
               showLabel={values.showLabel as boolean}
             />

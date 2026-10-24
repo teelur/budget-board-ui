@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, type CSSProperties } from "react";
 import { Pagination as MantinePagination } from "@mantine/core";
 import type {
   PaginationProps as MantinePaginationProps,
@@ -15,14 +15,28 @@ import classes from "./Pagination.module.css";
 
 export type PaginationProps = MantinePaginationProps;
 
-function getRootClassName(className: string | undefined, colorScheme: string) {
+function getRootClassName(className: string | undefined) {
   return [
     classes.root,
-    colorScheme === "dark" && classes.dark,
     className,
   ]
     .filter(Boolean)
     .join(" ");
+}
+
+function getPaginationThemeStyle(
+  colors: ReturnType<typeof useBBUITheme>["colors"],
+): CSSProperties {
+  return {
+    "--bbui-pagination-text": `var(--bb-color-text-primary, ${colors.textPrimary})`,
+    "--bbui-pagination-neutral-content": `var(--bb-color-neutral-content, ${colors.neutralContent})`,
+    "--bbui-pagination-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
+    "--bbui-pagination-hover": `var(--bb-color-surface-hover, ${colors.surfaceHover})`,
+    "--bbui-pagination-hover-border": `var(--bb-color-border-strong, ${colors.borderStrong})`,
+    "--bbui-pagination-active": `var(--bb-color-primary, ${colors.primary})`,
+    "--bbui-pagination-active-text": `var(--bb-color-primary-content, ${colors.primaryContent})`,
+    "--bbui-pagination-focus": `var(--bb-color-focus-ring, ${colors.focusRing})`,
+  } as CSSProperties;
 }
 
 function PaginationButton({
@@ -95,18 +109,19 @@ function withBodyTextItemLabels(
 
 const StyledPaginationRoot = forwardRef<HTMLDivElement, PaginationRootProps>(
   function StyledPaginationRoot(
-    { className, color, getItemProps, ...props },
+    { className, color, getItemProps, style, ...props },
     ref,
   ) {
-    const { colorScheme, hasMantineContext } = useBBUITheme();
+    const { colorScheme, colors, hasMantineContext } = useBBUITheme();
     const root = (
       <MantinePagination.Root
         {...props}
-        className={getRootClassName(className, colorScheme)}
+        className={getRootClassName(className)}
         {...(color === undefined ? {} : { color })}
         data-bbui-pagination-color={color === undefined ? "default" : undefined}
         getItemProps={withBodyTextItemLabels(getItemProps)}
         ref={ref}
+        style={[getPaginationThemeStyle(colors), style]}
       />
     );
 
@@ -116,19 +131,20 @@ const StyledPaginationRoot = forwardRef<HTMLDivElement, PaginationRootProps>(
 
 const StyledPagination = forwardRef<HTMLDivElement, PaginationProps>(
   function StyledPagination(
-    { className, color, getControlProps, getItemProps, ...props },
+    { className, color, getControlProps, getItemProps, style, ...props },
     ref,
   ) {
-    const { colorScheme, hasMantineContext } = useBBUITheme();
+    const { colorScheme, colors, hasMantineContext } = useBBUITheme();
     const pagination = (
       <MantinePagination
         {...props}
-        className={getRootClassName(className, colorScheme)}
+        className={getRootClassName(className)}
         {...(color === undefined ? {} : { color })}
         data-bbui-pagination-color={color === undefined ? "default" : undefined}
         getControlProps={withBBUIControlProps(getControlProps)}
         getItemProps={withBodyTextItemLabels(getItemProps)}
         ref={ref}
+        style={[getPaginationThemeStyle(colors), style]}
       />
     );
 

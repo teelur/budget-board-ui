@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Checkbox, NumberInput, Select, TextInput } from "../../../src";
 import { ComponentDemoSection } from "../ComponentDemoSection/ComponentDemoSection";
 import styles from "./ApiPlayground.module.css";
@@ -41,6 +41,7 @@ interface ApiPlaygroundProps {
   defaultValues: PlaygroundValues;
   staticCodeProps?: readonly string[];
   childrenCode?: string;
+  previewStyle?: (values: PlaygroundValues) => CSSProperties | undefined;
   render: (values: PlaygroundValues) => ReactNode;
 }
 
@@ -94,6 +95,7 @@ export function ApiPlayground({
   defaultValues,
   staticCodeProps = [],
   childrenCode,
+  previewStyle,
   render,
 }: ApiPlaygroundProps) {
   const [values, setValues] = useState(defaultValues);
@@ -106,6 +108,7 @@ export function ApiPlayground({
     staticCodeProps,
     childrenCode,
   );
+  const currentPreviewStyle = previewStyle?.(values);
 
   return (
     <ComponentDemoSection
@@ -214,7 +217,9 @@ export function ApiPlayground({
             );
           })}
         </div>
-        <div className={styles.preview}>{render(values)}</div>
+        <div className={styles.preview} style={currentPreviewStyle}>
+          {render(values)}
+        </div>
       </div>
     </ComponentDemoSection>
   );

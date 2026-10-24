@@ -67,7 +67,7 @@ describe("MultiSelect", () => {
 
     const input = screen.getByRole("combobox", { name: "Accounts" });
     expect(input.closest(`.${inputStylesClasses.root}`)).toHaveStyle({
-      "--bbui-input-background": "var(--bb-color-surface-input, #e9eae8)",
+      "--bbui-input-background": "var(--bb-color-surface-input, #f2f3f1)",
     });
 
     await user.click(input);

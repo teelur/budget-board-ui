@@ -33,6 +33,12 @@ describe("Notification", () => {
     );
     expect(notification.style.padding).toBe("0.5rem");
     expect(screen.getByText("Your transactions are ready.")).toBeInTheDocument();
+    expect(screen.getByText("Import complete")).toHaveStyle({
+      color: "var(--bb-color-text-heading, #242321)",
+    });
+    expect(screen.getByText("Your transactions are ready.")).toHaveStyle({
+      color: "var(--bb-color-text-secondary, #68645d)",
+    });
   });
 
   it("supports the full BBUI semantic palette", () => {
@@ -99,6 +105,9 @@ describe("Notification", () => {
     expect(screen.getByText("Review needed")).toHaveClass("consumer-title");
     expect(notification).toHaveStyle({ opacity: "0.8" });
     expect(
+      screen.getByRole("button", { name: "Dismiss notification" }),
+    ).toHaveStyle({ color: "var(--bb-color-text-muted, #969087)" });
+    expect(
       notification.style.getPropertyValue("--notification-color"),
     ).toBe("custom-notification-color");
     expect(vars).toHaveBeenCalled();
@@ -129,6 +138,12 @@ describe("Notification", () => {
     expect(notification.style.backgroundColor).toBe(
       "color-mix(in srgb, var(--notification-color) 15%, var(--bb-color-surface-elevated, #2A2D33))",
     );
+    expect(screen.getByText("Dark notification")).toHaveStyle({
+      color: "var(--bb-color-text-heading, #f2f0eb)",
+    });
+    expect(screen.getByText("Dark theme content")).toHaveStyle({
+      color: "var(--bb-color-text-secondary, #aaa69e)",
+    });
   });
 
   it("keeps non-BBUI Mantine colors and works without a provider", () => {

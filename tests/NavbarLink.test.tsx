@@ -65,8 +65,8 @@ describe("NavbarLink", () => {
         .parentElement?.style.getPropertyValue("--group-gap"),
     ).toBe("var(--mantine-spacing-md)");
     expect(
-      link.style.getPropertyValue("--bbui-navbar-link-secondary"),
-    ).toBe("var(--bb-color-navigation-text-secondary, #c7cbd3)");
+      link.style.getPropertyValue("--bbui-navbar-link-text"),
+    ).toBe("var(--bb-color-navigation-text-primary, #f7f6f2)");
     expect(link.style.getPropertyValue("--bbui-navbar-link-hover")).toBe(
       "var(--bb-color-navigation-surface-hover, #3b4962)",
     );
@@ -89,7 +89,7 @@ describe("NavbarLink", () => {
 
     const link = screen.getByTestId("chart-selection");
 
-    expect(link.style.getPropertyValue("--bbui-navbar-link-secondary")).toBe(
+    expect(link.style.getPropertyValue("--bbui-navbar-link-text")).toBe(
       "var(--bb-color-text-secondary, #68645d)",
     );
     expect(link.style.getPropertyValue("--bbui-navbar-link-primary")).toBe(
@@ -301,6 +301,11 @@ describe("NavbarLink", () => {
     expect(
       screen
         .getByRole("button", { name: "Accounts" })
+        .style.getPropertyValue("--bbui-navbar-link-text"),
+    ).toBe("var(--bb-color-navigation-text-primary, #d8d5ce)");
+    expect(
+      screen
+        .getByRole("button", { name: "Accounts" })
         .style.getPropertyValue("--bbui-navbar-link-active"),
     ).toBe("var(--bb-color-navigation-selection, #414b85)");
     expect(
@@ -323,7 +328,7 @@ describe("NavbarLink", () => {
 
     const link = screen.getByRole("button", { name: "Spending" });
 
-    expect(link.style.getPropertyValue("--bbui-navbar-link-secondary")).toBe(
+    expect(link.style.getPropertyValue("--bbui-navbar-link-text")).toBe(
       "var(--bb-color-text-secondary, #aaa69e)",
     );
     expect(link.style.getPropertyValue("--bbui-navbar-link-active")).toBe(

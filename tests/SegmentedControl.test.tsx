@@ -46,7 +46,7 @@ describe("SegmentedControl", () => {
       screen
         .getByRole("radiogroup")
         .style.getPropertyValue("--bbui-segmented-track-bg"),
-    ).toBe("var(--bb-color-surface-input, #e9eae8)");
+    ).toBe("var(--bb-color-surface-input, #f2f3f1)");
   });
   it("renders a radiogroup with one radio per item, defaulting to the first item", () => {
     render(<SegmentedControl aria-label="Period" data={data} />);

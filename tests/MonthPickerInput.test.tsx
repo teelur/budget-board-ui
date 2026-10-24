@@ -35,7 +35,7 @@ describe("MonthPickerInput", () => {
     const dropdown = await screen.findByRole("dialog");
     expect(dropdown).toHaveClass(popoverClasses.dropdown);
     expect(dropdown.style.getPropertyValue("--bbui-calendar-primary")).toBe(
-      "var(--bb-color-primary, #4c6ef5)",
+      "var(--bb-color-primary, #4263eb)",
     );
     expect(selectedMonth).toHaveClass("mantine-MonthPickerInput-pickerControl");
     await user.click(selectedMonth);
