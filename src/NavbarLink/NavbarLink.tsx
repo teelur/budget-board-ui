@@ -79,7 +79,7 @@ export function NavbarLink({
           "--bbui-navbar-link-border": `var(--bb-color-navigation-border, ${colors.navigationBorder})`,
         }
       : {
-          "--bbui-navbar-link-text": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
+          "--bbui-navbar-link-text": `var(--bb-color-text-primary, ${colors.textPrimary})`,
           "--bbui-navbar-link-primary": `var(--bb-color-text-primary, ${colors.textPrimary})`,
           "--bbui-navbar-link-hover": `var(--bb-color-surface-hover, ${colors.surfaceHover})`,
           "--bbui-navbar-link-active": `var(--bb-color-selection, ${colors.selection})`,
