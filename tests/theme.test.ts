@@ -183,17 +183,17 @@ describe("budgetBoardColors", () => {
 
   it("keeps primary visually dominant over supporting theme roles", () => {
     expect(budgetBoardColors.light.primary).toBe("#4263eb");
-    expect(budgetBoardColors.light.secondary).toBe("#4e7068");
+    expect(budgetBoardColors.light.secondary).toBe("#6e5184");
     expect(budgetBoardColors.light.secondaryContent).toBe("#fffaf2");
-    expect(budgetBoardColors.light.accent).toBe("#9c593f");
+    expect(budgetBoardColors.light.accent).toBe("#87543d");
     expect(budgetBoardColors.light.accentContent).toBe("#fffaf2");
     expect(budgetBoardColors.light.success).toBe("#27803d");
 
     expect(budgetBoardColors.dark.primary).toBe("#91a7ff");
-    expect(budgetBoardColors.dark.secondary).toBe("#82b9b2");
-    expect(budgetBoardColors.dark.secondaryContent).toBe("#123b3a");
-    expect(budgetBoardColors.dark.accent).toBe("#d58e72");
-    expect(budgetBoardColors.dark.accentContent).toBe("#3b2115");
+    expect(budgetBoardColors.dark.secondary).toBe("#b69bcb");
+    expect(budgetBoardColors.dark.secondaryContent).toBe("#30203f");
+    expect(budgetBoardColors.dark.accent).toBe("#d0a07f");
+    expect(budgetBoardColors.dark.accentContent).toBe("#38251a");
   });
 
   it("includes content color keys", () => {
