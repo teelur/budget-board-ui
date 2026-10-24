@@ -90,6 +90,11 @@ describe("budgetBoardColors", () => {
     expect(Object.keys(budgetBoardTypography)).toEqual(fontKeys);
   });
 
+  it("uses the package elevated surface colors in both modes", () => {
+    expect(budgetBoardColors.light.surfaceElevated).toBe("#F6F6F3");
+    expect(budgetBoardColors.dark.surfaceElevated).toBe("#2A2D33");
+  });
+
   it("uses the bundled variable font families", () => {
     expect(budgetBoardTypography).toEqual({
       body: '"IBM Plex Sans Variable", sans-serif',

@@ -68,7 +68,7 @@ describe("Select", () => {
       "var(--bbui-combobox-background)",
     );
     expect(dropdown).toHaveStyle({
-      "--bbui-combobox-background": "var(--bb-color-surface-elevated, #22252a)",
+      "--bbui-combobox-background": "var(--bb-color-surface-elevated, #2A2D33)",
       "--bbui-combobox-hover": "var(--bb-color-surface-hover, #34373a)",
       "--bbui-combobox-selected": "var(--bb-color-selection, #414b85)",
     });

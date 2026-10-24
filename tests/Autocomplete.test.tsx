@@ -100,7 +100,7 @@ describe("Autocomplete", () => {
     expect(dropdown?.getAttribute("style")).toContain("border-color: red");
     expect(dropdown?.getAttribute("style")).toContain("border-width: 3px");
     expect(dropdown).toHaveStyle({
-      "--bbui-combobox-background": "var(--bb-color-surface-elevated, #22252a)",
+      "--bbui-combobox-background": "var(--bb-color-surface-elevated, #2A2D33)",
       "--bbui-combobox-hover": "var(--bb-color-surface-hover, #34373a)",
       "--bbui-combobox-selected": "var(--bb-color-selection, #414b85)",
     });

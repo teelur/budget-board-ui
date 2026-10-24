@@ -14,7 +14,7 @@
 
 .controls {
   align-content: start;
-  background: var(--bb-color-surface-elevated, #fffcf7);
+  background: var(--bb-color-surface-elevated, #F6F6F3);
   display: grid;
   gap: 0.85rem;
   padding: 1rem;

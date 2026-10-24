@@ -131,7 +131,7 @@ describe("MultiSelect", () => {
     expect(document.querySelector(".mantine-MultiSelect-dropdown")).toHaveStyle(
       {
         "--bbui-combobox-background":
-          "var(--bb-color-surface-elevated, #22252a)",
+          "var(--bb-color-surface-elevated, #2A2D33)",
       },
     );
   });

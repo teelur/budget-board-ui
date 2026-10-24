@@ -144,7 +144,7 @@ describe("DatePickerInput", () => {
       "consumer-picker-dropdown",
     );
     expect(dropdown.style.getPropertyValue("--bbui-calendar-background")).toBe(
-      "var(--bb-color-surface-elevated, #22252a)",
+      "var(--bb-color-surface-elevated, #2A2D33)",
     );
     expect(
       dropdown.style.getPropertyValue("--bbui-calendar-selection-foreground"),
@@ -182,7 +182,7 @@ describe("DatePickerInput", () => {
     );
     expect(
       modalContent.style.getPropertyValue("--bbui-calendar-background"),
-    ).toBe("var(--bb-color-surface-elevated, #22252a)");
+    ).toBe("var(--bb-color-surface-elevated, #2A2D33)");
     expect(modalContent.style.borderColor).toBe("red");
   });
 

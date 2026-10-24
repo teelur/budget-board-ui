@@ -56,7 +56,7 @@ describe("TagsInput", () => {
     expect(root).toHaveStyle({
       "--bbui-input-background": "var(--bb-color-surface-input, #e9eae8)",
       "--bbui-tags-pill-background":
-        "var(--bb-color-surface-elevated, #fffcf7)",
+        "var(--bb-color-surface-elevated, #F6F6F3)",
     });
     expect(root).toHaveClass(tagsInputClasses.root);
     expect(input).toHaveClass(tagsInputClasses.inputField);
@@ -75,7 +75,7 @@ describe("TagsInput", () => {
 
     expect(root).toHaveStyle({
       "--bbui-tags-pill-background":
-        "var(--bb-color-surface-elevated, #22252a)",
+        "var(--bb-color-surface-elevated, #2A2D33)",
       "--bbui-tags-pill-border": "var(--bb-color-border-subtle, #3a3d42)",
     });
   });

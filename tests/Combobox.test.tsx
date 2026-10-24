@@ -104,7 +104,7 @@ describe("Combobox", () => {
     );
     expect(
       dropdown?.style.getPropertyValue("--bbui-combobox-background"),
-    ).toBe("var(--bb-color-surface-elevated, #22252a)");
+    ).toBe("var(--bb-color-surface-elevated, #2A2D33)");
     expect(dropdown?.style.getPropertyValue("--bbui-combobox-selected")).toBe(
       "var(--bb-color-selection, #414b85)",
     );
