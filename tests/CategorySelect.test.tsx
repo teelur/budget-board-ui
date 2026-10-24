@@ -138,7 +138,7 @@ describe("CategorySelect", () => {
 
     const trigger = screen.getByRole("button", { name: "Category" });
     expect(trigger.closest(`.${inputStylesClasses.root}`)).toHaveStyle({
-      "--bbui-input-background": "var(--bb-color-surface-input, #e9eae8)",
+      "--bbui-input-background": "var(--bb-color-surface-input, #f2f3f1)",
     });
 
     await user.click(trigger);

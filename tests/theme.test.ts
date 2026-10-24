@@ -170,6 +170,7 @@ describe("budgetBoardColors", () => {
     expect(budgetBoardColors.light.appShellNavigation).toBe("#2f3a4d");
     expect(budgetBoardColors.light.appShellHeader).toBe("#ffffff");
     expect(budgetBoardColors.light.surfaceSunken).toBe("#ebe8df");
+    expect(budgetBoardColors.light.surfaceInput).toBe("#f2f3f1");
     expect(budgetBoardColors.light.surfaceOverlay).toBe("#fffaf2");
     expect(budgetBoardColors.light.textHeading).toBe("#242321");
     expect(budgetBoardColors.light.textPrimary).toBe("#3a3834");

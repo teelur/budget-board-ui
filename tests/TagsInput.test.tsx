@@ -54,7 +54,7 @@ describe("TagsInput", () => {
       .closest(`.${tagsInputClasses.pill}`);
 
     expect(root).toHaveStyle({
-      "--bbui-input-background": "var(--bb-color-surface-input, #e9eae8)",
+      "--bbui-input-background": "var(--bb-color-surface-input, #f2f3f1)",
       "--bbui-tags-pill-background":
         "var(--bb-color-surface-elevated, #F6F6F3)",
     });

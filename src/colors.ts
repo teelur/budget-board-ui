@@ -12,7 +12,7 @@ const lightColors = {
   navigationFocusRing: "#91a7ff",
   navigationBorder: "#47536b",
   surfaceSunken: "#ebe8df",
-  surfaceInput: "#e9eae8",
+  surfaceInput: "#f2f3f1",
   surfaceHover: "#d8d5ce",
   surfaceOverlay: "#fffaf2",
   textHeading: "#242321",

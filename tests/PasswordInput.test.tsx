@@ -33,7 +33,7 @@ describe("PasswordInput", () => {
     expect(input).toHaveValue("correct-horse");
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "light");
     expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
-      "var(--bb-color-surface-input, #e9eae8)",
+      "var(--bb-color-surface-input, #f2f3f1)",
     );
     expect(root?.style.getPropertyValue("--bbui-input-placeholder")).toBe(
       "var(--bb-color-text-muted, #969087)",
@@ -186,10 +186,10 @@ describe("PasswordInput", () => {
     const cardRoot = cardInput.parentElement?.parentElement?.parentElement;
 
     expect(pageRoot?.style.getPropertyValue("--bbui-input-background")).toBe(
-      "var(--bb-color-surface-input, #e9eae8)",
+      "var(--bb-color-surface-input, #f2f3f1)",
     );
     expect(cardRoot?.style.getPropertyValue("--bbui-input-background")).toBe(
-      "var(--bb-color-surface-input, #e9eae8)",
+      "var(--bb-color-surface-input, #f2f3f1)",
     );
   });
 

@@ -32,7 +32,7 @@ describe("PinInput", () => {
     expect(cells[0]).toHaveClass(classes.input, "consumer-cell");
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "light");
     expect(root.style.getPropertyValue("--bbui-input-background")).toBe(
-      "var(--bb-color-surface-input, #e9eae8)",
+      "var(--bb-color-surface-input, #f2f3f1)",
     );
     expect(root.style.marginTop).toBe("12px");
     expect(root.style.marginBottom).not.toBe("");

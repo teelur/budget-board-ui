@@ -31,7 +31,7 @@ describe("FileInput", () => {
     expect(nativeInput).toHaveAttribute("name", "statement");
     expect(root).toHaveAttribute("data-budget-board-color-scheme", "light");
     expect(root?.style.getPropertyValue("--bbui-input-background")).toBe(
-      "var(--bb-color-surface-input, #e9eae8)",
+      "var(--bb-color-surface-input, #f2f3f1)",
     );
   });
 
