@@ -170,7 +170,7 @@ describe("Alert", () => {
     const alert = screen.getByRole("alert", { name: "Dark neutral alert" });
 
     expect(alert.style.getPropertyValue("--alert-bg")).toBe(
-      "var(--mantine-color-white, #fff)",
+      "var(--mantine-color-white, #191b1f)",
     );
     expect(alert.style.getPropertyValue("--alert-color")).toBe(
       "var(--bb-color-text-inverse, #242321)",

@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { createRef } from "react";
+import { createRef, type CSSProperties } from "react";
 import { MantineProvider } from "@mantine/core";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -14,22 +14,16 @@ const paginationStyles = readFileSync(
 );
 
 describe("Pagination", () => {
-  it("uses BBUI primary tokens instead of Mantine primary colors", () => {
-    expect(paginationStyles).toContain(
-      "--bbui-pagination-active: var(--bb-color-primary, #4c6ef5);",
-    );
-    expect(paginationStyles).toContain(
-      "--bbui-pagination-active: var(--bb-color-primary, #91a7ff);",
-    );
-    expect(paginationStyles).toContain(
-      "--bbui-pagination-neutral-content: var(--bb-color-neutral-content, #3a3834);",
-    );
+  it("uses palette-backed BBUI variables instead of Mantine primary colors", () => {
+    expect(paginationStyles).toContain("var(--bbui-pagination-active)");
+    expect(paginationStyles).toContain("var(--bbui-pagination-neutral-content)");
     expect(paginationStyles).toContain(
       'button[data-budget-board-color="neutral"][data-budget-board-selected="false"][data-budget-board-variant="filled"]',
     );
     expect(paginationStyles).toContain(
       'button[data-budget-board-color][data-budget-board-variant="outline"]',
     );
+    expect(paginationStyles).not.toMatch(/#[0-9a-f]{3,8}\b/i);
     expect(paginationStyles).not.toContain("--mantine-primary-color");
   });
 
@@ -140,6 +134,7 @@ describe("Pagination", () => {
         data-testid="pagination"
         id="styled-pagination"
         ref={ref}
+        style={{ "--bbui-pagination-active": "tomato" } as CSSProperties}
         total={6}
         value={4}
       />,
@@ -158,9 +153,12 @@ describe("Pagination", () => {
     );
     expect(ref.current).toBe(root);
     expect(root).toHaveAttribute("id", "styled-pagination");
+    expect(root.style.getPropertyValue("--bbui-pagination-active")).toBe(
+      "tomato",
+    );
   });
 
-  it("uses BBUI's default primary treatment and dark theme class", () => {
+  it("uses palette-backed colors in light and dark themes", () => {
     const { rerender } = render(
       <Pagination data-testid="light-pagination" total={4} value={2} />,
     );
@@ -168,6 +166,12 @@ describe("Pagination", () => {
     const lightRoot = screen.getByTestId("light-pagination");
     expect(lightRoot).toHaveAttribute("data-bbui-pagination-color", "default");
     expect(lightRoot).toHaveClass(classes.root);
+    expect(lightRoot.style.getPropertyValue("--bbui-pagination-active")).toBe(
+      "var(--bb-color-primary, #4c6ef5)",
+    );
+    expect(lightRoot.style.getPropertyValue("--bbui-pagination-hover")).toBe(
+      "var(--bb-color-surface-hover, #d8d5ce)",
+    );
 
     rerender(
       <MantineProvider forceColorScheme="dark">
@@ -175,7 +179,13 @@ describe("Pagination", () => {
       </MantineProvider>,
     );
 
-    expect(screen.getByTestId("dark-pagination")).toHaveClass(classes.dark);
+    const darkRoot = screen.getByTestId("dark-pagination");
+    expect(darkRoot.style.getPropertyValue("--bbui-pagination-active")).toBe(
+      "var(--bb-color-primary, #91a7ff)",
+    );
+    expect(darkRoot.style.getPropertyValue("--bbui-pagination-hover")).toBe(
+      "var(--bb-color-surface-hover, #34373a)",
+    );
   });
 
   it("retains Mantine's compound API with BBUI styling on the root", () => {
@@ -190,6 +200,11 @@ describe("Pagination", () => {
     );
 
     expect(screen.getByTestId("compound-pagination")).toHaveClass(classes.root);
+    expect(
+      screen
+        .getByTestId("compound-pagination")
+        .style.getPropertyValue("--bbui-pagination-active"),
+    ).toBe("var(--bb-color-primary, #4c6ef5)");
     expect(screen.getByRole("button", { name: "1" })).toHaveAttribute(
       "aria-current",
       "page",

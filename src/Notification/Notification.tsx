@@ -84,6 +84,15 @@ const NotificationRoot = forwardRef<HTMLDivElement, NotificationProps>(
         borderColor: `color-mix(in srgb, var(--notification-color) 35%, var(--bb-color-border-subtle, ${colors.borderSubtle}))`,
         boxShadow: "var(--mantine-shadow-lg)",
       },
+      title: {
+        color: `var(--bb-color-text-heading, ${colors.textHeading})`,
+      },
+      description: {
+        color: `var(--bb-color-text-secondary, ${colors.textSecondary})`,
+      },
+      closeButton: {
+        color: `var(--bb-color-text-muted, ${colors.textMuted})`,
+      },
     }) as NonNullable<NotificationProps["styles"]>;
 
     const notification = (

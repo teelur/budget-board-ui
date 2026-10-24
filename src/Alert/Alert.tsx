@@ -91,7 +91,7 @@ function getSemanticVariables(
     case "white":
       return {
         root: {
-          "--alert-bg": "var(--mantine-color-white, #fff)",
+          "--alert-bg": `var(--mantine-color-white, ${colors.surface})`,
           "--alert-color": whiteSurfaceText,
           "--alert-bd": `1px solid color-mix(in srgb, ${background} 28%, ${border})`,
         },
