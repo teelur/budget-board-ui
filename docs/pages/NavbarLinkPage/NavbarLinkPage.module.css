@@ -33,6 +33,13 @@
   gap: 0.25rem;
 }
 
+.trendSelector {
+  display: flex;
+  width: min(100%, 12.5rem);
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 @media (max-width: 560px) {
   .examples {
     grid-template-columns: minmax(0, 1fr);

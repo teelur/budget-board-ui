@@ -38,6 +38,7 @@ export {
 export {
   NavbarLink,
   type NavbarLinkItem,
+  type NavbarLinkMode,
   type NavbarLinkProps,
 } from "./NavbarLink/NavbarLink";
 

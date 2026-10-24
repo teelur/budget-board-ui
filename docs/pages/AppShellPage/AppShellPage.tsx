@@ -245,8 +245,9 @@ export function AppShellPage() {
                     <code>AppShellHeaderProps</code>
                   </td>
                   <td>
-                    Mantine defaults. Uses the <code>surface-sunken</code> and
-                    <code>border-subtle</code> tokens.
+                    Mantine defaults. Uses the <code>app-shell-header</code> and
+                    <code>border-subtle</code> tokens, with restrained
+                    elevation in light mode.
                   </td>
                 </tr>
                 <tr>

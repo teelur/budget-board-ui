@@ -18,12 +18,15 @@ export interface NavbarLinkItem {
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
+export type NavbarLinkMode = "navigation" | "selection";
+
 export interface NavbarLinkProps extends Omit<
   ButtonHTMLAttributes<HTMLButtonElement>,
   "children"
 > {
   icon: ReactNode;
   label: string;
+  mode?: NavbarLinkMode;
   active?: boolean;
   showLabel?: boolean;
   labelSize?: "sm" | "xs";
@@ -48,6 +51,7 @@ export function NavbarLink({
   items,
   label,
   labelSize = "sm",
+  mode = "navigation",
   onExpandedChange,
   showLabel,
   style,
@@ -64,13 +68,28 @@ export function NavbarLink({
   const showGroup = hasItems && isLabelVisible;
   const isGroupExpanded = showGroup && isExpanded;
   const panelId = `bbui-navbar-link-panel-${useId()}`;
-  const themeStyles = {
-    "--bbui-navbar-link-secondary": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
-    "--bbui-navbar-link-primary": `var(--bb-color-text-primary, ${colors.textPrimary})`,
-    "--bbui-navbar-link-hover": `var(--bb-color-surface-hover, ${colors.surfaceHover})`,
-    "--bbui-navbar-link-active": `var(--bb-color-selection, ${colors.selection})`,
-    "--bbui-navbar-link-focus": `var(--bb-color-focus-ring, ${colors.focusRing})`,
-    "--bbui-navbar-link-border": `var(--bb-color-border, ${colors.border})`,
+  const themeStyles = (
+    mode === "navigation"
+      ? {
+          "--bbui-navbar-link-secondary": `var(--bb-color-navigation-text-secondary, ${colors.navigationTextSecondary})`,
+          "--bbui-navbar-link-primary": `var(--bb-color-navigation-text-primary, ${colors.navigationTextPrimary})`,
+          "--bbui-navbar-link-hover": `var(--bb-color-navigation-surface-hover, ${colors.navigationSurfaceHover})`,
+          "--bbui-navbar-link-active": `var(--bb-color-navigation-selection, ${colors.navigationSelection})`,
+          "--bbui-navbar-link-focus": `var(--bb-color-navigation-focus-ring, ${colors.navigationFocusRing})`,
+          "--bbui-navbar-link-border": `var(--bb-color-navigation-border, ${colors.navigationBorder})`,
+        }
+      : {
+          "--bbui-navbar-link-secondary": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
+          "--bbui-navbar-link-primary": `var(--bb-color-text-primary, ${colors.textPrimary})`,
+          "--bbui-navbar-link-hover": `var(--bb-color-surface-hover, ${colors.surfaceHover})`,
+          "--bbui-navbar-link-active": `var(--bb-color-selection, ${colors.selection})`,
+          "--bbui-navbar-link-focus": `var(--bb-color-focus-ring, ${colors.focusRing})`,
+          "--bbui-navbar-link-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
+        }
+  ) as CSSProperties;
+  const parentLinkStyles = {
+    ...themeStyles,
+    color: "var(--bbui-navbar-link-color)",
   } as CSSProperties;
 
   const toggleExpanded = () => {
@@ -96,7 +115,7 @@ export function NavbarLink({
           .join(" ")}
         data-active={active || undefined}
         data-budget-board-navbar-link-compact={compact ? "true" : undefined}
-        style={[themeStyles, style]}
+        style={[parentLinkStyles, style]}
         type={type}
       >
         <Group
@@ -118,6 +137,7 @@ export function NavbarLink({
           </span>
           {isLabelVisible && (
             <Text
+              c="inherit"
               className={classes.label}
               component="span"
               fw={600}
@@ -167,6 +187,7 @@ export function NavbarLink({
               type="button"
             >
               <Text
+                c="inherit"
                 className={classes.label}
                 component="span"
                 fw={600}
