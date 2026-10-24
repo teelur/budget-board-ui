@@ -43,8 +43,23 @@ const lightColors = [
     token: "--bb-color-navigation",
     value: budgetBoardColors.light.navigation.toUpperCase(),
     description:
-      "The distinct shell surface used by navigation and app-level chrome.",
+      "A shared neutral surface used by documentation chrome and component examples.",
     className: "color-light-navigation",
+  },
+  {
+    name: "App shell navigation",
+    token: "--bb-color-app-shell-navigation",
+    value: budgetBoardColors.light.appShellNavigation.toUpperCase(),
+    description: "The light-mode sidebar surface used by the application shell.",
+    className: "color-light-app-shell-navigation",
+  },
+  {
+    name: "App shell header",
+    token: "--bb-color-app-shell-header",
+    value: budgetBoardColors.light.appShellHeader.toUpperCase(),
+    description:
+      "The white light-mode header surface, lifted from the canvas with a subtle shadow.",
+    className: "color-light-app-shell-header",
   },
 ] as const;
 
@@ -78,8 +93,22 @@ const darkColors = [
     token: "--bb-color-navigation",
     value: budgetBoardColors.dark.navigation.toUpperCase(),
     description:
-      "The distinct shell surface used by navigation and app-level chrome.",
+      "A shared neutral surface used by documentation chrome and component examples.",
     className: "color-dark-navigation",
+  },
+  {
+    name: "App shell navigation",
+    token: "--bb-color-app-shell-navigation",
+    value: budgetBoardColors.dark.appShellNavigation.toUpperCase(),
+    description: "The dark-mode sidebar surface used by the application shell.",
+    className: "color-dark-app-shell-navigation",
+  },
+  {
+    name: "App shell header",
+    token: "--bb-color-app-shell-header",
+    value: budgetBoardColors.dark.appShellHeader.toUpperCase(),
+    description: "The dark-mode header surface used by the application shell.",
+    className: "color-dark-app-shell-header",
   },
 ] as const;
 
@@ -413,7 +442,7 @@ export function ColorThemePage({ colorMode }: { colorMode: ColorMode }) {
         <BodyText component="p" className={styles.themeSubheadingCopy} tone="secondary" fz="0.82rem" lh={1.55} m="-0.3rem 0 1rem">
           Light and dark surfaces use the same quiet, grounded hierarchy while
           adapting their values to the surrounding mode. Small shifts in value
-          create depth without depending on heavy shadows.
+          and restrained elevation create depth without heavy shadows.
         </BodyText>
         <div className={styles.colorGrid}>
           {colors.map((color) => (

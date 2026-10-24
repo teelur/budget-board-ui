@@ -12,13 +12,14 @@
 .root .headerSurface {
   border-color: var(--bbui-app-shell-border);
   background-color: var(--bbui-app-shell-header);
+  box-shadow: var(--bbui-app-shell-header-shadow, none);
   color: var(--bbui-app-shell-text);
 }
 
 .root .navigation {
-  border-color: var(--bbui-app-shell-border);
+  border-color: var(--bbui-app-shell-navigation-border);
   background-color: var(--bbui-app-shell-navigation);
-  color: var(--bbui-app-shell-text);
+  color: var(--bbui-app-shell-navigation-text);
 }
 
 .main {

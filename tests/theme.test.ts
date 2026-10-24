@@ -16,6 +16,14 @@ const semanticColorKeys = [
   "surface",
   "surfaceElevated",
   "navigation",
+  "appShellNavigation",
+  "appShellHeader",
+  "navigationTextPrimary",
+  "navigationTextSecondary",
+  "navigationSurfaceHover",
+  "navigationSelection",
+  "navigationFocusRing",
+  "navigationBorder",
   "surfaceSunken",
   "surfaceInput",
   "surfaceHover",
@@ -154,6 +162,8 @@ describe("budgetBoardColors", () => {
   it("preserves the finalized background and content values", () => {
     expect(budgetBoardColors.light.page).toBe("#f7f6f2");
     expect(budgetBoardColors.light.surface).toBe("#ffffff");
+    expect(budgetBoardColors.light.appShellNavigation).toBe("#2f3a4d");
+    expect(budgetBoardColors.light.appShellHeader).toBe("#ffffff");
     expect(budgetBoardColors.light.surfaceSunken).toBe("#ebe8df");
     expect(budgetBoardColors.light.surfaceOverlay).toBe("#fffaf2");
     expect(budgetBoardColors.light.textHeading).toBe("#242321");
@@ -165,6 +175,8 @@ describe("budgetBoardColors", () => {
     );
     expect(budgetBoardColors.dark.page).toBe("#111214");
     expect(budgetBoardColors.dark.surface).toBe("#191b1f");
+    expect(budgetBoardColors.dark.appShellNavigation).toBe("#191b1f");
+    expect(budgetBoardColors.dark.appShellHeader).toBe("#0d0f12");
     expect(budgetBoardColors.dark.textHeading).toBe("#f2f0eb");
     expect(budgetBoardColors.dark.textPrimary).toBe("#d8d5ce");
     expect(budgetBoardColors.dark.contrast).toBe("#f2f0eb");

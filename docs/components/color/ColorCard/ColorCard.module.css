@@ -23,6 +23,14 @@
   background: var(--bb-color-navigation);
 }
 
+.color-light-app-shell-navigation {
+  background: var(--bb-color-app-shell-navigation);
+}
+
+.color-light-app-shell-header {
+  background: var(--bb-color-app-shell-header);
+}
+
 .color-dark-canvas {
   background: var(--bb-color-page);
 }
@@ -37,6 +45,14 @@
 
 .color-dark-navigation {
   background: var(--bb-color-navigation);
+}
+
+.color-dark-app-shell-navigation {
+  background: var(--bb-color-app-shell-navigation);
+}
+
+.color-dark-app-shell-header {
+  background: var(--bb-color-app-shell-header);
 }
 
 .colorCardContent {

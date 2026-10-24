@@ -48,10 +48,16 @@ export function AppShell({ className, style, ...props }: AppShellProps) {
           "--app-shell-border-color": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
           "--bbui-app-shell-page": `var(--bb-color-page, ${colors.page})`,
           "--bbui-app-shell-surface": `var(--bb-color-surface, ${colors.surface})`,
-          "--bbui-app-shell-header": `var(--bb-color-surface-sunken, ${colors.surfaceSunken})`,
-          "--bbui-app-shell-navigation": `var(--bb-color-navigation, ${colors.navigation})`,
+          "--bbui-app-shell-header": `var(--bb-color-app-shell-header, var(--bb-color-surface-sunken, ${colors.appShellHeader}))`,
+          "--bbui-app-shell-header-shadow":
+            colorScheme === "light"
+              ? "0 3px 8px rgb(36 35 33 / 10%)"
+              : "none",
+          "--bbui-app-shell-navigation": `var(--bb-color-app-shell-navigation, var(--bb-color-navigation, ${colors.appShellNavigation}))`,
           "--bbui-app-shell-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
+          "--bbui-app-shell-navigation-border": `var(--bb-color-navigation-border, ${colors.navigationBorder})`,
           "--bbui-app-shell-text": `var(--bb-color-text-primary, ${colors.textPrimary})`,
+          "--bbui-app-shell-navigation-text": `var(--bb-color-navigation-text-primary, ${colors.navigationTextPrimary})`,
         } as CSSProperties,
         style,
       ]}

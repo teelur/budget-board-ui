@@ -62,11 +62,20 @@ describe("AppShell", () => {
       "pink",
     );
     expect(appShell.style.getPropertyValue("--bbui-app-shell-navigation")).toBe(
-      "var(--bb-color-navigation, #f1efe9)",
+      "var(--bb-color-app-shell-navigation, var(--bb-color-navigation, #2f3a4d))",
     );
+    expect(
+      appShell.style.getPropertyValue("--bbui-app-shell-navigation-border"),
+    ).toBe("var(--bb-color-navigation-border, #47536b)");
+    expect(
+      appShell.style.getPropertyValue("--bbui-app-shell-navigation-text"),
+    ).toBe("var(--bb-color-navigation-text-primary, #f7f6f2)");
     expect(appShell.style.getPropertyValue("--bbui-app-shell-header")).toBe(
-      "var(--bb-color-surface-sunken, #ebe8df)",
+      "var(--bb-color-app-shell-header, var(--bb-color-surface-sunken, #ffffff))",
     );
+    expect(
+      appShell.style.getPropertyValue("--bbui-app-shell-header-shadow"),
+    ).toBe("0 3px 8px rgb(36 35 33 / 10%)");
   });
 
   it("resolves semantic palette defaults in dark mode", () => {
@@ -85,6 +94,25 @@ describe("AppShell", () => {
       screen
         .getByTestId("app-shell")
         .style.getPropertyValue("--bbui-app-shell-header"),
-    ).toBe("var(--bb-color-surface-sunken, #0d0f12)");
+    ).toBe(
+      "var(--bb-color-app-shell-header, var(--bb-color-surface-sunken, #0d0f12))",
+    );
+    expect(
+      screen
+        .getByTestId("app-shell")
+        .style.getPropertyValue("--bbui-app-shell-header-shadow"),
+    ).toBe("none");
+    expect(
+      screen
+        .getByTestId("app-shell")
+        .style.getPropertyValue("--bbui-app-shell-navigation"),
+    ).toBe(
+      "var(--bb-color-app-shell-navigation, var(--bb-color-navigation, #191b1f))",
+    );
+    expect(
+      screen
+        .getByTestId("app-shell")
+        .style.getPropertyValue("--bbui-app-shell-navigation-text"),
+    ).toBe("var(--bb-color-navigation-text-primary, #d8d5ce)");
   });
 });

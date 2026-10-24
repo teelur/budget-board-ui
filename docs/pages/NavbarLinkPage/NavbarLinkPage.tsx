@@ -1,4 +1,12 @@
-import { ArrowLeftRight, Goal, Home, Wallet } from "lucide-react";
+import {
+  ArrowLeftRight,
+  ArrowRightLeftIcon,
+  Goal,
+  Home,
+  LineChartIcon,
+  TagsIcon,
+  Wallet,
+} from "lucide-react";
 import { NavbarLink } from "../../../src";
 import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
@@ -9,6 +17,7 @@ import { BodyText, HeadingText } from "../../../src";
 
 const navbarLinkExample = `<NavbarLink
   icon={<ArrowLeftRight aria-hidden="true" />}
+  mode="selection"
   label="Transactions"
   showLabel
   onClick={() => navigate("/transactions")}
@@ -28,6 +37,31 @@ const navbarLinkExample = `<NavbarLink
   ]}
 />`;
 
+const trendsChartSelectionExample = `<Stack w={200} gap={4}>
+  <NavbarLink
+    active
+    icon={<LineChartIcon aria-hidden="true" />}
+    label="Spending"
+    mode="selection"
+    onClick={() => navigate("spending")}
+    showLabel
+  />
+  <NavbarLink
+    icon={<TagsIcon aria-hidden="true" />}
+    label="Spending categories"
+    mode="selection"
+    onClick={() => navigate("spending-categories")}
+    showLabel
+  />
+  <NavbarLink
+    icon={<ArrowRightLeftIcon aria-hidden="true" />}
+    label="Net cash flow"
+    mode="selection"
+    onClick={() => navigate("net-cash-flow")}
+    showLabel
+  />
+</Stack>`;
+
 export function NavbarLinkPage() {
   return (
     <section className={pageStyles.componentSection} id="navbar-link">
@@ -40,8 +74,9 @@ export function NavbarLinkPage() {
       </div>
       <BodyText component="p" className={pageStyles.sectionCopy} tone="muted" m="1em 0">
         An accessible icon-and-label action for application navigation, with
-        optional collapsible child links. The consuming application controls
-        routing, selection, and label visibility.
+        optional collapsible child links. The default navigation mode uses
+        app-shell colors; selection mode uses page-surface colors for in-page
+        selectors, such as Trends chart choices.
       </BodyText>
 
       <ApiPlayground
@@ -52,10 +87,11 @@ export function NavbarLinkPage() {
           { key: "disabled", label: "Disabled", type: "toggle" },
         ]}
         defaultValues={{ showLabel: true, active: true, disabled: false }}
-        description="Compare expanded and collapsed navigation styling, active feedback, and disabled state."
+        description="Compare expanded and collapsed selection styling, active feedback, and disabled state on a page surface."
         id="navbar-link-playground"
         staticCodeProps={[
           'icon={<ArrowLeftRight aria-hidden="true" />}',
+          'mode="selection"',
           'label="Transactions"',
           "onClick={() => {}}",
         ]}
@@ -66,6 +102,7 @@ export function NavbarLinkPage() {
               disabled={values.disabled as boolean}
               icon={<ArrowLeftRight aria-hidden="true" />}
               label="Transactions"
+              mode="selection"
               onClick={() => {}}
               showLabel={values.showLabel as boolean}
             />
@@ -74,7 +111,7 @@ export function NavbarLinkPage() {
       />
 
       <ComponentDemoSection
-        description="Expanded links show labels and can contain a collapsible child list. The parent action and disclosure control stay separate. Collapsed links keep an accessible name and reveal the parent label in a tooltip; child links stay hidden."
+        description="These examples use selection mode for links on a page surface. Expanded links can contain a collapsible child list, while collapsed links keep an accessible name and reveal the parent label in a tooltip."
         id="navbar-link-states"
         title="States"
         code={navbarLinkExample}
@@ -86,17 +123,20 @@ export function NavbarLinkPage() {
               <NavbarLink
                 icon={<Home aria-hidden="true" />}
                 label="Overview"
+                mode="selection"
                 showLabel
               />
               <NavbarLink
                 active
                 icon={<ArrowLeftRight aria-hidden="true" />}
                 label="Transactions"
+                mode="selection"
                 showLabel
               />
               <NavbarLink
                 icon={<Goal aria-hidden="true" />}
                 label="Goals"
+                mode="selection"
                 showLabel
               />
               <NavbarLink
@@ -116,6 +156,7 @@ export function NavbarLinkPage() {
                   },
                 ]}
                 label="Accounts"
+                mode="selection"
                 onClick={() => {}}
                 showLabel
               />
@@ -123,6 +164,7 @@ export function NavbarLinkPage() {
                 disabled
                 icon={<Home aria-hidden="true" />}
                 label="Disabled"
+                mode="selection"
                 showLabel
               />
             </div>
@@ -130,18 +172,56 @@ export function NavbarLinkPage() {
           <div className={styles.example}>
             <BodyText component="span" className={styles.caption} tone="secondary" ff="var(--bb-font-data)" fz="0.64rem" m="0 0 0.6rem">Collapsed</BodyText>
             <div className={styles.collapsed}>
-              <NavbarLink icon={<Home aria-hidden="true" />} label="Overview" />
+              <NavbarLink
+                icon={<Home aria-hidden="true" />}
+                label="Overview"
+                mode="selection"
+              />
               <NavbarLink
                 active
                 icon={<ArrowLeftRight aria-hidden="true" />}
                 label="Transactions"
+                mode="selection"
               />
               <NavbarLink
                 icon={<Wallet aria-hidden="true" />}
                 label="Accounts"
+                mode="selection"
               />
             </div>
           </div>
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description="This mirrors the Trends page chart selector: one chart view is active, and the consuming app handles navigation. Selection mode uses page-surface colors instead of AppShell navigation colors."
+        id="navbar-link-trends-selection"
+        title="Trends chart selection"
+        code={trendsChartSelectionExample}
+      >
+        <div className={styles.trendSelector}>
+          <NavbarLink
+            active
+            icon={<LineChartIcon aria-hidden="true" />}
+            label="Spending"
+            mode="selection"
+            onClick={() => {}}
+            showLabel
+          />
+          <NavbarLink
+            icon={<TagsIcon aria-hidden="true" />}
+            label="Spending categories"
+            mode="selection"
+            onClick={() => {}}
+            showLabel
+          />
+          <NavbarLink
+            icon={<ArrowRightLeftIcon aria-hidden="true" />}
+            label="Net cash flow"
+            mode="selection"
+            onClick={() => {}}
+            showLabel
+          />
         </div>
       </ComponentDemoSection>
 
@@ -166,6 +246,16 @@ export function NavbarLinkPage() {
           <div>
             <table>
               <tbody>
+                <tr>
+                  <th>mode</th>
+                  <td>
+                    <code>"navigation" | "selection"</code>
+                  </td>
+                  <td>
+                    navigation; use selection for page-surface selectors such
+                    as chart choices.
+                  </td>
+                </tr>
                 <tr>
                   <th>icon</th>
                   <td>

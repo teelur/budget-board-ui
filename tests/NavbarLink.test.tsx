@@ -51,6 +51,7 @@ describe("NavbarLink", () => {
       name: "Open transactions navigation",
     });
 
+    expect(link.style.color).toBe("var(--bbui-navbar-link-color)");
     expect(link).toHaveAttribute("name", "transactions");
     expect(link).toHaveAttribute("title", "Open transactions");
     expect(link).toHaveAttribute("type", "button");
@@ -63,12 +64,47 @@ describe("NavbarLink", () => {
         .getByText("Transactions")
         .parentElement?.style.getPropertyValue("--group-gap"),
     ).toBe("var(--mantine-spacing-md)");
+    expect(
+      link.style.getPropertyValue("--bbui-navbar-link-secondary"),
+    ).toBe("var(--bb-color-navigation-text-secondary, #c7cbd3)");
     expect(link.style.getPropertyValue("--bbui-navbar-link-hover")).toBe(
-      "var(--bb-color-surface-hover, #d8d5ce)",
+      "var(--bb-color-navigation-surface-hover, #3b4962)",
     );
     expect(navbarLinkStyles).toContain(
       '&:hover:not(:disabled):not([data-active="true"]) {',
     );
+  });
+
+  it("uses page-surface colors in selection mode", () => {
+    render(
+      <NavbarLink
+        active
+        data-testid="chart-selection"
+        icon={<span aria-hidden="true">I</span>}
+        label="Spending"
+        mode="selection"
+        showLabel
+      />,
+    );
+
+    const link = screen.getByTestId("chart-selection");
+
+    expect(link.style.getPropertyValue("--bbui-navbar-link-secondary")).toBe(
+      "var(--bb-color-text-secondary, #68645d)",
+    );
+    expect(link.style.getPropertyValue("--bbui-navbar-link-primary")).toBe(
+      "var(--bb-color-text-primary, #3a3834)",
+    );
+    expect(link.style.getPropertyValue("--bbui-navbar-link-hover")).toBe(
+      "var(--bb-color-surface-hover, #d8d5ce)",
+    );
+    expect(link.style.getPropertyValue("--bbui-navbar-link-active")).toBe(
+      "var(--bb-color-selection, #c7d4ff)",
+    );
+    expect(link.style.getPropertyValue("--bbui-navbar-link-focus")).toBe(
+      "var(--bb-color-focus-ring, #4c6ef5)",
+    );
+    expect(link).not.toHaveAttribute("mode");
   });
 
   it("keeps a collapsed item accessible and displays its tooltip", async () => {
@@ -266,11 +302,35 @@ describe("NavbarLink", () => {
       screen
         .getByRole("button", { name: "Accounts" })
         .style.getPropertyValue("--bbui-navbar-link-active"),
-    ).toBe("var(--bb-color-selection, #414b85)");
+    ).toBe("var(--bb-color-navigation-selection, #414b85)");
     expect(
       screen
         .getByRole("button", { name: "Accounts" })
         .style.getPropertyValue("--bbui-navbar-link-hover"),
-    ).toBe("var(--bb-color-surface-hover, #34373a)");
+    ).toBe("var(--bb-color-navigation-surface-hover, #34373a)");
+  });
+
+  it("resolves page-surface colors in selection mode in dark mode", () => {
+    render(
+      <MantineProvider forceColorScheme="dark" theme={budgetBoardDarkTheme}>
+        <NavbarLink
+          icon={<span aria-hidden="true">I</span>}
+          label="Spending"
+          mode="selection"
+        />
+      </MantineProvider>,
+    );
+
+    const link = screen.getByRole("button", { name: "Spending" });
+
+    expect(link.style.getPropertyValue("--bbui-navbar-link-secondary")).toBe(
+      "var(--bb-color-text-secondary, #aaa69e)",
+    );
+    expect(link.style.getPropertyValue("--bbui-navbar-link-active")).toBe(
+      "var(--bb-color-selection, #414b85)",
+    );
+    expect(link.style.getPropertyValue("--bbui-navbar-link-focus")).toBe(
+      "var(--bb-color-focus-ring, #91a7ff)",
+    );
   });
 });
