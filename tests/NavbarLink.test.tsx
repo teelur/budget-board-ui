@@ -110,7 +110,12 @@ describe("NavbarLink", () => {
   it("keeps a collapsed item accessible and displays its tooltip", async () => {
     const user = userEvent.setup();
     render(
-      <NavbarLink icon={<span aria-hidden="true">I</span>} label="Accounts" />,
+      <MantineProvider env="test">
+        <NavbarLink
+          icon={<span aria-hidden="true">I</span>}
+          label="Accounts"
+        />
+      </MantineProvider>,
     );
 
     const link = screen.getByRole("button", { name: "Accounts" });

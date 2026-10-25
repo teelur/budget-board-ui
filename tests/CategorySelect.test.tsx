@@ -22,12 +22,14 @@ describe("CategorySelect", () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
     render(
-      <CategorySelect
-        aria-label="Category"
-        data={categories}
-        onChange={onChange}
-        value={null}
-      />,
+      <MantineProvider env="test">
+        <CategorySelect
+          aria-label="Category"
+          data={categories}
+          onChange={onChange}
+          value={null}
+        />
+      </MantineProvider>,
     );
 
     const input = screen.getByRole("button", { name: "Category" });
