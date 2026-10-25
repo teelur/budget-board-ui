@@ -123,6 +123,11 @@ export {
   type CategorySelectProps,
 } from "./CategorySelect/CategorySelect";
 
+export {
+  CategoryMultiSelect,
+  type CategoryMultiSelectProps,
+} from "./CategoryMultiSelect/CategoryMultiSelect";
+
 export { Select, type SelectProps } from "./Select/Select";
 
 export { Skeleton, type SkeletonProps } from "./Skeleton/Skeleton";
