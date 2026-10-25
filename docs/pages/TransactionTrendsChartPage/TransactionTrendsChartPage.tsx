@@ -4,17 +4,17 @@ import {
   Checkbox,
   HeadingText,
   NumberInput,
-  SpendingChart,
+  TransactionTrendsChart,
 } from "../../../src";
 import type {
-  SpendingChartData,
-  SpendingChartSeries,
+  TransactionTrendsChartData,
+  TransactionTrendsChartSeries,
 } from "../../../src";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import pageStyles from "../Page.module.css";
-import styles from "./SpendingChartPage.module.css";
+import styles from "./TransactionTrendsChartPage.module.css";
 
-const sampleData: SpendingChartData[] = [
+const sampleData: TransactionTrendsChartData[] = [
   { day: 1, march: 0, april: 0, may: 0 },
   { day: 5, march: 180, april: 145, may: 210 },
   { day: 10, march: 340, april: 390, may: 460 },
@@ -24,7 +24,7 @@ const sampleData: SpendingChartData[] = [
   { day: 30, march: 1450, april: 1530, may: 1710 },
 ];
 
-const series: SpendingChartSeries[] = [
+const series: TransactionTrendsChartSeries[] = [
   { key: "march", label: "March 2026" },
   { key: "april", label: "April 2026" },
   { key: "may", label: "May 2026" },
@@ -37,12 +37,12 @@ const formatCurrency = (value: number) =>
     style: "currency",
   }).format(value);
 
-export function SpendingChartPage() {
+export function TransactionTrendsChartPage() {
   const [height, setHeight] = useState(400);
   const [includeGrid, setIncludeGrid] = useState(true);
   const [includeYAxis, setIncludeYAxis] = useState(true);
-  const playgroundCode = `<SpendingChart
-  ariaLabel="Cumulative spending by day"
+  const playgroundCode = `<TransactionTrendsChart
+  ariaLabel="Cumulative transaction totals by day"
   data={sampleData}
   formatValue={formatCurrency}
   height={${height}}
@@ -52,7 +52,10 @@ export function SpendingChartPage() {
 />`;
 
   return (
-    <section className={pageStyles.componentSection} id="spending-chart">
+    <section
+      className={pageStyles.componentSection}
+      id="transaction-trends-chart"
+    >
       <div className={pageStyles.sectionHeading}>
         <div>
           <BodyText
@@ -65,11 +68,11 @@ export function SpendingChartPage() {
             Data visualization
           </BodyText>
           <HeadingText level={2} tone="heading" lh={1.5}>
-            SpendingChart
+            TransactionTrendsChart
           </HeadingText>
         </div>
         <code>
-          import {"{ SpendingChart }"} from '@teelur/budget-board-ui';
+          import {"{ TransactionTrendsChart }"} from '@teelur/budget-board-ui';
         </code>
       </div>
       <BodyText
@@ -78,8 +81,8 @@ export function SpendingChartPage() {
         m="1em 0"
         tone="muted"
       >
-        A responsive, theme-aware comparison of cumulative spending by day
-        across selected months. Callers provide chart-ready points, localized
+        A responsive, theme-aware comparison of cumulative transaction totals
+        by day across selected months. Callers provide chart-ready points, localized
         series labels, and a value formatter; BBUI supplies the shared graph
         palette and semantic axis, grid, focus, cursor, and tooltip styling.
         Point markers show each supplied daily value, and hovering or
@@ -87,20 +90,20 @@ export function SpendingChartPage() {
       </BodyText>
 
       <ComponentDemoSection
-        code={`<SpendingChart
-  ariaLabel="Cumulative spending by day"
+        code={`<TransactionTrendsChart
+  ariaLabel="Cumulative transaction totals by day"
   data={sampleData}
   formatValue={formatCurrency}
   includeGrid
   series={series}
 />`}
         description="Each data point contains a day and values keyed by the series. Series keys map those values to localized labels; optional series colors override BBUI's theme-aware data palette."
-        id="spending-chart-basic"
+        id="transaction-trends-chart-basic"
         title="Basic usage"
       >
         <div className={styles.chartPreview}>
-          <SpendingChart
-            ariaLabel="Cumulative spending by day"
+          <TransactionTrendsChart
+            ariaLabel="Cumulative transaction totals by day"
             data={sampleData}
             formatValue={formatCurrency}
             includeGrid
@@ -110,22 +113,22 @@ export function SpendingChartPage() {
       </ComponentDemoSection>
 
       <ComponentDemoSection
-        code={`<SpendingChart
-  ariaLabel="Cumulative spending by day"
+        code={`<TransactionTrendsChart
+  ariaLabel="Cumulative transaction totals by day"
   data={[]}
-  emptyMessage="Select months to see spending."
+  emptyMessage="Select months to see transaction trends."
   formatValue={formatCurrency}
   isLoading={false}
   series={series}
 />`}
         description="Loading and empty states fit into asynchronous data views and month-selection flows."
-        id="spending-chart-states"
+        id="transaction-trends-chart-states"
         title="Loading and empty states"
       >
         <div className={styles.stateGrid}>
           <div className={styles.chartPreview}>
-            <SpendingChart
-              ariaLabel="Loading cumulative spending"
+            <TransactionTrendsChart
+              ariaLabel="Loading transaction trends"
               data={sampleData}
               formatValue={formatCurrency}
               isLoading
@@ -133,10 +136,10 @@ export function SpendingChartPage() {
             />
           </div>
           <div className={styles.chartPreview}>
-            <SpendingChart
-              ariaLabel="Cumulative spending by day"
+            <TransactionTrendsChart
+              ariaLabel="Cumulative transaction totals by day"
               data={[]}
-              emptyMessage="Select months to see spending."
+              emptyMessage="Select months to see transaction trends."
               formatValue={formatCurrency}
               series={series}
             />
@@ -147,7 +150,7 @@ export function SpendingChartPage() {
       <ComponentDemoSection
         code={playgroundCode}
         description="Adjust the chart height, grid, and y-axis while keeping the same cumulative data and series."
-        id="spending-chart-playground"
+        id="transaction-trends-chart-playground"
         title="Playground"
       >
         <div className={styles.playground}>
@@ -178,8 +181,8 @@ export function SpendingChartPage() {
             />
           </div>
           <div className={styles.chartPreview}>
-            <SpendingChart
-              ariaLabel="Cumulative spending by day"
+            <TransactionTrendsChart
+              ariaLabel="Cumulative transaction totals by day"
               data={sampleData}
               formatValue={formatCurrency}
               height={height}
@@ -192,12 +195,12 @@ export function SpendingChartPage() {
       </ComponentDemoSection>
 
       <section
-        aria-labelledby="spending-chart-api-heading"
+        aria-labelledby="transaction-trends-chart-api-heading"
         className={pageStyles.componentReferenceSection}
-        id="spending-chart-api"
+        id="transaction-trends-chart-api"
       >
         <HeadingText
-          id="spending-chart-api-heading"
+          id="transaction-trends-chart-api-heading"
           level={3}
           tone="heading"
           lh={1.5}
@@ -234,7 +237,7 @@ export function SpendingChartPage() {
                     <code>data</code>
                   </td>
                   <td>
-                    <code>SpendingChartData[]</code>
+                    <code>TransactionTrendsChartData[]</code>
                   </td>
                   <td>Required</td>
                   <td>Day values and finite data for the configured series.</td>
@@ -244,7 +247,7 @@ export function SpendingChartPage() {
                     <code>series</code>
                   </td>
                   <td>
-                    <code>SpendingChartSeries[]</code>
+                    <code>TransactionTrendsChartSeries[]</code>
                   </td>
                   <td>Required</td>
                   <td>Series keys, localized labels, and optional colors.</td>
@@ -315,7 +318,7 @@ export function SpendingChartPage() {
                     <code>ReactNode</code>
                   </td>
                   <td>
-                    <code>"No spending data available."</code>
+                    <code>"No transaction trend data available."</code>
                   </td>
                   <td>Content shown when data or series is empty.</td>
                 </tr>
@@ -336,11 +339,11 @@ export function SpendingChartPage() {
               Data types
             </HeadingText>
             <BodyText component="p" tone="muted">
-              <code>SpendingChartData</code> contains a numeric{" "}
+              <code>TransactionTrendsChartData</code> contains a numeric{" "}
               <code>day</code> and numeric values keyed by series key. A series
               value may be omitted for a day, such as when months have different
               lengths; provided values must be finite.{" "}
-              <code>SpendingChartSeries</code> contains a unique{" "}
+              <code>TransactionTrendsChartSeries</code> contains a unique{" "}
               <code>key</code>, a localized <code>label</code>, and an optional
               color override. Series without a color use the shared BBUI data
               palette for the active theme.

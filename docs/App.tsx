@@ -52,7 +52,7 @@ import { SkeletonPage } from "./pages/SkeletonPage/SkeletonPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
 import { SelectPage } from "./pages/SelectPage/SelectPage";
 import { SpendingCategoriesChartPage } from "./pages/SpendingCategoriesChartPage/SpendingCategoriesChartPage";
-import { SpendingChartPage } from "./pages/SpendingChartPage/SpendingChartPage";
+import { TransactionTrendsChartPage } from "./pages/TransactionTrendsChartPage/TransactionTrendsChartPage";
 import { StepperPage } from "./pages/StepperPage/StepperPage";
 import { TablePage } from "./pages/TablePage/TablePage";
 import { TextInputPage } from "./pages/TextInputPage/TextInputPage";
@@ -278,7 +278,7 @@ export function App() {
                 Charts
               </BodyText>
               <a href="#spending-categories-chart">SpendingCategoriesChart</a>
-              <a href="#spending-chart">SpendingChart</a>
+              <a href="#transaction-trends-chart">TransactionTrendsChart</a>
               <a href="#monthly-spending-chart">MonthlySpendingChart</a>
               <a href="#flows-chart">FlowsChart</a>
               <a href="#net-cash-flow-chart">NetCashFlowChart</a>
@@ -483,7 +483,7 @@ export function App() {
                 <CategorySelectPage />
                 <MonthToolcardsPage />
                 <SpendingCategoriesChartPage />
-                <SpendingChartPage />
+                <TransactionTrendsChartPage />
                 <MonthlySpendingChartPage />
                 <FlowsChartPage />
                 <NetCashFlowChartPage />

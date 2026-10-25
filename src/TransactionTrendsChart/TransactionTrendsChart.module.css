@@ -21,7 +21,7 @@
 }
 
 .chart :global(svg:focus-visible) {
-  outline: 2px solid var(--bbui-spending-chart-focus);
+  outline: 2px solid var(--bbui-transaction-trends-chart-focus);
   outline-offset: 2px;
 }
 
@@ -51,25 +51,25 @@
 }
 
 .legendItem:focus-visible {
-  outline: 2px solid var(--bbui-spending-chart-focus);
+  outline: 2px solid var(--bbui-transaction-trends-chart-focus);
   outline-offset: 2px;
 }
 
 .legendSwatch {
   background-color: color-mix(
     in srgb,
-    var(--bbui-spending-chart-series-color) 30%,
+    var(--bbui-transaction-trends-chart-series-color) 30%,
     transparent
   );
-  border: 1px solid var(--bbui-spending-chart-series-color);
+  border: 1px solid var(--bbui-transaction-trends-chart-series-color);
   border-radius: 50%;
   flex: 0 0 0.65rem;
   height: 0.65rem;
 }
 
 .tooltip {
-  background: var(--bbui-spending-chart-tooltip-surface);
-  border: 1px solid var(--bbui-spending-chart-tooltip-border);
+  background: var(--bbui-transaction-trends-chart-tooltip-surface);
+  border: 1px solid var(--bbui-transaction-trends-chart-tooltip-border);
   border-radius: var(--mantine-radius-sm, 0.25rem);
   box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 14%);
   display: grid;
@@ -103,7 +103,7 @@
 }
 
 .tooltipMarker {
-  background: var(--bbui-spending-chart-marker);
+  background: var(--bbui-transaction-trends-chart-marker);
   border-radius: 50%;
   height: 0.65rem;
   width: 0.65rem;

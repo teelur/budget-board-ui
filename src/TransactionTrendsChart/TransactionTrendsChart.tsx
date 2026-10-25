@@ -14,60 +14,60 @@ import { Skeleton } from "../Skeleton/Skeleton";
 import { getBudgetBoardDataColor } from "../colors";
 import { budgetBoardTypography } from "../theme";
 import { ensureBBUIMantineProvider, useBBUITheme } from "../shared/themeStyles";
-import classes from "./SpendingChart.module.css";
+import classes from "./TransactionTrendsChart.module.css";
 
-export interface SpendingChartData {
+export interface TransactionTrendsChartData {
   day: number;
   [seriesKey: string]: number;
 }
 
-export interface SpendingChartSeries {
+export interface TransactionTrendsChartSeries {
   key: string;
   label: string;
   color?: string;
 }
 
-export interface SpendingChartProps extends Omit<
+export interface TransactionTrendsChartProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   "children"
 > {
   ariaLabel: string;
-  data: SpendingChartData[];
+  data: TransactionTrendsChartData[];
   emptyMessage?: ReactNode;
   formatValue: (value: number) => string;
   height?: number;
   includeGrid?: boolean;
   includeYAxis?: boolean;
   isLoading?: boolean;
-  series: SpendingChartSeries[];
+  series: TransactionTrendsChartSeries[];
 }
 
-interface ChartSeries extends SpendingChartSeries {
+interface ChartSeries extends TransactionTrendsChartSeries {
   color: string;
 }
 
 function validateData(
-  data: SpendingChartData[],
-  series: SpendingChartSeries[],
+  data: TransactionTrendsChartData[],
+  series: TransactionTrendsChartSeries[],
 ) {
   const seriesKeys = new Set<string>();
 
   series.forEach((item, index) => {
     if (!item.key.trim() || item.key === "day") {
       throw new RangeError(
-        `Spending chart series at index ${index} must have a non-empty key other than "day".`,
+        `Transaction trends chart series at index ${index} must have a non-empty key other than "day".`,
       );
     }
 
     if (!item.label.trim()) {
       throw new RangeError(
-        `Spending chart series at index ${index} must have a non-empty label.`,
+        `Transaction trends chart series at index ${index} must have a non-empty label.`,
       );
     }
 
     if (seriesKeys.has(item.key)) {
       throw new RangeError(
-        `Spending chart series key "${item.key}" must be unique.`,
+        `Transaction trends chart series key "${item.key}" must be unique.`,
       );
     }
 
@@ -77,7 +77,7 @@ function validateData(
   data.forEach((datum, index) => {
     if (!Number.isFinite(datum.day)) {
       throw new RangeError(
-        `Spending chart datum at index ${index} must have a finite day.`,
+        `Transaction trends chart datum at index ${index} must have a finite day.`,
       );
     }
 
@@ -86,18 +86,18 @@ function validateData(
 
       if (value !== undefined && !Number.isFinite(value)) {
         throw new RangeError(
-          `Spending chart datum at index ${index} must have a finite value for series "${item.key}".`,
+          `Transaction trends chart datum at index ${index} must have a finite value for series "${item.key}".`,
         );
       }
     });
   });
 }
 
-export function SpendingChart({
+export function TransactionTrendsChart({
   ariaLabel,
   className,
   data,
-  emptyMessage = "No spending data available.",
+  emptyMessage = "No transaction trend data available.",
   formatValue,
   height = 400,
   includeGrid = false,
@@ -106,7 +106,7 @@ export function SpendingChart({
   series,
   style,
   ...rootProps
-}: SpendingChartProps) {
+}: TransactionTrendsChartProps) {
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
   const { ref: sizeRef, width } = useElementSize<HTMLDivElement>();
   const { ref: viewportRef, height: viewportHeight } =
@@ -135,18 +135,20 @@ export function SpendingChart({
   );
 
   if (!Number.isFinite(height) || height <= 0) {
-    throw new RangeError("Spending chart height must be a positive number.");
+    throw new RangeError(
+      "Transaction trends chart height must be a positive number.",
+    );
   }
 
   const chartStyle = {
     ...style,
-    "--bbui-spending-chart-axis": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
-    "--bbui-spending-chart-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
-    "--bbui-spending-chart-focus": `var(--bb-color-focus-ring, ${colors.focusRing})`,
-    "--bbui-spending-chart-font-body": `var(--bb-font-body, ${budgetBoardTypography.body})`,
-    "--bbui-spending-chart-hover": `var(--bb-color-surface-hover, ${colors.surfaceHover})`,
-    "--bbui-spending-chart-tooltip-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
-    "--bbui-spending-chart-tooltip-surface": `var(--bb-color-surface-overlay, ${colors.surfaceOverlay})`,
+    "--bbui-transaction-trends-chart-axis": `var(--bb-color-text-secondary, ${colors.textSecondary})`,
+    "--bbui-transaction-trends-chart-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
+    "--bbui-transaction-trends-chart-focus": `var(--bb-color-focus-ring, ${colors.focusRing})`,
+    "--bbui-transaction-trends-chart-font-body": `var(--bb-font-body, ${budgetBoardTypography.body})`,
+    "--bbui-transaction-trends-chart-hover": `var(--bb-color-surface-hover, ${colors.surfaceHover})`,
+    "--bbui-transaction-trends-chart-tooltip-border": `var(--bb-color-border-subtle, ${colors.borderSubtle})`,
+    "--bbui-transaction-trends-chart-tooltip-surface": `var(--bb-color-surface-overlay, ${colors.surfaceOverlay})`,
   } as CSSProperties;
 
   const getFillOpacity = (seriesKey: string) =>
@@ -189,16 +191,18 @@ export function SpendingChart({
             >
               {includeGrid && (
                 <CartesianGrid
-                  stroke="var(--bbui-spending-chart-border)"
+                  stroke="var(--bbui-transaction-trends-chart-border)"
                   strokeDasharray="3 3"
                 />
               )}
               <XAxis
-                axisLine={{ stroke: "var(--bbui-spending-chart-border)" }}
+                axisLine={{
+                  stroke: "var(--bbui-transaction-trends-chart-border)",
+                }}
                 dataKey="day"
                 tick={{
-                  fill: "var(--bbui-spending-chart-axis)",
-                  fontFamily: "var(--bbui-spending-chart-font-body)",
+                  fill: "var(--bbui-transaction-trends-chart-axis)",
+                  fontFamily: "var(--bbui-transaction-trends-chart-font-body)",
                   fontSize: "var(--mantine-font-size-xs, 0.75rem)",
                 }}
                 tickLine={false}
@@ -208,8 +212,8 @@ export function SpendingChart({
                 <YAxis
                   axisLine={false}
                   tick={{
-                    fill: "var(--bbui-spending-chart-axis)",
-                    fontFamily: "var(--bbui-spending-chart-font-body)",
+                    fill: "var(--bbui-transaction-trends-chart-axis)",
+                    fontFamily: "var(--bbui-transaction-trends-chart-font-body)",
                     fontSize: "var(--mantine-font-size-xs, 0.75rem)",
                   }}
                   tickFormatter={formatValue}
@@ -254,7 +258,8 @@ export function SpendingChart({
                               className={classes.tooltipMarker}
                               style={
                                 {
-                                  "--bbui-spending-chart-marker": entry.color,
+                                  "--bbui-transaction-trends-chart-marker":
+                                    entry.color,
                                 } as CSSProperties
                               }
                             />
@@ -270,7 +275,9 @@ export function SpendingChart({
                     </div>
                   );
                 }}
-                cursor={{ fill: "var(--bbui-spending-chart-hover)" }}
+                cursor={{
+                  fill: "var(--bbui-transaction-trends-chart-hover)",
+                }}
                 isAnimationActive={false}
                 wrapperStyle={{ outline: "none" }}
               />
@@ -312,7 +319,8 @@ export function SpendingChart({
                   className={classes.legendSwatch}
                   style={
                     {
-                      "--bbui-spending-chart-series-color": item.color,
+                      "--bbui-transaction-trends-chart-series-color":
+                        item.color,
                     } as CSSProperties
                   }
                 />
