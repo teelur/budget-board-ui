@@ -261,11 +261,11 @@ export {
 } from "./SpendingCategoriesChart/SpendingCategoriesChart";
 
 export {
-  SpendingChart,
-  type SpendingChartData,
-  type SpendingChartProps,
-  type SpendingChartSeries,
-} from "./SpendingChart/SpendingChart";
+  TransactionTrendsChart,
+  type TransactionTrendsChartData,
+  type TransactionTrendsChartProps,
+  type TransactionTrendsChartSeries,
+} from "./TransactionTrendsChart/TransactionTrendsChart";
 
 export {
   ValueChart,
