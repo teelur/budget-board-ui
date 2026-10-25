@@ -156,7 +156,7 @@ export function CategoryMultiSelectPage() {
                   <td>
                     <code>boolean</code>
                   </td>
-                  <td>search defaults on; portal defaults off</td>
+                  <td>search and portal default on</td>
                 </tr>
               </tbody>
             </table>

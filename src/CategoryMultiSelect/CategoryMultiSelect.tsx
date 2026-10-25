@@ -32,7 +32,7 @@ export function CategoryMultiSelect({
   includeUncategorized = false,
   nothingFoundMessage = "No categories found",
   uncategorizedLabel = "Uncategorized",
-  withinPortal = false,
+  withinPortal = true,
   comboboxProps,
   renderOption,
   searchable,

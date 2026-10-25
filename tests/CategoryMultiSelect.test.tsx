@@ -1,4 +1,4 @@
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, Modal } from "@mantine/core";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
@@ -114,6 +114,28 @@ describe("CategoryMultiSelect", () => {
         .getByRole("option", { hidden: true, name: "Food" })
         .querySelector("svg"),
     ).not.toBeInTheDocument();
+  });
+
+  it("portals the dropdown outside a modal to avoid clipping", async () => {
+    const user = userEvent.setup();
+    render(
+      <MantineProvider>
+        <Modal opened onClose={() => undefined} title="Settings">
+          <CategoryMultiSelect
+            aria-label="Categories"
+            categories={categories}
+          />
+        </Modal>
+      </MantineProvider>,
+    );
+
+    await user.click(screen.getByRole("combobox", { name: "Categories" }));
+    const option = await screen.findByRole("option", {
+      hidden: true,
+      name: "Food",
+    });
+
+    expect(screen.getByRole("dialog")).not.toContainElement(option);
   });
 
   it("forwards disabled state", () => {
