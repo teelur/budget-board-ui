@@ -20,6 +20,7 @@ import { ButtonPage } from "./pages/ButtonPage/ButtonPage";
 import { CardPage } from "./pages/CardPage/CardPage";
 import { CheckboxPage } from "./pages/CheckboxPage/CheckboxPage";
 import { CategorySelectPage } from "./pages/CategorySelectPage/CategorySelectPage";
+import { CategoryMultiSelectPage } from "./pages/CategoryMultiSelectPage/CategoryMultiSelectPage";
 import { ComboboxPage } from "./pages/ComboboxPage/ComboboxPage";
 import { CollapsibleCardPage } from "./pages/CollapsibleCardPage/CollapsibleCardPage";
 import { CodePage } from "./pages/CodePage/CodePage";
@@ -267,6 +268,7 @@ export function App() {
                 >
                   Budget Board components
                 </a>
+                <a href="#category-multi-select">CategoryMultiSelect</a>
                 <a href="#category-select">CategorySelect</a>
                 <a href="#month-toolcards">MonthToolcards</a>
               </div>
@@ -477,6 +479,7 @@ export function App() {
                     Budget Board components
                   </HeadingText>
                 </div>
+                <CategoryMultiSelectPage />
                 <CategorySelectPage />
                 <MonthToolcardsPage />
                 <SpendingCategoriesChartPage />
