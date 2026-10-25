@@ -91,6 +91,31 @@ describe("CategoryMultiSelect", () => {
     expect(onChange).toHaveBeenCalledWith([]);
   });
 
+  it("shows checkmarks for selected options", async () => {
+    const user = userEvent.setup();
+    render(
+      <CategoryMultiSelect
+        aria-label="Categories"
+        categories={categories}
+        onChange={() => undefined}
+        value={["Utilities"]}
+      />,
+    );
+
+    await user.click(screen.getByRole("combobox", { name: "Categories" }));
+
+    expect(
+      screen
+        .getByRole("option", { hidden: true, name: "Utilities" })
+        .querySelector("svg"),
+    ).toBeInTheDocument();
+    expect(
+      screen
+        .getByRole("option", { hidden: true, name: "Food" })
+        .querySelector("svg"),
+    ).not.toBeInTheDocument();
+  });
+
   it("forwards disabled state", () => {
     render(
       <CategoryMultiSelect

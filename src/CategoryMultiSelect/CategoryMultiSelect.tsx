@@ -1,3 +1,4 @@
+import { CheckIcon, Group } from "@mantine/core";
 import { useMemo } from "react";
 import type { ReactNode } from "react";
 import {
@@ -93,16 +94,24 @@ export function CategoryMultiSelect({
       placeholder={placeholder}
       renderOption={(optionProps) =>
         renderOption?.(optionProps) ?? (
-          <span
-            className={
-              optionDepths.get(optionProps.option.value.toLocaleLowerCase()) ===
-              0
-                ? categoryClasses.parentLabel
-                : categoryClasses.childLabel
-            }
-          >
-            {optionProps.option.label}
-          </span>
+          <Group gap="xs" wrap="nowrap">
+            {optionProps.checked ? (
+              <CheckIcon aria-hidden size={12} />
+            ) : (
+              <span aria-hidden style={{ width: 12 }} />
+            )}
+            <span
+              className={
+                optionDepths.get(
+                  optionProps.option.value.toLocaleLowerCase(),
+                ) === 0
+                  ? categoryClasses.parentLabel
+                  : categoryClasses.childLabel
+              }
+            >
+              {optionProps.option.label}
+            </span>
+          </Group>
         )
       }
       searchable={searchable ?? true}
