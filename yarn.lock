@@ -486,9 +486,9 @@ __metadata:
     vite: "npm:^8.3.5"
     vitest: "npm:^5.0.5"
   peerDependencies:
-    "@mantine/core": 9.6.1
-    "@mantine/dates": 9.6.1
-    "@mantine/hooks": 9.6.1
+    "@mantine/core": 9.7.3
+    "@mantine/dates": 9.7.3
+    "@mantine/hooks": 9.7.3
     dayjs: ^1.11.13
     react: ^19.3.0
     react-dom: ^19.3.0
