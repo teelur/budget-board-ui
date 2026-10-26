@@ -11,6 +11,19 @@ import {
 } from "../src";
 import chartClasses from "../src/FlowsChart/FlowsChart.module.css";
 
+vi.mock("@mantine/hooks", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@mantine/hooks")>();
+
+  return {
+    ...actual,
+    useElementSize: () => ({
+      height: 0,
+      ref: { current: null },
+      width: Number(document.documentElement.dataset.chartWidth ?? 880),
+    }),
+  };
+});
+
 vi.mock("recharts", async (importOriginal) => {
   const actual = await importOriginal<typeof import("recharts")>();
   const React = await import("react");
@@ -20,9 +33,11 @@ vi.mock("recharts", async (importOriginal) => {
     ResponsiveContainer: ({
       children,
       height,
+      width,
     }: {
       children?: React.ReactNode;
       height?: number | string;
+      width?: number | string;
     }) => {
       if (!React.isValidElement<SankeyProps>(children)) {
         return null;
@@ -30,7 +45,10 @@ vi.mock("recharts", async (importOriginal) => {
 
       return React.cloneElement(children, {
         height: typeof height === "number" ? height : 750,
-        width: Number(document.documentElement.dataset.chartWidth ?? 880),
+        width:
+          typeof width === "number"
+            ? width
+            : Number(document.documentElement.dataset.chartWidth ?? 880),
       });
     },
   };
@@ -387,13 +405,88 @@ describe("FlowsChart", () => {
     );
   });
 
-  it("sizes the diagram to its responsive container", () => {
+  it("uses a vertical layout in narrow containers", () => {
     document.documentElement.dataset.chartWidth = "480";
     renderChart();
 
+    const chart = screen.getByTestId("flows-chart");
+    expect(chart.querySelector(`.${chartClasses.verticalChartFrame}`)).toBeInTheDocument();
+    expect(chart.querySelector(`.${chartClasses.chartScrollViewport}`)).toBeNull();
+    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 750 480");
+  });
+
+  it("keeps the vertical layout at compact phone widths when the flow fits", () => {
+    document.documentElement.dataset.chartWidth = "320";
+    renderChart();
+
+    const chart = screen.getByTestId("flows-chart");
+    expect(chart.querySelector(`.${chartClasses.verticalChartFrame}`)).toBeInTheDocument();
+    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 750 320");
+  });
+
+  it("uses a horizontally scrollable fallback below the vertical minimum width", () => {
+    document.documentElement.dataset.chartWidth = "280";
+    renderChart();
+
+    const chart = screen.getByTestId("flows-chart");
     expect(
-      screen.getByTestId("flows-chart").querySelector("svg"),
-    ).toHaveAttribute("viewBox", "0 0 480 750");
+      screen.getByRole("region", {
+        name: "Transaction flows. Scroll horizontally to view the full diagram.",
+      }),
+    ).toBeInTheDocument();
+    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 760 750");
+  });
+
+  it("uses a horizontally scrollable fallback when a layer is too dense", () => {
+    document.documentElement.dataset.chartWidth = "320";
+    const sourceNodes = Array.from({ length: 8 }, (_, index) => ({
+      name: `Income source ${index + 1}`,
+      flowType: "income" as const,
+    }));
+    const denseData: FlowsChartData = {
+      nodes: [
+        ...sourceNodes,
+        { name: "Income group", flowType: "income" },
+        { name: "Cash available" },
+      ],
+      links: [
+        ...sourceNodes.map((_, index) => ({
+          source: index,
+          target: sourceNodes.length,
+          value: 100,
+          flowType: "income" as const,
+        })),
+        {
+          source: sourceNodes.length,
+          target: sourceNodes.length + 1,
+          value: 800,
+          flowType: "income",
+        },
+      ],
+      totalIncome: 800,
+      totalSpending: 0,
+    };
+    renderChart({ data: denseData });
+
+    const chart = screen.getByTestId("flows-chart");
+    expect(chart.querySelector(`.${chartClasses.verticalChartFrame}`)).toBeNull();
+    expect(chart.querySelector(`.${chartClasses.chartScrollViewport}`)).toBeInTheDocument();
+    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 760 750");
+  });
+
+  it("keeps detailed tooltips available in the vertical layout", () => {
+    document.documentElement.dataset.chartWidth = "480";
+    renderChart();
+
+    const salaryNode = screen
+      .getByTestId("flows-chart")
+      .querySelector('[data-node-index="0"]');
+
+    expect(salaryNode).not.toBeNull();
+    fireEvent.mouseEnter(salaryNode!);
+
+    expect(screen.getByRole("tooltip")).toHaveTextContent("Salary");
+    expect(screen.getByRole("tooltip")).toHaveTextContent("$4,800");
   });
 
   it("highlights the shortest route from a hovered node to available cash", async () => {
