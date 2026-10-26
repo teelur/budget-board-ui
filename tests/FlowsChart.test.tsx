@@ -539,7 +539,7 @@ describe("FlowsChart", () => {
         name: "Transaction flows. Scroll horizontally to view the full diagram.",
       }),
     ).toBeInTheDocument();
-    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 825 750");
+    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 750 750");
   });
 
   it("uses the configured minimum scroll width", () => {
@@ -574,7 +574,7 @@ describe("FlowsChart", () => {
         name: "Transaction flows. Scroll horizontally to view the full diagram.",
       }),
     ).toBeInTheDocument();
-    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 825 750");
+    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 750 750");
   });
 
   it("keeps a wider scroll canvas in very narrow containers", () => {
@@ -587,7 +587,7 @@ describe("FlowsChart", () => {
         name: "Transaction flows. Scroll horizontally to view the full diagram.",
       }),
     ).toBeInTheDocument();
-    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 825 750");
+    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 750 750");
   });
 
   it("uses the same horizontal scrolling for dense flows", () => {
@@ -623,7 +623,7 @@ describe("FlowsChart", () => {
 
     const chart = screen.getByTestId("flows-chart");
     expect(chart.querySelector(`.${chartClasses.chartScrollViewport}`)).toBeInTheDocument();
-    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 825 750");
+    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 750 750");
   });
 
   it("keeps detailed tooltips available in the scrollable layout", () => {
