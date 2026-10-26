@@ -203,9 +203,11 @@ export function FlowsChartPage() {
         branches. Nodes with a <code>parentName</code> keep their supplied order
         so subcategories remain grouped; charts without parented nodes retain
         automatic ribbon-crossing reduction. Hover a node to highlight its
-        route to available cash. Narrow containers keep the horizontal Sankey
-        layout and allow scrolling to view the full diagram; wider containers
-        fit the chart to the available space.
+        route to available cash. Labels sit on the incoming side of each node
+        so adjacent columns do not compete for the same space; the first column
+        reserves only the gutter its labels need. Narrow containers keep the
+        horizontal Sankey layout and allow scrolling to view the full diagram;
+        wider containers fit the chart to the available space.
       </BodyText>
 
       <ComponentDemoSection
@@ -216,7 +218,7 @@ export function FlowsChartPage() {
   labels={labels}
           minScrollWidth={900}
         />`}
-        description="Pass prepared nodes and links, localized labels, and an amount formatter. The chart assigns stable colors to category nodes and labels, keeps ribbons neutral, and keeps direct outcome links clear of deeper category branches. Narrow containers retain the horizontal layout and can scroll to show the full diagram. Compact tooltips retain amounts, percentages, transaction counts, and progress bars."
+        description="Pass prepared nodes and links, localized labels, and an amount formatter. The chart assigns stable colors to category nodes and labels, keeps ribbons neutral, and keeps direct outcome links clear of deeper category branches. Labels occupy separate inter-column lanes to prevent long names from colliding without increasing the configured minimum scroll width. Narrow containers retain the horizontal layout and can scroll to show the full diagram. Compact tooltips retain amounts, percentages, transaction counts, and progress bars."
         id="flows-chart-basic"
         title="Basic usage"
       >

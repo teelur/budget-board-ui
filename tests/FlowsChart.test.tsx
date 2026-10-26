@@ -194,6 +194,57 @@ describe("FlowsChart", () => {
     expect(screen.getByText("Cash available")).toBeInTheDocument();
   });
 
+  it("keeps labels in separate column lanes without widening the chart", () => {
+    const { rerender } = renderChart();
+    const chart = screen.getByTestId("flows-chart");
+    const originalSourceX = Number(
+      chart.querySelector('[data-node-index="0"] rect')?.getAttribute("x"),
+    );
+
+    const longLabelData: FlowsChartData = {
+      ...chartData,
+      nodes: chartData.nodes.map((node, index) =>
+        index === 0 ? { ...node, name: "Recurring household income" } : node,
+      ),
+    };
+
+    rerender(
+      <FlowsChart
+        ariaLabel="Transaction flows"
+        data={longLabelData}
+        data-testid="flows-chart"
+        formatValue={formatValue}
+        labels={labels}
+      />,
+    );
+
+    const longLabelChart = screen.getByTestId("flows-chart");
+    const sourceRect = longLabelChart.querySelector(
+      '[data-node-index="0"] rect',
+    );
+    const sourceLabel = longLabelChart.querySelector(
+      `[data-node-index="0"] .${chartClasses.nodeName}`,
+    );
+
+    expect(longLabelChart.querySelector("svg")).toHaveAttribute(
+      "viewBox",
+      "0 0 880 750",
+    );
+    expect(Number(sourceRect?.getAttribute("x"))).toBeGreaterThan(
+      originalSourceX,
+    );
+    expect(sourceLabel).toHaveAttribute("text-anchor", "end");
+    expect(Number(sourceLabel?.getAttribute("x"))).toBe(
+      Number(sourceRect?.getAttribute("x")) - 8,
+    );
+
+    longLabelChart
+      .querySelectorAll(`.${chartClasses.nodeName}`)
+      .forEach((label) => {
+        expect(label).toHaveAttribute("text-anchor", "end");
+      });
+  });
+
   it("uses theme-aware category colors, neutral ribbons, and BBUI typography", () => {
     const { rerender } = render(renderWithColorScheme("light"));
     let chart = screen.getByTestId("flows-chart");
