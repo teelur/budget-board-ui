@@ -547,12 +547,21 @@ export function FlowsChart({
 
     updateSourceLabelMargin();
 
+    const chartObserver = new MutationObserver(updateSourceLabelMargin);
+    chartObserver.observe(chartContainer, {
+      characterData: true,
+      childList: true,
+      subtree: true,
+    });
+
     const fontSet = document.fonts;
     fontSet?.addEventListener("loadingdone", updateSourceLabelMargin);
 
-    return () =>
+    return () => {
+      chartObserver.disconnect();
       fontSet?.removeEventListener("loadingdone", updateSourceLabelMargin);
-  }, [chartData, chartSizeRef, formatValue, height, isLoading]);
+    };
+  }, [chartData, chartSizeRef, chartWidth, formatValue, height, isLoading]);
 
   if (!Number.isFinite(height) || height <= 0) {
     throw new RangeError("Flows chart height must be a positive number.");
