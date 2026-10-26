@@ -203,7 +203,9 @@ export function FlowsChartPage() {
         branches. Nodes with a <code>parentName</code> keep their supplied order
         so subcategories remain grouped; charts without parented nodes retain
         automatic ribbon-crossing reduction. Hover a node to highlight its
-        route to available cash.
+        route to available cash. Narrow containers use a top-to-bottom layout
+        when the flow graph fits; very narrow or dense graphs fall back to a
+        horizontally scrollable diagram.
       </BodyText>
 
       <ComponentDemoSection
@@ -213,7 +215,7 @@ export function FlowsChartPage() {
   formatValue={formatCurrency}
   labels={labels}
 />`}
-        description="Pass prepared nodes and links, localized labels, and an amount formatter. The chart assigns stable colors to category nodes and labels, keeps ribbons neutral, and keeps direct outcome links clear of deeper category branches. Compact tooltips retain amounts, percentages, transaction counts, and progress bars."
+        description="Pass prepared nodes and links, localized labels, and an amount formatter. The chart assigns stable colors to category nodes and labels, keeps ribbons neutral, and keeps direct outcome links clear of deeper category branches. Narrow containers switch to a top-to-bottom layout when the graph fits; very narrow or dense graphs use horizontal scrolling. Compact tooltips retain amounts, percentages, transaction counts, and progress bars."
         id="flows-chart-basic"
         title="Basic usage"
       >

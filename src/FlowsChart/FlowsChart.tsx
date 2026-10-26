@@ -1,5 +1,6 @@
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
 import { useCallback, useMemo, useState } from "react";
+import { useElementSize } from "@mantine/hooks";
 import { ResponsiveContainer, Sankey, Tooltip } from "recharts";
 import type {
   SankeyElementType,
@@ -159,6 +160,57 @@ function getCategoryColor(name: string, colorScheme: "light" | "dark") {
   const hue = (hash >>> 0) % 360;
   const lightness = colorScheme === "light" ? 26 : 74;
   return `hsl(${hue} 72% ${lightness}%)`;
+}
+
+interface FlowGraphProfile {
+  maxDepth: number;
+  maxNodesPerDepth: number;
+}
+
+function getFlowGraphProfile(data: FlowsChartData): FlowGraphProfile | null {
+  const outgoing = data.nodes.map(() => [] as number[]);
+  const inDegree = data.nodes.map(() => 0);
+  const depths = data.nodes.map(() => 0);
+
+  data.links.forEach((link) => {
+    outgoing[link.source]?.push(link.target);
+    inDegree[link.target] = (inDegree[link.target] ?? 0) + 1;
+  });
+
+  const queue = inDegree.flatMap((degree, index) =>
+    degree === 0 ? [index] : [],
+  );
+  let processedNodeCount = 0;
+
+  while (queue.length > 0) {
+    const source = queue.shift();
+    if (source === undefined) {
+      continue;
+    }
+
+    processedNodeCount += 1;
+    outgoing[source]?.forEach((target) => {
+      depths[target] = Math.max(depths[target] ?? 0, (depths[source] ?? 0) + 1);
+      inDegree[target] = (inDegree[target] ?? 0) - 1;
+      if (inDegree[target] === 0) {
+        queue.push(target);
+      }
+    });
+  }
+
+  if (processedNodeCount !== data.nodes.length) {
+    return null;
+  }
+
+  const nodesPerDepth = new Map<number, number>();
+  depths.forEach((depth) => {
+    nodesPerDepth.set(depth, (nodesPerDepth.get(depth) ?? 0) + 1);
+  });
+
+  return {
+    maxDepth: Math.max(...depths, 0),
+    maxNodesPerDepth: Math.max(...nodesPerDepth.values(), 0),
+  };
 }
 
 function getNodeColors(
@@ -436,7 +488,11 @@ export function FlowsChart({
   ...rootProps
 }: FlowsChartProps) {
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
+  const { ref: chartSizeRef, width: chartWidth } =
+    useElementSize<HTMLDivElement>();
   const [hoveredNodeIndex, setHoveredNodeIndex] = useState<number | null>(null);
+  const [verticalTooltipPortal, setVerticalTooltipPortal] =
+    useState<HTMLDivElement | null>(null);
   const chartData = useMemo(() => {
     validateData(data);
     return data;
@@ -448,6 +504,20 @@ export function FlowsChart({
   const hasSubcategoryGroups = chartData.nodes.some(
     (node) => node.parentName !== undefined,
   );
+  const flowGraphProfile = useMemo(
+    () => getFlowGraphProfile(chartData),
+    [chartData],
+  );
+  const isNarrow = chartWidth > 0 && chartWidth < 640;
+  const canUseVerticalLayout =
+    chartWidth >= 300 &&
+    flowGraphProfile !== null &&
+    flowGraphProfile.maxDepth <= 5 &&
+    flowGraphProfile.maxNodesPerDepth <= Math.floor(chartWidth / 48) &&
+    height >= (flowGraphProfile.maxDepth + 1) * 88;
+  const isVerticalLayout = isNarrow && canUseVerticalLayout;
+  const isScrollableFallback = isNarrow && !isVerticalLayout;
+  const scrollChartWidth = Math.max(760, chartWidth);
 
   if (!Number.isFinite(height) || height <= 0) {
     throw new RangeError("Flows chart height must be a positive number.");
@@ -554,10 +624,20 @@ export function FlowsChart({
       }
 
       const isLeaf = nodeProps.payload.targetNodes.length === 0;
-      const labelX = isLeaf
-        ? nodeProps.x - 8
-        : nodeProps.x + nodeProps.width + 8;
-      const textAnchor = isLeaf ? "end" : "start";
+      const labelX = isVerticalLayout
+        ? nodeProps.x + nodeProps.width + 6
+        : isLeaf
+          ? nodeProps.x - 8
+          : nodeProps.x + nodeProps.width + 8;
+      const labelY = nodeProps.y + nodeProps.height / 2;
+      const textAnchor = isVerticalLayout
+        ? "middle"
+        : isLeaf
+          ? "end"
+          : "start";
+      const labelTransform = isVerticalLayout
+        ? `rotate(-90 ${labelX} ${labelY})`
+        : undefined;
       const formattedValue =
         typeof nodeProps.payload.value === "number"
           ? formatValue(nodeProps.payload.value)
@@ -589,9 +669,10 @@ export function FlowsChart({
                 dominantBaseline="central"
                 fill={nodeColor}
                 fontFamily="var(--bbui-flows-chart-font-body)"
+                transform={labelTransform}
                 textAnchor={textAnchor}
                 x={labelX}
-                y={nodeProps.y + nodeProps.height / 2 - 8}
+                y={isVerticalLayout ? labelY : labelY - 8}
               >
                 {node.name}
               </text>
@@ -599,9 +680,14 @@ export function FlowsChart({
                 className={classes.nodeValue ?? ""}
                 dominantBaseline="central"
                 fontFamily="var(--bbui-flows-chart-font-body)"
+                transform={
+                  isVerticalLayout
+                    ? `rotate(-90 ${labelX + 13} ${labelY})`
+                    : undefined
+                }
                 textAnchor={textAnchor}
-                x={labelX}
-                y={nodeProps.y + nodeProps.height / 2 + 8}
+                x={isVerticalLayout ? labelX + 13 : labelX}
+                y={labelY + (isVerticalLayout ? 0 : 8)}
               >
                 {formattedValue}
               </text>
@@ -612,9 +698,10 @@ export function FlowsChart({
               dominantBaseline="central"
               fill={nodeColor}
               fontFamily="var(--bbui-flows-chart-font-body)"
+              transform={labelTransform}
               textAnchor={textAnchor}
               x={labelX}
-              y={nodeProps.y + nodeProps.height / 2}
+              y={labelY}
             >
               {node.name}{" "}
               <tspan className={classes.nodeValue ?? ""}>
@@ -625,7 +712,13 @@ export function FlowsChart({
         </g>
       );
     },
-    [chartData.nodes, formatValue, hoveredNodeIndex, nodeColors],
+    [
+      chartData.nodes,
+      formatValue,
+      hoveredNodeIndex,
+      isVerticalLayout,
+      nodeColors,
+    ],
   );
 
   const renderLink = useCallback(
@@ -671,6 +764,49 @@ export function FlowsChart({
     [chartData.links, highlightedLinkIndexes, nodeColors],
   );
 
+  const renderSankey = (
+    width: number | `${number}%`,
+    sankeyHeight: number,
+    vertical: boolean,
+  ) => (
+    <ResponsiveContainer height={sankeyHeight} width={width}>
+      <Sankey
+        accessibilityLayer
+        align="left"
+        className={classes.chart ?? ""}
+        data={chartData}
+        link={renderLink}
+        margin={{ top: 12, right: 8, bottom: 32, left: 8 }}
+        node={renderNode}
+        nodePadding={14}
+        nodeWidth={12}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        sort={!hasSubcategoryGroups}
+      >
+        <Tooltip
+          animationDuration={0}
+          content={({ active, payload }) => (
+            <FlowsChartTooltip
+              active={active}
+              chartData={chartData}
+              formatValue={formatValue}
+              labels={labels}
+              payload={payload}
+            />
+          )}
+          isAnimationActive={false}
+          {...(vertical
+            ? {
+                portal: verticalTooltipPortal,
+                position: { x: 12, y: 12 },
+              }
+            : {})}
+        />
+      </Sankey>
+    </ResponsiveContainer>
+  );
+
   const content = (
     <div
       {...rootProps}
@@ -689,37 +825,47 @@ export function FlowsChart({
           {emptyMessage}
         </BodyText>
       ) : (
-        <div className={classes.chartViewport} style={{ height }}>
-          <ResponsiveContainer height={height}>
-            <Sankey
-              accessibilityLayer
-              align="left"
-              className={classes.chart ?? ""}
-              data={chartData}
-              link={renderLink}
-              margin={{ top: 12, right: 8, bottom: 32, left: 8 }}
-              node={renderNode}
-              nodePadding={14}
-              nodeWidth={12}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              sort={!hasSubcategoryGroups}
-            >
-              <Tooltip
-                animationDuration={0}
-                content={({ active, payload }) => (
-                  <FlowsChartTooltip
-                    active={active}
-                    chartData={chartData}
-                    formatValue={formatValue}
-                    labels={labels}
-                    payload={payload}
-                  />
-                )}
-                isAnimationActive={false}
+        <div
+          className={classes.chartViewport}
+          ref={chartSizeRef}
+          style={{ height }}
+        >
+          {isVerticalLayout ? (
+            <>
+              <div className={classes.verticalChartFrame}>
+                <div
+                  className={classes.verticalChartCanvas}
+                  style={{
+                    height: chartWidth,
+                    transform: `translateX(${chartWidth}px) rotate(90deg)`,
+                    width: height,
+                  }}
+                >
+                  {renderSankey(height, chartWidth, true)}
+                </div>
+              </div>
+              <div
+                className={classes.tooltipPortal}
+                ref={setVerticalTooltipPortal}
               />
-            </Sankey>
-          </ResponsiveContainer>
+            </>
+          ) : isScrollableFallback ? (
+            <div
+              aria-label={`${ariaLabel}. Scroll horizontally to view the full diagram.`}
+              className={classes.chartScrollViewport}
+              role="region"
+              tabIndex={0}
+            >
+              <div
+                className={classes.chartScrollContent}
+                style={{ height, width: scrollChartWidth }}
+              >
+                {renderSankey(scrollChartWidth, height, false)}
+              </div>
+            </div>
+          ) : (
+            renderSankey("100%", height, false)
+          )}
         </div>
       )}
     </div>
