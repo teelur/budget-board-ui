@@ -451,8 +451,8 @@ export function FlowsChart({
   const hasSubcategoryGroups = chartData.nodes.some(
     (node) => node.parentName !== undefined,
   );
-  const isNarrow = chartWidth > 0 && chartWidth < 640;
-  const scrollChartWidth = Math.max(760, chartWidth);
+  const isNarrow = chartWidth > 0 && chartWidth < 825;
+  const scrollChartWidth = Math.max(825, chartWidth);
 
   if (!Number.isFinite(height) || height <= 0) {
     throw new RangeError("Flows chart height must be a positive number.");
@@ -631,12 +631,7 @@ export function FlowsChart({
         </g>
       );
     },
-    [
-      chartData.nodes,
-      formatValue,
-      hoveredNodeIndex,
-      nodeColors,
-    ],
+    [chartData.nodes, formatValue, hoveredNodeIndex, nodeColors],
   );
 
   const renderLink = useCallback(
@@ -682,10 +677,7 @@ export function FlowsChart({
     [chartData.links, highlightedLinkIndexes, nodeColors],
   );
 
-  const renderSankey = (
-    width: number | `${number}%`,
-    sankeyHeight: number,
-  ) => (
+  const renderSankey = (width: number | `${number}%`, sankeyHeight: number) => (
     <ResponsiveContainer height={sankeyHeight} width={width}>
       <Sankey
         accessibilityLayer
