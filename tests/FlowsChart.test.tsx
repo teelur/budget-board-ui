@@ -11,6 +11,8 @@ import {
 } from "../src";
 import chartClasses from "../src/FlowsChart/FlowsChart.module.css";
 
+const responsiveContainerMock = vi.hoisted(() => ({ isReady: true }));
+
 vi.mock("@mantine/hooks", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@mantine/hooks")>();
 
@@ -39,7 +41,10 @@ vi.mock("recharts", async (importOriginal) => {
       height?: number | string;
       width?: number | string;
     }) => {
-      if (!React.isValidElement<SankeyProps>(children)) {
+      if (
+        !responsiveContainerMock.isReady ||
+        !React.isValidElement<SankeyProps>(children)
+      ) {
         return null;
       }
 
@@ -164,10 +169,12 @@ function renderWithColorScheme(colorScheme: "light" | "dark") {
 
 describe("FlowsChart", () => {
   beforeEach(() => {
+    responsiveContainerMock.isReady = true;
     document.documentElement.dataset.chartWidth = "880";
   });
 
   afterEach(() => {
+    responsiveContainerMock.isReady = true;
     delete document.documentElement.dataset.chartWidth;
   });
 
@@ -246,7 +253,7 @@ describe("FlowsChart", () => {
       });
   });
 
-  it("sizes the source gutter to the widest rendered source label", () => {
+  it("sizes the source gutter when the responsive chart renders after mount", async () => {
     const descriptor = Object.getOwnPropertyDescriptor(
       SVGElement.prototype,
       "getComputedTextLength",
@@ -259,13 +266,26 @@ describe("FlowsChart", () => {
     });
 
     try {
-      renderChart();
+      responsiveContainerMock.isReady = false;
+      const { rerender } = renderChart();
 
       const chart = screen.getByTestId("flows-chart");
+      expect(chart.querySelector('[data-node-index="0"]')).toBeNull();
+
+      responsiveContainerMock.isReady = true;
+      rerender(
+        <FlowsChart
+          ariaLabel="Transaction flows"
+          data={chartData}
+          data-testid="flows-chart"
+          formatValue={formatValue}
+          labels={labels}
+        />,
+      );
+
       const sourceNode = chart.querySelector<SVGGElement>(
         '[data-node-index="0"]',
       );
-      const sourceRect = sourceNode?.querySelector("rect");
       const sourceLabels = Array.from(
         sourceNode?.querySelectorAll<SVGTextElement>(
           `text.${chartClasses.nodeName}, text.${chartClasses.nodeValue}`,
@@ -274,9 +294,14 @@ describe("FlowsChart", () => {
       const widestLabel = Math.max(
         ...sourceLabels.map((label) => (label.textContent?.length ?? 0) * 3),
       );
-
       expect(sourceLabels.length).toBeGreaterThan(0);
-      expect(Number(sourceRect?.getAttribute("x"))).toBe(widestLabel + 16);
+
+      await waitFor(() => {
+        const sourceRect = chart.querySelector(
+          '[data-node-index="0"] rect',
+        );
+        expect(Number(sourceRect?.getAttribute("x"))).toBe(widestLabel + 16);
+      });
     } finally {
       if (descriptor) {
         Object.defineProperty(
@@ -514,7 +539,7 @@ describe("FlowsChart", () => {
         name: "Transaction flows. Scroll horizontally to view the full diagram.",
       }),
     ).toBeInTheDocument();
-    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 825 750");
+    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 750 750");
   });
 
   it("uses the configured minimum scroll width", () => {
@@ -549,7 +574,7 @@ describe("FlowsChart", () => {
         name: "Transaction flows. Scroll horizontally to view the full diagram.",
       }),
     ).toBeInTheDocument();
-    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 825 750");
+    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 750 750");
   });
 
   it("keeps a wider scroll canvas in very narrow containers", () => {
@@ -562,7 +587,7 @@ describe("FlowsChart", () => {
         name: "Transaction flows. Scroll horizontally to view the full diagram.",
       }),
     ).toBeInTheDocument();
-    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 825 750");
+    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 750 750");
   });
 
   it("uses the same horizontal scrolling for dense flows", () => {
@@ -598,7 +623,7 @@ describe("FlowsChart", () => {
 
     const chart = screen.getByTestId("flows-chart");
     expect(chart.querySelector(`.${chartClasses.chartScrollViewport}`)).toBeInTheDocument();
-    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 825 750");
+    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 750 750");
   });
 
   it("keeps detailed tooltips available in the scrollable layout", () => {

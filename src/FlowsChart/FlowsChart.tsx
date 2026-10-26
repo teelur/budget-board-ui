@@ -1,11 +1,5 @@
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
-import {
-  useCallback,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useElementSize } from "@mantine/hooks";
 import { ResponsiveContainer, Sankey, Tooltip } from "recharts";
 import type {
@@ -220,7 +214,10 @@ function getSourceLabelMargin(
     .querySelectorAll<SVGGElement>("[data-node-index]")
     .forEach((nodeGroup) => {
       const nodeIndex = Number(nodeGroup.getAttribute("data-node-index"));
-      if (!Number.isSafeInteger(nodeIndex) || incomingNodeIndexes.has(nodeIndex)) {
+      if (
+        !Number.isSafeInteger(nodeIndex) ||
+        incomingNodeIndexes.has(nodeIndex)
+      ) {
         return;
       }
 
@@ -501,7 +498,7 @@ export function FlowsChart({
   height = 750,
   isLoading = false,
   labels,
-  minScrollWidth = 825,
+  minScrollWidth = 750,
   style,
   ...rootProps
 }: FlowsChartProps) {
@@ -547,12 +544,21 @@ export function FlowsChart({
 
     updateSourceLabelMargin();
 
+    const chartObserver = new MutationObserver(updateSourceLabelMargin);
+    chartObserver.observe(chartContainer, {
+      characterData: true,
+      childList: true,
+      subtree: true,
+    });
+
     const fontSet = document.fonts;
     fontSet?.addEventListener("loadingdone", updateSourceLabelMargin);
 
-    return () =>
+    return () => {
+      chartObserver.disconnect();
       fontSet?.removeEventListener("loadingdone", updateSourceLabelMargin);
-  }, [chartData, chartSizeRef, formatValue, height, isLoading]);
+    };
+  }, [chartData, chartSizeRef, chartWidth, formatValue, height, isLoading]);
 
   if (!Number.isFinite(height) || height <= 0) {
     throw new RangeError("Flows chart height must be a positive number.");
