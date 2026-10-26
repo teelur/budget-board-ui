@@ -1,11 +1,5 @@
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
-import {
-  useCallback,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useElementSize } from "@mantine/hooks";
 import { ResponsiveContainer, Sankey, Tooltip } from "recharts";
 import type {
@@ -220,7 +214,10 @@ function getSourceLabelMargin(
     .querySelectorAll<SVGGElement>("[data-node-index]")
     .forEach((nodeGroup) => {
       const nodeIndex = Number(nodeGroup.getAttribute("data-node-index"));
-      if (!Number.isSafeInteger(nodeIndex) || incomingNodeIndexes.has(nodeIndex)) {
+      if (
+        !Number.isSafeInteger(nodeIndex) ||
+        incomingNodeIndexes.has(nodeIndex)
+      ) {
         return;
       }
 
@@ -501,7 +498,7 @@ export function FlowsChart({
   height = 750,
   isLoading = false,
   labels,
-  minScrollWidth = 825,
+  minScrollWidth = 750,
   style,
   ...rootProps
 }: FlowsChartProps) {

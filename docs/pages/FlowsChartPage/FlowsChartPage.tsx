@@ -24,19 +24,19 @@ const sampleData: FlowsChartData = {
       transactionCount: 1,
     },
     {
-      name: "Travel",
+      name: "Transfers",
       flowType: "expense",
       transactionCount: 2,
     },
     {
-      name: "Transit",
-      parentName: "Travel",
+      name: "Credit Card Payments",
+      parentName: "Transfers",
       flowType: "expense",
       transactionCount: 1,
     },
     {
-      name: "Fuel",
-      parentName: "Transportation",
+      name: "Wire Transfer",
+      parentName: "Transfers",
       flowType: "expense",
       transactionCount: 1,
     },
@@ -202,9 +202,9 @@ export function FlowsChartPage() {
         stay at their natural depth so direct links do not cross deeper category
         branches. Nodes with a <code>parentName</code> keep their supplied order
         so subcategories remain grouped; charts without parented nodes retain
-        automatic ribbon-crossing reduction. Hover a node to highlight its
-        route to available cash. Labels sit on the incoming side of each node
-        so adjacent columns do not compete for the same space; the first column
+        automatic ribbon-crossing reduction. Hover a node to highlight its route
+        to available cash. Labels sit on the incoming side of each node so
+        adjacent columns do not compete for the same space; the first column
         reserves only the gutter its labels need. Narrow containers keep the
         horizontal Sankey layout and allow scrolling to view the full diagram;
         wider containers fit the chart to the available space.
@@ -228,7 +228,6 @@ export function FlowsChartPage() {
             data={sampleData}
             formatValue={formatCurrency}
             labels={labels}
-            minScrollWidth={900}
           />
         </div>
       </ComponentDemoSection>
