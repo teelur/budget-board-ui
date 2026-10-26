@@ -1,5 +1,11 @@
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
-import { useCallback, useMemo, useState } from "react";
+import {
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useElementSize } from "@mantine/hooks";
 import { ResponsiveContainer, Sankey, Tooltip } from "recharts";
 import type {
@@ -204,37 +210,44 @@ function estimateTextWidth(text: string, fontSize: number) {
 }
 
 function getSourceLabelMargin(
+  chartContainer: HTMLDivElement,
   data: FlowsChartData,
-  formatValue: (value: number) => string,
 ) {
-  const incomingNodeIndexes = new Set<number>();
-  const incomingValues = Array<number>(data.nodes.length).fill(0);
-  const outgoingValues = Array<number>(data.nodes.length).fill(0);
+  const incomingNodeIndexes = new Set(data.links.map((link) => link.target));
+  let widestSourceLabel = 0;
 
-  data.links.forEach((link) => {
-    incomingNodeIndexes.add(link.target);
-    incomingValues[link.target] =
-      (incomingValues[link.target] ?? 0) + link.value;
-    outgoingValues[link.source] =
-      (outgoingValues[link.source] ?? 0) + link.value;
-  });
+  chartContainer
+    .querySelectorAll<SVGGElement>("[data-node-index]")
+    .forEach((nodeGroup) => {
+      const nodeIndex = Number(nodeGroup.getAttribute("data-node-index"));
+      if (!Number.isSafeInteger(nodeIndex) || incomingNodeIndexes.has(nodeIndex)) {
+        return;
+      }
 
-  const widestSourceLabel = data.nodes.reduce((widest, node, index) => {
-    if (incomingNodeIndexes.has(index)) {
-      return widest;
-    }
-
-    const value = Math.max(
-      incomingValues[index] ?? 0,
-      outgoingValues[index] ?? 0,
-    );
-    const labelWidth =
-      estimateTextWidth(node.name, 13) +
-      estimateTextWidth(formatValue(value), 12) +
-      estimateTextWidth(" ", 13);
-
-    return Math.max(widest, labelWidth);
-  }, 0);
+      nodeGroup
+        .querySelectorAll<SVGTextElement>(
+          `text.${classes.nodeName}, text.${classes.nodeValue}`,
+        )
+        .forEach((label) => {
+          const measuredWidth =
+            typeof label.getComputedTextLength === "function"
+              ? label.getComputedTextLength()
+              : 0;
+          const isValueLabel = label.classList.contains(
+            classes.nodeValue ?? "",
+          );
+          const fallbackWidth = estimateTextWidth(
+            label.textContent ?? "",
+            isValueLabel ? 12 : 13,
+          );
+          widestSourceLabel = Math.max(
+            widestSourceLabel,
+            Number.isFinite(measuredWidth) && measuredWidth > 0
+              ? measuredWidth
+              : fallbackWidth,
+          );
+        });
+    });
 
   return Math.max(8, Math.ceil(widestSourceLabel + 16));
 }
@@ -495,7 +508,9 @@ export function FlowsChart({
   const { colorScheme, colors, hasMantineContext } = useBBUITheme();
   const { ref: chartSizeRef, width: chartWidth } =
     useElementSize<HTMLDivElement>();
+  const chartContainerRef = useRef<HTMLDivElement>(null);
   const [hoveredNodeIndex, setHoveredNodeIndex] = useState<number | null>(null);
+  const [sourceLabelMargin, setSourceLabelMargin] = useState(8);
   const chartData = useMemo(() => {
     validateData(data);
     return data;
@@ -507,12 +522,37 @@ export function FlowsChart({
   const hasSubcategoryGroups = chartData.nodes.some(
     (node) => node.parentName !== undefined,
   );
-  const sourceLabelMargin = useMemo(
-    () => getSourceLabelMargin(chartData, formatValue),
-    [chartData, formatValue],
-  );
   const isNarrow = chartWidth > 0 && chartWidth < minScrollWidth;
   const scrollChartWidth = Math.max(minScrollWidth, chartWidth);
+  const setChartContainerRef = useCallback(
+    (element: HTMLDivElement | null) => {
+      chartContainerRef.current = element;
+      chartSizeRef(element);
+    },
+    [chartSizeRef],
+  );
+
+  useLayoutEffect(() => {
+    const chartContainer = chartContainerRef.current;
+    if (!chartContainer || isLoading || chartData.links.length === 0) {
+      return;
+    }
+
+    const updateSourceLabelMargin = () => {
+      const nextMargin = getSourceLabelMargin(chartContainer, chartData);
+      setSourceLabelMargin((currentMargin) =>
+        currentMargin === nextMargin ? currentMargin : nextMargin,
+      );
+    };
+
+    updateSourceLabelMargin();
+
+    const fontSet = document.fonts;
+    fontSet?.addEventListener("loadingdone", updateSourceLabelMargin);
+
+    return () =>
+      fontSet?.removeEventListener("loadingdone", updateSourceLabelMargin);
+  }, [chartData, chartSizeRef, formatValue, height, isLoading]);
 
   if (!Number.isFinite(height) || height <= 0) {
     throw new RangeError("Flows chart height must be a positive number.");
@@ -791,7 +831,7 @@ export function FlowsChart({
       ) : (
         <div
           className={classes.chartViewport}
-          ref={chartSizeRef}
+          ref={setChartContainerRef}
           style={{ height }}
         >
           {isNarrow ? (

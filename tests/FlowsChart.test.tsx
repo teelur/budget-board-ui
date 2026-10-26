@@ -18,7 +18,7 @@ vi.mock("@mantine/hooks", async (importOriginal) => {
     ...actual,
     useElementSize: () => ({
       height: 0,
-      ref: { current: null },
+      ref: () => undefined,
       width: Number(document.documentElement.dataset.chartWidth ?? 880),
     }),
   };
@@ -200,6 +200,7 @@ describe("FlowsChart", () => {
     const originalSourceX = Number(
       chart.querySelector('[data-node-index="0"] rect')?.getAttribute("x"),
     );
+    expect(originalSourceX).toBeLessThan(100);
 
     const longLabelData: FlowsChartData = {
       ...chartData,
@@ -243,6 +244,50 @@ describe("FlowsChart", () => {
       .forEach((label) => {
         expect(label).toHaveAttribute("text-anchor", "end");
       });
+  });
+
+  it("sizes the source gutter to the widest rendered source label", () => {
+    const descriptor = Object.getOwnPropertyDescriptor(
+      SVGElement.prototype,
+      "getComputedTextLength",
+    );
+    Object.defineProperty(SVGElement.prototype, "getComputedTextLength", {
+      configurable: true,
+      value(this: SVGTextElement) {
+        return (this.textContent?.length ?? 0) * 3;
+      },
+    });
+
+    try {
+      renderChart();
+
+      const chart = screen.getByTestId("flows-chart");
+      const sourceNode = chart.querySelector<SVGGElement>(
+        '[data-node-index="0"]',
+      );
+      const sourceRect = sourceNode?.querySelector("rect");
+      const sourceLabels = Array.from(
+        sourceNode?.querySelectorAll<SVGTextElement>(
+          `text.${chartClasses.nodeName}, text.${chartClasses.nodeValue}`,
+        ) ?? [],
+      );
+      const widestLabel = Math.max(
+        ...sourceLabels.map((label) => (label.textContent?.length ?? 0) * 3),
+      );
+
+      expect(sourceLabels.length).toBeGreaterThan(0);
+      expect(Number(sourceRect?.getAttribute("x"))).toBe(widestLabel + 16);
+    } finally {
+      if (descriptor) {
+        Object.defineProperty(
+          SVGElement.prototype,
+          "getComputedTextLength",
+          descriptor,
+        );
+      } else {
+        Reflect.deleteProperty(SVGElement.prototype, "getComputedTextLength");
+      }
+    }
   });
 
   it("uses theme-aware category colors, neutral ribbons, and BBUI typography", () => {
