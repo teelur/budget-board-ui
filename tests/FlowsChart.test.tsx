@@ -177,6 +177,9 @@ describe("FlowsChart", () => {
     const chart = screen.getByRole("group", { name: "Transaction flows" });
 
     expect(chart.querySelector("svg")).toBeInTheDocument();
+    expect(
+      chart.querySelector(`.${chartClasses.chartScrollViewport}`),
+    ).toBeNull();
     expect(chart.querySelectorAll(`.${chartClasses.nodeRect}`)).toHaveLength(
       chartData.nodes.length,
     );
@@ -405,26 +408,33 @@ describe("FlowsChart", () => {
     );
   });
 
-  it("uses a vertical layout in narrow containers", () => {
+  it("uses horizontal scrolling in narrow containers", () => {
     document.documentElement.dataset.chartWidth = "480";
     renderChart();
 
     const chart = screen.getByTestId("flows-chart");
-    expect(chart.querySelector(`.${chartClasses.verticalChartFrame}`)).toBeInTheDocument();
-    expect(chart.querySelector(`.${chartClasses.chartScrollViewport}`)).toBeNull();
-    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 750 480");
+    expect(
+      screen.getByRole("region", {
+        name: "Transaction flows. Scroll horizontally to view the full diagram.",
+      }),
+    ).toBeInTheDocument();
+    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 760 750");
   });
 
-  it("keeps the vertical layout at compact phone widths when the flow fits", () => {
+  it("keeps horizontal scrolling at compact phone widths", () => {
     document.documentElement.dataset.chartWidth = "320";
     renderChart();
 
     const chart = screen.getByTestId("flows-chart");
-    expect(chart.querySelector(`.${chartClasses.verticalChartFrame}`)).toBeInTheDocument();
-    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 750 320");
+    expect(
+      screen.getByRole("region", {
+        name: "Transaction flows. Scroll horizontally to view the full diagram.",
+      }),
+    ).toBeInTheDocument();
+    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 760 750");
   });
 
-  it("uses a horizontally scrollable fallback below the vertical minimum width", () => {
+  it("keeps a wider scroll canvas in very narrow containers", () => {
     document.documentElement.dataset.chartWidth = "280";
     renderChart();
 
@@ -437,7 +447,7 @@ describe("FlowsChart", () => {
     expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 760 750");
   });
 
-  it("uses a horizontally scrollable fallback when a layer is too dense", () => {
+  it("uses the same horizontal scrolling for dense flows", () => {
     document.documentElement.dataset.chartWidth = "320";
     const sourceNodes = Array.from({ length: 8 }, (_, index) => ({
       name: `Income source ${index + 1}`,
@@ -469,18 +479,16 @@ describe("FlowsChart", () => {
     renderChart({ data: denseData });
 
     const chart = screen.getByTestId("flows-chart");
-    expect(chart.querySelector(`.${chartClasses.verticalChartFrame}`)).toBeNull();
     expect(chart.querySelector(`.${chartClasses.chartScrollViewport}`)).toBeInTheDocument();
     expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 760 750");
   });
 
-  it("keeps detailed tooltips available in the vertical layout", () => {
+  it("keeps detailed tooltips available in the scrollable layout", () => {
     document.documentElement.dataset.chartWidth = "480";
     renderChart();
 
-    const salaryNode = screen
-      .getByTestId("flows-chart")
-      .querySelector('[data-node-index="0"]');
+    const chart = screen.getByTestId("flows-chart");
+    const salaryNode = chart.querySelector('[data-node-index="0"]');
 
     expect(salaryNode).not.toBeNull();
     fireEvent.mouseEnter(salaryNode!);
