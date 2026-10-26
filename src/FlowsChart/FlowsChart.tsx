@@ -185,6 +185,60 @@ function formatPercent(value: number, total: number) {
   return total > 0 ? `${((value / total) * 100).toFixed(1)}%` : "0.0%";
 }
 
+function estimateTextWidth(text: string, fontSize: number) {
+  return Array.from(text).reduce((width, character) => {
+    const codePoint = character.codePointAt(0) ?? 0;
+    const characterWidth =
+      codePoint >= 0x2e80
+        ? fontSize
+        : /\s/u.test(character)
+          ? fontSize * 0.35
+          : /[ilI1.,:;'|]/u.test(character)
+            ? fontSize * 0.35
+            : /[MW@%&#]/u.test(character)
+              ? fontSize * 0.9
+              : fontSize * 0.65;
+
+    return width + characterWidth;
+  }, 0);
+}
+
+function getSourceLabelMargin(
+  data: FlowsChartData,
+  formatValue: (value: number) => string,
+) {
+  const incomingNodeIndexes = new Set<number>();
+  const incomingValues = Array<number>(data.nodes.length).fill(0);
+  const outgoingValues = Array<number>(data.nodes.length).fill(0);
+
+  data.links.forEach((link) => {
+    incomingNodeIndexes.add(link.target);
+    incomingValues[link.target] =
+      (incomingValues[link.target] ?? 0) + link.value;
+    outgoingValues[link.source] =
+      (outgoingValues[link.source] ?? 0) + link.value;
+  });
+
+  const widestSourceLabel = data.nodes.reduce((widest, node, index) => {
+    if (incomingNodeIndexes.has(index)) {
+      return widest;
+    }
+
+    const value = Math.max(
+      incomingValues[index] ?? 0,
+      outgoingValues[index] ?? 0,
+    );
+    const labelWidth =
+      estimateTextWidth(node.name, 13) +
+      estimateTextWidth(formatValue(value), 12) +
+      estimateTextWidth(" ", 13);
+
+    return Math.max(widest, labelWidth);
+  }, 0);
+
+  return Math.max(8, Math.ceil(widestSourceLabel + 16));
+}
+
 function getFlowLabel(
   flowType: FlowType | undefined,
   labels: FlowsChartLabels,
@@ -453,6 +507,10 @@ export function FlowsChart({
   const hasSubcategoryGroups = chartData.nodes.some(
     (node) => node.parentName !== undefined,
   );
+  const sourceLabelMargin = useMemo(
+    () => getSourceLabelMargin(chartData, formatValue),
+    [chartData, formatValue],
+  );
   const isNarrow = chartWidth > 0 && chartWidth < minScrollWidth;
   const scrollChartWidth = Math.max(minScrollWidth, chartWidth);
 
@@ -565,12 +623,8 @@ export function FlowsChart({
         return null;
       }
 
-      const isLeaf = nodeProps.payload.targetNodes.length === 0;
-      const labelX = isLeaf
-        ? nodeProps.x - 8
-        : nodeProps.x + nodeProps.width + 8;
+      const labelX = nodeProps.x - 8;
       const labelY = nodeProps.y + nodeProps.height / 2;
-      const textAnchor = isLeaf ? "end" : "start";
       const formattedValue =
         typeof nodeProps.payload.value === "number"
           ? formatValue(nodeProps.payload.value)
@@ -602,7 +656,7 @@ export function FlowsChart({
                 dominantBaseline="central"
                 fill={nodeColor}
                 fontFamily="var(--bbui-flows-chart-font-body)"
-                textAnchor={textAnchor}
+                textAnchor="end"
                 x={labelX}
                 y={labelY - 8}
               >
@@ -612,7 +666,7 @@ export function FlowsChart({
                 className={classes.nodeValue ?? ""}
                 dominantBaseline="central"
                 fontFamily="var(--bbui-flows-chart-font-body)"
-                textAnchor={textAnchor}
+                textAnchor="end"
                 x={labelX}
                 y={labelY + 8}
               >
@@ -625,7 +679,7 @@ export function FlowsChart({
               dominantBaseline="central"
               fill={nodeColor}
               fontFamily="var(--bbui-flows-chart-font-body)"
-              textAnchor={textAnchor}
+              textAnchor="end"
               x={labelX}
               y={labelY}
             >
@@ -692,7 +746,7 @@ export function FlowsChart({
         className={classes.chart ?? ""}
         data={chartData}
         link={renderLink}
-        margin={{ top: 12, right: 8, bottom: 32, left: 8 }}
+        margin={{ top: 12, right: 8, bottom: 32, left: sourceLabelMargin }}
         node={renderNode}
         nodePadding={14}
         nodeWidth={12}
