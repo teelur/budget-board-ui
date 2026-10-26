@@ -66,6 +66,7 @@ export interface FlowsChartProps extends Omit<
   height?: number;
   isLoading?: boolean;
   labels: FlowsChartLabels;
+  minScrollWidth?: number;
 }
 
 interface FlowsChartTooltipProps {
@@ -433,6 +434,7 @@ export function FlowsChart({
   height = 750,
   isLoading = false,
   labels,
+  minScrollWidth = 825,
   style,
   ...rootProps
 }: FlowsChartProps) {
@@ -451,11 +453,16 @@ export function FlowsChart({
   const hasSubcategoryGroups = chartData.nodes.some(
     (node) => node.parentName !== undefined,
   );
-  const isNarrow = chartWidth > 0 && chartWidth < 825;
-  const scrollChartWidth = Math.max(825, chartWidth);
+  const isNarrow = chartWidth > 0 && chartWidth < minScrollWidth;
+  const scrollChartWidth = Math.max(minScrollWidth, chartWidth);
 
   if (!Number.isFinite(height) || height <= 0) {
     throw new RangeError("Flows chart height must be a positive number.");
+  }
+  if (!Number.isFinite(minScrollWidth) || minScrollWidth <= 0) {
+    throw new RangeError(
+      "Flows chart minimum scroll width must be a positive number.",
+    );
   }
 
   const chartStyle = {
