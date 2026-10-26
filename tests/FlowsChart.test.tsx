@@ -253,6 +253,23 @@ describe("FlowsChart", () => {
       });
   });
 
+  it("uses the same normal font weight for inline and separate node amounts", () => {
+    renderChart({ height: 120 });
+
+    const chart = screen.getByTestId("flows-chart");
+    const inlineValue = chart.querySelector(
+      `tspan.${chartClasses.nodeValue}`,
+    );
+    const separateValue = chart.querySelector(
+      `text.${chartClasses.nodeValue}`,
+    );
+
+    expect(inlineValue).not.toBeNull();
+    expect(separateValue).not.toBeNull();
+    expect(inlineValue).toHaveAttribute("font-weight", "400");
+    expect(separateValue).toHaveAttribute("font-weight", "400");
+  });
+
   it("sizes the source gutter when the responsive chart renders after mount", async () => {
     const descriptor = Object.getOwnPropertyDescriptor(
       SVGElement.prototype,
