@@ -214,7 +214,8 @@ export function FlowsChartPage() {
   data={sampleData}
   formatValue={formatCurrency}
   labels={labels}
-/>`}
+          minScrollWidth={900}
+        />`}
         description="Pass prepared nodes and links, localized labels, and an amount formatter. The chart assigns stable colors to category nodes and labels, keeps ribbons neutral, and keeps direct outcome links clear of deeper category branches. Narrow containers retain the horizontal layout and can scroll to show the full diagram. Compact tooltips retain amounts, percentages, transaction counts, and progress bars."
         id="flows-chart-basic"
         title="Basic usage"
@@ -225,6 +226,7 @@ export function FlowsChartPage() {
             data={sampleData}
             formatValue={formatCurrency}
             labels={labels}
+            minScrollWidth={900}
           />
         </div>
       </ComponentDemoSection>
@@ -310,6 +312,21 @@ export function FlowsChartPage() {
                     <code>750</code>
                   </td>
                   <td>Positive chart height in pixels.</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code>minScrollWidth</code>
+                  </td>
+                  <td>
+                    <code>number</code>
+                  </td>
+                  <td>
+                    <code>825</code>
+                  </td>
+                  <td>
+                    Positive minimum inner chart width in pixels. The chart
+                    scrolls horizontally when its container is narrower.
+                  </td>
                 </tr>
                 <tr>
                   <td>
