@@ -712,6 +712,7 @@ export function FlowsChart({
                 className={classes.nodeValue ?? ""}
                 dominantBaseline="central"
                 fontFamily="var(--bbui-flows-chart-font-body)"
+                fontWeight={400}
                 textAnchor="end"
                 x={labelX}
                 y={labelY + 8}
@@ -730,7 +731,7 @@ export function FlowsChart({
               y={labelY}
             >
               {node.name}{" "}
-              <tspan className={classes.nodeValue ?? ""}>
+              <tspan className={classes.nodeValue ?? ""} fontWeight={400}>
                 {formattedValue}
               </tspan>
             </text>
