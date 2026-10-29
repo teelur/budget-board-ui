@@ -13,10 +13,11 @@ yarn docs:dev
 
 The component documentation site is a static Vite app. Use `yarn docs:dev` for local development,
 `yarn docs:build` to generate `docs-dist`, and `yarn docs:preview` to preview the generated site.
-The GitHub Pages workflows publish the site at `https://teelur.github.io/budget-board-ui/`.
-Configure GitHub Pages to deploy from the `gh-pages` branch. Pull requests receive temporary
-previews at `https://teelur.github.io/budget-board-ui/pr-preview/pr-<number>/`, which are removed
-when the pull request closes.
+Cloudflare Pages connects directly to this GitHub repository and builds the documentation on pushes
+and pull requests. Configure the Pages project with the `main` production branch, build command
+`corepack enable && yarn install --immutable && yarn docs:build`, and build output directory
+`docs-dist`. The site is published at `https://budget-board-ui.pages.dev`; pull requests receive
+Cloudflare preview deployments.
 
 Add new component examples and API reference rows in `docs/App.tsx`, keeping the examples tied to
 the public exports from `src/index.ts`.
