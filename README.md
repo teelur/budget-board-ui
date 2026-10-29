@@ -38,8 +38,8 @@ When using `DateInput` or `DatePickerInput`, also import the Mantine Dates style
 import "@mantine/dates/styles.css";
 ```
 
-Publishing runs automatically after changes are merged into `main` and publishes canary packages
-to GitHub Packages and npm under the `canary` tag. Publishing a GitHub release publishes the
-matching stable version to both registries. npm publishing uses GitHub Actions OIDC trusted
-publishing; configure `canary.yml` and `release.yml` as trusted publishers in the npm package
-settings.
+Canary packages are published to GitHub Packages and npm under the `canary` tag when changes are
+merged into `main`; documentation-only changes do not publish a package. Publishing a GitHub
+release publishes the matching stable version to both registries. npm publishing uses GitHub
+Actions OIDC trusted publishing; configure `canary.yml` and `release.yml` as trusted publishers in
+the npm package settings.
