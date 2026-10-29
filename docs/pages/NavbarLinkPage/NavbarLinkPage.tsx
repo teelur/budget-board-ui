@@ -80,54 +80,6 @@ export function NavbarLinkPage() {
         colors for in-page selectors, such as Trends chart choices.
       </BodyText>
 
-      <ApiPlayground
-        componentName="NavbarLink"
-        controls={[
-          {
-            key: "mode",
-            label: "Mode",
-            type: "select",
-            options: ["navigation", "selection"],
-          },
-          { key: "showLabel", label: "Show label", type: "toggle" },
-          { key: "active", label: "Active", type: "toggle" },
-          { key: "disabled", label: "Disabled", type: "toggle" },
-        ]}
-        defaultValues={{
-          mode: "selection",
-          showLabel: true,
-          active: true,
-          disabled: false,
-        }}
-        description="Navigation mode previews on the app-shell navbar background; selection mode keeps the page surface. Compare expanded and collapsed styling, active feedback, and disabled state."
-        id="navbar-link-playground"
-        staticCodeProps={[
-          'icon={<ArrowLeftRight aria-hidden="true" />}',
-          'label="Transactions"',
-          "onClick={() => {}}",
-        ]}
-        previewStyle={(values) =>
-          values.mode === "navigation"
-            ? {
-                background:
-                  "var(--bb-color-app-shell-navigation, var(--bb-color-navigation, #2f3a4d))",
-              }
-            : undefined
-        }
-        render={(values) => (
-          <div className={styles.expanded}>
-            <NavbarLink
-              active={values.active as boolean}
-              disabled={values.disabled as boolean}
-              icon={<ArrowLeftRight aria-hidden="true" />}
-              label="Transactions"
-              mode={values.mode as NavbarLinkMode}
-              onClick={() => {}}
-              showLabel={values.showLabel as boolean}
-            />
-          </div>
-        )}
-      />
 
       <ComponentDemoSection
         description="These examples use selection mode for links on a page surface. Expanded links can contain a collapsible child list, while collapsed links keep an accessible name and reveal the parent label in a tooltip."
@@ -243,6 +195,55 @@ export function NavbarLinkPage() {
           />
         </div>
       </ComponentDemoSection>
+
+      <ApiPlayground
+        componentName="NavbarLink"
+        controls={[
+          {
+            key: "mode",
+            label: "Mode",
+            type: "select",
+            options: ["navigation", "selection"],
+          },
+          { key: "showLabel", label: "Show label", type: "toggle" },
+          { key: "active", label: "Active", type: "toggle" },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+        ]}
+        defaultValues={{
+          mode: "selection",
+          showLabel: true,
+          active: true,
+          disabled: false,
+        }}
+        description="Navigation mode previews on the app-shell navbar background; selection mode keeps the page surface. Compare expanded and collapsed styling, active feedback, and disabled state."
+        id="navbar-link-playground"
+        staticCodeProps={[
+          'icon={<ArrowLeftRight aria-hidden="true" />}',
+          'label="Transactions"',
+          "onClick={() => {}}",
+        ]}
+        previewStyle={(values) =>
+          values.mode === "navigation"
+            ? {
+                background:
+                  "var(--bb-color-app-shell-navigation, var(--bb-color-navigation, #2f3a4d))",
+              }
+            : undefined
+        }
+        render={(values) => (
+          <div className={styles.expanded}>
+            <NavbarLink
+              active={values.active as boolean}
+              disabled={values.disabled as boolean}
+              icon={<ArrowLeftRight aria-hidden="true" />}
+              label="Transactions"
+              mode={values.mode as NavbarLinkMode}
+              onClick={() => {}}
+              showLabel={values.showLabel as boolean}
+            />
+          </div>
+        )}
+      />
 
       <section
         className={pageStyles.componentReferenceSection}

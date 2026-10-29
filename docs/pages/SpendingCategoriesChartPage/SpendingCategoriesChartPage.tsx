@@ -155,7 +155,7 @@ export function SpendingCategoriesChartPage() {
         code={playgroundCode}
         description="Toggle the controlled subcategory mode. The same data and callback work in both ring layouts."
         id="spending-categories-chart-playground"
-        title="Playground"
+        title="API playground"
       >
         <div className={styles.playground}>
           <div className={styles.playgroundControls}>

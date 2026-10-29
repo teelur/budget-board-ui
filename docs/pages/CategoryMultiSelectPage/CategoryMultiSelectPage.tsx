@@ -5,6 +5,7 @@ import {
   HeadingText,
 } from "../../../src";
 import type { CategorySelectCategory } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -20,6 +21,7 @@ const categories: CategorySelectCategory[] = [
 
 export function CategoryMultiSelectPage() {
   const [value, setValue] = useState<string[]>([]);
+  const [playgroundValue, setPlaygroundValue] = useState<string[]>([]);
 
   return (
     <section
@@ -78,6 +80,39 @@ export function CategoryMultiSelectPage() {
           />
         </div>
       </ComponentDemoSection>
+
+      <ApiPlayground
+        componentName="CategoryMultiSelect"
+        controls={[
+          {
+            key: "includeUncategorized",
+            label: "Include uncategorized",
+            type: "toggle",
+          },
+          { key: "searchable", label: "Searchable", type: "toggle" },
+        ]}
+        defaultValues={{ includeUncategorized: true, searchable: true }}
+        description="Try hierarchical multi-selection with optional uncategorized and search behavior."
+        id="category-multi-select-playground"
+        staticCodeProps={[
+          "categories={categories}",
+          'label="Categories"',
+          "value={value}",
+          "onChange={setValue}",
+        ]}
+        render={(values) => (
+          <div style={{ maxWidth: "30rem", width: "100%" }}>
+            <CategoryMultiSelect
+              categories={categories}
+              includeUncategorized={values.includeUncategorized as boolean}
+              label="Categories"
+              onChange={setPlaygroundValue}
+              searchable={values.searchable as boolean}
+              value={playgroundValue}
+            />
+          </div>
+        )}
+      />
 
       <section
         className={pageStyles.componentReferenceSection}

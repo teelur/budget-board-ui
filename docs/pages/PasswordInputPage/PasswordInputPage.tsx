@@ -28,42 +28,6 @@ export function PasswordInputPage() {
         styling.
       </BodyText>
 
-      <ApiPlayground
-        componentName="PasswordInput"
-        controls={[
-          { key: "size", label: "Size", type: "select", options: sizes },
-          { key: "disabled", label: "Disabled", type: "toggle" },
-          {
-            key: "visibilityToggleFocusable",
-            label: "Focusable visibility toggle",
-            type: "toggle",
-          },
-        ]}
-        defaultValues={{
-          size: "md",
-          disabled: false,
-          visibilityToggleFocusable: true,
-        }}
-        description="Try different field sizes and inspect disabled and visibility-toggle focus styling."
-        id="password-input-playground"
-        staticCodeProps={[
-          'label="Account password"',
-          'autoComplete="current-password"',
-        ]}
-        render={(values) => (
-          <div style={{ maxWidth: "32rem", width: "100%" }}>
-            <PasswordInput
-              autoComplete="current-password"
-              disabled={values.disabled as boolean}
-              label="Account password"
-              size={values.size as (typeof sizes)[number]}
-              visibilityToggleFocusable={
-                values.visibilityToggleFocusable as boolean
-              }
-            />
-          </div>
-        )}
-      />
 
       <ComponentDemoSection
         description="The visibility control preserves Mantine's reveal/hide behavior and can be made keyboard-focusable."
@@ -165,6 +129,43 @@ const [visible, setVisible] = useState(false);
           <PasswordInput aria-label="Disabled password" disabled />
         </div>
       </ComponentDemoSection>
+
+      <ApiPlayground
+        componentName="PasswordInput"
+        controls={[
+          { key: "size", label: "Size", type: "select", options: sizes },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+          {
+            key: "visibilityToggleFocusable",
+            label: "Focusable visibility toggle",
+            type: "toggle",
+          },
+        ]}
+        defaultValues={{
+          size: "md",
+          disabled: false,
+          visibilityToggleFocusable: true,
+        }}
+        description="Try different field sizes and inspect disabled and visibility-toggle focus styling."
+        id="password-input-playground"
+        staticCodeProps={[
+          'label="Account password"',
+          'autoComplete="current-password"',
+        ]}
+        render={(values) => (
+          <div style={{ maxWidth: "32rem", width: "100%" }}>
+            <PasswordInput
+              autoComplete="current-password"
+              disabled={values.disabled as boolean}
+              label="Account password"
+              size={values.size as (typeof sizes)[number]}
+              visibilityToggleFocusable={
+                values.visibilityToggleFocusable as boolean
+              }
+            />
+          </div>
+        )}
+      />
 
       <section
         className={pageStyles.componentReferenceSection}

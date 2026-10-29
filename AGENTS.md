@@ -23,3 +23,4 @@ This repository publishes `@teelur/budget-board-ui`, a React component library b
 
 - For a new public component, add its export to `src/index.ts`, create a page under `docs/pages/`, and wire the page into `docs/App.tsx`.
 - When public behavior or API changes, update the relevant page's live example, interactive API playground, and API reference, including accepted values and defaults. Prefer exported BBUI components in examples; use native controls only for documentation-specific controls without a package equivalent.
+- Every component page must include an interactive API playground and an API reference, ordered after all individual feature examples: feature examples, API playground, then API reference. Keep this order consistent across the component pages.

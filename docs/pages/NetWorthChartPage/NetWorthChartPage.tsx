@@ -140,7 +140,7 @@ export function NetWorthChartPage() {
         code={playgroundCode}
         description="Adjust the chart height and toggle the loading state while keeping the data, series labels, and formatter unchanged."
         id="net-worth-chart-playground"
-        title="Playground"
+        title="API playground"
       >
         <div className={styles.playground}>
           <div className={styles.playgroundControls}>

@@ -212,7 +212,7 @@ export function StepperPage() {
       <ComponentDemoSection
         description="Adjust the orientation, size, and step selection behavior to inspect the public API."
         id="stepper-playground"
-        title="Playground"
+        title="API playground"
         code={playgroundCode}
       >
         <div className={styles.playground}>

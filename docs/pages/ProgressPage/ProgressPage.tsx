@@ -200,7 +200,7 @@ export function ProgressPage() {
       <ComponentDemoSection
         description="Adjust the public props and inspect the resulting progress bar. Values above 100 remain clamped visually."
         id="progress-playground"
-        title="Playground"
+        title="API playground"
         code={playgroundCode}
       >
         <div className={styles.playground}>

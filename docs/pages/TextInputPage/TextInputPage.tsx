@@ -23,40 +23,6 @@ export function TextInputPage() {
         as NumberInput.
       </BodyText>
 
-      <ApiPlayground
-        componentName="TextInput"
-        controls={[
-          { key: "size", label: "Size", type: "select", options: sizes },
-          {
-            key: "type",
-            label: "Input type",
-            type: "select",
-            options: ["text", "email", "search"],
-          },
-          { key: "disabled", label: "Disabled", type: "toggle" },
-          { key: "placeholder", label: "Placeholder", type: "text" },
-        ]}
-        defaultValues={{
-          size: "md",
-          type: "text",
-          disabled: false,
-          placeholder: "Type here",
-        }}
-        description="Explore field density, native input types, placeholder, and disabled styling."
-        id="text-input-playground"
-        staticCodeProps={['label="Account details"']}
-        render={(values) => (
-          <div style={{ maxWidth: "32rem", width: "100%" }}>
-            <TextInput
-              disabled={values.disabled as boolean}
-              label="Account details"
-              placeholder={values.placeholder as string}
-              size={values.size as (typeof sizes)[number]}
-              type={values.type as "text" | "email" | "search"}
-            />
-          </div>
-        )}
-      />
 
       <ComponentDemoSection
         description="Use native text input types with Mantine labels, descriptions, and placeholders."
@@ -132,6 +98,41 @@ export function TextInputPage() {
           />
         </div>
       </ComponentDemoSection>
+
+      <ApiPlayground
+        componentName="TextInput"
+        controls={[
+          { key: "size", label: "Size", type: "select", options: sizes },
+          {
+            key: "type",
+            label: "Input type",
+            type: "select",
+            options: ["text", "email", "search"],
+          },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+          { key: "placeholder", label: "Placeholder", type: "text" },
+        ]}
+        defaultValues={{
+          size: "md",
+          type: "text",
+          disabled: false,
+          placeholder: "Type here",
+        }}
+        description="Explore field density, native input types, placeholder, and disabled styling."
+        id="text-input-playground"
+        staticCodeProps={['label="Account details"']}
+        render={(values) => (
+          <div style={{ maxWidth: "32rem", width: "100%" }}>
+            <TextInput
+              disabled={values.disabled as boolean}
+              label="Account details"
+              placeholder={values.placeholder as string}
+              size={values.size as (typeof sizes)[number]}
+              type={values.type as "text" | "email" | "search"}
+            />
+          </div>
+        )}
+      />
 
       <section
         className={pageStyles.componentReferenceSection}

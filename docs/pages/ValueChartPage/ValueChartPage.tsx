@@ -149,7 +149,7 @@ export function ValueChartPage() {
         code={playgroundCode}
         description="Adjust chart height and toggle the loading state while keeping the sample data, series, and formatter unchanged."
         id="value-chart-playground"
-        title="Playground"
+        title="API playground"
       >
         <div className={styles.playground}>
           <div className={styles.playgroundControls}>

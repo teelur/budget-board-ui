@@ -21,6 +21,37 @@ export function TagsInputPage() {
         Enter free-form tags or select from suggested values.
       </BodyText>
 
+
+      <ComponentDemoSection
+        description="Type a value and press Enter to add a tag."
+        id="tags-input-free-form"
+        title="Free-form tags"
+        code={`<TagsInput label="Tags" placeholder="Add a tag" />`}
+      >
+        <div style={{ maxWidth: "30rem", width: "100%" }}>
+          <TagsInput label="Tags" placeholder="Add a tag" />
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        description="Choose a suggested value or enter a new one."
+        id="tags-input-suggestions"
+        title="Suggestions"
+        code={`<TagsInput
+  data={["Home", "Food", "Transport", "Utilities"]}
+  label="Categories"
+  placeholder="Add a category"
+/>`}
+      >
+        <div style={{ maxWidth: "30rem", width: "100%" }}>
+          <TagsInput
+            data={suggestedTags}
+            label="Categories"
+            placeholder="Add a category"
+          />
+        </div>
+      </ComponentDemoSection>
+
       <ApiPlayground
         componentName="TagsInput"
         controls={[
@@ -60,36 +91,6 @@ export function TagsInputPage() {
           </div>
         )}
       />
-
-      <ComponentDemoSection
-        description="Type a value and press Enter to add a tag."
-        id="tags-input-free-form"
-        title="Free-form tags"
-        code={`<TagsInput label="Tags" placeholder="Add a tag" />`}
-      >
-        <div style={{ maxWidth: "30rem", width: "100%" }}>
-          <TagsInput label="Tags" placeholder="Add a tag" />
-        </div>
-      </ComponentDemoSection>
-
-      <ComponentDemoSection
-        description="Choose a suggested value or enter a new one."
-        id="tags-input-suggestions"
-        title="Suggestions"
-        code={`<TagsInput
-  data={["Home", "Food", "Transport", "Utilities"]}
-  label="Categories"
-  placeholder="Add a category"
-/>`}
-      >
-        <div style={{ maxWidth: "30rem", width: "100%" }}>
-          <TagsInput
-            data={suggestedTags}
-            label="Categories"
-            placeholder="Add a category"
-          />
-        </div>
-      </ComponentDemoSection>
 
       <section
         className={pageStyles.componentReferenceSection}

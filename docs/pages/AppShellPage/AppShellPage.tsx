@@ -48,6 +48,69 @@ export function AppShellPage() {
         consuming application.
       </BodyText>
 
+
+      <ComponentDemoSection
+        description="Compose the shell from Mantine-compatible primitives. The navigation collapses below the configured breakpoint."
+        id="app-shell-composition"
+        title="Responsive composition"
+        code={shellExample}
+      >
+        <div className={styles.preview}>
+          <AppShell
+            aria-label="AppShell example"
+            h={300}
+            header={{ height: 52 }}
+            mode="static"
+            navbar={{
+              breakpoint: "sm",
+              collapsed: { mobile: true },
+              width: 184,
+            }}
+            withBorder
+          >
+            <AppShellHeader>
+              <div className={styles.header}>
+                <BodyText component="strong" fw={700} fz="0.75rem">
+                  Budget Board
+                </BodyText>
+                <BodyText component="span" fz="0.75rem" tone="secondary">
+                  October 2026
+                </BodyText>
+              </div>
+            </AppShellHeader>
+            <AppShellNavbar>
+              <AppShellSection className={styles.navigation} grow>
+                <NavbarLink
+                  active
+                  icon={<Home aria-hidden="true" />}
+                  label="Overview"
+                  showLabel
+                />
+                <NavbarLink
+                  icon={<ArrowLeftRight aria-hidden="true" />}
+                  label="Transactions"
+                  showLabel
+                />
+                <NavbarLink
+                  icon={<Wallet aria-hidden="true" />}
+                  label="Accounts"
+                  showLabel
+                />
+              </AppShellSection>
+            </AppShellNavbar>
+            <AppShellMain className={styles.main} p="md">
+              <BodyText component="span" className={styles.eyebrow} tone="secondary" ff="var(--bb-font-data)" fz="0.62rem">Overview</BodyText>
+              <BodyText component="strong" fw={700} fz="0.8rem">
+                Monthly budget
+              </BodyText>
+              <BodyText component="span" fz="0.8rem" tone="secondary">
+                Income and spending at a glance.
+              </BodyText>
+            </AppShellMain>
+          </AppShell>
+        </div>
+      </ComponentDemoSection>
+
       <ApiPlayground
         componentName="AppShell"
         controls={[
@@ -141,68 +204,6 @@ export function AppShellPage() {
           </div>
         )}
       />
-
-      <ComponentDemoSection
-        description="Compose the shell from Mantine-compatible primitives. The navigation collapses below the configured breakpoint."
-        id="app-shell-composition"
-        title="Responsive composition"
-        code={shellExample}
-      >
-        <div className={styles.preview}>
-          <AppShell
-            aria-label="AppShell example"
-            h={300}
-            header={{ height: 52 }}
-            mode="static"
-            navbar={{
-              breakpoint: "sm",
-              collapsed: { mobile: true },
-              width: 184,
-            }}
-            withBorder
-          >
-            <AppShellHeader>
-              <div className={styles.header}>
-                <BodyText component="strong" fw={700} fz="0.75rem">
-                  Budget Board
-                </BodyText>
-                <BodyText component="span" fz="0.75rem" tone="secondary">
-                  October 2026
-                </BodyText>
-              </div>
-            </AppShellHeader>
-            <AppShellNavbar>
-              <AppShellSection className={styles.navigation} grow>
-                <NavbarLink
-                  active
-                  icon={<Home aria-hidden="true" />}
-                  label="Overview"
-                  showLabel
-                />
-                <NavbarLink
-                  icon={<ArrowLeftRight aria-hidden="true" />}
-                  label="Transactions"
-                  showLabel
-                />
-                <NavbarLink
-                  icon={<Wallet aria-hidden="true" />}
-                  label="Accounts"
-                  showLabel
-                />
-              </AppShellSection>
-            </AppShellNavbar>
-            <AppShellMain className={styles.main} p="md">
-              <BodyText component="span" className={styles.eyebrow} tone="secondary" ff="var(--bb-font-data)" fz="0.62rem">Overview</BodyText>
-              <BodyText component="strong" fw={700} fz="0.8rem">
-                Monthly budget
-              </BodyText>
-              <BodyText component="span" fz="0.8rem" tone="secondary">
-                Income and spending at a glance.
-              </BodyText>
-            </AppShellMain>
-          </AppShell>
-        </div>
-      </ComponentDemoSection>
 
       <section
         className={pageStyles.componentReferenceSection}

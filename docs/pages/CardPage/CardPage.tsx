@@ -210,38 +210,6 @@ export function CardPage() {
         </div>
       </ComponentDemoSection>
 
-      <ApiPlayground
-        componentName="Card"
-        controls={[
-          {
-            key: "surface",
-            label: "Surface",
-            type: "select",
-            options: ["default", "elevated", "sunken", "outline"],
-          },
-          { key: "selected", label: "Selected", type: "toggle" },
-          { key: "hoverable", label: "Hoverable", type: "toggle" },
-        ]}
-        defaultValues={{
-          surface: "default",
-          selected: false,
-          hoverable: false,
-        }}
-        description="Try the default, elevated, sunken, and outline surfaces and compare selected and hoverable styling."
-        id="card-playground"
-        childrenCode="Account overview"
-        render={(values) => (
-          <Card
-            hoverable={values.hoverable as boolean}
-            selected={values.selected as boolean}
-            surface={values.surface as CardSurface}
-          >
-            <BodyText component="strong" fw={600}>
-              Account overview
-            </BodyText>
-          </Card>
-        )}
-      />
 
       <ComponentDemoSection
         description="selected adds token-based visual emphasis. The parent controls the selected state; it does not add interaction behavior."
@@ -398,6 +366,39 @@ export function CardPage() {
           </Card>
         </div>
       </ComponentDemoSection>
+
+      <ApiPlayground
+        componentName="Card"
+        controls={[
+          {
+            key: "surface",
+            label: "Surface",
+            type: "select",
+            options: ["default", "elevated", "sunken", "outline"],
+          },
+          { key: "selected", label: "Selected", type: "toggle" },
+          { key: "hoverable", label: "Hoverable", type: "toggle" },
+        ]}
+        defaultValues={{
+          surface: "default",
+          selected: false,
+          hoverable: false,
+        }}
+        description="Try the default, elevated, sunken, and outline surfaces and compare selected and hoverable styling."
+        id="card-playground"
+        childrenCode="Account overview"
+        render={(values) => (
+          <Card
+            hoverable={values.hoverable as boolean}
+            selected={values.selected as boolean}
+            surface={values.surface as CardSurface}
+          >
+            <BodyText component="strong" fw={600}>
+              Account overview
+            </BodyText>
+          </Card>
+        )}
+      />
 
       <section className={pageStyles.componentReferenceSection} id="card-api">
         <div className={demoStyles.componentDemoHeading}>

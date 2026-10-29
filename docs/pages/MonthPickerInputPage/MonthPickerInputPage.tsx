@@ -33,44 +33,6 @@ export function MonthPickerInputPage() {
         field and calendar styling.
       </BodyText>
 
-      <ApiPlayground
-        componentName="MonthPickerInput"
-        controls={[
-          { key: "size", label: "Size", type: "select", options: sizes },
-          {
-            key: "dropdownType",
-            label: "Dropdown",
-            type: "select",
-            options: ["popover", "modal"],
-          },
-          { key: "clearable", label: "Clearable", type: "toggle" },
-          { key: "disabled", label: "Disabled", type: "toggle" },
-        ]}
-        defaultValues={{
-          size: "md",
-          dropdownType: "popover",
-          clearable: false,
-          disabled: false,
-        }}
-        description="Adjust field density and compare popover or modal calendars, clear controls, and disabled state."
-        id="month-picker-input-playground"
-        staticCodeProps={[
-          'label="Budget month"',
-          'defaultValue="2025-06-01"',
-        ]}
-        render={(values) => (
-          <div style={{ maxWidth: "32rem", width: "100%" }}>
-            <MonthPickerInput
-              clearable={values.clearable as boolean}
-              defaultValue="2025-06-01"
-              disabled={values.disabled as boolean}
-              dropdownType={values.dropdownType as "popover" | "modal"}
-              label="Budget month"
-              size={values.size as (typeof sizes)[number]}
-            />
-          </div>
-        )}
-      />
 
       <ComponentDemoSection
         description="The selection type determines the value shape. Multiple selection stays open while you choose months."
@@ -177,6 +139,45 @@ const [range, setRange] = useState<[string | null, string | null]>([
           ))}
         </div>
       </ComponentDemoSection>
+
+      <ApiPlayground
+        componentName="MonthPickerInput"
+        controls={[
+          { key: "size", label: "Size", type: "select", options: sizes },
+          {
+            key: "dropdownType",
+            label: "Dropdown",
+            type: "select",
+            options: ["popover", "modal"],
+          },
+          { key: "clearable", label: "Clearable", type: "toggle" },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+        ]}
+        defaultValues={{
+          size: "md",
+          dropdownType: "popover",
+          clearable: false,
+          disabled: false,
+        }}
+        description="Adjust field density and compare popover or modal calendars, clear controls, and disabled state."
+        id="month-picker-input-playground"
+        staticCodeProps={[
+          'label="Budget month"',
+          'defaultValue="2025-06-01"',
+        ]}
+        render={(values) => (
+          <div style={{ maxWidth: "32rem", width: "100%" }}>
+            <MonthPickerInput
+              clearable={values.clearable as boolean}
+              defaultValue="2025-06-01"
+              disabled={values.disabled as boolean}
+              dropdownType={values.dropdownType as "popover" | "modal"}
+              label="Budget month"
+              size={values.size as (typeof sizes)[number]}
+            />
+          </div>
+        )}
+      />
 
       <section
         className={pageStyles.componentReferenceSection}

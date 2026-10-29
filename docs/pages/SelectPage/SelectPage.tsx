@@ -25,6 +25,34 @@ export function SelectPage() {
         Mantine Select behavior with BBUI field, dropdown, and option styling.
       </BodyText>
 
+
+      <ComponentDemoSection
+        description="Search or choose one item from a list."
+        id="select-basic"
+        title="Basic usage"
+        code={`<Select
+  data={[
+    { value: "checking", label: "Checking" },
+    { value: "savings", label: "Savings" },
+    { value: "investment", label: "Investment" },
+  ]}
+  label="Account type"
+  searchable
+  clearable
+  placeholder="Choose an account type"
+/>`}
+      >
+        <div style={{ maxWidth: "30rem", width: "100%" }}>
+          <Select
+            clearable
+            data={accountTypes}
+            label="Account type"
+            placeholder="Choose an account type"
+            searchable
+          />
+        </div>
+      </ComponentDemoSection>
+
       <ApiPlayground
         componentName="Select"
         controls={[
@@ -65,33 +93,6 @@ export function SelectPage() {
           </div>
         )}
       />
-
-      <ComponentDemoSection
-        description="Search or choose one item from a list."
-        id="select-basic"
-        title="Basic usage"
-        code={`<Select
-  data={[
-    { value: "checking", label: "Checking" },
-    { value: "savings", label: "Savings" },
-    { value: "investment", label: "Investment" },
-  ]}
-  label="Account type"
-  searchable
-  clearable
-  placeholder="Choose an account type"
-/>`}
-      >
-        <div style={{ maxWidth: "30rem", width: "100%" }}>
-          <Select
-            clearable
-            data={accountTypes}
-            label="Account type"
-            placeholder="Choose an account type"
-            searchable
-          />
-        </div>
-      </ComponentDemoSection>
 
       <section className={pageStyles.componentReferenceSection} id="select-api">
         <div className={demoStyles.componentDemoHeading}>
