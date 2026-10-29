@@ -42,6 +42,31 @@ export function CategorySelectPage() {
         Search and select from a hierarchical list of categories.
       </BodyText>
 
+
+      <ComponentDemoSection
+        description="Parent labels use semibold primary text; child labels use secondary text with a subtle indent. All categories remain selectable."
+        id="category-select-basic"
+        title="Basic usage"
+        code={`const [value, setValue] = useState<string | null>(null);
+
+<CategorySelect
+  data={categories}
+  label="Category"
+  onChange={setValue}
+  value={value}
+/>`}
+      >
+        <div style={{ maxWidth: "30rem", width: "100%" }}>
+          <CategorySelect
+            data={categories}
+            label="Category"
+            onChange={setValue}
+            placeholder="Select a category"
+            value={value}
+          />
+        </div>
+      </ComponentDemoSection>
+
       <ApiPlayground
         componentName="CategorySelect"
         controls={[
@@ -78,30 +103,6 @@ export function CategorySelectPage() {
           </div>
         )}
       />
-
-      <ComponentDemoSection
-        description="Parent labels use semibold primary text; child labels use secondary text with a subtle indent. All categories remain selectable."
-        id="category-select-basic"
-        title="Basic usage"
-        code={`const [value, setValue] = useState<string | null>(null);
-
-<CategorySelect
-  data={categories}
-  label="Category"
-  onChange={setValue}
-  value={value}
-/>`}
-      >
-        <div style={{ maxWidth: "30rem", width: "100%" }}>
-          <CategorySelect
-            data={categories}
-            label="Category"
-            onChange={setValue}
-            placeholder="Select a category"
-            value={value}
-          />
-        </div>
-      </ComponentDemoSection>
 
       <section
         className={pageStyles.componentReferenceSection}

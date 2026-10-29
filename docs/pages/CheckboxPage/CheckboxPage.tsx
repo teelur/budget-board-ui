@@ -103,7 +103,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       <ComponentDemoSection
         description="Adjust the public props and interact with the rendered checkbox."
         id="checkbox-playground"
-        title="Playground"
+        title="API playground"
         code={playgroundCode}
       >
         <div className={styles.playground}>

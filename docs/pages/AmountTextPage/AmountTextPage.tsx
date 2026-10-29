@@ -20,34 +20,6 @@ export function AmountTextPage() {
         Amount-aware colors, formatting, and privacy masking.
       </BodyText>
 
-      <ApiPlayground
-        componentName="AmountText"
-        controls={[
-          { key: "amount", label: "Amount", type: "range", min: -150, max: 0 },
-          {
-            key: "disableStatusColor",
-            label: "Disable status color",
-            type: "toggle",
-          },
-        ]}
-        defaultValues={{ amount: -80, disableStatusColor: false }}
-        description="Adjust the expense amount and switch semantic status coloring on or off."
-        id="amount-text-playground"
-        staticCodeProps={[
-          "total={100}",
-          "type={StatusColorType.Expense}",
-          'currency="USD"',
-        ]}
-        render={(values) => (
-          <AmountText
-            amount={values.amount as number}
-            currency="USD"
-            disableStatusColor={values.disableStatusColor as boolean}
-            total={100}
-            type={StatusColorType.Expense}
-          />
-        )}
-      />
 
       <ComponentDemoSection
         description="Status colors preserve the financial meaning of each value."
@@ -141,6 +113,35 @@ export function AmountTextPage() {
           </AmountText>
         </div>
       </ComponentDemoSection>
+
+      <ApiPlayground
+        componentName="AmountText"
+        controls={[
+          { key: "amount", label: "Amount", type: "range", min: -150, max: 0 },
+          {
+            key: "disableStatusColor",
+            label: "Disable status color",
+            type: "toggle",
+          },
+        ]}
+        defaultValues={{ amount: -80, disableStatusColor: false }}
+        description="Adjust the expense amount and switch semantic status coloring on or off."
+        id="amount-text-playground"
+        staticCodeProps={[
+          "total={100}",
+          "type={StatusColorType.Expense}",
+          'currency="USD"',
+        ]}
+        render={(values) => (
+          <AmountText
+            amount={values.amount as number}
+            currency="USD"
+            disableStatusColor={values.disableStatusColor as boolean}
+            total={100}
+            type={StatusColorType.Expense}
+          />
+        )}
+      />
 
       <section
         className={pageStyles.componentReferenceSection}

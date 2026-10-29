@@ -1,99 +1,26 @@
-# Component Update Workflow
+# Repository guidance
 
-This repository is a publishable React component library for Budget Board. Use this workflow when changing an existing component or adding a new one.
+This repository publishes `@teelur/budget-board-ui`, a React component library built on Mantine. Keep changes scoped to the requested behavior and preserve existing public APIs unless a breaking change is requested.
 
-## Before Editing
+## Structure and commands
 
-1. Read the target component and its matching CSS Module, if present.
-   If creating a new component, follow the directory and file naming conventions of an existing similar component instead of reading a non-existent file.
-2. Read the nearest focused test in `tests/` and follow its provider and Testing Library patterns.
-3. Check `src/index.ts` to determine whether the component is part of the public package API. Add new public components there.
-4. Find the related example and API reference section in `docs/App.tsx`.
-5. Check existing components for the local Mantine, TypeScript, accessibility, naming, and styling patterns before introducing a new approach.
+- `src/` contains package source, `src/index.ts` defines public exports, and `src/shared/` contains cross-component helpers.
+- Components use PascalCase folders and filenames. Focused Vitest and React Testing Library tests live in `tests/`.
+- Component documentation lives in `docs/pages/`; `docs/App.tsx` assembles the pages and navigation.
+- For component changes, run `yarn test`, `yarn build`, and `yarn docs:build`. Use `yarn docs:dev` to manually check UI changes that affect layout, styling, or interaction. See `README.md` for setup and publishing details.
+- `dist/` and `docs-dist/` are generated outputs; do not edit them directly.
 
-Keep the change focused. Do not perform unrelated refactors or rewrite generated output.
-When a repository norm is established or changed, update this file so future agents follow the current convention. Update this file only when a pattern is adopted across multiple components (e.g., a new prop-forwarding convention or naming pattern), not for one-off implementation choices.
+## Component workflow
 
-## Implementation Rules
-
-- Use React and Mantine primitives already used by the package.
-- Keep component props strongly typed and export a named component matching the file name.
-- Keep component-specific styles in a matching CSS Module, such as `Button/Button.module.css`.
-- Preserve existing public APIs unless the task explicitly requires a breaking change.
-- If a breaking change is unavoidable but not explicitly requested, pause and ask for confirmation before proceeding.
-- Forward standard DOM attributes when the component API supports them.
-- Preserve accessible names, keyboard behavior, focus behavior, disabled states, and loading states.
-- Use the repository's existing design tokens and theme variables instead of adding unrelated styling systems.
-- Treat `src/colors.ts` as the source of truth for semantic light and dark colors. Name palette colors by shared role (`surface`, `overlay`, `text`, `border`, and similar), not by the component that uses them; add a component-specific token only when it represents a genuinely distinct semantic role. Prefer `budgetBoardColors` and `--bb-color-*` tokens over repeating palette hex values in component styles. When CSS-only or portaled UI needs fallback colors, resolve them from the shared palette in shared theme/style helpers and preserve consumer overrides. Keep non-semantic effect colors, such as translucent stripes or shadows, local when they do not represent a palette role.
-- Keep color behavior cohesive across BBUI components: use `surfaceHover` for neutral hover surfaces and `selection` for primary-tinted selected surfaces, with clear, consistent distinctions in both light and dark modes. Avoid one-off component color mixes for shared states. When a shared color behavior changes, update all affected components, focused tests, and documentation together; make intentional component-specific differences explicit through a distinct semantic role.
-- Use `font-weight: 600` for interactive control labels (buttons, segmented control items, etc.) so they render at a consistent weight against body text. This is documented for consumers in the Typography page (`docs/pages/TypographyPage`) — update it too if this convention changes.
-- When a component reuses `getButtonVariantStyles` (or applies its own `--bbui-*` CSS custom properties) for theming, set those properties on the outermost element sharing the affected descendants, not on an inner decorative element — CSS custom properties only cascade to descendants of the element they're set on.
-- Keep the BBUI `DateInput`, `DatePickerInput`, `NumberInput`, `PasswordInput`, `TextInput`, and `Textarea` theme resolution, wrapper variables, class-name merging, and shared field styling in `src/shared/inputStyles.ts` and `src/shared/inputStyles.module.css`. Add only component-specific behavior or styling to an individual input.
-- Keep shared combobox dropdown and option colors, slot merging, and styles in `src/shared/comboboxStyles.ts` and `src/shared/comboboxStyles.module.css`. Use these helpers for Autocomplete, Select, MultiSelect, and other Combobox-backed controls; keep field and wrapper styling in `inputStyles.ts`.
-- When migrating components such as popovers, modals, and cards, reuse or add appropriately named shared helpers for recurring color-mode resolution and surface/overlay styling. Keep `inputStyles.ts` specific to form fields; do not use it as a general styling module for unrelated components. Keep unique layout and interaction styling component-specific.
-- Keep source files in `src/`; keep focused tests in `tests/`.
-
-## Tests
-
-Add or update focused tests for every behavior changed. Prefer React Testing Library and Vitest, following the existing test setup.
-
-Cover the behavior that matters for the change, such as:
-
-- Default rendering and accessible roles or names.
-- Public variants, sizes, slots, and prop forwarding.
-- Click, keyboard, disabled, loading, and form behavior.
-- Conditional or stateful visual attributes exposed for testing.
-- Both with MantineProvider default theme and with a custom theme override when the component supports them.
-
-Do not weaken an assertion just to make a test pass. Update the implementation or the expected behavior deliberately.
+- Before editing, inspect the target component, its CSS Module, focused test, related docs page, and public export. For a new component, follow the closest existing component pattern.
+- Use the existing React and Mantine patterns. Export a named component matching its file, strongly type its props, and keep component-specific styles in a matching CSS Module.
+- Preserve accessible names, keyboard and focus behavior, disabled/loading states, and supported DOM attributes. Add or update focused tests for the behavior changed; test theme modes and consumer overrides when relevant.
+- Keep shared styling in its existing helper: input theme, wrapper, and field styles in `src/shared/inputStyles.ts` and `inputStyles.module.css`; combobox dropdown and option styling in `src/shared/comboboxStyles.ts` and `comboboxStyles.module.css`. Keep component-specific behavior and layout local.
+- Use `src/colors.ts` as the semantic color source. Prefer `budgetBoardColors` and `--bb-color-*` variables over repeated palette hex values; use `surfaceHover` for neutral hover surfaces and `selection` for selected surfaces.
+- Reuse color-mode and Mantine-provider helpers in `src/shared/themeStyles.ts` where applicable. Set component `--bbui-*` variables on the outer element shared by the affected descendants. Interactive control labels use `font-weight: 600`.
 
 ## Documentation
 
-Update `docs/App.tsx` when a component is added or its public behavior changes:
-
-- Add or update a live example that uses the public export.
-- Give every component documentation page an interactive API playground with controls for representative public props, a live preview, and JSX that reflects the current control values. Cover meaningful states and variants; a representative subset is sufficient when Mantine exposes a broader API.
-- Document all public API in the component's API reference section, including public props, accepted values, and defaults.
-- Demonstrate meaningful states and variants without duplicating implementation details.
-- Use the package's exported Budget Board UI components wherever an equivalent exists. Use native HTML controls only for documentation-specific controls that are not part of the package API, such as example configuration selectors.
-
-Do not edit `dist/` or `docs-dist/` directly. They are generated outputs.
-
-## Validation
-
-Run these commands from the repository root after the change:
-
-```sh
-yarn test
-yarn build
-yarn docs:build
-```
-
-If any validation command fails, fix the underlying issue before proceeding; do not report the task complete with failing checks.
-
-When the change affects layout, styling, or interaction, also use `yarn docs:dev` for a manual browser check. Confirm the component works in the relevant desktop and mobile states and that the documentation example renders correctly.
-
-## Completion Checklist
-
-### Code
-
-- [ ] Component source and matching styles are updated.
-- [ ] Public exports are updated when needed.
-- [ ] Generated directories were not edited directly.
-
-### Tests
-
-- [ ] Focused tests cover the changed behavior.
-- [ ] `yarn test` passes.
-
-### Docs
-
-- [ ] Documentation examples and API reference are updated when needed.
-
-### Validation
-
-- [ ] `yarn build` passes.
-- [ ] `yarn docs:build` passes.
-- [ ] The final diff contains only task-related changes.
-
-Do not create commits or branches unless explicitly requested.
+- For a new public component, add its export to `src/index.ts`, create a page under `docs/pages/`, and wire the page into `docs/App.tsx`.
+- When public behavior or API changes, update the relevant page's live example, interactive API playground, and API reference, including accepted values and defaults. Prefer exported BBUI components in examples; use native controls only for documentation-specific controls without a package equivalent.
+- Every component page must include an interactive API playground and an API reference, ordered after all individual feature examples: feature examples, API playground, then API reference. Keep this order consistent across the component pages.

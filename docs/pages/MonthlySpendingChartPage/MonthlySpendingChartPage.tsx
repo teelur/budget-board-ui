@@ -152,7 +152,7 @@ export function MonthlySpendingChartPage() {
         code={playgroundCode}
         description="Adjust the chart height, axes, grid, and loading state while keeping the same monthly data and average."
         id="monthly-spending-chart-playground"
-        title="Playground"
+        title="API playground"
       >
         <div className={styles.playground}>
           <div className={styles.playgroundControls}>

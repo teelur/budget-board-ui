@@ -35,17 +35,6 @@ export function CodePage() {
         preserving Mantine Code props.
       </BodyText>
 
-      <ApiPlayground
-        componentName="Code"
-        controls={[{ key: "block", label: "Block display", type: "toggle" }]}
-        defaultValues={{ block: false }}
-        description="Switch between inline code and a scrollable block snippet."
-        id="code-playground"
-        childrenCode={'budget = 1250'}
-        render={(values) => (
-          <Code block={values.block as boolean}>budget = 1250</Code>
-        )}
-      />
 
       <ComponentDemoSection
         description="Use inline code for short identifiers, values, and expressions within text."
@@ -81,6 +70,18 @@ export function CodePage() {
       >
         <Code color="var(--bb-color-selection)">selected</Code>
       </ComponentDemoSection>
+
+      <ApiPlayground
+        componentName="Code"
+        controls={[{ key: "block", label: "Block display", type: "toggle" }]}
+        defaultValues={{ block: false }}
+        description="Switch between inline code and a scrollable block snippet."
+        id="code-playground"
+        childrenCode={'budget = 1250'}
+        render={(values) => (
+          <Code block={values.block as boolean}>budget = 1250</Code>
+        )}
+      />
 
       <section className={pageStyles.componentReferenceSection} id="code-api">
         <div className={demoStyles.componentDemoHeading}>

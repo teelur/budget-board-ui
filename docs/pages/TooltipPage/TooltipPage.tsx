@@ -1,4 +1,5 @@
 import { BodyText, Button, HeadingText, Tooltip } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import demoStyles from "../../components/ComponentDemoSection/ComponentDemoSection.module.css";
 import pageStyles from "../Page.module.css";
@@ -6,6 +7,7 @@ import pageStyles from "../Page.module.css";
 const basicTooltipExample = `<Tooltip label="Explain this setting." withArrow>
   <Button variant="outline">Monthly limit</Button>
 </Tooltip>`;
+const tooltipPositions = ["top", "right", "bottom", "left"] as const;
 
 export function TooltipPage() {
   return (
@@ -55,6 +57,39 @@ export function TooltipPage() {
           <Button variant="outline">Monthly limit</Button>
         </Tooltip>
       </ComponentDemoSection>
+
+      <ApiPlayground
+        componentName="Tooltip"
+        controls={[
+          {
+            key: "position",
+            label: "Position",
+            type: "select",
+            options: tooltipPositions,
+          },
+          { key: "withArrow", label: "Show arrow", type: "toggle" },
+        ]}
+        defaultValues={{ position: "top", withArrow: true }}
+        description="Change the tooltip position and arrow while keeping its trigger and label fixed."
+        id="tooltip-playground"
+        staticCodeProps={[
+          'label="Explain this setting."',
+          "opened",
+          "withinPortal={false}",
+        ]}
+        childrenCode={'<Button variant="outline">Monthly limit</Button>'}
+        render={(values) => (
+          <Tooltip
+            label="Explain this setting."
+            opened
+            position={values.position as (typeof tooltipPositions)[number]}
+            withArrow={values.withArrow as boolean}
+            withinPortal={false}
+          >
+            <Button variant="outline">Monthly limit</Button>
+          </Tooltip>
+        )}
+      />
 
       <section className={pageStyles.componentReferenceSection} id="tooltip-api">
         <div className={demoStyles.componentDemoHeading}>

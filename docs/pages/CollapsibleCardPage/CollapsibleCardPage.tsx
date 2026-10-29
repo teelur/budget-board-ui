@@ -46,6 +46,22 @@ export function CollapsibleCardPage() {
         region. It starts expanded and can also be controlled by its parent.
       </BodyText>
 
+
+      <ComponentDemoSection
+        description="The content region is inert while collapsed. The title button exposes its state and controls the associated region."
+        id="collapsible-card-example"
+        title="Account overview"
+        code={exampleCode}
+      >
+        <div className={styles.preview}>
+          <CollapsibleCard title="Account overview">
+            <BodyText component="p" m={0}>
+              Checking account balance: <strong>$4,218.32</strong>
+            </BodyText>
+          </CollapsibleCard>
+        </div>
+      </ComponentDemoSection>
+
       <ApiPlayground
         componentName="CollapsibleCard"
         controls={[
@@ -77,21 +93,6 @@ export function CollapsibleCardPage() {
           </div>
         )}
       />
-
-      <ComponentDemoSection
-        description="The content region is inert while collapsed. The title button exposes its state and controls the associated region."
-        id="collapsible-card-example"
-        title="Account overview"
-        code={exampleCode}
-      >
-        <div className={styles.preview}>
-          <CollapsibleCard title="Account overview">
-            <BodyText component="p" m={0}>
-              Checking account balance: <strong>$4,218.32</strong>
-            </BodyText>
-          </CollapsibleCard>
-        </div>
-      </ComponentDemoSection>
 
       <section
         className={pageStyles.componentReferenceSection}

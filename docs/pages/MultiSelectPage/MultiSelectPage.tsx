@@ -25,46 +25,6 @@ export function MultiSelectPage() {
         Select several options, with optional query-based option creation.
       </BodyText>
 
-      <ApiPlayground
-        componentName="MultiSelect"
-        controls={[
-          {
-            key: "size",
-            label: "Size",
-            type: "select",
-            options: ["xs", "sm", "md", "lg", "xl"],
-          },
-          { key: "searchable", label: "Searchable", type: "toggle" },
-          { key: "clearable", label: "Clearable", type: "toggle" },
-          { key: "disabled", label: "Disabled", type: "toggle" },
-        ]}
-        defaultValues={{
-          size: "md",
-          searchable: true,
-          clearable: true,
-          disabled: false,
-        }}
-        description="Explore the multi-value field with search, clear, size, and disabled options."
-        id="multi-select-playground"
-        staticCodeProps={[
-          "data={accounts}",
-          'label="Accounts"',
-          'placeholder="Select accounts"',
-        ]}
-        render={(values) => (
-          <div style={{ maxWidth: "30rem", width: "100%" }}>
-            <MultiSelect
-              clearable={values.clearable as boolean}
-              data={accounts}
-              disabled={values.disabled as boolean}
-              label="Accounts"
-              placeholder="Select accounts"
-              searchable={values.searchable as boolean}
-              size={values.size as "xs" | "sm" | "md" | "lg" | "xl"}
-            />
-          </div>
-        )}
-      />
 
       <ComponentDemoSection
         description="Search for and select multiple accounts."
@@ -114,6 +74,47 @@ export function MultiSelectPage() {
           />
         </div>
       </ComponentDemoSection>
+
+      <ApiPlayground
+        componentName="MultiSelect"
+        controls={[
+          {
+            key: "size",
+            label: "Size",
+            type: "select",
+            options: ["xs", "sm", "md", "lg", "xl"],
+          },
+          { key: "searchable", label: "Searchable", type: "toggle" },
+          { key: "clearable", label: "Clearable", type: "toggle" },
+          { key: "disabled", label: "Disabled", type: "toggle" },
+        ]}
+        defaultValues={{
+          size: "md",
+          searchable: true,
+          clearable: true,
+          disabled: false,
+        }}
+        description="Explore the multi-value field with search, clear, size, and disabled options."
+        id="multi-select-playground"
+        staticCodeProps={[
+          "data={accounts}",
+          'label="Accounts"',
+          'placeholder="Select accounts"',
+        ]}
+        render={(values) => (
+          <div style={{ maxWidth: "30rem", width: "100%" }}>
+            <MultiSelect
+              clearable={values.clearable as boolean}
+              data={accounts}
+              disabled={values.disabled as boolean}
+              label="Accounts"
+              placeholder="Select accounts"
+              searchable={values.searchable as boolean}
+              size={values.size as "xs" | "sm" | "md" | "lg" | "xl"}
+            />
+          </div>
+        )}
+      />
 
       <section
         className={pageStyles.componentReferenceSection}

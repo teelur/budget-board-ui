@@ -140,7 +140,7 @@ export function NetCashFlowChartPage() {
         code={playgroundCode}
         description="Adjust the chart height and toggle the loading state while keeping the data, series labels, and formatter unchanged."
         id="net-cash-flow-chart-playground"
-        title="Playground"
+        title="API playground"
       >
         <div className={styles.playground}>
           <div className={styles.playgroundControls}>

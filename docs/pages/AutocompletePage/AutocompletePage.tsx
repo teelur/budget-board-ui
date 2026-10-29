@@ -27,6 +27,32 @@ export function AutocompletePage() {
         Mantine Autocomplete behavior with BBUI input and dropdown styling.
       </BodyText>
 
+
+      <ComponentDemoSection
+        description="Type to filter the available merchant suggestions."
+        id="autocomplete-basic"
+        title="Basic usage"
+        code={`<Autocomplete
+  data={[
+    "Cedar Market",
+    "Corner Coffee",
+    "Greenway Grocer",
+    "Northside Books",
+    "Willow Pharmacy",
+  ]}
+  label="Merchant"
+  placeholder="Search merchants"
+/>`}
+      >
+        <div style={{ maxWidth: "32rem", width: "100%" }}>
+          <Autocomplete
+            data={merchants}
+            label="Merchant"
+            placeholder="Search merchants"
+          />
+        </div>
+      </ComponentDemoSection>
+
       <ApiPlayground
         componentName="Autocomplete"
         controls={[
@@ -61,31 +87,6 @@ export function AutocompletePage() {
           </div>
         )}
       />
-
-      <ComponentDemoSection
-        description="Type to filter the available merchant suggestions."
-        id="autocomplete-basic"
-        title="Basic usage"
-        code={`<Autocomplete
-  data={[
-    "Cedar Market",
-    "Corner Coffee",
-    "Greenway Grocer",
-    "Northside Books",
-    "Willow Pharmacy",
-  ]}
-  label="Merchant"
-  placeholder="Search merchants"
-/>`}
-      >
-        <div style={{ maxWidth: "32rem", width: "100%" }}>
-          <Autocomplete
-            data={merchants}
-            label="Merchant"
-            placeholder="Search merchants"
-          />
-        </div>
-      </ComponentDemoSection>
 
       <section
         className={pageStyles.componentReferenceSection}

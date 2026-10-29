@@ -244,7 +244,7 @@ ${playgroundProps.map((prop) => `  ${prop}`).join("\n")}
       <ComponentDemoSection
         description="Adjust the public props together and see the resulting control immediately."
         id="segmented-control-playground"
-        title="Playground"
+        title="API playground"
         code={playgroundCode}
       >
         <div className={styles.playground}>

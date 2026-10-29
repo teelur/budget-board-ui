@@ -151,7 +151,7 @@ export function TransactionTrendsChartPage() {
         code={playgroundCode}
         description="Adjust the chart height, grid, and y-axis while keeping the same cumulative data and series."
         id="transaction-trends-chart-playground"
-        title="Playground"
+        title="API playground"
       >
         <div className={styles.playground}>
           <div className={styles.playgroundControls}>

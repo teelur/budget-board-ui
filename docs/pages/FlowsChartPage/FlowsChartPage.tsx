@@ -1,5 +1,6 @@
 import { BodyText, FlowsChart, HeadingText } from "../../../src";
 import type { FlowsChartData, FlowsChartLabels } from "../../../src";
+import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import pageStyles from "../Page.module.css";
 import styles from "./FlowsChartPage.module.css";
@@ -231,6 +232,40 @@ export function FlowsChartPage() {
           />
         </div>
       </ComponentDemoSection>
+
+      <ApiPlayground
+        componentName="FlowsChart"
+        controls={[
+          {
+            key: "height",
+            label: "Chart height",
+            type: "range",
+            min: 360,
+            max: 720,
+            step: 40,
+          },
+        ]}
+        defaultValues={{ height: 520 }}
+        description="Adjust the chart height while keeping the sample flows and localized labels unchanged."
+        id="flows-chart-playground"
+        staticCodeProps={[
+          'ariaLabel="Transaction flows"',
+          "data={sampleData}",
+          "formatValue={formatCurrency}",
+          "labels={labels}",
+        ]}
+        render={(values) => (
+          <div className={styles.chartPreview}>
+            <FlowsChart
+              ariaLabel="Transaction flows"
+              data={sampleData}
+              formatValue={formatCurrency}
+              height={Number(values.height)}
+              labels={labels}
+            />
+          </div>
+        )}
+      />
 
       <section
         aria-labelledby="flows-chart-api-heading"
