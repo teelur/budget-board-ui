@@ -2,7 +2,6 @@ import { ApiPlayground } from "../../components/ApiPlayground/ApiPlayground";
 import { ComponentDemoSection } from "../../components/ComponentDemoSection/ComponentDemoSection";
 import { BodyText, HeadingText, Table } from "../../../src";
 import pageStyles from "../Page.module.css";
-import styles from "./TablePage.module.css";
 
 const budgetRows = [
   { category: "Housing", budget: "$1,250", actual: "$1,200" },
@@ -24,42 +23,40 @@ function BudgetTable({
   withColumnBorders,
 }: BudgetTableProps) {
   return (
-    <div className={styles.tableSurface}>
-      <Table.ScrollContainer minWidth="32rem" type="native">
-        <Table
-          aria-label="Monthly category budget"
-          highlightOnHover={highlightOnHover}
-          striped={striped}
-          withColumnBorders={withColumnBorders}
-          withTableBorder={withTableBorder}
-        >
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th scope="col">Category</Table.Th>
-              <Table.Th scope="col">Budget</Table.Th>
-              <Table.Th scope="col">Actual</Table.Th>
+    <Table.ScrollContainer minWidth="32rem" type="native">
+      <Table
+        aria-label="Monthly category budget"
+        highlightOnHover={highlightOnHover}
+        striped={striped}
+        withColumnBorders={withColumnBorders}
+        withTableBorder={withTableBorder}
+      >
+        <Table.Thead>
+          <Table.Tr>
+            <Table.Th scope="col">Category</Table.Th>
+            <Table.Th scope="col">Budget</Table.Th>
+            <Table.Th scope="col">Actual</Table.Th>
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>
+          {budgetRows.map((row) => (
+            <Table.Tr key={row.category}>
+              <Table.Td>{row.category}</Table.Td>
+              <Table.Td>{row.budget}</Table.Td>
+              <Table.Td>{row.actual}</Table.Td>
             </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>
-            {budgetRows.map((row) => (
-              <Table.Tr key={row.category}>
-                <Table.Td>{row.category}</Table.Td>
-                <Table.Td>{row.budget}</Table.Td>
-                <Table.Td>{row.actual}</Table.Td>
-              </Table.Tr>
-            ))}
-          </Table.Tbody>
-          <Table.Tfoot>
-            <Table.Tr>
-              <Table.Th scope="row">Total</Table.Th>
-              <Table.Th scope="row">$2,000</Table.Th>
-              <Table.Th scope="row">$1,946</Table.Th>
-            </Table.Tr>
-          </Table.Tfoot>
-          <Table.Caption>Monthly category budgets and spending</Table.Caption>
-        </Table>
-      </Table.ScrollContainer>
-    </div>
+          ))}
+        </Table.Tbody>
+        <Table.Tfoot>
+          <Table.Tr>
+            <Table.Th scope="row">Total</Table.Th>
+            <Table.Th scope="row">$2,000</Table.Th>
+            <Table.Th scope="row">$1,946</Table.Th>
+          </Table.Tr>
+        </Table.Tfoot>
+        <Table.Caption>Monthly category budgets and spending</Table.Caption>
+      </Table>
+    </Table.ScrollContainer>
   );
 }
 
@@ -89,10 +86,10 @@ export function TablePage() {
         tone="muted"
         m="1em 0"
       >
-        Table wraps Mantine&apos;s compound table API with BBUI semantic text,
-        border, stripe, and hover colors. Its sections, cells, data renderer,
-        and responsive scroll container remain available on the exported
-        component.
+        Table wraps Mantine&apos;s compound table API with BBUI surface,
+        semantic text, border, stripe, and hover colors. Its sections, cells,
+        data renderer, and responsive scroll container remain available on the
+        exported component.
       </BodyText>
 
       <ComponentDemoSection
@@ -218,9 +215,13 @@ export function TablePage() {
                 <tr>
                   <th>striped</th>
                   <td>
-                    <code>false | true | &quot;odd&quot; | &quot;even&quot;</code>
+                    <code>
+                      false | true | &quot;odd&quot; | &quot;even&quot;
+                    </code>
                   </td>
-                  <td>false; striped rows use BBUI <code>surface-sunken</code>.</td>
+                  <td>
+                    false; striped rows use BBUI <code>surface-sunken</code>.
+                  </td>
                 </tr>
                 <tr>
                   <th>highlightOnHover</th>
