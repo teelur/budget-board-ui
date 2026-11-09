@@ -41,6 +41,9 @@ describe("Table", () => {
     const table = screen.getByRole("table", { name: "Budget overview" });
 
     expect(table).toHaveClass(classes.table);
+    expect(table.style.getPropertyValue("--bbui-table-surface")).toBe(
+      "var(--bb-color-surface, #ffffff)",
+    );
     expect(table.style.getPropertyValue("--table-border-color")).toBe(
       "var(--bb-color-border-subtle, #d8d5ce)",
     );
@@ -56,9 +59,14 @@ describe("Table", () => {
     expect(table.style.getPropertyValue("--bbui-table-heading")).toBe(
       "var(--bb-color-text-heading, #242321)",
     );
-    expect(screen.getByRole("columnheader", { name: "Category" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("columnheader", { name: "Category" }),
+    ).toBeInTheDocument();
     expect(screen.getByText("Groceries")).toBeInTheDocument();
     expect(screen.getByText("Monthly budget totals")).toBeInTheDocument();
+    expect(tableStyles).toContain(
+      "background-color: var(--bbui-table-surface);",
+    );
     expect(tableStyles).toContain("font-weight: 600;");
     expect(tableStyles).toContain("color: var(--bbui-table-caption);");
   });
@@ -70,11 +78,7 @@ describe("Table", () => {
         forceColorScheme="dark"
         theme={budgetBoardDarkTheme}
       >
-        <Table
-          data-testid="dark-table"
-          highlightOnHover
-          striped
-        >
+        <Table data-testid="dark-table" highlightOnHover striped>
           <Table.Tbody>
             <Table.Tr>
               <Table.Td>Checking</Table.Td>
@@ -86,15 +90,18 @@ describe("Table", () => {
 
     const table = screen.getByTestId("dark-table");
 
+    expect(table.style.getPropertyValue("--bbui-table-surface")).toBe(
+      "var(--bb-color-surface, #191b1f)",
+    );
     expect(table.style.getPropertyValue("--table-border-color")).toBe(
       "var(--bb-color-border-subtle, #3a3d42)",
     );
     expect(table.style.getPropertyValue("--table-striped-color")).toBe(
       "var(--bb-color-surface-sunken, #0d0f12)",
     );
-    expect(table.style.getPropertyValue("--table-highlight-on-hover-color")).toBe(
-      "var(--bb-color-surface-hover, #34373a)",
-    );
+    expect(
+      table.style.getPropertyValue("--table-highlight-on-hover-color"),
+    ).toBe("var(--bb-color-surface-hover, #34373a)");
     expect(table.style.getPropertyValue("--bbui-table-text")).toBe(
       "var(--bb-color-text-primary, #d8d5ce)",
     );
@@ -131,10 +138,12 @@ describe("Table", () => {
 
     expect(table).toHaveClass(classes.table, "consumer-table");
     expect(table.style.getPropertyValue("--table-border-color")).toBe("tomato");
-    expect(table.style.getPropertyValue("--table-striped-color")).toBe("#abcdef");
-    expect(table.style.getPropertyValue("--table-highlight-on-hover-color")).toBe(
-      "#fedcba",
+    expect(table.style.getPropertyValue("--table-striped-color")).toBe(
+      "#abcdef",
     );
+    expect(
+      table.style.getPropertyValue("--table-highlight-on-hover-color"),
+    ).toBe("#fedcba");
     expect(screen.getByRole("columnheader", { name: "Account" })).toHaveClass(
       "consumer-heading",
     );
@@ -158,7 +167,9 @@ describe("Table", () => {
     expect(screen.getByRole("table", { name: "Monthly spending" })).toBe(
       screen.getByTestId("data-table"),
     );
-    expect(screen.getByRole("columnheader", { name: "Category" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("columnheader", { name: "Category" }),
+    ).toBeInTheDocument();
     expect(screen.getByText("Utilities")).toBeInTheDocument();
     expect(screen.getByText("Total")).toBeInTheDocument();
   });

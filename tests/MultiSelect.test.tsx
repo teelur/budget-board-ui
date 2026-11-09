@@ -2,6 +2,7 @@ import { MantineProvider } from "@mantine/core";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { expectInlineStyles } from "./styleAssertions";
 import { MultiSelect } from "../src/MultiSelect/MultiSelect";
 import inputStylesClasses from "../src/shared/inputStyles.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
@@ -66,7 +67,7 @@ describe("MultiSelect", () => {
     );
 
     const input = screen.getByRole("combobox", { name: "Accounts" });
-    expect(input.closest(`.${inputStylesClasses.root}`)).toHaveStyle({
+    expectInlineStyles(input.closest(`.${inputStylesClasses.root}`), {
       "--bbui-input-background": "var(--bb-color-surface-input, #f2f3f1)",
     });
 
@@ -128,7 +129,8 @@ describe("MultiSelect", () => {
     await user.click(screen.getByRole("combobox", { name: "Dark accounts" }));
     await screen.findByRole("option", { hidden: true, name: "Checking" });
 
-    expect(document.querySelector(".mantine-MultiSelect-dropdown")).toHaveStyle(
+    expectInlineStyles(
+      document.querySelector(".mantine-MultiSelect-dropdown"),
       {
         "--bbui-combobox-background":
           "var(--bb-color-surface-elevated, #2A2D33)",

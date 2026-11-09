@@ -1,4 +1,5 @@
 .table {
+  background-color: var(--bbui-table-surface);
   color: var(--bbui-table-text);
   font-family: var(--bbui-table-body-font);
 }

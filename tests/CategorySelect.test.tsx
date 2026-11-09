@@ -2,6 +2,7 @@ import { MantineProvider } from "@mantine/core";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { expectInlineStyles } from "./styleAssertions";
 import { CategorySelect } from "../src/CategorySelect/CategorySelect";
 import categoryClasses from "../src/CategorySelect/CategorySelect.module.css";
 import comboboxClasses from "../src/shared/comboboxStyles.module.css";
@@ -53,7 +54,7 @@ describe("CategorySelect", () => {
         selector: `.${categoryClasses.childLabel}`,
       }),
     ).toBeInTheDocument();
-    expect(document.querySelector(`.${comboboxClasses.dropdown}`)).toHaveStyle({
+    expectInlineStyles(document.querySelector(`.${comboboxClasses.dropdown}`), {
       "--bbui-combobox-secondary-foreground":
         "var(--bb-color-text-secondary, #68645d)",
     });
@@ -139,7 +140,7 @@ describe("CategorySelect", () => {
     );
 
     const trigger = screen.getByRole("button", { name: "Category" });
-    expect(trigger.closest(`.${inputStylesClasses.root}`)).toHaveStyle({
+    expectInlineStyles(trigger.closest(`.${inputStylesClasses.root}`), {
       "--bbui-input-background": "var(--bb-color-surface-input, #f2f3f1)",
     });
 
@@ -239,7 +240,7 @@ describe("CategorySelect", () => {
     await user.click(screen.getByRole("button", { name: "Dark category" }));
     await screen.findByRole("option", { hidden: true, name: "Food" });
 
-    expect(document.querySelector(`.${comboboxClasses.dropdown}`)).toHaveStyle({
+    expectInlineStyles(document.querySelector(`.${comboboxClasses.dropdown}`), {
       "--bbui-combobox-background": "var(--bb-color-surface-elevated, #2A2D33)",
       "--bbui-combobox-secondary-foreground":
         "var(--bb-color-text-secondary, #aaa69e)",

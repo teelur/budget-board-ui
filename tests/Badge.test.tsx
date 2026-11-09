@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { MantineProvider } from "@mantine/core";
 import { describe, expect, it } from "vitest";
+import { expectInlineStyles } from "./styleAssertions";
 import {
   Badge,
   badgeColors,
@@ -83,23 +84,23 @@ describe("Badge", () => {
       </>,
     );
 
-    expect(screen.getByText("Filled").parentElement).toHaveStyle({
+    expectInlineStyles(screen.getByText("Filled").parentElement, {
       "--bbui-badge-bg":
         "var(--budget-board-badge-primary-background, var(--bb-color-primary, #4263eb))",
       "--bbui-badge-color":
         "var(--budget-board-badge-primary-color, var(--bb-color-primary-content, #fffaf2))",
     });
-    expect(screen.getByText("Light").parentElement).toHaveStyle({
+    expectInlineStyles(screen.getByText("Light").parentElement, {
       "--bbui-badge-bg":
         "var(--budget-board-badge-success-light-background, color-mix(in srgb, var(--bb-color-success, #27803d) 14%, transparent))",
       "--bbui-badge-color":
         "var(--budget-board-badge-success-light-color, var(--bb-color-success, #27803d))",
     });
-    expect(screen.getByText("Outline").parentElement).toHaveStyle({
+    expectInlineStyles(screen.getByText("Outline").parentElement, {
       "--bbui-badge-border":
         "var(--budget-board-badge-info-outline-border, var(--bb-color-info, #1971c2))",
     });
-    expect(screen.getByText("Ghost").parentElement).toHaveStyle({
+    expectInlineStyles(screen.getByText("Ghost").parentElement, {
       "--bbui-badge-bg": "transparent",
       "--bbui-badge-border": "transparent",
     });
@@ -112,7 +113,7 @@ describe("Badge", () => {
       </MantineProvider>,
     );
 
-    expect(screen.getByText("Contrast").parentElement).toHaveStyle({
+    expectInlineStyles(screen.getByText("Contrast").parentElement, {
       "--bbui-badge-bg":
         "var(--budget-board-badge-contrast-background, var(--bb-color-contrast, #f2f0eb))",
       "--bbui-badge-color":
@@ -160,7 +161,7 @@ describe("Badge", () => {
     expect(badge).not.toHaveAttribute("h");
     expect(badge).not.toHaveAttribute("mih");
     expect(badge).not.toHaveAttribute("mah");
-    expect(badge).toHaveStyle({
+    expectInlineStyles(badge, {
       width: "calc(15rem * var(--mantine-scale))",
       minWidth: "calc(12.5rem * var(--mantine-scale))",
       maxWidth: "100%",

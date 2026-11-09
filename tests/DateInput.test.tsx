@@ -78,7 +78,7 @@ describe("DateInput", () => {
     );
 
     await user.click(screen.getByRole("textbox", { name: "Calendar date" }));
-    await screen.findByRole("button", { name: "June 2025" });
+    await screen.findByRole("button", { name: "June 2025", hidden: true });
 
     const dropdown = container.ownerDocument.querySelector(
       `.${popoverClasses.dropdown}`,
@@ -116,7 +116,7 @@ describe("DateInput", () => {
     await user.click(
       screen.getByRole("textbox", { name: "Sunday-first date" }),
     );
-    await screen.findByRole("button", { name: "June 2025" });
+    await screen.findByRole("button", { name: "June 2025", hidden: true });
     const weekdays = Array.from(
       document.querySelectorAll(".mantine-DateInput-weekday"),
       (weekday) => weekday.textContent,
@@ -144,7 +144,7 @@ describe("DateInput", () => {
       "var(--bb-color-surface-input, #1c1e21)",
     );
     await user.click(input);
-    await screen.findByRole("button", { name: "June 2025" });
+    await screen.findByRole("button", { name: "June 2025", hidden: true });
     const dropdown = container.ownerDocument.querySelector(
       `.${popoverClasses.dropdown}`,
     );

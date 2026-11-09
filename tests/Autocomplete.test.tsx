@@ -2,6 +2,7 @@ import { MantineProvider } from "@mantine/core";
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
+import { expectInlineStyles } from "./styleAssertions";
 import { Autocomplete } from "../src/Autocomplete/Autocomplete";
 import classes from "../src/shared/comboboxStyles.module.css";
 import inputClasses from "../src/shared/inputStyles.module.css";
@@ -99,7 +100,7 @@ describe("Autocomplete", () => {
     expect(dropdown).toHaveClass("consumer-dropdown", "nested-dropdown");
     expect(dropdown?.getAttribute("style")).toContain("border-color: red");
     expect(dropdown?.getAttribute("style")).toContain("border-width: 3px");
-    expect(dropdown).toHaveStyle({
+    expectInlineStyles(dropdown, {
       "--bbui-combobox-background": "var(--bb-color-surface-elevated, #2A2D33)",
       "--bbui-combobox-hover": "var(--bb-color-surface-hover, #34373a)",
       "--bbui-combobox-selected": "var(--bb-color-selection, #414b85)",

@@ -1,6 +1,7 @@
 import { act, render, screen } from "@testing-library/react";
 import { MantineProvider } from "@mantine/core";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { expectInlineStyles } from "./styleAssertions";
 import {
   BodyText,
   CaptionText,
@@ -405,9 +406,20 @@ describe("text role components", () => {
             configurable: true,
             value: () => ({ height: 20 }),
           });
-          Object.defineProperty(styles, "fontSize", {
-            configurable: true,
-            value: fontSizes[element.dataset.testid],
+          return new Proxy(styles, {
+            get(target, property) {
+              if (property === "fontSize") {
+                return fontSizes[element.dataset.testid];
+              }
+              if (property === "marginTop" || property === "marginBottom") {
+                return "0px";
+              }
+              if (property === "getPropertyValue") {
+                return target.getPropertyValue.bind(target);
+              }
+              const value = Reflect.get(target, property, target);
+              return typeof value === "function" ? value.bind(target) : value;
+            },
           });
         }
         return styles;
@@ -485,18 +497,27 @@ describe("text role components", () => {
             configurable: true,
             value: () => ({ height: 20 }),
           });
-          Object.defineProperty(styles, "fontSize", {
-            configurable: true,
-            get: () => {
-              if (
-                element.style.fontSize === "var(--mantine-font-size-xs)"
-              ) {
-                return "12px";
+          return new Proxy(styles, {
+            get(target, property) {
+              if (property === "fontSize") {
+                if (
+                  element.style.fontSize === "var(--mantine-font-size-xs)"
+                ) {
+                  return "12px";
+                }
+                if (element.style.fontSize.includes("2rem")) {
+                  return "32px";
+                }
+                return "20px";
               }
-              if (element.style.fontSize === "2rem") {
-                return "32px";
+              if (property === "marginTop" || property === "marginBottom") {
+                return "0px";
               }
-              return "20px";
+              if (property === "getPropertyValue") {
+                return target.getPropertyValue.bind(target);
+              }
+              const value = Reflect.get(target, property, target);
+              return typeof value === "function" ? value.bind(target) : value;
             },
           });
         }
@@ -555,17 +576,17 @@ describe("text role components", () => {
       </>,
     );
 
-    expect(screen.getByTestId("heading-tone")).toHaveStyle({
+    expectInlineStyles(screen.getByTestId("heading-tone"), {
       color: "var(--bb-color-text-heading, #242321)",
     });
-    expect(screen.getByTestId("body")).toHaveStyle({
+    expectInlineStyles(screen.getByTestId("body"), {
       color: "var(--bb-color-text-metadata, #807a70)",
     });
-    expect(screen.getByTestId("heading")).toHaveStyle({
+    expectInlineStyles(screen.getByTestId("heading"), {
       color: "var(--bb-color-text-heading, #242321)",
     });
     expect(screen.getByTestId("caption").tagName).toBe("SPAN");
-    expect(screen.getByTestId("caption")).toHaveStyle({
+    expectInlineStyles(screen.getByTestId("caption"), {
       color: "var(--bb-color-text-secondary, #68645d)",
     });
   });
@@ -627,7 +648,7 @@ describe("text role components", () => {
       </MantineProvider>,
     );
 
-    expect(screen.getByTestId("dark-display")).toHaveStyle({
+    expectInlineStyles(screen.getByTestId("dark-display"), {
       color: "var(--bb-color-text-muted, #716f6b)",
     });
   });
