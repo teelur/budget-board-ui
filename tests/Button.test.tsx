@@ -4,6 +4,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MantineProvider, UnstyledButton } from "@mantine/core";
 import { describe, expect, it, vi } from "vitest";
+import { expectInlineStyles } from "./styleAssertions";
 import { Button } from "../src/Button/Button";
 import { budgetBoardDarkTheme } from "../src/theme";
 
@@ -448,7 +449,7 @@ describe("Button", () => {
     expect(button).not.toHaveAttribute("h");
     expect(button).not.toHaveAttribute("mih");
     expect(button).not.toHaveAttribute("mah");
-    expect(button).toHaveStyle({
+    expectInlineStyles(button, {
       width: "calc(15rem * var(--mantine-scale))",
       minWidth: "calc(12.5rem * var(--mantine-scale))",
       maxWidth: "100%",

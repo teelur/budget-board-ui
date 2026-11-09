@@ -2,6 +2,7 @@ import { MantineProvider } from "@mantine/core";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
+import { expectInlineStyles } from "./styleAssertions";
 import { Select } from "../src/Select/Select";
 import inputClasses from "../src/shared/inputStyles.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
@@ -67,7 +68,7 @@ describe("Select", () => {
     expect(dropdown?.style.backgroundColor).toBe(
       "var(--bbui-combobox-background)",
     );
-    expect(dropdown).toHaveStyle({
+    expectInlineStyles(dropdown, {
       "--bbui-combobox-background": "var(--bb-color-surface-elevated, #2A2D33)",
       "--bbui-combobox-hover": "var(--bb-color-surface-hover, #34373a)",
       "--bbui-combobox-selected": "var(--bb-color-selection, #414b85)",

@@ -2,6 +2,7 @@ import { MantineProvider } from "@mantine/core";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { expectInlineStyles } from "./styleAssertions";
 import { TagsInput } from "../src/TagsInput/TagsInput";
 import tagsInputClasses from "../src/TagsInput/TagsInput.module.css";
 import inputStylesClasses from "../src/shared/inputStyles.module.css";
@@ -53,7 +54,7 @@ describe("TagsInput", () => {
       .getByText("Home", { selector: ".mantine-Pill-label" })
       .closest(`.${tagsInputClasses.pill}`);
 
-    expect(root).toHaveStyle({
+    expectInlineStyles(root, {
       "--bbui-input-background": "var(--bb-color-surface-input, #f2f3f1)",
       "--bbui-tags-pill-background":
         "var(--bb-color-surface-elevated, #F6F6F3)",
@@ -73,7 +74,7 @@ describe("TagsInput", () => {
     const input = screen.getByRole("combobox", { name: "Tags" });
     const root = input.closest(`.${inputStylesClasses.root}`);
 
-    expect(root).toHaveStyle({
+    expectInlineStyles(root, {
       "--bbui-tags-pill-background":
         "var(--bb-color-surface-elevated, #2A2D33)",
       "--bbui-tags-pill-border": "var(--bb-color-border-subtle, #3a3d42)",

@@ -90,7 +90,7 @@ describe("DatePickerInput", () => {
     await user.click(
       screen.getByRole("button", { name: "Sunday-first date picker" }),
     );
-    await screen.findByRole("button", { name: "June 2025" });
+    await screen.findByRole("button", { name: "June 2025", hidden: true });
     const weekdays = Array.from(
       document.querySelectorAll(".mantine-DatePickerInput-weekday"),
       (weekday) => weekday.textContent,
@@ -112,7 +112,7 @@ describe("DatePickerInput", () => {
     await user.click(
       screen.getByRole("button", { name: "Monday-first date picker" }),
     );
-    await screen.findByRole("button", { name: "June 2025" });
+    await screen.findByRole("button", { name: "June 2025", hidden: true });
     const weekdays = Array.from(
       document.querySelectorAll(".mantine-DatePickerInput-weekday"),
       (weekday) => weekday.textContent,
@@ -137,7 +137,7 @@ describe("DatePickerInput", () => {
     );
 
     await user.click(screen.getByRole("button", { name: "Dark date picker" }));
-    const dropdown = await screen.findByRole("dialog");
+    const dropdown = await screen.findByRole("dialog", { hidden: true });
 
     expect(dropdown).toHaveClass(
       popoverClasses.dropdown,

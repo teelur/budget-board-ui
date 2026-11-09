@@ -2,6 +2,7 @@ import { MantineProvider } from "@mantine/core";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { expectInlineStyles } from "./styleAssertions";
 import { Checkbox } from "../src/Checkbox/Checkbox";
 import classes from "../src/Checkbox/Checkbox.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
@@ -15,7 +16,7 @@ describe("Checkbox", () => {
     expect(checkbox).toHaveAttribute("name", "terms");
     expect(checkbox).toHaveAttribute("value", "accepted");
     expect(checkbox).toHaveClass(classes.input);
-    expect(checkbox.closest(".mantine-Checkbox-root")).toHaveStyle({
+    expectInlineStyles(checkbox.closest(".mantine-Checkbox-root"), {
       "--checkbox-color": "var(--bb-color-primary, #4263eb)",
       "--checkbox-icon-color": "var(--bb-color-primary-content, #fffaf2)",
       "--bbui-checkbox-surface-input":
@@ -106,7 +107,7 @@ describe("Checkbox", () => {
     const checkbox = screen.getByRole("checkbox", { name: "Dark checkbox" });
 
     expect(checkbox.closest("[data-mantine-color-scheme='dark']")).toBeTruthy();
-    expect(checkbox.closest(".mantine-Checkbox-root")).toHaveStyle({
+    expectInlineStyles(checkbox.closest(".mantine-Checkbox-root"), {
       "--checkbox-color": "var(--bb-color-primary, #91a7ff)",
       "--checkbox-icon-color": "var(--bb-color-primary-content, #1e2450)",
       "--bbui-checkbox-surface-input":

@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { MantineProvider } from "@mantine/core";
 import { describe, expect, it } from "vitest";
+import { expectInlineStyles } from "./styleAssertions";
 import { budgetBoardDarkTheme } from "../src/theme";
 import {
   AmountText,
@@ -62,10 +63,10 @@ describe("AmountText", () => {
       </>,
     );
 
-    expect(screen.getByTestId("without-threshold")).toHaveStyle({
+    expectInlineStyles(screen.getByTestId("without-threshold"), {
       color: colors.good,
     });
-    expect(screen.getByTestId("with-threshold")).toHaveStyle({
+    expectInlineStyles(screen.getByTestId("with-threshold"), {
       color: colors.warning,
     });
   });
@@ -93,7 +94,7 @@ describe("AmountText", () => {
     const status = screen.getByTestId("status");
 
     expect(status).toHaveAttribute("id", "forwarded");
-    expect(status).toHaveStyle({
+    expectInlineStyles(status, {
       fontSize: "var(--mantine-font-size-lg)",
       fontWeight: "700",
     });
@@ -108,7 +109,7 @@ describe("AmountText", () => {
       </MantineProvider>,
     );
 
-    expect(screen.getByText("Dark total")).toHaveStyle({
+    expectInlineStyles(screen.getByText("Dark total"), {
       color: "var(--bb-color-error, #ff6b6b)",
     });
   });
@@ -182,7 +183,7 @@ describe("AmountText", () => {
     );
 
     expect(screen.getByTestId("negative")).toHaveTextContent("$12.50");
-    expect(screen.getByTestId("negative")).toHaveStyle({
+    expectInlineStyles(screen.getByTestId("negative"), {
       color: colors.good,
     });
     expect(screen.getByTestId("positive")).toHaveTextContent("-$12.50");
@@ -220,7 +221,7 @@ describe("AmountText", () => {
       </AmountText>,
     );
 
-    expect(screen.getByText("••••")).toHaveStyle({
+    expectInlineStyles(screen.getByText("••••"), {
       color: "var(--base-color-text-primary)",
     });
   });

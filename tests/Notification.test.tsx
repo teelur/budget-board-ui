@@ -2,6 +2,7 @@ import { createRef } from "react";
 import { MantineProvider } from "@mantine/core";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
+import { expectInlineStyles } from "./styleAssertions";
 import {
   Notification,
   notificationColors,
@@ -33,10 +34,10 @@ describe("Notification", () => {
     );
     expect(notification.style.padding).toBe("0.5rem");
     expect(screen.getByText("Your transactions are ready.")).toBeInTheDocument();
-    expect(screen.getByText("Import complete")).toHaveStyle({
+    expectInlineStyles(screen.getByText("Import complete"), {
       color: "var(--bb-color-text-heading, #242321)",
     });
-    expect(screen.getByText("Your transactions are ready.")).toHaveStyle({
+    expectInlineStyles(screen.getByText("Your transactions are ready."), {
       color: "var(--bb-color-text-secondary, #68645d)",
     });
   });
@@ -104,9 +105,10 @@ describe("Notification", () => {
     expect(notification).toHaveClass("consumer-root");
     expect(screen.getByText("Review needed")).toHaveClass("consumer-title");
     expect(notification).toHaveStyle({ opacity: "0.8" });
-    expect(
+    expectInlineStyles(
       screen.getByRole("button", { name: "Dismiss notification" }),
-    ).toHaveStyle({ color: "var(--bb-color-text-muted, #969087)" });
+      { color: "var(--bb-color-text-muted, #969087)" },
+    );
     expect(
       notification.style.getPropertyValue("--notification-color"),
     ).toBe("custom-notification-color");
@@ -138,10 +140,10 @@ describe("Notification", () => {
     expect(notification.style.backgroundColor).toBe(
       "color-mix(in srgb, var(--notification-color) 15%, var(--bb-color-surface-elevated, #2A2D33))",
     );
-    expect(screen.getByText("Dark notification")).toHaveStyle({
+    expectInlineStyles(screen.getByText("Dark notification"), {
       color: "var(--bb-color-text-heading, #f2f0eb)",
     });
-    expect(screen.getByText("Dark theme content")).toHaveStyle({
+    expectInlineStyles(screen.getByText("Dark theme content"), {
       color: "var(--bb-color-text-secondary, #aaa69e)",
     });
   });

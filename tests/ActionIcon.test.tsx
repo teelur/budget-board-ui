@@ -4,6 +4,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MantineProvider } from "@mantine/core";
 import { describe, expect, it, vi } from "vitest";
+import { expectInlineStyles } from "./styleAssertions";
 import { ActionIcon } from "../src/ActionIcon/ActionIcon";
 import { budgetBoardDarkTheme } from "../src/theme";
 
@@ -317,7 +318,7 @@ describe("ActionIcon", () => {
 
     expect(actionIcon).not.toHaveAttribute("h");
     expect(actionIcon).not.toHaveAttribute("w");
-    expect(actionIcon).toHaveStyle({
+    expectInlineStyles(actionIcon, {
       width: "calc(2.5rem * var(--mantine-scale))",
       height: "calc(2.5rem * var(--mantine-scale))",
     });

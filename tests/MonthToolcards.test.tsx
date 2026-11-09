@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { expectInlineStyles } from "./styleAssertions";
 import {
   MonthToolcards,
   type MonthToolcardsProps,
@@ -70,13 +71,14 @@ describe("MonthToolcards", () => {
         .getByRole("button", { name: "October 2026" })
         .style.getPropertyValue("--bbui-month-toolcard-primary"),
     ).toBe("");
-    expect(
-      screen.getByRole("button", { name: "October 2026" }).querySelector(
-        "[data-month-status]",
-      ),
-    ).toHaveStyle({
-      backgroundColor: "var(--bb-color-success, #27803d)",
-    });
+    expectInlineStyles(
+      screen
+        .getByRole("button", { name: "October 2026" })
+        .querySelector("[data-month-status]"),
+      {
+        backgroundColor: "var(--bb-color-success, #27803d)",
+      },
+    );
     expect(
       screen.getByRole("button", { name: "October 2026" }),
     ).toHaveAttribute("data-budget-board-selected", "true");
@@ -89,13 +91,14 @@ describe("MonthToolcards", () => {
       />,
     );
 
-    expect(
+    expectInlineStyles(
       screen
         .getByRole("button", { name: "October 2026" })
         .querySelector("[data-month-status]"),
-    ).toHaveStyle({
-      backgroundColor: "var(--bb-color-error, #c92a2a)",
-    });
+      {
+        backgroundColor: "var(--bb-color-error, #c92a2a)",
+      },
+    );
   });
 
   it("uses the sunken surface while pending and bypasses status lookup", () => {
@@ -112,7 +115,7 @@ describe("MonthToolcards", () => {
       .querySelector("[data-month-status]");
 
     expect(statusStrip).toHaveAttribute("data-month-status", "pending");
-    expect(statusStrip).toHaveStyle({
+    expectInlineStyles(statusStrip, {
       backgroundColor: "var(--bb-color-surface-sunken, #ebe8df)",
     });
     expect(getMonthStatus).not.toHaveBeenCalled();
