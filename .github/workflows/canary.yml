@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - docs/**
+      - docs.vite.config.ts
+      - tsconfig.docs.json
 
 permissions:
   contents: read
