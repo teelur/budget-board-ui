@@ -56,6 +56,10 @@ describe("Menu", () => {
     expect(document.querySelector(".mantine-Menu-arrow")).toHaveClass(
       classes.arrow,
     );
+    expect(
+      document.querySelector<HTMLElement>(".mantine-Menu-arrow")?.style
+        .borderColor,
+    ).toBe("");
   });
 
   it("uses semantic dark colors from a dark provider", () => {

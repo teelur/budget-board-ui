@@ -21,7 +21,6 @@ function MenuRoot({
   const menuStyles = mergeStyles(styles, {
     arrow: {
       backgroundColor: "var(--bbui-menu-background)",
-      borderColor: "var(--bbui-menu-border)",
     },
     chevron: {
       color: "var(--bbui-menu-secondary-text)",
