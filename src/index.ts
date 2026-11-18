@@ -101,6 +101,12 @@ export {
 
 export { Modal, type ModalProps } from "./Modal/Modal";
 
+export {
+  Menu,
+  type MenuProps,
+  type MenuStylesNames,
+} from "./Menu/Menu";
+
 export { Drawer, type DrawerProps } from "./Drawer/Drawer";
 
 export {

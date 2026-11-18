@@ -48,6 +48,7 @@ import { PinInputPage } from "./pages/PinInputPage/PinInputPage";
 import { PopoverPage } from "./pages/PopoverPage/PopoverPage";
 import { ProgressPage } from "./pages/ProgressPage/ProgressPage";
 import { LoadingOverlayPage } from "./pages/LoadingOverlayPage/LoadingOverlayPage";
+import { MenuPage } from "./pages/MenuPage/MenuPage";
 import { SkeletonPage } from "./pages/SkeletonPage/SkeletonPage";
 import { SegmentedControlPage } from "./pages/SegmentedControlPage/SegmentedControlPage";
 import { SelectPage } from "./pages/SelectPage/SelectPage";
@@ -232,6 +233,7 @@ export function App() {
                 <a href="#collapsible-card">CollapsibleCard</a>
                 <a href="#divider">Divider</a>
                 <a href="#drawer">Drawer</a>
+                <a href="#menu">Menu</a>
                 <a href="#modal">Modal</a>
                 <a href="#popover">Popover</a>
               </div>
@@ -430,6 +432,7 @@ export function App() {
                 <CollapsibleCardPage />
                 <DividerPage />
                 <DrawerPage />
+                <MenuPage />
                 <ModalPage />
                 <PopoverPage />
               </section>
