@@ -67,6 +67,15 @@
   height: 0.65rem;
 }
 
+.legendLineSwatch {
+  background: none;
+  border: 0;
+  border-top: 2px dashed var(--bbui-transaction-trends-chart-series-color);
+  border-radius: 0;
+  flex-basis: 0.9rem;
+  height: 0;
+}
+
 .tooltip {
   background: var(--bbui-transaction-trends-chart-tooltip-surface);
   border: 1px solid var(--bbui-transaction-trends-chart-tooltip-border);
@@ -107,6 +116,14 @@
   border-radius: 50%;
   height: 0.65rem;
   width: 0.65rem;
+}
+
+.tooltipLineMarker {
+  background: none;
+  border-top: 2px dashed var(--bbui-transaction-trends-chart-marker);
+  border-radius: 0;
+  height: 0;
+  width: 0.75rem;
 }
 
 .emptyMessage {

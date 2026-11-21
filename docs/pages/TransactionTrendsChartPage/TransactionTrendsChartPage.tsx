@@ -18,16 +18,23 @@ const sampleData: TransactionTrendsChartData[] = [
   { day: 1, march: 0, april: 0, may: 0 },
   { day: 5, march: 180, april: 145, may: 210 },
   { day: 10, march: 340, april: 390, may: 460 },
-  { day: 15, march: 650, april: 590, may: 720 },
-  { day: 20, march: 820, april: 940, may: 1010 },
-  { day: 25, march: 1180, april: 1270, may: 1390 },
-  { day: 30, march: 1450, april: 1530, may: 1710 },
+  { day: 15, march: 650, april: 590, may: 720, mayProjected: 720 },
+  { day: 20, march: 820, april: 940, may: 1010, mayProjected: 1140 },
+  { day: 25, march: 1180, april: 1270, may: 1390, mayProjected: 1530 },
+  { day: 30, march: 1450, april: 1530, may: 1710, mayProjected: 1870 },
 ];
 
 const series: TransactionTrendsChartSeries[] = [
   { key: "march", label: "March 2026" },
   { key: "april", label: "April 2026" },
   { key: "may", label: "May 2026" },
+  {
+    key: "mayProjected",
+    label: "May 2026 (Projected)",
+    colorIndex: 2,
+    strokeDasharray: "6 4",
+    type: "line",
+  },
 ];
 
 const formatCurrency = (value: number) =>
@@ -81,12 +88,13 @@ export function TransactionTrendsChartPage() {
         m="1em 0"
         tone="muted"
       >
-        A responsive, theme-aware comparison of cumulative transaction totals
-        by day across selected months. Callers provide chart-ready points, localized
-        series labels, and a value formatter; BBUI supplies the shared graph
-        palette and semantic axis, grid, focus, cursor, and tooltip styling.
-        Point markers show each supplied daily value, and hovering or
-        keyboard-focusing a legend item emphasizes its area.
+        A responsive, theme-aware comparison of cumulative transaction totals by
+        day across selected months. Callers provide chart-ready points,
+        localized series labels, and a value formatter; BBUI supplies the shared
+        graph palette and semantic axis, grid, focus, cursor, and tooltip
+        styling. Series can render as filled areas or lines; line series support
+        dashed strokes and can share a palette color index with an area.
+        Hovering or keyboard-focusing a legend item emphasizes its series.
       </BodyText>
 
       <ComponentDemoSection
@@ -168,16 +176,12 @@ export function TransactionTrendsChartPage() {
             <Checkbox
               checked={includeGrid}
               label="Show grid"
-              onChange={(event) =>
-                setIncludeGrid(event.currentTarget.checked)
-              }
+              onChange={(event) => setIncludeGrid(event.currentTarget.checked)}
             />
             <Checkbox
               checked={includeYAxis}
               label="Show y-axis"
-              onChange={(event) =>
-                setIncludeYAxis(event.currentTarget.checked)
-              }
+              onChange={(event) => setIncludeYAxis(event.currentTarget.checked)}
             />
           </div>
           <div className={styles.chartPreview}>
@@ -250,7 +254,10 @@ export function TransactionTrendsChartPage() {
                     <code>TransactionTrendsChartSeries[]</code>
                   </td>
                   <td>Required</td>
-                  <td>Series keys, localized labels, and optional colors.</td>
+                  <td>
+                    Series keys, localized labels, optional colors or palette
+                    indices, and area/line styling.
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -344,9 +351,11 @@ export function TransactionTrendsChartPage() {
               value may be omitted for a day, such as when months have different
               lengths; provided values must be finite.{" "}
               <code>TransactionTrendsChartSeries</code> contains a unique{" "}
-              <code>key</code>, a localized <code>label</code>, and an optional
-              color override. Series without a color use the shared BBUI data
-              palette for the active theme.
+              <code>key</code>, a localized <code>label</code>, and optional
+              <code>color</code>, <code>colorIndex</code>, <code>type</code>,
+              and <code>strokeDasharray</code> properties. By default, series
+              render as areas and use the shared BBUI data palette for the
+              active theme.
             </BodyText>
           </div>
         </div>

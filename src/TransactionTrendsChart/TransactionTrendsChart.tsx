@@ -3,8 +3,9 @@ import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
 import { useMemo, useState } from "react";
 import {
   Area,
-  AreaChart,
   CartesianGrid,
+  ComposedChart,
+  Line,
   Tooltip,
   XAxis,
   YAxis,
@@ -25,6 +26,9 @@ export interface TransactionTrendsChartSeries {
   key: string;
   label: string;
   color?: string;
+  colorIndex?: number;
+  strokeDasharray?: string;
+  type?: "area" | "line";
 }
 
 export interface TransactionTrendsChartProps extends Omit<
@@ -125,7 +129,9 @@ export function TransactionTrendsChart({
     () =>
       series.map((item, index) => ({
         ...item,
-        color: item.color ?? getBudgetBoardDataColor(index, colorScheme),
+        color:
+          item.color ??
+          getBudgetBoardDataColor(item.colorIndex ?? index, colorScheme),
       })),
     [colorScheme, series],
   );
@@ -152,7 +158,11 @@ export function TransactionTrendsChart({
   } as CSSProperties;
 
   const getFillOpacity = (seriesKey: string) =>
-    activeSeriesKey === null ? 0.24 : activeSeriesKey === seriesKey ? 0.4 : 0.08;
+    activeSeriesKey === null
+      ? 0.24
+      : activeSeriesKey === seriesKey
+        ? 0.4
+        : 0.08;
   const getStrokeOpacity = (seriesKey: string) =>
     activeSeriesKey === null || activeSeriesKey === seriesKey ? 1 : 0.25;
 
@@ -181,7 +191,7 @@ export function TransactionTrendsChart({
             ref={viewportRef}
             style={{ height }}
           >
-            <AreaChart
+            <ComposedChart
               accessibilityLayer
               className={classes.chart ?? ""}
               data={chartData}
@@ -213,7 +223,8 @@ export function TransactionTrendsChart({
                   axisLine={false}
                   tick={{
                     fill: "var(--bbui-transaction-trends-chart-axis)",
-                    fontFamily: "var(--bbui-transaction-trends-chart-font-body)",
+                    fontFamily:
+                      "var(--bbui-transaction-trends-chart-font-body)",
                     fontSize: "var(--mantine-font-size-xs, 0.75rem)",
                   }}
                   tickFormatter={formatValue}
@@ -229,7 +240,9 @@ export function TransactionTrendsChart({
 
                   const entries = payload.flatMap((item) => {
                     const seriesKey =
-                      typeof item.dataKey === "string" ? item.dataKey : undefined;
+                      typeof item.dataKey === "string"
+                        ? item.dataKey
+                        : undefined;
                     const chartSeriesItem = seriesKey
                       ? seriesByKey.get(seriesKey)
                       : undefined;
@@ -255,7 +268,14 @@ export function TransactionTrendsChart({
                           <li className={classes.tooltipRow} key={entry.key}>
                             <span
                               aria-hidden="true"
-                              className={classes.tooltipMarker}
+                              className={[
+                                classes.tooltipMarker,
+                                entry.type === "line"
+                                  ? classes.tooltipLineMarker
+                                  : undefined,
+                              ]
+                                .filter(Boolean)
+                                .join(" ")}
                               style={
                                 {
                                   "--bbui-transaction-trends-chart-marker":
@@ -281,27 +301,46 @@ export function TransactionTrendsChart({
                 isAnimationActive={false}
                 wrapperStyle={{ outline: "none" }}
               />
-              {chartSeries.map((item) => (
-                <Area
-                  activeDot={{ r: 4 }}
-                  {...(activeSeriesKey !== null &&
-                  activeSeriesKey !== item.key
-                    ? { className: classes.seriesDimmed ?? "" }
-                    : {})}
-                  dataKey={item.key}
-                  dot={{ r: 3 }}
-                  fill={item.color}
-                  fillOpacity={getFillOpacity(item.key)}
-                  isAnimationActive="auto"
-                  key={item.key}
-                  name={item.label}
-                  stroke={item.color}
-                  strokeOpacity={getStrokeOpacity(item.key)}
-                  strokeWidth={activeSeriesKey === item.key ? 3 : 2}
-                  type="monotone"
-                />
-              ))}
-            </AreaChart>
+              {chartSeries.map((item) => {
+                const dimmed =
+                  activeSeriesKey !== null && activeSeriesKey !== item.key;
+                const seriesProps = {
+                  activeDot: { r: 4 },
+                  ...(dimmed ? { className: classes.seriesDimmed ?? "" } : {}),
+                  dataKey: item.key,
+                  name: item.label,
+                  stroke: item.color,
+                  strokeOpacity: getStrokeOpacity(item.key),
+                  strokeWidth: activeSeriesKey === item.key ? 3 : 2,
+                  type: "monotone" as const,
+                };
+
+                if (item.type === "line") {
+                  return (
+                    <Line
+                      {...seriesProps}
+                      dot={false}
+                      isAnimationActive={false}
+                      key={item.key}
+                      {...(item.strokeDasharray !== undefined
+                        ? { strokeDasharray: item.strokeDasharray }
+                        : {})}
+                    />
+                  );
+                }
+
+                return (
+                  <Area
+                    {...seriesProps}
+                    dot={{ r: 3 }}
+                    fill={item.color}
+                    fillOpacity={getFillOpacity(item.key)}
+                    isAnimationActive="auto"
+                    key={item.key}
+                  />
+                );
+              })}
+            </ComposedChart>
           </div>
           <ul aria-label={`${ariaLabel} series`} className={classes.legend}>
             {chartSeries.map((item) => (
@@ -316,7 +355,12 @@ export function TransactionTrendsChart({
               >
                 <span
                   aria-hidden="true"
-                  className={classes.legendSwatch}
+                  className={[
+                    classes.legendSwatch,
+                    item.type === "line" ? classes.legendLineSwatch : undefined,
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
                   style={
                     {
                       "--bbui-transaction-trends-chart-series-color":
