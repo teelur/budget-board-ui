@@ -76,6 +76,23 @@
   height: 0;
 }
 
+.legendSwatches {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.legendGroupAreaSwatch,
+.legendGroupLineSwatch {
+  border-top: 2px solid var(--bbui-transaction-trends-chart-series-color);
+  display: inline-block;
+  height: 0;
+  width: 0.55rem;
+}
+
+.legendGroupLineSwatch {
+  border-top-style: dashed;
+}
+
 .tooltip {
   background: var(--bbui-transaction-trends-chart-tooltip-surface);
   border: 1px solid var(--bbui-transaction-trends-chart-tooltip-border);
