@@ -27,6 +27,7 @@ export interface TransactionTrendsChartSeries {
   label: string;
   color?: string;
   colorIndex?: number;
+  legendLabel?: string;
   strokeDasharray?: string;
   type?: "area" | "line";
 }
@@ -50,6 +51,12 @@ interface ChartSeries extends TransactionTrendsChartSeries {
   color: string;
 }
 
+interface ChartLegendItem {
+  key: string;
+  label: string;
+  series: ChartSeries[];
+}
+
 function validateData(
   data: TransactionTrendsChartData[],
   series: TransactionTrendsChartSeries[],
@@ -66,6 +73,12 @@ function validateData(
     if (!item.label.trim()) {
       throw new RangeError(
         `Transaction trends chart series at index ${index} must have a non-empty label.`,
+      );
+    }
+
+    if (item.legendLabel !== undefined && !item.legendLabel.trim()) {
+      throw new RangeError(
+        `Transaction trends chart series at index ${index} must have a non-empty legend label.`,
       );
     }
 
@@ -115,12 +128,12 @@ export function TransactionTrendsChart({
   const { ref: sizeRef, width } = useElementSize<HTMLDivElement>();
   const { ref: viewportRef, height: viewportHeight } =
     useElementSize<HTMLDivElement>();
-  const [hoveredSeriesKey, setHoveredSeriesKey] = useState<string | null>(null);
-  const [focusedSeriesKey, setFocusedSeriesKey] = useState<string | null>(null);
+  const [hoveredLegendKey, setHoveredLegendKey] = useState<string | null>(null);
+  const [focusedLegendKey, setFocusedLegendKey] = useState<string | null>(null);
   // The viewport can shrink in flex containers to leave room for the legend.
   const chartHeight =
     viewportHeight > 0 ? Math.min(height, Math.floor(viewportHeight)) : height;
-  const activeSeriesKey = hoveredSeriesKey ?? focusedSeriesKey;
+  const activeLegendKey = hoveredLegendKey ?? focusedLegendKey;
   const chartData = useMemo(() => {
     validateData(data, series);
     return data;
@@ -139,6 +152,26 @@ export function TransactionTrendsChart({
     () => new Map(chartSeries.map((item) => [item.key, item])),
     [chartSeries],
   );
+  const legendItems = useMemo(() => {
+    const itemsByLabel = new Map<string, ChartLegendItem>();
+
+    chartSeries.forEach((item) => {
+      const label = item.legendLabel ?? item.label;
+      const existing = itemsByLabel.get(label);
+
+      if (existing) {
+        existing.series.push(item);
+      } else {
+        itemsByLabel.set(label, {
+          key: label,
+          label,
+          series: [item],
+        });
+      }
+    });
+
+    return [...itemsByLabel.values()];
+  }, [chartSeries]);
 
   if (!Number.isFinite(height) || height <= 0) {
     throw new RangeError(
@@ -157,14 +190,17 @@ export function TransactionTrendsChart({
     "--bbui-transaction-trends-chart-tooltip-surface": `var(--bb-color-surface-overlay, ${colors.surfaceOverlay})`,
   } as CSSProperties;
 
-  const getFillOpacity = (seriesKey: string) =>
-    activeSeriesKey === null
+  const getLegendKey = (item: ChartSeries) => item.legendLabel ?? item.label;
+  const getFillOpacity = (item: ChartSeries) =>
+    activeLegendKey === null
       ? 0.24
-      : activeSeriesKey === seriesKey
+      : activeLegendKey === getLegendKey(item)
         ? 0.4
         : 0.08;
-  const getStrokeOpacity = (seriesKey: string) =>
-    activeSeriesKey === null || activeSeriesKey === seriesKey ? 1 : 0.25;
+  const getStrokeOpacity = (item: ChartSeries) =>
+    activeLegendKey === null || activeLegendKey === getLegendKey(item)
+      ? 1
+      : 0.25;
 
   const content = (
     <div
@@ -303,15 +339,16 @@ export function TransactionTrendsChart({
               />
               {chartSeries.map((item) => {
                 const dimmed =
-                  activeSeriesKey !== null && activeSeriesKey !== item.key;
+                  activeLegendKey !== null &&
+                  activeLegendKey !== getLegendKey(item);
                 const seriesProps = {
                   activeDot: { r: 4 },
                   ...(dimmed ? { className: classes.seriesDimmed ?? "" } : {}),
                   dataKey: item.key,
                   name: item.label,
                   stroke: item.color,
-                  strokeOpacity: getStrokeOpacity(item.key),
-                  strokeWidth: activeSeriesKey === item.key ? 3 : 2,
+                  strokeOpacity: getStrokeOpacity(item),
+                  strokeWidth: activeLegendKey === getLegendKey(item) ? 3 : 2,
                   type: "monotone" as const,
                 };
 
@@ -334,7 +371,7 @@ export function TransactionTrendsChart({
                     {...seriesProps}
                     dot={{ r: 3 }}
                     fill={item.color}
-                    fillOpacity={getFillOpacity(item.key)}
+                    fillOpacity={getFillOpacity(item)}
                     isAnimationActive="auto"
                     key={item.key}
                   />
@@ -343,31 +380,57 @@ export function TransactionTrendsChart({
             </ComposedChart>
           </div>
           <ul aria-label={`${ariaLabel} series`} className={classes.legend}>
-            {chartSeries.map((item) => (
+            {legendItems.map((item) => (
               <li
+                aria-label={item.series
+                  .map((seriesItem) => seriesItem.label)
+                  .join(", ")}
                 className={classes.legendItem}
                 key={item.key}
-                onBlur={() => setFocusedSeriesKey(null)}
-                onFocus={() => setFocusedSeriesKey(item.key)}
-                onMouseEnter={() => setHoveredSeriesKey(item.key)}
-                onMouseLeave={() => setHoveredSeriesKey(null)}
+                onBlur={() => setFocusedLegendKey(null)}
+                onFocus={() => setFocusedLegendKey(item.key)}
+                onMouseEnter={() => setHoveredLegendKey(item.key)}
+                onMouseLeave={() => setHoveredLegendKey(null)}
                 tabIndex={0}
               >
-                <span
-                  aria-hidden="true"
-                  className={[
-                    classes.legendSwatch,
-                    item.type === "line" ? classes.legendLineSwatch : undefined,
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
-                  style={
-                    {
-                      "--bbui-transaction-trends-chart-series-color":
-                        item.color,
-                    } as CSSProperties
-                  }
-                />
+                {item.series.length > 1 ? (
+                  <span aria-hidden="true" className={classes.legendSwatches}>
+                    {item.series.map((seriesItem) => (
+                      <span
+                        className={
+                          seriesItem.type === "line"
+                            ? classes.legendGroupLineSwatch
+                            : classes.legendGroupAreaSwatch
+                        }
+                        key={seriesItem.key}
+                        style={
+                          {
+                            "--bbui-transaction-trends-chart-series-color":
+                              seriesItem.color,
+                          } as CSSProperties
+                        }
+                      />
+                    ))}
+                  </span>
+                ) : (
+                  <span
+                    aria-hidden="true"
+                    className={[
+                      classes.legendSwatch,
+                      item.series[0]?.type === "line"
+                        ? classes.legendLineSwatch
+                        : undefined,
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                    style={
+                      {
+                        "--bbui-transaction-trends-chart-series-color":
+                          item.series[0]?.color,
+                      } as CSSProperties
+                    }
+                  />
+                )}
                 <BodyText fw={500} size="xs" tone="secondary">
                   {item.label}
                 </BodyText>

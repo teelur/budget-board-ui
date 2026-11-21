@@ -110,6 +110,7 @@ describe("TransactionTrendsChart", () => {
           key: "marchProjected",
           label: "March 2026 (Projected)",
           colorIndex: 2,
+          legendLabel: "March 2026",
           strokeDasharray: "6 4",
           type: "line",
         },
@@ -119,16 +120,31 @@ describe("TransactionTrendsChart", () => {
     const chart = screen.getByTestId("transaction-trends-chart");
     const area = chart.querySelector(".recharts-area-curve");
     const line = chart.querySelector(".recharts-line-curve");
+    const groupedSwatches = screen
+      .getByText("March 2026")
+      .closest("li")
+      ?.querySelectorAll(`.${chartClasses.legendSwatches} > span`);
 
     expect(area).not.toBeNull();
     expect(line).toHaveAttribute("stroke", area?.getAttribute("stroke"));
     expect(line).toHaveAttribute("stroke-dasharray", "6 4");
+    expect(groupedSwatches).toHaveLength(2);
+    expect(groupedSwatches?.[0]).toHaveClass(
+      chartClasses.legendGroupAreaSwatch,
+    );
+    expect(groupedSwatches?.[1]).toHaveClass(
+      chartClasses.legendGroupLineSwatch,
+    );
     expect(
-      screen
-        .getByText("March 2026 (Projected)")
-        .closest("li")
-        ?.querySelector(`.${chartClasses.legendLineSwatch}`),
-    ).not.toBeNull();
+      screen.queryByText("March 2026 (Projected)"),
+    ).not.toBeInTheDocument();
+    expect(chart.querySelectorAll(`.${chartClasses.legendItem}`)).toHaveLength(
+      1,
+    );
+    expect(chart.querySelector(`.${chartClasses.legendItem}`)).toHaveAttribute(
+      "aria-label",
+      "March 2026, March 2026 (Projected)",
+    );
   });
 
   it("uses the BBUI data palette and semantic chart colors in both themes", () => {

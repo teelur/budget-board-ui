@@ -93,8 +93,10 @@ export function TransactionTrendsChartPage() {
         localized series labels, and a value formatter; BBUI supplies the shared
         graph palette and semantic axis, grid, focus, cursor, and tooltip
         styling. Series can render as filled areas or lines; line series support
-        dashed strokes and can share a palette color index with an area.
-        Hovering or keyboard-focusing a legend item emphasizes its series.
+        dashed strokes and can share a palette color index with an area. Series
+        with a shared legend label use one legend entry while retaining their
+        individual tooltip labels. Hovering or keyboard-focusing a legend item
+        emphasizes its series.
       </BodyText>
 
       <ComponentDemoSection
@@ -256,7 +258,7 @@ export function TransactionTrendsChartPage() {
                   <td>Required</td>
                   <td>
                     Series keys, localized labels, optional colors or palette
-                    indices, and area/line styling.
+                    indices, legend labels, and area/line styling.
                   </td>
                 </tr>
                 <tr>
@@ -352,10 +354,13 @@ export function TransactionTrendsChartPage() {
               lengths; provided values must be finite.{" "}
               <code>TransactionTrendsChartSeries</code> contains a unique{" "}
               <code>key</code>, a localized <code>label</code>, and optional
-              <code>color</code>, <code>colorIndex</code>, <code>type</code>,
-              and <code>strokeDasharray</code> properties. By default, series
-              render as areas and use the shared BBUI data palette for the
-              active theme.
+              <code>color</code>, <code>colorIndex</code>,{" "}
+              <code>legendLabel</code>, <code>type</code>, and{" "}
+              <code>strokeDasharray</code> properties. Series with the same
+              <code>legendLabel</code> share a legend item, while their
+              individual labels remain in the tooltip. By default, series render
+              as areas and use the shared BBUI data palette for the active
+              theme.
             </BodyText>
           </div>
         </div>
