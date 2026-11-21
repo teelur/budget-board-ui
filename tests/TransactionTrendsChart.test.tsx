@@ -97,6 +97,40 @@ describe("TransactionTrendsChart", () => {
     expect(screen.getByText("April 2026")).toBeInTheDocument();
   });
 
+  it("renders dashed line series and supports sharing an area series color", () => {
+    renderChart({
+      data: [
+        { day: 1, march: 0, marchProjected: 0 },
+        { day: 2, march: 25, marchProjected: 30 },
+        { day: 3, march: 40, marchProjected: 50 },
+      ],
+      series: [
+        { key: "march", label: "March 2026", colorIndex: 2 },
+        {
+          key: "marchProjected",
+          label: "March 2026 (Projected)",
+          colorIndex: 2,
+          strokeDasharray: "6 4",
+          type: "line",
+        },
+      ],
+    });
+
+    const chart = screen.getByTestId("transaction-trends-chart");
+    const area = chart.querySelector(".recharts-area-curve");
+    const line = chart.querySelector(".recharts-line-curve");
+
+    expect(area).not.toBeNull();
+    expect(line).toHaveAttribute("stroke", area?.getAttribute("stroke"));
+    expect(line).toHaveAttribute("stroke-dasharray", "6 4");
+    expect(
+      screen
+        .getByText("March 2026 (Projected)")
+        .closest("li")
+        ?.querySelector(`.${chartClasses.legendLineSwatch}`),
+    ).not.toBeNull();
+  });
+
   it("uses the BBUI data palette and semantic chart colors in both themes", () => {
     const { rerender } = render(renderWithColorScheme("light"));
     let chart = screen.getByTestId("transaction-trends-chart");
@@ -112,9 +146,10 @@ describe("TransactionTrendsChart", () => {
         "--bbui-transaction-trends-chart-tooltip-surface",
       ),
     ).toContain(budgetBoardColors.light.surfaceOverlay);
-    expect(
-      chart.querySelector(".recharts-area-curve"),
-    ).toHaveAttribute("stroke", budgetBoardDataColors.light[0]);
+    expect(chart.querySelector(".recharts-area-curve")).toHaveAttribute(
+      "stroke",
+      budgetBoardDataColors.light[0],
+    );
 
     rerender(renderWithColorScheme("dark"));
     chart = screen.getByTestId("transaction-trends-chart");
@@ -122,9 +157,10 @@ describe("TransactionTrendsChart", () => {
     expect(
       chart.style.getPropertyValue("--bbui-transaction-trends-chart-focus"),
     ).toContain(budgetBoardColors.dark.focusRing);
-    expect(
-      chart.querySelector(".recharts-area-curve"),
-    ).toHaveAttribute("stroke", budgetBoardDataColors.dark[0]);
+    expect(chart.querySelector(".recharts-area-curve")).toHaveAttribute(
+      "stroke",
+      budgetBoardDataColors.dark[0],
+    );
   });
 
   it("uses BBUI body typography for the chart axis labels", () => {
@@ -136,9 +172,7 @@ describe("TransactionTrendsChart", () => {
     );
 
     expect(
-      chart.style.getPropertyValue(
-        "--bbui-transaction-trends-chart-font-body",
-      ),
+      chart.style.getPropertyValue("--bbui-transaction-trends-chart-font-body"),
     ).toBe(`var(--bb-font-body, ${budgetBoardTypography.body})`);
     expect(axisLabels.length).toBeGreaterThan(0);
     axisLabels.forEach((label) => {
@@ -167,9 +201,10 @@ describe("TransactionTrendsChart", () => {
       expect(getAreaGroups()[1]).toHaveClass(chartClasses.seriesDimmed),
     );
     expect(getAreaGroups()[0]).not.toHaveClass(chartClasses.seriesDimmed);
-    expect(
-      chart.querySelectorAll(".recharts-area-curve")[1],
-    ).toHaveAttribute("stroke-opacity", "0.25");
+    expect(chart.querySelectorAll(".recharts-area-curve")[1]).toHaveAttribute(
+      "stroke-opacity",
+      "0.25",
+    );
 
     fireEvent.mouseLeave(marchLegend!);
     await waitFor(() =>
@@ -179,9 +214,10 @@ describe("TransactionTrendsChart", () => {
     fireEvent.focus(aprilLegend!);
 
     expect(getAreaGroups()[0]).toHaveClass(chartClasses.seriesDimmed);
-    expect(
-      chart.querySelectorAll(".recharts-area-curve")[1],
-    ).toHaveAttribute("stroke-width", "3");
+    expect(chart.querySelectorAll(".recharts-area-curve")[1]).toHaveAttribute(
+      "stroke-width",
+      "3",
+    );
 
     fireEvent.blur(aprilLegend!);
     expect(getAreaGroups()[0]).not.toHaveClass(chartClasses.seriesDimmed);
@@ -210,10 +246,15 @@ describe("TransactionTrendsChart", () => {
 
     const chart = screen.getByTestId("transaction-trends-chart");
 
-    expect(chart.querySelector("svg")).toHaveAttribute("viewBox", "0 0 480 400");
+    expect(chart.querySelector("svg")).toHaveAttribute(
+      "viewBox",
+      "0 0 480 400",
+    );
     expect(chart.querySelector(".recharts-xAxis")).toBeInTheDocument();
     expect(chart.querySelector(".recharts-yAxis")).not.toBeInTheDocument();
-    expect(chart.querySelector(".recharts-cartesian-grid")).not.toBeInTheDocument();
+    expect(
+      chart.querySelector(".recharts-cartesian-grid"),
+    ).not.toBeInTheDocument();
   });
 
   it("renders loading and empty states", () => {
