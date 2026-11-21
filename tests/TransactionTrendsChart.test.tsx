@@ -1,5 +1,11 @@
 import { MantineProvider } from "@mantine/core";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   budgetBoardColors,
@@ -254,6 +260,50 @@ describe("TransactionTrendsChart", () => {
     expect(screen.getByRole("tooltip")).toHaveTextContent("$25");
     expect(screen.getByRole("tooltip")).toHaveTextContent("April 2026");
     expect(screen.getByRole("tooltip")).toHaveTextContent("$18");
+  });
+
+  it("omits a grouped line's duplicate anchor from the tooltip", () => {
+    renderChart({
+      data: [
+        { day: 1, march: 0, april: 0 },
+        { day: 2, march: 25, april: 25, marchProjected: 25 },
+        { day: 3, march: 35, marchProjected: 40 },
+        { day: 4, marchProjected: 40 },
+      ],
+      series: [
+        { key: "march", label: "March 2026" },
+        { key: "april", label: "April 2026" },
+        {
+          key: "marchProjected",
+          label: "March 2026 (Projected)",
+          legendLabel: "March 2026",
+          type: "line",
+        },
+      ],
+    });
+
+    const surface = screen
+      .getByTestId("transaction-trends-chart")
+      .querySelector(".recharts-surface")!;
+    fireEvent.focus(surface);
+    fireEvent.keyDown(surface, { key: "ArrowRight" });
+
+    let tooltip = within(screen.getByRole("tooltip"));
+    expect(tooltip.getByText("March 2026")).toBeInTheDocument();
+    expect(tooltip.getByText("April 2026")).toBeInTheDocument();
+    expect(
+      tooltip.queryByText("March 2026 (Projected)"),
+    ).not.toBeInTheDocument();
+
+    fireEvent.keyDown(surface, { key: "ArrowRight" });
+    tooltip = within(screen.getByRole("tooltip"));
+    expect(tooltip.getByText("March 2026")).toBeInTheDocument();
+    expect(tooltip.getByText("March 2026 (Projected)")).toBeInTheDocument();
+
+    fireEvent.keyDown(surface, { key: "ArrowRight" });
+    tooltip = within(screen.getByRole("tooltip"));
+    expect(tooltip.queryByText("March 2026")).not.toBeInTheDocument();
+    expect(tooltip.getByText("March 2026 (Projected)")).toBeInTheDocument();
   });
 
   it("supports narrow containers and omitting optional axes and grid", () => {
