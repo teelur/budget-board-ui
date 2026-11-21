@@ -289,8 +289,18 @@ export function TransactionTrendsChart({
                       ? [{ ...chartSeriesItem, value }]
                       : [];
                   });
+                  const visibleEntries = entries.filter(
+                    (entry) =>
+                      entry.type !== "line" ||
+                      !entries.some(
+                        (other) =>
+                          other.type !== "line" &&
+                          getLegendKey(other) === getLegendKey(entry) &&
+                          other.value === entry.value,
+                      ),
+                  );
 
-                  if (entries.length === 0) {
+                  if (visibleEntries.length === 0) {
                     return null;
                   }
 
@@ -300,7 +310,7 @@ export function TransactionTrendsChart({
                         {label}
                       </BodyText>
                       <ul className={classes.tooltipRows}>
-                        {entries.map((entry) => (
+                        {visibleEntries.map((entry) => (
                           <li className={classes.tooltipRow} key={entry.key}>
                             <span
                               aria-hidden="true"

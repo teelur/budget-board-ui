@@ -19,9 +19,9 @@ const sampleData: TransactionTrendsChartData[] = [
   { day: 5, march: 180, april: 145, may: 210 },
   { day: 10, march: 340, april: 390, may: 460 },
   { day: 15, march: 650, april: 590, may: 720, mayProjected: 720 },
-  { day: 20, march: 820, april: 940, may: 1010, mayProjected: 1140 },
-  { day: 25, march: 1180, april: 1270, may: 1390, mayProjected: 1530 },
-  { day: 30, march: 1450, april: 1530, may: 1710, mayProjected: 1870 },
+  { day: 20, march: 820, april: 940, mayProjected: 1140 },
+  { day: 25, march: 1180, april: 1270, mayProjected: 1530 },
+  { day: 30, march: 1450, april: 1530, mayProjected: 1870 },
 ];
 
 const series: TransactionTrendsChartSeries[] = [
@@ -32,6 +32,7 @@ const series: TransactionTrendsChartSeries[] = [
     key: "mayProjected",
     label: "May 2026 (Projected)",
     colorIndex: 2,
+    legendLabel: "May 2026",
     strokeDasharray: "6 4",
     type: "line",
   },
@@ -95,8 +96,9 @@ export function TransactionTrendsChartPage() {
         styling. Series can render as filled areas or lines; line series support
         dashed strokes and can share a palette color index with an area. Series
         with a shared legend label use one legend entry while retaining their
-        individual tooltip labels. Hovering or keyboard-focusing a legend item
-        emphasizes its series.
+        individual tooltip labels. A line's duplicate value at a shared area
+        anchor is omitted from the tooltip. Hovering or keyboard-focusing a
+        legend item emphasizes its series.
       </BodyText>
 
       <ComponentDemoSection
