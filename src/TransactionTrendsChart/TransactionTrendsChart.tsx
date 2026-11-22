@@ -408,62 +408,82 @@ export function TransactionTrendsChart({
             </ComposedChart>
           </div>
           <ul aria-label={`${ariaLabel} series`} className={classes.legend}>
-            {legendItems.map((item) => (
-              <li
-                aria-label={item.series
-                  .map((seriesItem) => seriesItem.label)
-                  .join(", ")}
-                className={classes.legendItem}
-                key={item.key}
-                onBlur={() => setFocusedLegendKey(null)}
-                onFocus={() => setFocusedLegendKey(item.key)}
-                onMouseEnter={() => setHoveredLegendKey(item.key)}
-                onMouseLeave={() => setHoveredLegendKey(null)}
-                tabIndex={0}
-              >
-                {item.series.length > 1 ? (
-                  <span aria-hidden="true" className={classes.legendSwatches}>
-                    {item.series.map((seriesItem) => (
-                      <span
-                        className={
-                          seriesItem.type === "line"
-                            ? classes.legendGroupLineSwatch
-                            : classes.legendGroupAreaSwatch
-                        }
-                        key={seriesItem.key}
-                        style={
-                          {
-                            "--bbui-transaction-trends-chart-series-color":
-                              seriesItem.color,
-                          } as CSSProperties
-                        }
-                      />
-                    ))}
-                  </span>
-                ) : (
-                  <span
-                    aria-hidden="true"
-                    className={[
-                      classes.legendSwatch,
-                      item.series[0]?.type === "line"
-                        ? classes.legendLineSwatch
-                        : undefined,
-                    ]
-                      .filter(Boolean)
-                      .join(" ")}
-                    style={
-                      {
-                        "--bbui-transaction-trends-chart-series-color":
-                          item.series[0]?.color,
-                      } as CSSProperties
-                    }
-                  />
-                )}
-                <BodyText fw={500} size="xs" tone="secondary">
-                  {item.label}
-                </BodyText>
-              </li>
-            ))}
+            {legendItems.map((item) => {
+              const areaSeries = item.series.find(
+                (seriesItem) => seriesItem.type !== "line",
+              );
+              const hasMixedSeriesTypes =
+                areaSeries !== undefined &&
+                item.series.some((seriesItem) => seriesItem.type === "line");
+
+              return (
+                <li
+                  aria-label={item.series
+                    .map((seriesItem) => seriesItem.label)
+                    .join(", ")}
+                  className={classes.legendItem}
+                  key={item.key}
+                  onBlur={() => setFocusedLegendKey(null)}
+                  onFocus={() => setFocusedLegendKey(item.key)}
+                  onMouseEnter={() => setHoveredLegendKey(item.key)}
+                  onMouseLeave={() => setHoveredLegendKey(null)}
+                  tabIndex={0}
+                >
+                  {hasMixedSeriesTypes ? (
+                    <span
+                      aria-hidden="true"
+                      className={classes.legendSwatch}
+                      style={
+                        {
+                          "--bbui-transaction-trends-chart-series-color":
+                            areaSeries.color,
+                        } as CSSProperties
+                      }
+                    />
+                  ) : item.series.length > 1 ? (
+                    <span aria-hidden="true" className={classes.legendSwatches}>
+                      {item.series.map((seriesItem) => (
+                        <span
+                          className={
+                            seriesItem.type === "line"
+                              ? classes.legendGroupLineSwatch
+                              : classes.legendGroupAreaSwatch
+                          }
+                          key={seriesItem.key}
+                          style={
+                            {
+                              "--bbui-transaction-trends-chart-series-color":
+                                seriesItem.color,
+                            } as CSSProperties
+                          }
+                        />
+                      ))}
+                    </span>
+                  ) : (
+                    <span
+                      aria-hidden="true"
+                      className={[
+                        classes.legendSwatch,
+                        item.series[0]?.type === "line"
+                          ? classes.legendLineSwatch
+                          : undefined,
+                      ]
+                        .filter(Boolean)
+                        .join(" ")}
+                      style={
+                        {
+                          "--bbui-transaction-trends-chart-series-color":
+                            item.series[0]?.color,
+                        } as CSSProperties
+                      }
+                    />
+                  )}
+                  <BodyText fw={500} size="xs" tone="secondary">
+                    {item.label}
+                  </BodyText>
+                </li>
+              );
+            })}
           </ul>
         </>
       )}
