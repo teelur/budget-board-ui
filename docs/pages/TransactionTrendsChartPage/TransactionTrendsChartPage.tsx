@@ -38,6 +38,28 @@ const series: TransactionTrendsChartSeries[] = [
   },
 ];
 
+const monthComparisonSeries: TransactionTrendsChartSeries[] = [
+  { key: "march", label: "March 2026" },
+  { key: "april", label: "April 2026" },
+];
+
+const monthComparisonSummary = (
+  activeDataPoint: TransactionTrendsChartData,
+) => {
+  const marchTotal = activeDataPoint?.march;
+  const aprilTotal = activeDataPoint?.april;
+
+  if (marchTotal === undefined || aprilTotal === undefined) {
+    return null;
+  }
+
+  const difference = aprilTotal - marchTotal;
+  const amount = formatCurrency(Math.abs(difference));
+  return difference === 0
+    ? `Difference: ${amount}`
+    : `Difference: ${amount} ${difference > 0 ? "more" : "less"}`;
+};
+
 const formatCurrency = (value: number) =>
   new Intl.NumberFormat("en-US", {
     currency: "USD",
@@ -120,6 +142,45 @@ export function TransactionTrendsChartPage() {
             formatValue={formatCurrency}
             includeGrid
             series={series}
+          />
+        </div>
+      </ComponentDemoSection>
+
+      <ComponentDemoSection
+        code={`const monthComparisonSummary = (
+  activeDataPoint: TransactionTrendsChartData,
+) => {
+  const marchTotal = activeDataPoint.march;
+  const aprilTotal = activeDataPoint.april;
+          if (marchTotal === undefined || aprilTotal === undefined) {
+            return null;
+          }
+
+          const difference = aprilTotal - marchTotal;
+          const amount = formatCurrency(Math.abs(difference));
+          return difference === 0
+            ? \`Difference: \${amount}\`
+            : \`Difference: \${amount} \${difference > 0 ? "more" : "less"}\`;
+};
+
+<TransactionTrendsChart
+  ariaLabel="Cumulative transaction totals by day"
+  data={sampleData}
+  formatValue={formatCurrency}
+  tooltipSummary={monthComparisonSummary}
+  series={monthComparisonSeries}
+/>`}
+        description="Use tooltipSummary to return localized content for the hovered day. The chart renders the supplied content as-is; no extra graph line is rendered."
+        id="transaction-trends-chart-tooltip-summary"
+        title="Hovered-day tooltip summary"
+      >
+        <div className={styles.chartPreview}>
+          <TransactionTrendsChart
+            ariaLabel="Cumulative transaction totals by day"
+            data={sampleData}
+            formatValue={formatCurrency}
+            tooltipSummary={monthComparisonSummary}
+            series={monthComparisonSeries}
           />
         </div>
       </ComponentDemoSection>
@@ -320,6 +381,26 @@ export function TransactionTrendsChartPage() {
                     <code>false</code>
                   </td>
                   <td>Replaces the chart with a themed skeleton.</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code>tooltipSummary</code>
+                  </td>
+                  <td>
+                    <code>
+                      (activeDataPoint: TransactionTrendsChartData) =&gt;
+                      ReactNode
+                    </code>
+                  </td>
+                  <td>
+                    <code>undefined</code>
+                  </td>
+                  <td>
+                    Caller-provided content beneath the series rows in the
+                    tooltip for the active data point. Return localized text or
+                    other React content; the chart renders it as-is. Return{" "}
+                    <code>null</code> or <code>undefined</code> to omit it.
+                  </td>
                 </tr>
                 <tr>
                   <td>

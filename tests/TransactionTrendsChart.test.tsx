@@ -262,6 +262,42 @@ describe("TransactionTrendsChart", () => {
     expect(screen.getByRole("tooltip")).toHaveTextContent("$18");
   });
 
+  it("shows the difference direction in the tooltip without plotting it", () => {
+    renderChart({
+      data: [
+        { day: 1, march: 0, april: 0, difference: 0 },
+        { day: 2, march: 25, april: 18, difference: 7 },
+        { day: 3, march: 40, april: 46, difference: -6 },
+      ],
+      tooltipSummary: (dataPoint) => {
+        const difference = dataPoint.difference;
+        const amount = formatValue(Math.abs(difference));
+
+        return difference === 0
+          ? `Difference: ${amount}`
+          : `Difference: ${amount} ${difference > 0 ? "more" : "less"}`;
+      },
+    });
+
+    const chart = screen.getByTestId("transaction-trends-chart");
+    const chartSurface = chart.querySelector(".recharts-surface");
+
+    expect(chartSurface).not.toBeNull();
+    fireEvent.focus(chartSurface!);
+    fireEvent.keyDown(chartSurface!, { key: "ArrowRight" });
+
+    const tooltip = within(screen.getByRole("tooltip"));
+    expect(tooltip.getByText("2")).toBeInTheDocument();
+    expect(tooltip.getByText("Difference: $7 more")).toBeInTheDocument();
+    fireEvent.keyDown(chartSurface!, { key: "ArrowRight" });
+    expect(tooltip.getByText("Difference: $6 less")).toBeInTheDocument();
+    fireEvent.keyDown(chartSurface!, { key: "ArrowLeft" });
+    fireEvent.keyDown(chartSurface!, { key: "ArrowLeft" });
+    expect(tooltip.getByText("Difference: $0")).toBeInTheDocument();
+    expect(chart.querySelector(".recharts-line-curve")).toBeNull();
+    expect(chart.querySelectorAll(".recharts-area-curve")).toHaveLength(2);
+  });
+
   it("omits a grouped line's duplicate anchor from the tooltip", () => {
     renderChart({
       data: [

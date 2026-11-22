@@ -44,6 +44,7 @@ export interface TransactionTrendsChartProps extends Omit<
   includeGrid?: boolean;
   includeYAxis?: boolean;
   isLoading?: boolean;
+  tooltipSummary?: (activeDataPoint: TransactionTrendsChartData) => ReactNode;
   series: TransactionTrendsChartSeries[];
 }
 
@@ -120,6 +121,7 @@ export function TransactionTrendsChart({
   includeGrid = false,
   includeYAxis = true,
   isLoading = false,
+  tooltipSummary,
   series,
   style,
   ...rootProps
@@ -299,6 +301,13 @@ export function TransactionTrendsChart({
                           other.value === entry.value,
                       ),
                   );
+                  const activeDataPoint = chartData.find(
+                    (datum) => datum.day === Number(label),
+                  );
+                  const summary =
+                    activeDataPoint !== undefined
+                      ? tooltipSummary?.(activeDataPoint)
+                      : undefined;
 
                   if (visibleEntries.length === 0) {
                     return null;
@@ -338,6 +347,15 @@ export function TransactionTrendsChart({
                           </li>
                         ))}
                       </ul>
+                      {summary !== undefined && summary !== null && (
+                        <BodyText
+                          className={classes.tooltipSummary}
+                          size="xs"
+                          tone="secondary"
+                        >
+                          {summary}
+                        </BodyText>
+                      )}
                     </div>
                   );
                 }}
