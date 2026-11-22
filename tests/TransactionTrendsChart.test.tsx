@@ -126,21 +126,19 @@ describe("TransactionTrendsChart", () => {
     const chart = screen.getByTestId("transaction-trends-chart");
     const area = chart.querySelector(".recharts-area-curve");
     const line = chart.querySelector(".recharts-line-curve");
-    const groupedSwatches = screen
-      .getByText("March 2026")
-      .closest("li")
-      ?.querySelectorAll(`.${chartClasses.legendSwatches} > span`);
+    const legendItem = screen.getByText("March 2026").closest("li");
+    const legendSwatch = legendItem?.querySelector(
+      `.${chartClasses.legendSwatch}`,
+    );
 
     expect(area).not.toBeNull();
     expect(line).toHaveAttribute("stroke", area?.getAttribute("stroke"));
     expect(line).toHaveAttribute("stroke-dasharray", "6 4");
-    expect(groupedSwatches).toHaveLength(2);
-    expect(groupedSwatches?.[0]).toHaveClass(
-      chartClasses.legendGroupAreaSwatch,
-    );
-    expect(groupedSwatches?.[1]).toHaveClass(
-      chartClasses.legendGroupLineSwatch,
-    );
+    expect(legendSwatch).toBeInTheDocument();
+    expect(legendSwatch).not.toHaveClass(chartClasses.legendLineSwatch);
+    expect(
+      legendItem?.querySelector(`.${chartClasses.legendSwatches}`),
+    ).toBeNull();
     expect(
       screen.queryByText("March 2026 (Projected)"),
     ).not.toBeInTheDocument();
