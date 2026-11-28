@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { expectInlineStyles } from "./styleAssertions";
 import { MultiSelect } from "../src/MultiSelect/MultiSelect";
+import comboboxClasses from "../src/shared/comboboxStyles.module.css";
 import inputStylesClasses from "../src/shared/inputStyles.module.css";
 import { budgetBoardDarkTheme } from "../src/theme";
 
@@ -26,6 +27,113 @@ describe("MultiSelect", () => {
     expect(
       screen.getByText("Checking", { selector: ".mantine-Pill-label" }),
     ).toBeInTheDocument();
+  });
+
+  it("uses Mantine check icons for selected options by default", async () => {
+    const user = userEvent.setup();
+    render(
+      <MultiSelect
+        aria-label="Accounts"
+        data={[
+          { value: "checking", label: "Checking" },
+          { value: "savings", label: "Savings" },
+        ]}
+        value={["checking"]}
+      />,
+    );
+
+    await user.click(screen.getByRole("combobox", { name: "Accounts" }));
+
+    const checking = screen.getByRole("option", {
+      hidden: true,
+      name: "Checking",
+    });
+    const savings = screen.getByRole("option", {
+      hidden: true,
+      name: "Savings",
+    });
+    expect(checking.querySelector("svg")).toBeInTheDocument();
+    expect(savings.querySelector("svg")).not.toBeInTheDocument();
+  });
+
+  it("preserves check position and aligned labels while creating options", async () => {
+    const user = userEvent.setup();
+    render(
+      <MultiSelect
+        aria-label="Tags"
+        checkIconPosition="right"
+        creatable
+        data={[
+          { value: "existing", label: "Existing" },
+          { value: "existing-two", label: "Existing two" },
+        ]}
+        getCreateLabel={(query) => <strong>Add {query}</strong>}
+        value={["existing"]}
+        withAlignedLabels
+      />,
+    );
+
+    const input = screen.getByRole("combobox", { name: "Tags" });
+    await user.type(input, "exist");
+
+    const existing = screen.getByRole("option", {
+      hidden: true,
+      name: "Existing",
+    });
+    const existingTwo = screen.getByRole("option", {
+      hidden: true,
+      name: "Existing two",
+    });
+    const create = screen.getByRole("option", {
+      hidden: true,
+      name: "Add exist",
+    });
+
+    expect(existing.lastElementChild?.tagName).toBe("svg");
+    expect(
+      existingTwo.querySelector(`.${comboboxClasses.checkPlaceholder}`),
+    ).toBeInTheDocument();
+    expect(create.querySelector("strong")).toHaveTextContent("Add exist");
+  });
+
+  it("honors withCheckIcon and custom option renderers", async () => {
+    const user = userEvent.setup();
+    const renderOption = vi.fn(
+      ({ option }: { option: { value: string; label: string } }) => (
+        <span data-testid={`custom-${option.value}`}>{option.label}</span>
+      ),
+    );
+    const { rerender } = render(
+      <MultiSelect
+        aria-label="Accounts"
+        data={[{ value: "checking", label: "Checking" }]}
+        renderOption={renderOption}
+        value={["checking"]}
+      />,
+    );
+
+    await user.click(screen.getByRole("combobox", { name: "Accounts" }));
+    expect(screen.getByTestId("custom-checking")).toBeInTheDocument();
+    expect(renderOption).toHaveBeenCalledWith(
+      expect.objectContaining({
+        checked: true,
+        option: expect.objectContaining({ value: "checking" }),
+      }),
+    );
+
+    rerender(
+      <MultiSelect
+        aria-label="Accounts"
+        data={[{ value: "checking", label: "Checking" }]}
+        value={["checking"]}
+        withCheckIcon={false}
+      />,
+    );
+    const option = screen.getByRole("option", {
+      hidden: true,
+      name: "Checking",
+    });
+    expect(option.querySelector("svg")).not.toBeInTheDocument();
   });
 
   it("removes the last selected option with Backspace", async () => {

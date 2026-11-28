@@ -1,4 +1,4 @@
-import { MultiSelect as MantineMultiSelect } from "@mantine/core";
+import { CheckIcon, MultiSelect as MantineMultiSelect } from "@mantine/core";
 import type { MultiSelectProps as MantineMultiSelectProps } from "@mantine/core";
 import { useRef, useState } from "react";
 import type { ReactNode } from "react";
@@ -26,6 +26,9 @@ export interface MultiSelectProps extends Omit<
 }
 
 type MultiSelectOption = { value: string; label: string };
+type RenderOptionInput = Parameters<
+  NonNullable<MantineMultiSelectProps["renderOption"]>
+>[0];
 
 function getOptions(
   data: NonNullable<MantineMultiSelectProps["data"]>,
@@ -55,6 +58,7 @@ export function MultiSelect(props: MultiSelectProps) {
     className,
     classNames,
     comboboxProps,
+    checkIconPosition = "left",
     creatable = false,
     data = [],
     defaultSearchValue,
@@ -69,6 +73,8 @@ export function MultiSelect(props: MultiSelectProps) {
     searchable,
     styles,
     value,
+    withAlignedLabels = false,
+    withCheckIcon = true,
     wrapperProps,
     ...multiSelectProps
   } = props;
@@ -93,6 +99,7 @@ export function MultiSelect(props: MultiSelectProps) {
   );
   const createOption = query && !queryExists ? [{ value: query, label: query }] : [];
   const mergedData = [...data, ...createdOptions, ...createOption];
+  const hasCreateOption = createOption.length > 0;
   const inputStyles = useBBUIInputStyles();
   const { componentClassNames, comboboxClassNames } =
     mergeComponentComboboxClassNames(
@@ -150,6 +157,39 @@ export function MultiSelect(props: MultiSelectProps) {
     }
     onOptionSubmit?.(value);
   };
+  const renderDefaultOption = ({
+    checked,
+    option,
+  }: RenderOptionInput) => {
+    const check = withCheckIcon && (
+      checked ? (
+        <CheckIcon className={comboboxClasses.checkIcon} />
+      ) : withAlignedLabels ? (
+        <span className={comboboxClasses.checkPlaceholder} />
+      ) : null
+    );
+
+    return (
+      <>
+        {checkIconPosition === "left" && check}
+        <span>{option.label}</span>
+        {checkIconPosition === "right" && check}
+      </>
+    );
+  };
+  const renderOptionContent =
+    hasCreateOption || renderOption
+      ? (optionProps: RenderOptionInput) => {
+          const isCreateOption =
+            hasCreateOption && optionProps.option.value === query;
+          if (isCreateOption) {
+            return getCreateLabel?.(query) ?? `Create "${query}"`;
+          }
+          return renderOption
+            ? (renderOption(optionProps) ?? optionProps.option.label)
+            : renderDefaultOption(optionProps);
+        }
+      : undefined;
 
   const control = (
     <MantineMultiSelect
@@ -165,22 +205,19 @@ export function MultiSelect(props: MultiSelectProps) {
           NonNullable<typeof comboboxProps>["styles"]
         >,
       }}
+      checkIconPosition={checkIconPosition}
       data={mergedData}
       onChange={handleChange}
       onOptionSubmit={handleOptionSubmit}
       onSearchChange={handleSearchChange}
-      renderOption={({ option, ...optionProps }) => {
-        const isCreateOption = query && !queryExists && option.value === query;
-        if (isCreateOption) {
-          return getCreateLabel?.(query) ?? `Create "${query}"`;
-        }
-        return renderOption?.({ option, ...optionProps }) ?? option.label;
-      }}
       searchable={isSearchable}
       searchValue={currentSearch}
       value={selectedValues}
       styles={componentStyles}
+      withAlignedLabels={withAlignedLabels}
+      withCheckIcon={withCheckIcon}
       wrapperProps={inputStyles.getWrapperProps(wrapperProps)}
+      {...(renderOptionContent ? { renderOption: renderOptionContent } : {})}
     />
   );
 
