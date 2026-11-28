@@ -23,3 +23,20 @@
   outline: 2px solid var(--bbui-combobox-focus);
   outline-offset: -2px;
 }
+
+.checkIcon {
+  opacity: 0.4;
+  width: 0.8em;
+  min-width: 0.8em;
+  height: 0.8em;
+}
+
+:where([data-combobox-selected]) .checkIcon {
+  opacity: 1;
+}
+
+.checkPlaceholder {
+  width: 0.8em;
+  min-width: 0.8em;
+  height: 0.8em;
+}
